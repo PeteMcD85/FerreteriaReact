@@ -31,7 +31,7 @@ items = [
   { name: 'PVC', category: 'PVC',  brand: 'Anibal', size: '3/4', thickness: '.65', price: 63.00 },
   { name: 'Measuring Tape', category: 'Tools', brand: 'Stanley', size: '16\'', price: 8.95 },
   { name: 'Contact Cement', category: 'Cement', brand: 'Lanco', size: '1 gallon', color: 'Clear, Red', price: 19.95 },
-  { name: 'Glue', category: 'Wood Glue', brand: 'Lanco', size: '1 gallon', price: 777 },
+  { name: 'Wood Glue', category: 'Glue', brand: 'Lanco', size: '1 gallon', price: 777 },
   { name: 'Sanding Sealer Caoba', category: 'Sealer',  brand: 'Lanco', size: '1 gallon', price: 22 },
   { name: 'Sanding Primer', category: 'Primer', brand: 'Lanco', size: '1 gallon', color: 'white', price: 33 },
   { name: 'Lacquer', category: 'Lacquer',  brand: 'Lanco', size: '1 gallon', color: 'white', price: 33.50 },
