@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Item from './Item'
+
+// COMPONENTS
+import ItemCard from './ItemCard'
+import ItemsTable from './ItemsTable'
+
+// IMAGES
 import Pvc from 'images/pvc.png'
 
 export default class Items extends React.Component {
@@ -20,7 +25,7 @@ export default class Items extends React.Component {
     };
   }
 
-  get_image(name){
+  get_image(name) {
     let images = this.state.images,
         image= '';
         images.forEach((val)=>{
@@ -31,33 +36,44 @@ export default class Items extends React.Component {
     return image
   }
 
-  render() {
-    let items = this.props.items;
-    console.log('items from items');
-    console.log(items);
-    return (
-      <div>
-        <h3>
-          Items
-        </h3>
-        <ul>
-          {items.map((item,ind)=>{
-            return (
-              <Item
-                key={ind}
-                category={item.category}
-                name={item.name}
-                brand={item.brand}
-                color={item.color}
-                size={item.size}
-                thickness={item.thickness}
-                price={item.price}
-                image={this.get_image(item.name)}
-                 />)
-          })}
-        </ul>
 
-      </div>
-    );
-  }
+  render() {
+    let items = this.props.items,
+        sc = this.props.selectedCategory;
+    // console.log('items from items');
+    // console.log(items);
+    if (sc !== "PVC") {
+      return (
+        <div>
+        <div className="item-cards">
+          <ul>
+            {items.map((item,ind)=>{
+              return (
+                <ItemCard
+                  key = {ind}
+                  id = {item.id}
+                  category={item.category}
+                  name={item.name}
+                  brand={item.brand}
+                  color={item.color}
+                  size={item.size}
+                  thickness={item.thickness}
+                  price={item.price}
+                  image={this.get_image(item.name)}
+                  active={item.active}
+                   />
+                 )
+            })}
+          </ul>
+        </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <ItemsTable  items={items} />
+        </div>
+      );
+    }
+  } // END of render method
 }

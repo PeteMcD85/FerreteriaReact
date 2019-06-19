@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+@import "variables.scss";
+@import "items.scss";
+@import "CategoryList.scss";
+@import "HelloWorld.scss";
+@import "item.scss";
+
+body {
+  margin: 0;
+  background-color: $lightBrown;
+}

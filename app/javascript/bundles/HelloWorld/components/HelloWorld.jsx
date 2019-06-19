@@ -23,7 +23,7 @@ export default class HelloWorld extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="hello-world">
         <h3>
           Hello, {this.state.name}!
         </h3>

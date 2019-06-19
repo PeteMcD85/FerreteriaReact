@@ -32,6 +32,7 @@ export default class CategoryList extends React.Component {
           console.log('result');
           console.log(result);
           this.setState({
+            selectedCategory: categoryName,
             selectedCategoryItems: result[categoryName]
           });
         },
@@ -42,6 +43,7 @@ export default class CategoryList extends React.Component {
   }
   getItems = (event) => {
    // event.persist();
+
    let categoryName = event.target.innerText;
    this.getItemsJson(categoryName)
   }
@@ -54,18 +56,21 @@ export default class CategoryList extends React.Component {
         console.log('sci category lists');
         console.log(sci);
      return (
-       <div>
+       <div className="category-items">
           <div className="category-list">
-            <p>Category List</p>
             <ul>
+            
             {categories.map((cat, ind)=> {
               return <li key={ind} onClick={this.getItems}>{cat.category}</li>
             })}
             </ul>
           </div>
-          <Items items={sci} />
-
-
+          <div className="items-component">
+            <Items
+              items={sci}
+              selectedCategory={sc}
+            />
+          </div>
        </div>
      )
    }
