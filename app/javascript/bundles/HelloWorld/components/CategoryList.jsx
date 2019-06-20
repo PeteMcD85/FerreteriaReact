@@ -59,7 +59,6 @@ export default class CategoryList extends React.Component {
        <div className="category-items">
           <div className="category-list">
             <ul>
-            
             {categories.map((cat, ind)=> {
               return <li key={ind} onClick={this.getItems}>{cat.category}</li>
             })}

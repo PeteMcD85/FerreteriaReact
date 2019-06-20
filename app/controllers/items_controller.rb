@@ -1,5 +1,8 @@
 class ItemsController < ApplicationController
     layout "hello_world"
+
+    # before_action :redirect_if_not_signed_in, only: [:show, :new, :create, :update, :destroy]
+
   def index
     @items = Item.all
     @categories = Item.distinct_categories
@@ -41,8 +44,6 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    p "+++++++++++++++++++++++++++++++++++"
-    p params
     if @item.update(item_params)
       redirect_to @item
     else
@@ -61,6 +62,7 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:active, :name, :category, :brand, :size, :thickness, :color, :price)
+                          # .merge(user_id: current_user.id)
   end
 
 end
