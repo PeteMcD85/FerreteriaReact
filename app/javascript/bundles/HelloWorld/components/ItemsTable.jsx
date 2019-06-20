@@ -22,16 +22,3 @@ const ItemsTable = (props) => {
 }
 
 export default ItemsTable
-// <table>
-//   // <tbody>
-//     <tr>
-//       <th>Brand</th>
-//       <th>Size</th>
-//       <th>Thickness</th>
-//       <th>Price</th>
-//     </tr>
-//     // {items.map((item,ind)=> {
-//     //   return <ItemTable item={item} />
-//     // })}
-//   // </tbody>
-// </table>

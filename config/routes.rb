@@ -4,9 +4,9 @@ Rails.application.routes.draw do
     :registrations => "registrations"
   }
 
-#   devise_for :users do
-#   get '/users/sign_out' => 'devise/sessions#destroy'
-# end
+  authenticated :user do
+    root 'secret#index', as: :authenticated_root
+  end
 
   devise_scope :user do
     get 'login',to:'devise/sessions#new'

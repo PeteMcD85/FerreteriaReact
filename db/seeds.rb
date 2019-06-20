@@ -75,6 +75,6 @@
 #   end
 # end
 
-p Item.all.count
+# p Item.all.count
 # seed_users
 # seed_items

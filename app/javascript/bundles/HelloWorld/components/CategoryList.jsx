@@ -6,6 +6,7 @@ export default class CategoryList extends React.Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     categories: PropTypes.array.isRequired
+    // signedIn: PropTypes.boolean.isRequired
   }
   /**
    * @params props
@@ -18,6 +19,7 @@ export default class CategoryList extends React.Component {
        categories: this.props.categories,
        selectedCategory: 'All',
        selectedCategoryItems: this.props.items
+       // signedIn: this.props.signedIn
      }
    }
 
@@ -52,8 +54,9 @@ export default class CategoryList extends React.Component {
     let categories = this.state.categories,
         items = this.state.items,
         sc = this.state.selectedCategory,
-        sci = this.state.selectedCategoryItems;
-        console.log('sci category lists');
+        sci = this.state.selectedCategoryItems
+        // signedIn = this.state.signedIn;
+        console.log(sc);
         console.log(sci);
      return (
        <div className="category-items">
@@ -75,3 +78,13 @@ export default class CategoryList extends React.Component {
    }
 
 }
+
+// If User is SIGNED IN
+// {signedIn &&
+//   <div>
+//   <h2>Inactive Items</h2>
+//   <Items
+//     items={sciInactives}
+//     selectedCategory={sc}
+//   />
+//   </div>}
