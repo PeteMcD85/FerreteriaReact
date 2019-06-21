@@ -5,14 +5,14 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all
-    @active_items = @items.get_actives
-    @inactive_items = @items.get_inactives
+    @active_items = @items.get_actives.remove_category("PVC")
+    @inactive_items = @items.get_inactives.remove_category("PVC")
     @categories = Item.distinct_categories
     respond_to do |format|
       format.html
       format.json { render json: {
         actives:{
-          All: @items.get_actives,
+          All: @items.get_actives.remove_category("PVC"),
           PVC: @items.get_category("PVC").get_actives,
           Glue: @items.get_category("Glue").get_actives,
           Tools: @items.get_category("Tools").get_actives,
@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
           Sealer: @items.get_category("Sealer").get_actives
         } ,
         inactives:{
-          All: @items.get_inactives,
+          All: @items.get_inactives.remove_category("PVC"),
           PVC: @items.get_category("PVC").get_inactives,
           Glue: @items.get_category("Glue").get_inactives,
           Tools: @items.get_category("Tools").get_inactives,

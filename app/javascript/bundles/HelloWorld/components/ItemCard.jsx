@@ -9,7 +9,8 @@ const ItemCard = (props) => {
       size = item.size,
       thickness = item.thickness,
       price = Number(item.price).toFixed(2),
-      active = props.active;
+      active = props.active,
+      signedIn = props.signedIn;
   return (
       <div className="item">
         <h2>{name}</h2>
@@ -19,11 +20,10 @@ const ItemCard = (props) => {
         {thickness && <p>thickness: {thickness}</p>}
         <p>price: ${price}</p>
         <span>
-
-        <p>Active: {active}</p>
-        <a href="#">Edit</a>
+        {signedIn && <p>Active: {active}</p>}
+        {signedIn && <a href={`/items/${id}/edit`}>Edit</a>}    
         </span>
-        </div>
+      </div>
   )
 }
 

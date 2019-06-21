@@ -10,7 +10,12 @@ const Items = (props) => {
       signedIn = props.signedIn;
   if (sc !== "PVC") {
     return (
+
       <div className="item-cards">
+      <div className="item">
+        <h2>PVC</h2>
+        
+      </div>
        <ItemsCard items={items} signedIn={signedIn} />
       </div>
     );
