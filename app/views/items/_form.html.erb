@@ -1,0 +1,49 @@
+<%= form_with(model: @item, local: true) do |form| %>
+
+<p>
+  <%= form.label :active %>
+  <%= form.radio_button :active, true, :value => true%>
+  <%= form.label :inactive %>
+  <%= form.radio_button :active, false, :value => false%>
+</p>
+
+<p>
+ <%= form.label :name %><br>
+ <%= form.text_field :name %>
+</p>
+
+<p>
+ <%= form.label :category %><br>
+ <%= form.text_field :category %>
+</p>
+
+<p>
+  <%= form.label :brand %><br>
+  <%= form.text_field :brand %>
+</p>
+
+<p>
+  <%= form.label :size %><br>
+  <%= form.text_field :size %>
+</p>
+
+<p>
+  <%= form.label :thickness %><br>
+  <%= form.text_field :thickness %>
+</p>
+
+<p>
+  <%= form.label :color %><br>
+  <%= form.text_field :color %>
+</p>
+
+<p>
+  <%= form.label :price %><br>
+  <%= form.text_field :price %>
+</p>
+
+<p>
+ <%= form.submit %>
+</p>
+
+<% end %>

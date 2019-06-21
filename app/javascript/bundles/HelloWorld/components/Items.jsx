@@ -4,24 +4,20 @@ import React from 'react';
 import ItemsCard from './ItemsCard'
 import ItemsTable from './ItemsTable'
 
-// IMAGES
-// import Pvc from 'images/pvc.png'
-
 const Items = (props) => {
   let items = props.items,
-      sc = props.selectedCategory;
-  // console.log('items from items');
-  // console.log(items);
+      sc = props.selectedCategory,
+      signedIn = props.signedIn;
   if (sc !== "PVC") {
     return (
       <div className="item-cards">
-       <ItemsCard items={items} />
+       <ItemsCard items={items} signedIn={signedIn} />
       </div>
     );
   } else {
     return (
       <div>
-        <ItemsTable items={items} />
+        <ItemsTable items={items} signedIn={signedIn} />
       </div>
     );
   }

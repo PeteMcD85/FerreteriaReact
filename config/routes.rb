@@ -4,9 +4,7 @@ Rails.application.routes.draw do
     :registrations => "registrations"
   }
 
-  authenticated :user do
-    root 'secret#index', as: :authenticated_root
-  end
+
 
   devise_scope :user do
     get 'login',to:'devise/sessions#new'

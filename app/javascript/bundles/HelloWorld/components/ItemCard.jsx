@@ -10,7 +10,6 @@ const ItemCard = (props) => {
       thickness = item.thickness,
       price = Number(item.price).toFixed(2),
       active = props.active;
-      console.log(props);
   return (
       <div className="item">
         <h2>{name}</h2>
