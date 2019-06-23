@@ -1,4 +1,7 @@
 class Item < ApplicationRecord
+  has_one_attached :pic
+
+
   scope :distinct_categories, -> {select(:category).distinct}
   scope :get_category, -> (category) {where(["category = ?", "#{category}"])}
   scope :remove_category, -> (category) {where(["category != ?", "#{category}"])}
