@@ -1,40 +1,45 @@
 <p>
-<strong>Active:</strong>
-<%= @item.active %>
-</p>
-
-<strong>Name:</strong>
-<%= @item.name %>
+ <%= display_image(@item) %>
 </p>
 
 <p>
-<strong>Category:</strong>
-<%= @item.category %>
+  <strong>Active:</strong>
+  <%= @item.active %>
 </p>
 
 <p>
-<strong>Brand:</strong>
-<%= @item.brand %>
+  <strong>Name:</strong>
+  <%= @item.name %>
 </p>
 
 <p>
-<strong>Size:</strong>
-<%= @item.size %>
+  <strong>Category:</strong>
+  <%= @item.category %>
 </p>
 
 <p>
-<strong>Thickness:</strong>
-<%= @item.thickness %>
+  <strong>Brand:</strong>
+  <%= @item.brand %>
 </p>
 
 <p>
-<strong>Color:</strong>
-<%= @item.color %>
+  <strong>Size:</strong>
+  <%= @item.size %>
 </p>
 
 <p>
-<strong>Price:</strong>
-<%= @item.price %>
+  <strong>Thickness:</strong>
+  <%= @item.thickness %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @item.color %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @item.price %>
 </p>
 
 <%= link_to 'Back', items_path %>

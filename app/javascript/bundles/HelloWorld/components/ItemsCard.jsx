@@ -3,11 +3,14 @@ import ItemCard from './ItemCard'
 
 const ItemsCard = (props) => {
   let items = props.items,
-      signedIn = props.signedIn;
+      signedIn = props.signedIn,
+      picUrls = props.picUrls,
+      getPicUrl = (id) => picUrls.find( (val) => val.id === id);
   return(
       <ul>
         {items.map((item,ind)=>{
-          return <ItemCard key={ind} item={item} signedIn= {signedIn} />
+          console.log(item.id);
+          return <ItemCard key={ind} item={item} signedIn={signedIn} picUrl={getPicUrl(item.id)} />
         })}
       </ul>
   )

@@ -8,11 +8,16 @@ class ItemsController < ApplicationController
     @active_items = @items.get_actives.remove_category("PVC")
     @inactive_items = @items.get_inactives.remove_category("PVC")
     @categories = Item.distinct_categories
+    @pic_urls = @items.map do |item|
+      pic_url = ""
+      pic_url = url_for(item.pic) if item.pic.attached?
+      { id: item.id, pic_url: pic_url }
+    end
     respond_to do |format|
       format.html
       format.json { render json: {
         actives:{
-          All: @items.get_actives.remove_category("PVC"),
+          All: @items.remove_category("PVC").get_actives,
           PVC: @items.get_category("PVC").get_actives,
           Glue: @items.get_category("Glue").get_actives,
           Tools: @items.get_category("Tools").get_actives,
@@ -22,7 +27,7 @@ class ItemsController < ApplicationController
           Sealer: @items.get_category("Sealer").get_actives
         } ,
         inactives:{
-          All: @items.get_inactives.remove_category("PVC"),
+          All: @items.remove_category("PVC").get_inactives,
           PVC: @items.get_category("PVC").get_inactives,
           Glue: @items.get_category("Glue").get_inactives,
           Tools: @items.get_category("Tools").get_inactives,
@@ -30,13 +35,33 @@ class ItemsController < ApplicationController
           Lacquer: @items.get_category("Lacquer").get_inactives,
           Primer: @items.get_category("Primer").get_inactives,
           Sealer: @items.get_category("Sealer").get_inactives
-        }
+        } ,
+        pic_urls: @pic_urls
         } }
     end
   end # END of index Method
 
   def show
     @item = Item.find(params[:id])
+    if @item.pic.attached?
+      respond_to do |format|
+        format.html
+        format.json {
+          render json: {
+            pic_url: url_for(@item.pic)
+          }
+        }
+      end
+    else
+      respond_to do |format|
+        format.html
+        format.json {
+          render json: {
+            pic_url: ""
+          }
+        }
+      end
+    end
   end
 
   def new
@@ -76,7 +101,7 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:active, :name, :category, :brand, :size, :thickness, :color, :price)
+    params.require(:item).permit(:active, :name, :category, :brand, :size, :thickness, :color, :price , :pic)
                           # .merge(user_id: current_user.id)
   end
 
