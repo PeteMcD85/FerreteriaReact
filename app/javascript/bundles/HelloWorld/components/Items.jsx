@@ -12,10 +12,6 @@ const Items = (props) => {
     return (
 
       <div className="item-cards">
-      <div className="item">
-        <h2>PVC</h2>
-        
-      </div>
        <ItemsCard items={items} signedIn={signedIn} />
       </div>
     );

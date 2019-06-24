@@ -21,7 +21,7 @@ const ItemCard = (props) => {
         <p>price: ${price}</p>
         <span>
         {signedIn && <p>Active: {active}</p>}
-        {signedIn && <a href={`/items/${id}/edit`}>Edit</a>}    
+        {signedIn && <a href={`/items/${id}/edit`}>Edit</a>}
         </span>
       </div>
   )

@@ -1,24 +1,23 @@
 .category-list{
-  top: 0;
-  position: fixed;
   width: 100vw;
   color: white;
   background-color: black;
   ul {
     display: flex;
+    margin: 0;
+    padding: .75em;
     list-style-type: none;
     text-align: center;
     justify-content: space-around;
-    padding: 0;
     li {
     font-size: 20px;
     }
     li:hover {
-     color: red;
+     color: #29FF30;
     }
   }
 }
 
-.items-component {
-  margin: 70px 0 0 0;
-}
+// .items-component {
+//   margin: 25px 0 0 0;
+// }
