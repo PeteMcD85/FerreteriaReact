@@ -2,6 +2,7 @@ import React from 'react'
 
 const ItemCard = (props) => {
   let item = props.item,
+      picUrl = props.picUrl.pic_url,
       id = item.id,
       name = item.name,
       brand = item.brand,
@@ -10,9 +11,11 @@ const ItemCard = (props) => {
       thickness = item.thickness,
       price = Number(item.price).toFixed(2),
       active = props.active,
-      signedIn = props.signedIn;
+      signedIn = props.signedIn,
+      isPicUrl = (picUrl !== "") ?  true : false;
   return (
       <div className="item">
+        {isPicUrl !== ""  && <img className="item-pic" src={picUrl} />}
         <h2>{name}</h2>
         <p>brand: {brand}</p>
         {color && <p>color: {color}</p>}

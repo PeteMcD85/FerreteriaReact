@@ -7,12 +7,13 @@ import ItemsTable from './ItemsTable'
 const Items = (props) => {
   let items = props.items,
       sc = props.selectedCategory,
-      signedIn = props.signedIn;
+      signedIn = props.signedIn,
+      picUrls = props.picUrls;
+      console.log(picUrls);
   if (sc !== "PVC") {
     return (
-
       <div className="item-cards">
-       <ItemsCard items={items} signedIn={signedIn} />
+       <ItemsCard items={items} signedIn={signedIn} picUrls={picUrls} />
       </div>
     );
   } else {

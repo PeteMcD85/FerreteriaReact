@@ -11,7 +11,8 @@ export default class HelloWorld extends React.Component {
     activeItems: PropTypes.array.isRequired,
     inactiveItems: PropTypes.array.isRequired,
     categories: PropTypes.array.isRequired,
-    signedIn: PropTypes.bool.isRequired
+    signedIn: PropTypes.bool.isRequired,
+    picUrls: PropTypes.array.isRequired
   };
 
   /**
@@ -26,8 +27,10 @@ export default class HelloWorld extends React.Component {
       selectedCategory: "All",
       selectedCategoryList: this.props.activeItems,
       selectedCategoryListInactives: this.props.inactiveItems,
-      signedIn: this.props.signedIn
+      signedIn: this.props.signedIn,
+      picUrls: this.props.picUrls
    };
+   console.log(this.state);
   }
 
   updateSelectedCategoryList = (categoryName) => {
@@ -54,8 +57,11 @@ export default class HelloWorld extends React.Component {
         selectedCategory = this.state.selectedCategory,
         selectedCategoryList = this.state.selectedCategoryList,
         selectedCategoryListInactives = this.state.selectedCategoryListInactives,
-        signedIn = this.state.signedIn;
+        signedIn = this.state.signedIn,
+        picUrls = this.state.picUrls;
+        console.log(picUrls);
     return (
+
       <div className="hello-world">
         <CategoryList
           categories={categories} updateSelectedCategoryList={this.updateSelectedCategoryList}
@@ -64,6 +70,7 @@ export default class HelloWorld extends React.Component {
           items={selectedCategoryList}
           selectedCategory={selectedCategory}
           signedIn = {signedIn}
+          picUrls = {picUrls}
         />
         {signedIn &&
           <div>
@@ -72,6 +79,7 @@ export default class HelloWorld extends React.Component {
               items={selectedCategoryListInactives}
               selectedCategory={selectedCategory}
               signedIn = {signedIn}
+              picUrls = {picUrls}
             />
           </div>
         }
