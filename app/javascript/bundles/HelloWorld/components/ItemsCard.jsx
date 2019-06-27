@@ -9,7 +9,6 @@ const ItemsCard = (props) => {
   return(
       <ul>
         {items.map((item,ind)=>{
-          console.log(item.id);
           return <ItemCard key={ind} item={item} signedIn={signedIn} picUrl={getPicUrl(item.id)} />
         })}
       </ul>

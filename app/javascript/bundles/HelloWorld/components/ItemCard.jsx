@@ -13,6 +13,7 @@ const ItemCard = (props) => {
       active = props.active,
       signedIn = props.signedIn,
       isPicUrl = (picUrl !== "") ?  true : false;
+
   return (
       <div className="item">
         {isPicUrl !== ""  && <img className="item-pic" src={picUrl} />}

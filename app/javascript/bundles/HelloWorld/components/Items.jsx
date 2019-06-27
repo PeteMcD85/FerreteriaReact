@@ -6,11 +6,11 @@ import ItemsTable from './ItemsTable'
 
 const Items = (props) => {
   let items = props.items,
-      sc = props.selectedCategory,
+      selectedNavName = props.selectedNavName,
       signedIn = props.signedIn,
       picUrls = props.picUrls;
-      console.log(picUrls);
-  if (sc !== "PVC") {
+      console.log(selectedNavName);
+  if (selectedNavName !== "PVC") {
     return (
       <div className="item-cards">
        <ItemsCard items={items} signedIn={signedIn} picUrls={picUrls} />

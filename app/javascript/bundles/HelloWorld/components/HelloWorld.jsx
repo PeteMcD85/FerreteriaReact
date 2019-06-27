@@ -1,16 +1,16 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 
 // COMPONENTS
-import Items from './Items';
-import CategoryList from './CategoryList';
-
+import Items from './Items'
+import NavList from './NavList'
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
     activeItems: PropTypes.array.isRequired,
     inactiveItems: PropTypes.array.isRequired,
     categories: PropTypes.array.isRequired,
+    brands: PropTypes.array.isRequired,
     signedIn: PropTypes.bool.isRequired,
     picUrls: PropTypes.array.isRequired
   };
@@ -18,30 +18,31 @@ export default class HelloWorld extends React.Component {
   /**
    * @param props - Comes from your rails view.
    */
+
   constructor(props) {
     super(props);
     this.state = {
       activeItems: this.props.activeItems,
       inactiveItems: this.props.inactiveItems,
+      brands: this.props.brands,
       categories: this.props.categories,
-      selectedCategory: "All",
-      selectedCategoryList: this.props.activeItems,
-      selectedCategoryListInactives: this.props.inactiveItems,
+      selectedNavName: "All",
+      selectedNavList : this.props.activeItems,
+      selectedNavListInactives: this.props.inactiveItems,
       signedIn: this.props.signedIn,
       picUrls: this.props.picUrls
    };
    console.log(this.state);
   }
 
-  updateSelectedCategoryList = (categoryName) => {
+  updateSelectedNavList = (navName) => {
     fetch("/items.json")
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
-            selectedCategory: categoryName,
-            selectedCategoryList: result.actives[categoryName],
-            selectedCategoryListInactives: result.inactives[categoryName]
+            selectedNavName: navName,
+            selectedNavList: result.actives[navName]
           });
         },
         (error) => {
@@ -53,33 +54,40 @@ export default class HelloWorld extends React.Component {
   render() {
     let inactiveItems = this.state.inactiveItems,
         activeItems = this.state.activeItems,
+        brands = this.state.brands,
         categories = this.state.categories,
-        selectedCategory = this.state.selectedCategory,
-        selectedCategoryList = this.state.selectedCategoryList,
-        selectedCategoryListInactives = this.state.selectedCategoryListInactives,
+        selectedNavName = this.state.selectedNavName,
+        selectedNavList = this.state.selectedNavList,
+        selectedNavListInactives = this.state.selectedNavListInactives,
         signedIn = this.state.signedIn,
         picUrls = this.state.picUrls;
-        console.log(picUrls);
+        console.log(this.state);
     return (
-
       <div className="hello-world">
-        <CategoryList
-          categories={categories} updateSelectedCategoryList={this.updateSelectedCategoryList}
+        <NavList
+           columnList={brands}
+           columnName="brand"
+           updateSelectedNavList={this.updateSelectedNavList}
+        />
+        <NavList
+           columnList={categories}
+           columnName="category"
+           updateSelectedNavList={this.updateSelectedNavList}
         />
         <Items
-          items={selectedCategoryList}
-          selectedCategory={selectedCategory}
-          signedIn = {signedIn}
-          picUrls = {picUrls}
+          items={selectedNavList}
+          selectedNavName={selectedNavName}
+          signedIn={signedIn}
+          picUrls={picUrls}
         />
         {signedIn &&
           <div>
             <h2>Inactive Items</h2>
             <Items
-              items={selectedCategoryListInactives}
-              selectedCategory={selectedCategory}
-              signedIn = {signedIn}
-              picUrls = {picUrls}
+              items={selectedNavListInactives}
+              selectedNavName={selectedNavName}
+              signedIn={signedIn}
+              picUrls={picUrls}
             />
           </div>
         }
