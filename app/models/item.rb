@@ -1,4 +1,5 @@
 class Item < ApplicationRecord
+  has_and_belongs_to_many :customer_orders
   has_one_attached :pic
   scope :distinct_brands, -> {select(:brand).distinct}
   scope :get_brand, -> (brand) {where(["brand = ?", "#{brand}"])}
@@ -14,7 +15,7 @@ class Item < ApplicationRecord
 
   def get_brands(array_of_brands)
     array_of_brands.each do |brand|
-      
+
     end
   end
 
