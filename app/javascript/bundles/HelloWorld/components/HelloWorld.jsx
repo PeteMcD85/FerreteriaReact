@@ -30,9 +30,9 @@ export default class HelloWorld extends React.Component {
       selectedNavList : this.props.activeItems,
       selectedNavListInactives: this.props.inactiveItems,
       signedIn: this.props.signedIn,
-      picUrls: this.props.picUrls
+      picUrls: this.props.picUrls,
+      itemsForOrder: []
    };
-   console.log(this.state);
   }
 
   updateSelectedNavList = (navName) => {
@@ -52,16 +52,13 @@ export default class HelloWorld extends React.Component {
   }
 
   render() {
-    let inactiveItems = this.state.inactiveItems,
-        activeItems = this.state.activeItems,
-        brands = this.state.brands,
+    let brands = this.state.brands,
         categories = this.state.categories,
         selectedNavName = this.state.selectedNavName,
         selectedNavList = this.state.selectedNavList,
         selectedNavListInactives = this.state.selectedNavListInactives,
         signedIn = this.state.signedIn,
         picUrls = this.state.picUrls;
-        console.log(this.state);
     return (
       <div className="hello-world">
         <NavList

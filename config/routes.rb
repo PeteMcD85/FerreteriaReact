@@ -15,8 +15,10 @@ Rails.application.routes.draw do
   end
 
   get 'hello_world', to: 'hello_world#index'
-
   resources :items
+
+  # resources :orders, only:[:new]
+  get 'orders/:item_ids', to:'orders#new'
 
   root 'items#index'
 
