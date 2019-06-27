@@ -18,16 +18,18 @@
       <% end %>
       <% if user_signed_in? %>
       <div class="dropdown">
-        Logged in as <strong><%= current_user.name %></strong>
+        <strong><%= current_user.name %></strong>
       <div class="dropdown-content">
         <%= link_to  'Create New Item', new_item_path %>
         <%= link_to 'Edit profile', edit_user_registration_path %>
         <%= button_to "Logout", destroy_user_session_path, :method => :delete %>
         <%= link_to "Sign up", new_user_registration_path  %>
       </div>
-      </div>
+    </div>
       <% else %>
+      <div class="Login">
         <%= link_to "Login", new_user_session_path  %>
+      </div>
       <% end %>
     </div>
     <%= yield %>

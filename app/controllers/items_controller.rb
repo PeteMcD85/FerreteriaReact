@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
     # @brand_items = @items.get_actives.get_brand("Lanco")
     @categories = Item.distinct_categories
     # @brands = Item.distinct_brands
-    @brands = [{brand:"Lanco"}]  
+    @brands = [{brand:"Lanco"}, {brand:"Wilsonart"}, {brand:"Temar"}, {brand:"Hafelle"}, {brand:"Pfister"}, {brand:"Amana"}, {brand:"Eagle"}, {brand:"Blum"}, {brand:"Sait"}, {brand:"ThreeM"}]
     @pic_urls = @items.map do |item|
       pic_url = ""
       pic_url = url_for(item.pic) if item.pic.attached?
@@ -21,6 +21,15 @@ class ItemsController < ApplicationController
       format.json { render json: {
         actives:{
           Lanco: @items.get_brand("Lanco").get_actives,
+          Wilsonart: @items.get_brand("Wilsonart").get_actives,
+          Temar: @items.get_brand("Temar").get_actives,
+          Hafelle: @items.get_brand("Hafelle").get_actives,
+          Pfister: @items.get_brand("Pfister").get_actives,
+          Amana: @items.get_brand("Amana Tools").get_actives,
+          Eagle: @items.get_brand("Eagle Tools").get_actives,
+          Blum: @items.get_brand("Blum").get_actives,
+          Sait: @items.get_brand("Sait").get_actives,
+          ThreeM: @items.get_brand("ThreeM").get_actives,
           All: @items.remove_category("PVC").get_actives,
           PVC: @items.get_category("PVC").get_actives,
           Glue: @items.get_category("Glue").get_actives,
