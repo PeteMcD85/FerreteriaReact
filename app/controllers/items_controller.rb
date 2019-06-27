@@ -7,7 +7,10 @@ class ItemsController < ApplicationController
     @items = Item.all
     @active_items = @items.get_actives.remove_category("PVC")
     @inactive_items = @items.get_inactives.remove_category("PVC")
+    # @brand_items = @items.get_actives.get_brand("Lanco")
     @categories = Item.distinct_categories
+    # @brands = Item.distinct_brands
+    @brands = [{brand:"Lanco"}]  
     @pic_urls = @items.map do |item|
       pic_url = ""
       pic_url = url_for(item.pic) if item.pic.attached?
@@ -17,6 +20,7 @@ class ItemsController < ApplicationController
       format.html
       format.json { render json: {
         actives:{
+          Lanco: @items.get_brand("Lanco").get_actives,
           All: @items.remove_category("PVC").get_actives,
           PVC: @items.get_category("PVC").get_actives,
           Glue: @items.get_category("Glue").get_actives,
@@ -27,6 +31,7 @@ class ItemsController < ApplicationController
           Sealer: @items.get_category("Sealer").get_actives
         } ,
         inactives:{
+          Lanco: @items.get_brand("Lanco").get_inactives,
           All: @items.remove_category("PVC").get_inactives,
           PVC: @items.get_category("PVC").get_inactives,
           Glue: @items.get_category("Glue").get_inactives,
@@ -101,7 +106,7 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:active, :name, :category, :brand, :size, :thickness, :color, :price , :pic)
+    params.require(:item).permit(:active, :name, :category, :brand, :size, :thickness, :color, :price , :pic, :inventory)
                           # .merge(user_id: current_user.id)
   end
 
