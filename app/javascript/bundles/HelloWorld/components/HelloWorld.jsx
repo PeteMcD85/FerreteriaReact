@@ -31,7 +31,7 @@ export default class HelloWorld extends React.Component {
       selectedNavListInactives: this.props.inactiveItems,
       signedIn: this.props.signedIn,
       picUrls: this.props.picUrls,
-      itemsToOrder: []
+      cart: []
    };
   }
 
@@ -52,12 +52,17 @@ export default class HelloWorld extends React.Component {
       )
   }
 
-  addItemToOrder = (item_id, quantity) => {
-    let itemsToOrder = this.state.itemsToOrder;
-        itemsToOrder.push({item: item_id, quantity: quantity});
-    this.setState({
-      itemsToOrder: itemsToOrder
-    });
+  addToCart = (id, quantity) => {
+    let cart = this.state.cart;
+        cart.push({itemId: id, quantity: quantity});
+    this.setState({ cart: cart });
+  }
+
+  removeFromCart = (id) => {
+    let cart = this.state.cart,
+        itemToRemove = cart.findIndex((item)=> item.itemId == id );
+        cart.splice(itemToRemove,1);
+    this.setState({ cart: cart });
   }
 
   render() {
@@ -86,7 +91,8 @@ export default class HelloWorld extends React.Component {
           selectedNavName={selectedNavName}
           signedIn={signedIn}
           picUrls={picUrls}
-          addItemToOrder ={this.addItemToOrder}
+          addToCart ={this.addToCart}
+          removeFromCart={this.removeFromCart}
         />
         {signedIn &&
           <div>

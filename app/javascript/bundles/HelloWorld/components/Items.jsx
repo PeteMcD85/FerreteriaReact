@@ -9,11 +9,18 @@ const Items = (props) => {
       selectedNavName = props.selectedNavName,
       signedIn = props.signedIn,
       picUrls = props.picUrls,
-      addItemToOrder = props.addItemToOrder;
+      addToCart = props.addToCart,
+      removeFromCart = props.removeFromCart;
   if (selectedNavName !== "PVC") {
     return (
       <div className="item-cards">
-       <ItemsCard items={items} signedIn={signedIn} picUrls={picUrls} addItemToOrder={addItemToOrder} />
+       <ItemsCard
+         items={items}
+         signedIn={signedIn}
+         picUrls={picUrls}
+         addToCart={addToCart}
+         removeFromCart={removeFromCart}
+       />
       </div>
     );
   } else {

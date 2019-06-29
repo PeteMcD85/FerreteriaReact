@@ -13,12 +13,23 @@ const ItemCard = (props) => {
       active = props.active,
       signedIn = props.signedIn,
       isPicUrl = (picUrl !== "") ?  true : false,
-      quantity = 0,
-      addItemToOrder = props.addItemToOrder,
+      addToCart = props.addToCart,
+      removeFromCart = props.removeFromCart,
       addItem = (id) => {
-        let quantityValue = +document.getElementById(id.toString()).value;
+        let quantityInput = document.getElementById(id.toString()),
+            quantityValue = +quantityInput.value,
+            cartButton = document.getElementById(`${id}${id}`),
+            cartButtonPretext = cartButton.innerText.split(" ")[0],
+            newCartButtonPretext = (cartButtonPretext === "Add") ? "Remove" : "Add"
         if (!quantityValue || quantityValue < 1) return alert("Must enter quantity to be greater than 0")
-        addItemToOrder(id,quantityValue)
+        if (cartButtonPretext === "Add") {
+          quantityInput.disabled = true;
+          addToCart(id,quantityValue);
+        } else {
+          quantityInput.disabled = false;
+          removeFromCart(id);
+        }
+        cartButton.innerText = `${newCartButtonPretext} from Cart`;
       };
 
   return (
@@ -37,9 +48,10 @@ const ItemCard = (props) => {
             <div className="add-item-div">
               <p>Quantity: <input type="number" className="quantity-input" id={id.toString()}></input></p>
               <button
-                className="add-item-button"
-                onClick={() => addItem(id))}>
-                Add Item
+                className="cart-button"
+                id = {`${id}${id}`}
+                onClick={() => addItem(id)}>
+                Add to Cart
               </button>
             </div>
           </div>}

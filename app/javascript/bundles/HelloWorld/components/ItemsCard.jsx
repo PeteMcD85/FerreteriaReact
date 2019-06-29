@@ -5,13 +5,23 @@ const ItemsCard = (props) => {
   let items = props.items,
       signedIn = props.signedIn,
       picUrls = props.picUrls,
-      addItemToOrder = props.addItemToOrder,
+      addToCart = props.addToCart,
+      removeFromCart = props.removeFromCart,
       getPicUrl = (id) => picUrls.find( (val) => val.id === id);
   return (
       <ul>
         {items.map((item,ind)=>{
-          return <ItemCard key={ind} item={item} signedIn={signedIn} picUrl={getPicUrl(item.id)} addItemToOrder={addItemToOrder} />
-        })}
+          return (
+            <ItemCard
+              key={ind}
+              item={item}
+              signedIn={signedIn}
+              picUrl={getPicUrl(item.id)}
+              addToCart={addToCart}
+              removeFromCart={removeFromCart}
+             />
+          )
+  })}
       </ul>
   )
 }
