@@ -31,7 +31,7 @@ export default class HelloWorld extends React.Component {
       selectedNavListInactives: this.props.inactiveItems,
       signedIn: this.props.signedIn,
       picUrls: this.props.picUrls,
-      itemsForOrder: []
+      itemsToOrder: []
    };
   }
 
@@ -46,9 +46,18 @@ export default class HelloWorld extends React.Component {
           });
         },
         (error) => {
+          console.error("Error retrieving results for updateSelectedNavList AJAX method");
           console.error(error);
         }
       )
+  }
+
+  addItemToOrder = (item_id, quantity) => {
+    let itemsToOrder = this.state.itemsToOrder;
+        itemsToOrder.push({item: item_id, quantity: quantity});
+    this.setState({
+      itemsToOrder: itemsToOrder
+    });
   }
 
   render() {
@@ -59,6 +68,7 @@ export default class HelloWorld extends React.Component {
         selectedNavListInactives = this.state.selectedNavListInactives,
         signedIn = this.state.signedIn,
         picUrls = this.state.picUrls;
+        console.log(this.state);
     return (
       <div className="hello-world">
         <NavList
@@ -76,6 +86,7 @@ export default class HelloWorld extends React.Component {
           selectedNavName={selectedNavName}
           signedIn={signedIn}
           picUrls={picUrls}
+          addItemToOrder ={this.addItemToOrder}
         />
         {signedIn &&
           <div>

@@ -12,7 +12,14 @@ const ItemCard = (props) => {
       price = Number(item.price).toFixed(2),
       active = props.active,
       signedIn = props.signedIn,
-      isPicUrl = (picUrl !== "") ?  true : false;
+      isPicUrl = (picUrl !== "") ?  true : false,
+      quantity = 0,
+      addItemToOrder = props.addItemToOrder,
+      addItem = (id) => {
+        let quantityValue = +document.getElementById(id.toString()).value;
+        if (!quantityValue || quantityValue < 1) return alert("Must enter quantity to be greater than 0")
+        addItemToOrder(id,quantityValue)
+      };
 
   return (
       <div className="item">
@@ -23,10 +30,19 @@ const ItemCard = (props) => {
         <p>size: {size}</p>
         {thickness && <p>thickness: {thickness}</p>}
         <p>price: ${price}</p>
-        <span>
-        {signedIn && <p>Active: {active}</p>}
-        {signedIn && <a href={`/items/${id}/edit`}>Edit</a>}
-        </span>
+        {signedIn &&
+          <div className="active-card">
+            <p>Active: {active}</p>
+            <a href={`/items/${id}/edit`}>Edit</a>
+            <div className="add-item-div">
+              <p>Quantity: <input type="number" className="quantity-input" id={id.toString()}></input></p>
+              <button
+                className="add-item-button"
+                onClick={() => addItem(id))}>
+                Add Item
+              </button>
+            </div>
+          </div>}
       </div>
   )
 }
