@@ -7,9 +7,7 @@ class ItemsController < ApplicationController
     @items = Item.all
     @active_items = @items.get_actives.remove_category("PVC")
     @inactive_items = @items.get_inactives.remove_category("PVC")
-    # @brand_items = @items.get_actives.get_brand("Lanco")
     @categories = Item.distinct_categories
-    # @brands = Item.distinct_brands
     @brands = [{brand:"Lanco"}, {brand:"Wilsonart"}, {brand:"Temar"}, {brand:"Hafelle"}, {brand:"Pfister"}, {brand:"Amana"}, {brand:"Eagle"}, {brand:"Blum"}, {brand:"Sait"}, {brand:"ThreeM"}]
     @pic_urls = @items.map do |item|
       pic_url = ""

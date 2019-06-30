@@ -18,6 +18,8 @@
   }
 }
 
-// .items-component {
-//   margin: 25px 0 0 0;
-// }
+@media (min-width: 320px) and (max-width: 480px) {
+  .category-list{
+    display: none;
+  }
+}

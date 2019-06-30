@@ -1,0 +1,28 @@
+.devise{
+    margin: none;
+
+  img.style_image{
+     display: block;
+     margin-top: 1rem;
+     margin-left: auto;
+     margin-right: auto;
+     width: 50%;
+  }
+
+.search{
+  display: flex;
+  margin: 1rem;
+
+  input#item{
+    width: 20rem;
+    font-size: 15px;
+  }
+
+
+}//end of .search
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+}//end of .devise

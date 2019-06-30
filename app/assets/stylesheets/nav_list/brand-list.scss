@@ -5,3 +5,9 @@
       list-style: none;
     }
   }
+
+  @media (min-width: 320px) and (max-width: 480px) {
+    .brand-list {
+      display: none;
+      }
+  }

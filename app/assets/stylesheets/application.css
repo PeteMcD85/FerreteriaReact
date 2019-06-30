@@ -13,12 +13,14 @@
  *= require_tree .
  *= require_self
  */
+ *= require font-awesome
+
 @import "variables.scss";
 @import "nav_list/*";
-@import "items.scss";
-@import "item.scss";
-@import "hello_world.scss";
-
+@import "header/*";
+@import "items/*";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 body {
   margin: 0;
