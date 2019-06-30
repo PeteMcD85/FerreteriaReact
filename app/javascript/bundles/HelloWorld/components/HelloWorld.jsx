@@ -52,6 +52,36 @@ export default class HelloWorld extends React.Component {
       )
   }
 
+  orderCart = () => {
+    const csrfToken = document.querySelector("[name='csrf-token']").content;
+    let cart = this.state.cart;
+    fetch(
+      "/orders", {
+        method: "POST",
+        body: JSON.stringify({
+          order: {
+            order_type: 'sale',
+            item_orders: [
+              {item_id: 1, quantity: 1}
+            ]
+          }
+        }),
+        headers: {
+          "X-CSRF-Token": csrfToken,
+          "Content-Type": "application/json"
+        }
+      }).then(response => {
+        if (!response.ok) { throw response; }
+        return response.json();
+      }).then((data) => {
+        console.log(data);
+      }).catch(error => {
+        console.error("error", error);
+      });
+
+      // .then(res => console.log(res.json()))
+  }
+
   addToCart = (id, quantity) => {
     let cart = this.state.cart;
         cart.push({itemId: id, quantity: quantity});
@@ -76,6 +106,7 @@ export default class HelloWorld extends React.Component {
         console.log(this.state);
     return (
       <div className="hello-world">
+        <button id="order-cart" onClick={this.orderCart}>orderCart</button>
         <NavList
            columnList={brands}
            columnName="brand"

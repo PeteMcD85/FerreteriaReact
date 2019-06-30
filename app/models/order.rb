@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
-  has_many :item_orders
+  has_many :item_orders , :dependent => :destroy
   has_many :items, through: :item_orders
-  enum type: [:sale, :buy]
+  accepts_nested_attributes_for :item_orders
+  enum order_type: [:sale, :buy]
 end
