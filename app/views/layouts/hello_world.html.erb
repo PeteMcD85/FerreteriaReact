@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>ReactOnRailsWithWebpacker</title>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag 'application'%>
-    <%= javascript_pack_tag 'hello-world-bundle' %>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
+<head>
+  <title>ReactOnRailsWithWebpacker</title>
+   <%= csrf_meta_tags %>
+   <%= stylesheet_link_tag 'application'%>
+   <%= javascript_pack_tag 'hello-world-bundle' %>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
-  <body>
-     <div class="devise">
-      <%= image_tag ("logo.png"), :class => "style_image"%>
-     <div class="search">
-  <%= form_tag(items_path method: :get) do %>
-          <%= text_field_tag :item, params[:item] %>
-          <%= submit_tag 'Search', name: nil %>
-  <% end %>
+<body>
+    <div class="devise">
+      <%= image_tag ("logo2.png"), :class => "style_image"%>
+      <i class="fas fa-map-marked">
+    <div class="search">
+      <%= form_tag(items_path method: :get) do %>
+      <%= text_field_tag :item, params[:item] %>
+      <%= submit_tag 'Search', name: nil, id:"search" %>
     </div>
+  <% end %>
+
   <% if user_signed_in? %>
     <div class="dropdown">
         <strong><%= current_user.name %></strong>
     <div class="dropdown-content">
-      <%= link_to  'Create New Item', new_item_path %>
-      <%= link_to 'Edit profile', edit_user_registration_path %>
-      <%= button_to "Logout", destroy_user_session_path, :method => :delete %>
-      <%= link_to "Sign up", new_user_registration_path  %>
-    </div>
-    </div>
-  <% else %>
-      <div class="Login">
-      <%= link_to "Login", new_user_session_path  %>
-      <div class="category-brand">
-        <p>Category</p>
-        <p>Brands</p>
-      </div>
-    </div>
-  <% end %>
+        <%= link_to  'Create New Item', new_item_path %>
+        <%= link_to 'Edit profile', edit_user_registration_path %>
+        <%= button_to "Logout", destroy_user_session_path, :method => :delete %>
+        <%= link_to "Sign up", new_user_registration_path  %>
+    </div><!-- end of .dropdown-content -->
+    </div><!-- end of .dropdown -->
 
+  <% else %>
+  <div class="login">
+     <i class="fa fa-phone"></i>
+     <%= link_to "Login", new_user_session_path %>
+     <i class="fa fa-map-marker"></i>
+  </div>
+  <% end %>
+  </div><!-- end of .devise -->
 
 <%= yield %>
 

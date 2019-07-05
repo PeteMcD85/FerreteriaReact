@@ -1,28 +1,97 @@
-.devise{
-    margin: none;
+body {
+  margin: 0;
+  background-color: white;
+}
 
-  img.style_image{
+.devise {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+
+div.login {
+  margin-top: .95rem;
+
+  a{
+    margin: 0 30px 0 30px;
+    font-size: 27px;
+    text-decoration: none;
+    color: green; }
+
+  i{
+    margin: 0 30px 0 30px;
+    font-size: 27px;
+    color: green; }
+}// end of login
+
+  img.style_image {
      display: block;
      margin-top: 1rem;
      margin-left: auto;
      margin-right: auto;
-     width: 50%;
-  }
+     width: 80%; }
 
-.search{
-  display: flex;
-  margin: 1rem;
+  div.search {
+    display: flex;
+    height: 1.5rem;
+    margin: 2rem;
+    justify-content: center;
 
   input#item{
-    width: 20rem;
+    justify-content: center;
+    height: 1.5rem;
+    width: 15rem;
     font-size: 15px;
-  }
+    margin: 0;
+    border-right: 0;
+    padding-right: 0; }
+
+  input#search{
+    margin: 0;
+    border-left: 0;
+    padding-left: 0;
+    font-size: 1.1rem;
+    background-color: white; }
+ }//end of .search
+} // end of .devise
 
 
-}//end of .search
 
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
+//+++++++++++++++++++++++ Media-Query for Tablet sizes ++++++++++++++++++++++++
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+
+.devise{
+  i{
+    font-size: 15px; }
+
+.search{
+  margin: 2rem;
+
+  input#item{
+   width: 40rem;
+   height: 3rem;}
+
+   input#search{
+    height: 2rem; }
+
+}// end of .search
+
+  img.style_image {
+     width: 70%; }
+
 }//end of .devise
+}// end of media-query
+
+
+
+//+++++++++++++++++++++++++++ Media-Query for labtops & desktops ++++++++++++++
+
+@media only screen and (min-width: 1025px) and (max-width: 1280px) {
+
+.devise{
+
+
+
+
+}//end of .devise
+}// end of media-query

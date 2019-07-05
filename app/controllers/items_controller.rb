@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
     @active_items = @items.get_actives.remove_category("PVC")
     @inactive_items = @items.get_inactives.remove_category("PVC")
     @categories = Item.distinct_categories
-    @brands = [{brand:"Lanco"}, {brand:"Wilsonart"}, {brand:"Temar"}, {brand:"Hafelle"}, {brand:"Pfister"}, {brand:"Amana"}, {brand:"Eagle"}, {brand:"Blum"}, {brand:"Sait"}, {brand:"ThreeM"}]
+    @brands = [{brand:"Lanco"}, {brand:"Wilsonart"}, {brand:"Temar"}, {brand:"Hafelle"}, {brand:"Pfister"}, {brand:"Amana"}, {brand:"Eagle"}, {brand:"Blum"}, {brand:"Sait"}, {brand:"3M"}]
     @pic_urls = @items.map do |item|
       pic_url = ""
       pic_url = url_for(item.pic) if item.pic.attached?
@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
           Eagle: @items.get_brand("Eagle Tools").get_actives,
           Blum: @items.get_brand("Blum").get_actives,
           Sait: @items.get_brand("Sait").get_actives,
-          ThreeM: @items.get_brand("ThreeM").get_actives,
+          "3M": @items.get_brand("3M").get_actives,
           All: @items.remove_category("PVC").get_actives,
           PVC: @items.get_category("PVC").get_actives,
           Glue: @items.get_category("Glue").get_actives,

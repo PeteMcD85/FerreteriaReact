@@ -13,16 +13,60 @@
  *= require_tree .
  *= require_self
  */
+
+/*
  *= require font-awesome
+*/
+#nav-list {
+  position:relative;
+}
+
+.category-brand-user{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: black;
+  color: white;
+  margin: 0;
+  margin-top: 1rem;
+  width: 100%;
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-top: 1rem; }
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1; }
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  position: inherit; }
+
+ a{
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: white; }
+}/* end of .category-brand-user */
+
+ @media only screen and (min-width: 767px) {
+   .category-brand-user{
+     display:none;
+   }
+ }
+
+.hidden {
+  display: none;
+}
 
 @import "variables.scss";
-@import "nav_list/*";
 @import "header/*";
+@import "nav_list/*";
 @import "items/*";
-@import "font-awesome-sprockets";
 @import "font-awesome";
-
-body {
-  margin: 0;
-  background-color: white;
-}

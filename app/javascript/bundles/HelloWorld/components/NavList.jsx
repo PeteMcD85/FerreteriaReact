@@ -12,14 +12,16 @@ const NavList = (props) => {
 
      console.log(columnList);
   return (
-    <div className={`${columnName}-list` }>
-      <ul>
-        {isCategory && <li onClick={updateNav}>All</li>}
-        {columnList.map((nav, ind)=> {
-          return <li key={ind} onClick={updateNav}>{nav[`${columnName}`]}</li>
-        })}
-      </ul>
+
+      <div className={`${columnName}-list hidden` }>
+        <ul>
+          {isCategory && <li onClick={updateNav}>All</li>}
+          {columnList.map((nav, ind)=> {
+        return <li key={ind} onClick={updateNav}>{nav[`${columnName}`]}</li>
+          })}
+        </ul>
     </div>
+
   )
 }
 
