@@ -4,6 +4,7 @@ import React from 'react'
 // COMPONENTS
 import Items from './Items'
 import NavList from './NavList'
+import Cart from './Cart'
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
@@ -31,7 +32,8 @@ export default class HelloWorld extends React.Component {
       selectedNavListInactives: this.props.inactiveItems,
       signedIn: this.props.signedIn,
       picUrls: this.props.picUrls,
-      cart: []
+      cart: [],
+      showCart: false
    };
   }
 
@@ -52,18 +54,33 @@ export default class HelloWorld extends React.Component {
       )
   }
 
-  orderCart = () => {
-    const csrfToken = document.querySelector("[name='csrf-token']").content;
+  addToCart = (id, quantity) => {
     let cart = this.state.cart;
+        cart.push({itemId: id, quantity: quantity});
+    this.setState({ cart: cart });
+  }
+
+  removeFromCart = (id) => {
+    let cart = this.state.cart,
+        itemToRemove = cart.findIndex((item)=> item.itemId == id );
+        cart.splice(itemToRemove,1);
+    this.setState({ cart: cart });
+  }
+
+  clearCart = () => {
+    this.setState({ cart: [] })
+  }
+
+  orderCart = () => {
+    let csrfToken = document.querySelector("[name='csrf-token']").content,
+        cart = this.state.cart;
     fetch(
       "/orders", {
         method: "POST",
         body: JSON.stringify({
           order: {
             order_type: 'sale',
-            item_orders: [
-              {item_id: 1, quantity: 1}
-            ]
+            item_orders: cart
           }
         }),
         headers: {
@@ -78,23 +95,12 @@ export default class HelloWorld extends React.Component {
       }).catch(error => {
         console.error("error", error);
       });
-
-      // .then(res => console.log(res.json()))
   }
 
-  addToCart = (id, quantity) => {
-    let cart = this.state.cart;
-        cart.push({itemId: id, quantity: quantity});
-    this.setState({ cart: cart });
-  }
-
-  removeFromCart = (id) => {
-    let cart = this.state.cart,
-        itemToRemove = cart.findIndex((item)=> item.itemId == id );
-        cart.splice(itemToRemove,1);
-    this.setState({ cart: cart });
-  }
-
+    cartButton = () => {
+      let showCart = (this.state.showCart) ? false : true;
+      this.setState({ showCart: showCart })
+    }
   render() {
     let brands = this.state.brands,
         categories = this.state.categories,
@@ -102,40 +108,57 @@ export default class HelloWorld extends React.Component {
         selectedNavList = this.state.selectedNavList,
         selectedNavListInactives = this.state.selectedNavListInactives,
         signedIn = this.state.signedIn,
-        picUrls = this.state.picUrls;
-        console.log(this.state);
+        picUrls = this.state.picUrls,
+        showCart = this.state.showCart;
     return (
       <div className="hello-world">
-        <button id="order-cart" onClick={this.orderCart}>orderCart</button>
-        <NavList
-           columnList={brands}
-           columnName="brand"
-           updateSelectedNavList={this.updateSelectedNavList}
-        />
-        <NavList
-           columnList={categories}
-           columnName="category"
-           updateSelectedNavList={this.updateSelectedNavList}
-        />
-        <Items
-          items={selectedNavList}
-          selectedNavName={selectedNavName}
-          signedIn={signedIn}
-          picUrls={picUrls}
-          addToCart ={this.addToCart}
-          removeFromCart={this.removeFromCart}
-        />
-        {signedIn &&
-          <div>
-            <h2>Inactive Items</h2>
-            <Items
-              items={selectedNavListInactives}
-              selectedNavName={selectedNavName}
-              signedIn={signedIn}
-              picUrls={picUrls}
-            />
-          </div>
-        }
+        { signedIn &&
+           <div>
+             <div>
+               <button id="cart-button" onClick={this.cartButton}>
+                 {(showCart) ? "Add More Items" : "Check Out"}
+               </button>
+               <button id="clear-cart-button" onClick={this.clearCart}>
+                 Clear Cart
+               </button>
+             </div>
+             { showCart && <Cart /> }
+           </div>
+         }
+         { !showCart &&
+           <div>
+             <NavList
+                columnList={brands}
+                columnName="brand"
+                updateSelectedNavList={this.updateSelectedNavList}
+             />
+             <NavList
+                columnList={categories}
+                columnName="category"
+                updateSelectedNavList={this.updateSelectedNavList}
+             />
+             <Items
+               items={selectedNavList}
+               selectedNavName={selectedNavName}
+               signedIn={signedIn}
+               picUrls={picUrls}
+               addToCart ={this.addToCart}
+               removeFromCart={this.removeFromCart}
+             />
+             {signedIn &&
+               <div>
+                 <h2>Inactive Items</h2>
+                 <Items
+                   items={selectedNavListInactives}
+                   selectedNavName={selectedNavName}
+                   signedIn={signedIn}
+                   picUrls={picUrls}
+                 />
+               </div>
+             }
+           </div>
+         }
+
       </div>
     );
   }
