@@ -56,6 +56,7 @@ export default class HelloWorld extends React.Component {
         }
       )
   }
+<<<<<<< HEAD
 
   updateQuantity = (id, quantity) => {
     let cart = this.state.cart,
@@ -114,6 +115,16 @@ export default class HelloWorld extends React.Component {
       this.setState({ showCart: showCart })
     }
 
+=======
+  dropdown = (e) => {
+    e.persist();
+    let target = e.target.innerHTML,
+        columnName = (target === "Categories") ? "category-list" : "brand-list",
+        columnList = document.getElementsByClassName(columnName)[0];
+        columnList.classList.toggle('hidden');
+        console.log(e);
+  };
+>>>>>>> master
   render() {
     let brands = this.state.brands,
         categories = this.state.categories,
@@ -121,6 +132,7 @@ export default class HelloWorld extends React.Component {
         selectedNavList = this.state.selectedNavList,
         selectedNavListInactives = this.state.selectedNavListInactives,
         signedIn = this.state.signedIn,
+<<<<<<< HEAD
         picUrls = this.state.picUrls,
         cart = this.state.cart,
         showCart = this.state.showCart;
@@ -180,6 +192,46 @@ export default class HelloWorld extends React.Component {
            </div>
          }
 
+=======
+        picUrls = this.state.picUrls;
+
+        console.log(this.state);
+    return (
+      <div className="hello-world">
+        <div className="category-brand">
+          <p onClick={(e) => this.dropdown(e)}>Categories</p>
+          <p onClick={(e) => this.dropdown(e)}>Brands</p>
+        </div>
+        <div id="nav-list">
+          <NavList
+             columnList={brands}
+             columnName="brand"
+             updateSelectedNavList={this.updateSelectedNavList}
+          />
+          <NavList
+             columnList={categories}
+             columnName="category"
+             updateSelectedNavList={this.updateSelectedNavList}
+          />
+        </div>
+        <Items
+          items={selectedNavList}
+          selectedNavName={selectedNavName}
+          signedIn={signedIn}
+          picUrls={picUrls}
+        />
+        {signedIn &&
+          <div>
+            <h2>Inactive Items</h2>
+            <Items
+              items={selectedNavListInactives}
+              selectedNavName={selectedNavName}
+              signedIn={signedIn}
+              picUrls={picUrls}
+            />
+          </div>
+        }
+>>>>>>> master
       </div>
     );
   }

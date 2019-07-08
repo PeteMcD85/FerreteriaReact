@@ -13,14 +13,78 @@
  *= require_tree .
  *= require_self
  */
-@import "variables.scss";
-@import "nav_list/*";
-@import "items.scss";
-@import "item.scss";
-@import "hello_world.scss";
 
-
-body {
-  margin: 0;
-  background-color: white;
+/*
+ *= require font-awesome
+*/
+#nav-list {
+  position: inherit;
 }
+
+.category-brand{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: black;
+  color: white;
+  margin: 0;
+  margin-top: 1rem;
+  width: 100%; }
+
+// .dropdown{
+//   position: relative;
+//   display: inline-block;
+//   margin-top: 1rem; }
+//
+// .dropdown-content {
+//   display: none;
+//   position: absolute;
+//   min-width: 160px;
+//   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+//   padding: 12px 16px;
+//   z-index: 1; }
+//
+// .dropdown:hover .dropdown-content {
+//   display: block;
+//   position: inherit; }
+//
+//  a{
+//   display: flex;
+//   flex-direction: column;
+//   text-decoration: none;
+//   color: white; }
+/* end of .category-brand-user */
+
+.login {
+  margin: 30px;
+  float: right;
+
+ a{
+  font-size: 15px;
+  text-decoration: none;
+  color: black; }
+
+ a:hover{
+  color: blue; }
+}// end of .login
+
+.hidden {
+ display: none; }
+
+
+ @media only screen and (min-width: 765px) {
+   .category-brand{
+     display:none;
+   }
+
+   .hidden{
+     display: flex; }
+ }// end of @media 767px
+
+
+
+@import "variables.scss";
+@import "header/*";
+@import "nav_list/*";
+@import "items/*";
+@import "font-awesome";

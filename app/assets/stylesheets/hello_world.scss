@@ -1,63 +1,81 @@
+body {
+  margin: 0;
+  background-color: white;
+}
+
+.devise {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+
+  img.style_image {
+     display: block;
+     margin-top: 1rem;
+     margin-left: auto;
+     margin-right: auto;
+     width: 80%; }
+
+  div.search {
+    display: flex;
+    height: 1.5rem;
+    margin: 2rem;
+    justify-content: center;
+
+  input#item{
+    justify-content: center;
+    height: 1.5rem;
+    width: 10rem;
+    font-size: 15px;
+    margin: 0;
+    border-right: 0;
+    padding-right: 0; }
+
+  input#search{
+    margin: 0;
+    border-left: 0;
+    padding-left: 0;
+    font-size: 1.1rem;
+    background-color: white; }
+ }//end of .search
+} // end of .devise
+
+
+
+//+++++++++++++++++++++++ Media-Query for Tablet sizes ++++++++++++++++++++++++
+
+@media only screen and (min-width: 765px) {
+
 .devise{
-  display: grid;
-  grid-template-columns: auto auto auto;
+  i{
+    font-size: 15px; }
 
-  .dropdown {
-  position: relative;
-  display: inline-block;
-}
+.search{
+  margin: 2rem;
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 12px 16px;
-  z-index: 1;
-}
+  input#item{
+   width: 20rem;
+   height: 3rem;}
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
+   input#search{
+    height: 2rem; }
+}// end of .search
+
+  img.style_image {
+     width: 70%; }
+
+}//end of .devise
+}// end of media-query
 
 
-  a{
-    margin: 1em;
-    margin-right: 2em;
-    color: black;
-    text-decoration: none;
-  }
 
-  a:hover{
-    font-size: 1.2rem;
-    color: #0051FF;
-  }
-
- .search{
-   display: flex;
-   font-size: 10px;
-   font-weight: 900;
-   justify-content: center;
-   margin-top: 3rem;
-   height: 3rem;
-   padding: 0;
-
-   input{
-     background-color: white;
-   }
-
-   input:hover{
-     border-color: black;
-   }
-
-   input#item{
-     border-color: black;
-     width: 40rem;
-     font-size: 15px;
-     border-right: none;
-     border-left: b
-   }
-}// end .search
-
-}//end .devise
+//+++++++++++++++++++++++++++ Media-Query for labtops & desktops ++++++++++++++
+//
+// @media only screen and (min-width: 1025px) and (max-width: 1280px) {
+//
+// .devise{
+//
+//
+//
+//
+// }//end of .devise
+// }// end of media-query
