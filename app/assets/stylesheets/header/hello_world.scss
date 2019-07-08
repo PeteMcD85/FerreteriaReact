@@ -8,21 +8,6 @@ body {
     width: 100%;
     text-align: center;
 
-div.login {
-  margin-top: .95rem;
-
-  a{
-    margin: 0 30px 0 30px;
-    font-size: 27px;
-    text-decoration: none;
-    color: green; }
-
-  i{
-    margin: 0 30px 0 30px;
-    font-size: 27px;
-    color: green; }
-}// end of login
-
   img.style_image {
      display: block;
      margin-top: 1rem;
@@ -39,7 +24,7 @@ div.login {
   input#item{
     justify-content: center;
     height: 1.5rem;
-    width: 15rem;
+    width: 10rem;
     font-size: 15px;
     margin: 0;
     border-right: 0;
@@ -58,7 +43,7 @@ div.login {
 
 //+++++++++++++++++++++++ Media-Query for Tablet sizes ++++++++++++++++++++++++
 
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
+@media only screen and (min-width: 765px) {
 
 .devise{
   i{
@@ -68,12 +53,11 @@ div.login {
   margin: 2rem;
 
   input#item{
-   width: 40rem;
+   width: 20rem;
    height: 3rem;}
 
    input#search{
     height: 2rem; }
-
 }// end of .search
 
   img.style_image {
@@ -85,13 +69,13 @@ div.login {
 
 
 //+++++++++++++++++++++++++++ Media-Query for labtops & desktops ++++++++++++++
-
-@media only screen and (min-width: 1025px) and (max-width: 1280px) {
-
-.devise{
-
-
-
-
-}//end of .devise
-}// end of media-query
+//
+// @media only screen and (min-width: 1025px) and (max-width: 1280px) {
+//
+// .devise{
+//
+//
+//
+//
+// }//end of .devise
+// }// end of media-query

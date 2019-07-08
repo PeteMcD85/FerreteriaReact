@@ -57,22 +57,6 @@ export default class HelloWorld extends React.Component {
         columnList = document.getElementsByClassName(columnName)[0];
         columnList.classList.toggle('hidden');
         console.log(e);
-        // if (columnList.classList.contains('hidden')) {
-        //   columnList.remove('hidden');
-        // } else {
-        //   columnList.add('hidden')
-        // }
-        // columnList.setAttribute("style", "display: inherit")
-    // columnList = (columnName === "category") ? categories : brands;
-    // return (
-    //   <div className="nav-list-mobile">
-    //     <NavList
-    //        columnList={columnList}
-    //        columnName={columnName}
-    //        updateSelectedNavList={this.updateSelectedNavList}
-    //     />
-    //   </div>
-    // )
   };
   render() {
     let inactiveItems = this.state.inactiveItems,
@@ -88,7 +72,7 @@ export default class HelloWorld extends React.Component {
         console.log(this.state);
     return (
       <div className="hello-world">
-        <div className="category-brand-user">
+        <div className="category-brand">
           <p onClick={(e) => this.dropdown(e)}>Categories</p>
           <p onClick={(e) => this.dropdown(e)}>Brands</p>
         </div>
@@ -104,8 +88,6 @@ export default class HelloWorld extends React.Component {
              updateSelectedNavList={this.updateSelectedNavList}
           />
         </div>
-
-
         <Items
           items={selectedNavList}
           selectedNavName={selectedNavName}

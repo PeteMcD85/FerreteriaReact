@@ -18,28 +18,30 @@
       <%= submit_tag 'Search', name: nil, id:"search" %>
     </div>
   <% end %>
-
-  <% if user_signed_in? %>
-    <div class="dropdown">
-        <strong><%= current_user.name %></strong>
-    <div class="dropdown-content">
-        <%= link_to  'Create New Item', new_item_path %>
-        <%= link_to 'Edit profile', edit_user_registration_path %>
-        <%= button_to "Logout", destroy_user_session_path, :method => :delete %>
-        <%= link_to "Sign up", new_user_registration_path  %>
-    </div><!-- end of .dropdown-content -->
-    </div><!-- end of .dropdown -->
-
-  <% else %>
-  <div class="login">
-     <i class="fa fa-phone"></i>
-     <%= link_to "Login", new_user_session_path %>
-     <i class="fa fa-map-marker"></i>
-  </div>
-  <% end %>
+     <!-- <i class="fa fa-phone"></i> -->
+     <!-- <i class="fa fa-map-marker"></i> -->
   </div><!-- end of .devise -->
 
+
 <%= yield %>
+
+
+<% if user_signed_in? %>
+  <div class="dropdown">
+      <strong><%= current_user.name %></strong>
+  <div class="dropdown-content">
+      <%= link_to  'Create New Item', new_item_path %>
+      <%= link_to 'Edit profile', edit_user_registration_path %>
+      <%= button_to "Logout", destroy_user_session_path, :method => :delete %>
+      <%= link_to "Sign up", new_user_registration_path  %>
+  </div><!-- end of .dropdown-content -->
+  </div><!-- end of .dropdown -->
+
+<% else %>
+  <div class="login">
+     <%= link_to "Login", new_user_session_path %>
+  </div>
+<% end %>
 
   </body>
 </html>
