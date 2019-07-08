@@ -5,10 +5,12 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all
-    @active_items = @items.get_actives.remove_category("PVC")
-    @inactive_items = @items.get_inactives.remove_category("PVC")
+    @active_items = @items.get_actives
+    @inactive_items = @items.get_inactives
+    # @brand_items = @items.get_actives.get_brand("Lanco")
     @categories = Item.distinct_categories
-    @brands = [{brand:"Lanco"}, {brand:"Wilsonart"}, {brand:"Temar"}, {brand:"Hafelle"}, {brand:"Pfister"}, {brand:"Amana"}, {brand:"Eagle"}, {brand:"Blum"}, {brand:"Sait"}, {brand:"3M"}]
+    # @brands = Item.distinct_brands
+    @brands = [{brand:"Lanco"}]
     @pic_urls = @items.map do |item|
       pic_url = ""
       pic_url = url_for(item.pic) if item.pic.attached?

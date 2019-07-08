@@ -1,4 +1,6 @@
 class Item < ApplicationRecord
+  has_many :item_orders, :dependent => :destroy
+  has_many :items, through: :item_orders
   has_one_attached :pic
   scope :distinct_brands, -> {select(:brand).distinct}
   scope :get_brand, -> (brand) {where(["brand = ?", "#{brand}"])}
@@ -10,12 +12,6 @@ class Item < ApplicationRecord
 
   scope :get_actives, -> { where(active: true) }
   scope :get_inactives, -> { where(active: false) }
-  validates_inclusion_of :active, in: [true, false]
-
-  def get_brands(array_of_brands)
-    array_of_brands.each do |brand|
-      
-    end
-  end
+  # validates_inclusion_of :active, in: [true, false]
 
 end

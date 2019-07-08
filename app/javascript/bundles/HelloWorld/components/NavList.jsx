@@ -9,8 +9,6 @@ const NavList = (props) => {
        let navPropName = event.target.innerText;
        updateSelectedNavList(navPropName)
      };
-
-     console.log(columnList);
   return (
 
       <div className={`${columnName}-list hidden` }>

@@ -4,7 +4,10 @@ import ItemTable from './ItemTable'
 const ItemsTable = (props) => {
   console.log(props);
   let items = props.items,
-      signedIn = props.signedIn;
+      signedIn = props.signedIn,
+      addToCart = props.addToCart,
+      removeFromCart = props.removeFromCart,
+      cart = props.cart;
   return (
     <table>
       <tbody>
@@ -13,13 +16,18 @@ const ItemsTable = (props) => {
           <th>Size</th>
           <th>Thickness</th>
           <th>Price</th>
-          { signedIn &&
-            <th>Active</th>
-          }
-
+          {signedIn && <th>Active</th>}
         </tr>
         {items.map((item,ind)=> {
-          return <ItemTable key={ind} item={item} signedIn={signedIn} />
+          return (
+            <ItemTable
+              key={ind}
+              item={item}
+              signedIn={signedIn}
+              addToCart={addToCart}
+              removeFromCart={removeFromCart}
+              cart={cart}
+            />)
         })}
       </tbody>
     </table>
