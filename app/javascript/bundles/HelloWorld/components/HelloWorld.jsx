@@ -50,7 +50,14 @@ export default class HelloWorld extends React.Component {
         }
       )
   }
-
+  dropdown = (e) => {
+    e.persist();
+    let target = e.target.innerHTML,
+        columnName = (target === "Categories") ? "category-list" : "brand-list",
+        columnList = document.getElementsByClassName(columnName)[0];
+        columnList.classList.toggle('hidden');
+        console.log(e);
+  };
   render() {
     let inactiveItems = this.state.inactiveItems,
         activeItems = this.state.activeItems,
@@ -61,19 +68,26 @@ export default class HelloWorld extends React.Component {
         selectedNavListInactives = this.state.selectedNavListInactives,
         signedIn = this.state.signedIn,
         picUrls = this.state.picUrls;
+
         console.log(this.state);
     return (
       <div className="hello-world">
-        <NavList
-           columnList={brands}
-           columnName="brand"
-           updateSelectedNavList={this.updateSelectedNavList}
-        />
-        <NavList
-           columnList={categories}
-           columnName="category"
-           updateSelectedNavList={this.updateSelectedNavList}
-        />
+        <div className="category-brand">
+          <p onClick={(e) => this.dropdown(e)}>Categories</p>
+          <p onClick={(e) => this.dropdown(e)}>Brands</p>
+        </div>
+        <div id="nav-list">
+          <NavList
+             columnList={brands}
+             columnName="brand"
+             updateSelectedNavList={this.updateSelectedNavList}
+          />
+          <NavList
+             columnList={categories}
+             columnName="category"
+             updateSelectedNavList={this.updateSelectedNavList}
+          />
+        </div>
         <Items
           items={selectedNavList}
           selectedNavName={selectedNavName}

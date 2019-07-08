@@ -1,7 +1,31 @@
-.brand-list ul{
-  display: flex;
-  justify-content: space-around;
+ .brand-list {
+
+ ul{
+   list-style-type: none;
+   margin: 0;
+   padding: 0;}
+
+ li{
+   margin: 10px;}
+ }
+
+@media only screen and (min-width: 765px) {
+  .brand-list{
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    ul {
+      justify-content: center;
+      display: flex;
+      flex-wrap: wrap;
+      list-style-type: none;
+      padding: 0;
     li {
-      list-style: none;
-    }
-  }
+      margin: 13px;
+      font-size: 20px; }
+    li:hover {
+      color: #0051FF;
+      cursor: pointer; }
+    }// end of ul
+  }// end of brand-list
+}// end of media-query min 768px
