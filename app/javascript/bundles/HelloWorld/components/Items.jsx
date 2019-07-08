@@ -28,7 +28,13 @@ const Items = (props) => {
   } else {
     return (
       <div>
-        <ItemsTable items={items} signedIn={signedIn} />
+        <ItemsTable
+          items={items}
+          signedIn={signedIn}
+          addToCart={addToCart}
+          removeFromCart={removeFromCart}
+          cart={cart}
+        />
       </div>
     );
   }

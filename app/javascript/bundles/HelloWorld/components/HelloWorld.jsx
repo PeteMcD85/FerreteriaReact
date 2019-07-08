@@ -28,13 +28,15 @@ export default class HelloWorld extends React.Component {
       brands: this.props.brands,
       categories: this.props.categories,
       selectedNavName: "All",
-      selectedNavList : this.props.activeItems,
-      selectedNavListInactives: this.props.inactiveItems,
+      selectedNavList : [],
+      selectedNavListInactives: [],
       signedIn: this.props.signedIn,
       picUrls: this.props.picUrls,
       cart: [],
       showCart: false
    };
+   this.updateSelectedNavList("All")
+   console.log(this.state);
   }
 
   updateSelectedNavList = (navName) => {
@@ -44,7 +46,8 @@ export default class HelloWorld extends React.Component {
         (result) => {
           this.setState({
             selectedNavName: navName,
-            selectedNavList: result.actives[navName]
+            selectedNavList: result.actives[navName],
+            selectedNavListInactives: result.inactives[navName]
           });
         },
         (error) => {
@@ -59,6 +62,9 @@ export default class HelloWorld extends React.Component {
         item = this.state.activeItems.find((item)=> item.id == id)
         cart.push({item: item, quantity: quantity});
     this.setState({ cart: cart });
+    console.log(id);
+    console.log(item);
+    console.log(this.state.activeItems);
   }
 
   removeFromCart = (id) => {
@@ -126,7 +132,7 @@ export default class HelloWorld extends React.Component {
                  Clear Cart
                </button>
              </div>
-             { showCart && <Cart cart={cart}  /> }
+             { showCart && <Cart cart={cart} removeFromCart={this.removeFromCart}  /> }
            </div>
          }
          { !showCart &&

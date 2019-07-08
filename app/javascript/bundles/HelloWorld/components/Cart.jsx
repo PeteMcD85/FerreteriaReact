@@ -2,6 +2,7 @@ import React from 'react'
 
 const Cart = (props) => {
   let cart = props.cart,
+      removeFromCart = props.removeFromCart,
       subtotal = cart.reduce((total, cartItem)=> {
         return total += (+cartItem.item.price * cartItem.quantity)
       }, 0),
@@ -26,8 +27,6 @@ const Cart = (props) => {
         cartTaxes.innerHTML = taxes;
         cartTotal.innerHTML = total;
       }
-
-  console.log(subtotal);
   return (
     <div id="cart">
       <table>
@@ -76,6 +75,9 @@ const Cart = (props) => {
                     disabled={true}
                     value={(cartItem.item.price * cartItem.quantity).toFixed(2)}
                   />
+                </td>
+                <td>
+                  <button onClick={()=> removeFromCart(cartItem.item.id)}>Remove Item</button>
                 </td>
               </tr>
             )
