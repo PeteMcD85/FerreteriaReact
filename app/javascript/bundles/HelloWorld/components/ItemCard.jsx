@@ -52,7 +52,7 @@ const ItemCard = (props) => {
           <div className="active-card">
             <p>Active: {active}</p>
             <a href={`/items/${id}/edit`}>Edit</a>
-            <div className="add-item-div">
+            <div className="update-cart-div">
               <p>Quantity:
                 <input type="number"
                   className="quantity-input"

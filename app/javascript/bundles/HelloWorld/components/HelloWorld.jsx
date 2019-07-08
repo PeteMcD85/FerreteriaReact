@@ -57,14 +57,19 @@ export default class HelloWorld extends React.Component {
       )
   }
 
+  updateQuantity = (id, quantity) => {
+    let cart = this.state.cart,
+        itemIndex = cart.findIndex((cartItem)=> cartItem.item.id == id);
+    cart[itemIndex].quantity = quantity;
+    this.setState({ cart: cart });
+    console.log(cart);
+  }
+
   addToCart = (id, quantity) => {
     let cart = this.state.cart,
-        item = this.state.activeItems.find((item)=> item.id == id)
-        cart.push({item: item, quantity: quantity});
+        item = this.state.activeItems.find((item)=> item.id == id);
+    cart.push({item: item, quantity: quantity});
     this.setState({ cart: cart });
-    console.log(id);
-    console.log(item);
-    console.log(this.state.activeItems);
   }
 
   removeFromCart = (id) => {
@@ -132,7 +137,12 @@ export default class HelloWorld extends React.Component {
                  Clear Cart
                </button>
              </div>
-             { showCart && <Cart cart={cart} removeFromCart={this.removeFromCart}  /> }
+             { showCart &&
+               <Cart
+                 cart={cart}
+                 removeFromCart={this.removeFromCart}
+                 updateQuantity={this.updateQuantity}
+               /> }
            </div>
          }
          { !showCart &&

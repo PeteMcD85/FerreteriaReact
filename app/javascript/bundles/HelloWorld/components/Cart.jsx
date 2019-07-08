@@ -3,6 +3,7 @@ import React from 'react'
 const Cart = (props) => {
   let cart = props.cart,
       removeFromCart = props.removeFromCart,
+      updateQuantity = props.updateQuantity,
       subtotal = cart.reduce((total, cartItem)=> {
         return total += (+cartItem.item.price * cartItem.quantity)
       }, 0),
@@ -16,16 +17,23 @@ const Cart = (props) => {
             cartSubtotal = document.getElementById('cart-subtotal-value'),
             cartTaxes = document.getElementById('cart-taxes-value'),
             cartTotal = document.getElementById('cart-total-value');
-        subtotalInput.value = (val * otherColumnValue).toFixed(2);
-        let subtotalInputs = [...document.getElementsByClassName('item-subtotal')],
-            subtotal = subtotalInputs.reduce((total, subtotalInput)=> {
-              return total += subtotalInput.valueAsNumber
-            }, 0).toFixed(2),
-            taxes = (subtotal * 0.07).toFixed(2),
-            total = (+subtotal + +taxes).toFixed(2);
-        cartSubtotal.innerHTML = subtotal;
-        cartTaxes.innerHTML = taxes;
-        cartTotal.innerHTML = total;
+        if (otherColumnName === "quantity") {
+          subtotalInput.value = (val * otherColumnValue).toFixed(2);
+          let subtotalInputs = [...document.getElementsByClassName('item-subtotal')],
+              subtotal = subtotalInputs.reduce((total, subtotalInput)=> {
+                return total += subtotalInput.valueAsNumber
+              }, 0).toFixed(2),
+              taxes = (subtotal * 0.07).toFixed(2),
+              total = (+subtotal + +taxes).toFixed(2);
+          cartSubtotal.innerHTML = subtotal;
+          cartTaxes.innerHTML = taxes;
+          cartTotal.innerHTML = total;
+        } else {
+          updateQuantity(itemId, val)
+        }
+      },
+      printReciept = () => {
+
       }
   return (
     <div id="cart">
@@ -99,6 +107,7 @@ const Cart = (props) => {
           </tr>
         </tbody>
       </table>
+      <button onClick={printReciept}>Print Reciept</button>
 
     </div>
   )
