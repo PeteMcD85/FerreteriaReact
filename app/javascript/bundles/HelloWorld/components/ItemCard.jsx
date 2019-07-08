@@ -15,10 +15,11 @@ const ItemCard = (props) => {
       isPicUrl = (picUrl !== "") ?  true : false,
       addToCart = props.addToCart,
       removeFromCart = props.removeFromCart,
+      cart = props.cart,
       addItem = (id) => {
-        let quantityInput = document.getElementById(id.toString()),
+        let quantityInput = document.getElementById(`quantity-${id}`),
             quantityValue = +quantityInput.value,
-            cartButton = document.getElementById(`${id}${id}`),
+            cartButton = document.getElementById(`cart-button-${id}`),
             cartButtonPretext = cartButton.innerText.split(" ")[0],
             newCartButtonPretext = (cartButtonPretext === "Add") ? "Remove" : "Add"
         if (!quantityValue || quantityValue < 1) return alert("Must enter quantity to be greater than 0")
@@ -30,8 +31,14 @@ const ItemCard = (props) => {
           removeFromCart(id);
         }
         cartButton.innerText = `${newCartButtonPretext} from Cart`;
+      },
+      setQuantityValue = (id) => {
+        let itemInCart = cart.find((cartItem)=> cartItem.item.id == id);
+        if (itemInCart) return {value: itemInCart.quantity, disabled: true, text: "Remove from Cart" }
+        return {value: "", disabled: false, text: "Add to Cart" }
       };
 
+      console.log(cart);
   return (
       <div className="item">
         {isPicUrl !== ""  && <img className="item-pic" src={picUrl} />}
@@ -46,15 +53,24 @@ const ItemCard = (props) => {
             <p>Active: {active}</p>
             <a href={`/items/${id}/edit`}>Edit</a>
             <div className="add-item-div">
-              <p>Quantity: <input type="number" className="quantity-input" id={id.toString()}></input></p>
+              <p>Quantity:
+                <input type="number"
+                  className="quantity-input"
+                  id={`quantity-${id}`}
+                  defaultValue={setQuantityValue(id).value}
+                  disabled={setQuantityValue(id).disabled}>
+                </input>
+              </p>
               <button
                 className="cart-button"
-                id = {`${id}${id}`}
+                id = {`cart-button-${id}`}
                 onClick={() => addItem(id)}>
-                Add to Cart
+                {setQuantityValue(id).text}
               </button>
             </div>
-          </div>}
+          </div>
+        }
+
       </div>
   )
 }

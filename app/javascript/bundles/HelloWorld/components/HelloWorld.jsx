@@ -17,7 +17,7 @@ export default class HelloWorld extends React.Component {
   };
 
   /**
-   * @param props - Comes from your rails view.
+   * @param props
    */
 
   constructor(props) {
@@ -55,14 +55,15 @@ export default class HelloWorld extends React.Component {
   }
 
   addToCart = (id, quantity) => {
-    let cart = this.state.cart;
-        cart.push({itemId: id, quantity: quantity});
+    let cart = this.state.cart,
+        item = this.state.activeItems.find((item)=> item.id == id)
+        cart.push({item: item, quantity: quantity});
     this.setState({ cart: cart });
   }
 
   removeFromCart = (id) => {
     let cart = this.state.cart,
-        itemToRemove = cart.findIndex((item)=> item.itemId == id );
+        itemToRemove = cart.findIndex((cartItem)=> cartItem.item.id == id );
         cart.splice(itemToRemove,1);
     this.setState({ cart: cart });
   }
@@ -101,6 +102,7 @@ export default class HelloWorld extends React.Component {
       let showCart = (this.state.showCart) ? false : true;
       this.setState({ showCart: showCart })
     }
+
   render() {
     let brands = this.state.brands,
         categories = this.state.categories,
@@ -109,7 +111,9 @@ export default class HelloWorld extends React.Component {
         selectedNavListInactives = this.state.selectedNavListInactives,
         signedIn = this.state.signedIn,
         picUrls = this.state.picUrls,
+        cart = this.state.cart,
         showCart = this.state.showCart;
+        console.log(this.state);
     return (
       <div className="hello-world">
         { signedIn &&
@@ -122,7 +126,7 @@ export default class HelloWorld extends React.Component {
                  Clear Cart
                </button>
              </div>
-             { showCart && <Cart /> }
+             { showCart && <Cart cart={cart}  /> }
            </div>
          }
          { !showCart &&
@@ -144,6 +148,7 @@ export default class HelloWorld extends React.Component {
                picUrls={picUrls}
                addToCart ={this.addToCart}
                removeFromCart={this.removeFromCart}
+               cart={cart}
              />
              {signedIn &&
                <div>

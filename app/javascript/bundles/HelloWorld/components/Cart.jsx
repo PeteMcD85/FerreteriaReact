@@ -1,8 +1,14 @@
 import React from 'react'
 
 const Cart = (props) => {
+  let  cart = props.cart;
+  console.log(cart);
   return (
-    <h1>Cart</h1>
+    <div id="cart">
+      { cart.map((cartItem, ind) => {
+        return <p key={ind} >{cartItem.item.id}</p>
+      })}
+    </div>
   )
 }
 

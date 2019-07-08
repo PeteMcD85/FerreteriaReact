@@ -7,6 +7,7 @@ const ItemsCard = (props) => {
       picUrls = props.picUrls,
       addToCart = props.addToCart,
       removeFromCart = props.removeFromCart,
+      cart = props.cart,
       getPicUrl = (id) => picUrls.find( (val) => val.id === id);
   return (
       <ul>
@@ -19,9 +20,10 @@ const ItemsCard = (props) => {
               picUrl={getPicUrl(item.id)}
               addToCart={addToCart}
               removeFromCart={removeFromCart}
+              cart={cart}
              />
           )
-  })}
+        })}
       </ul>
   )
 }
