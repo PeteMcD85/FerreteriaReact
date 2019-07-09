@@ -1,0 +1,81 @@
+body {
+  margin: 0;
+  background-color: white;
+}
+
+.devise {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+
+  img.style_image {
+     display: block;
+     margin-top: 1rem;
+     margin-left: auto;
+     margin-right: auto;
+     width: 80%; }
+
+  div.search {
+    display: flex;
+    height: 1.5rem;
+    margin: 2rem;
+    justify-content: center;
+
+  input#item{
+    justify-content: center;
+    height: 1.5rem;
+    width: 10rem;
+    font-size: 15px;
+    margin: 0;
+    border-right: 0;
+    padding-right: 0; }
+
+  input#search{
+    margin: 0;
+    border-left: 0;
+    padding-left: 0;
+    font-size: 1.1rem;
+    background-color: white; }
+ }//end of .search
+} // end of .devise
+
+
+
+//+++++++++++++++++++++++ Media-Query for Tablet sizes ++++++++++++++++++++++++
+
+@media only screen and (min-width: 765px) {
+
+.devise{
+  i{
+    font-size: 15px; }
+
+.search{
+  margin: 2rem;
+
+  input#item{
+   width: 20rem;
+   height: 3rem;}
+
+   input#search{
+    height: 2rem; }
+}// end of .search
+
+  img.style_image {
+     width: 70%; }
+
+}//end of .devise
+}// end of media-query
+
+
+
+//+++++++++++++++++++++++++++ Media-Query for labtops & desktops ++++++++++++++
+//
+// @media only screen and (min-width: 1025px) and (max-width: 1280px) {
+//
+// .devise{
+//
+//
+//
+//
+// }//end of .devise
+// }// end of media-query
