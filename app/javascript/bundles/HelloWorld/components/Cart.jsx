@@ -7,7 +7,9 @@ const Cart = (props) => {
       updatePriceGiven = props.updatePriceGiven,
       subtotal = cart.reduce((total, cartItem)=> {
         return total += (+cartItem.priceGiven * cartItem.quantity)
-      }, 0),
+      }, 0).toFixed(2),
+      taxes = (subtotal * .115).toFixed(2),
+      total = subtotal + taxes,
       getSubtotal = (e) => {
         let val = e.target.valueAsNumber,
             cssId = e.target.id.split('-'),
@@ -16,7 +18,7 @@ const Cart = (props) => {
         (columnName === "price") ? updatePriceGiven(itemId, val) : updateQuantity(itemId, val);
       },
       printReciept = () => {
-
+        console.log('printReciept');
       }
   return (
     <div id="cart">
@@ -76,17 +78,17 @@ const Cart = (props) => {
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Subtotal</td>
-            <td id="cart-subtotal-value">{subtotal.toFixed(2)}</td>
+            <td id="cart-subtotal-value">{subtotal}</td>
           </tr>
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Taxes</td>
-            <td id="cart-taxes-value">{(subtotal *.07).toFixed(2)}</td>
+            <td id="cart-taxes-value">{taxes}</td>
           </tr>
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Total</td>
-            <td id="cart-total-value">{(subtotal + (subtotal * 0.07)).toFixed(2)}</td>
+            <td id="cart-total-value">{total}</td>
           </tr>
         </tbody>
       </table>
