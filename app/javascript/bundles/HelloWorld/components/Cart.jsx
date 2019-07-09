@@ -9,7 +9,7 @@ const Cart = (props) => {
         return total += (+cartItem.priceGiven * cartItem.quantity)
       }, 0).toFixed(2),
       taxes = (subtotal * .115).toFixed(2),
-      total = subtotal + taxes,
+      total = (+subtotal + +taxes).toFixed(2),
       getSubtotal = (e) => {
         let val = e.target.valueAsNumber,
             cssId = e.target.id.split('-'),
