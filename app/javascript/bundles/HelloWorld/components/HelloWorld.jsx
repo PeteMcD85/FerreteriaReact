@@ -62,13 +62,19 @@ export default class HelloWorld extends React.Component {
         itemIndex = cart.findIndex((cartItem)=> cartItem.item.id == id);
     cart[itemIndex].quantity = quantity;
     this.setState({ cart: cart });
-    console.log(cart);
+  }
+
+  updatePriceGiven = (id, priceGiven) => {
+    let cart = this.state.cart,
+        itemIndex = cart.findIndex((cartItem)=> cartItem.item.id == id);
+    cart[itemIndex].priceGiven = priceGiven;
+    this.setState({ cart: cart });
   }
 
   addToCart = (id, quantity) => {
     let cart = this.state.cart,
         item = this.state.activeItems.find((item)=> item.id == id);
-    cart.push({item: item, quantity: quantity});
+    cart.push({item: item, quantity: quantity, priceGiven: item.price});
     this.setState({ cart: cart });
   }
 
@@ -150,6 +156,7 @@ export default class HelloWorld extends React.Component {
                  cart={cart}
                  removeFromCart={this.removeFromCart}
                  updateQuantity={this.updateQuantity}
+                 updatePriceGiven={this.updatePriceGiven}
                /> }
            </div>
          }
@@ -193,7 +200,7 @@ export default class HelloWorld extends React.Component {
              </div>
            </div>
          }
-       </div>       
+       </div>
     );
   }
 }

@@ -4,33 +4,16 @@ const Cart = (props) => {
   let cart = props.cart,
       removeFromCart = props.removeFromCart,
       updateQuantity = props.updateQuantity,
+      updatePriceGiven = props.updatePriceGiven,
       subtotal = cart.reduce((total, cartItem)=> {
-        return total += (+cartItem.item.price * cartItem.quantity)
+        return total += (+cartItem.priceGiven * cartItem.quantity)
       }, 0),
       getSubtotal = (e) => {
         let val = e.target.valueAsNumber,
             cssId = e.target.id.split('-'),
             itemId = cssId[2],
-            otherColumnName = (cssId[1] === "price") ? "quantity" : "price",
-            otherColumnValue = document.getElementById(`item-${otherColumnName}-${itemId}`).valueAsNumber,
-            subtotalInput = document.getElementById(`item-subtotal-${itemId}`),
-            cartSubtotal = document.getElementById('cart-subtotal-value'),
-            cartTaxes = document.getElementById('cart-taxes-value'),
-            cartTotal = document.getElementById('cart-total-value');
-        if (otherColumnName === "quantity") {
-          subtotalInput.value = (val * otherColumnValue).toFixed(2);
-          let subtotalInputs = [...document.getElementsByClassName('item-subtotal')],
-              subtotal = subtotalInputs.reduce((total, subtotalInput)=> {
-                return total += subtotalInput.valueAsNumber
-              }, 0).toFixed(2),
-              taxes = (subtotal * 0.07).toFixed(2),
-              total = (+subtotal + +taxes).toFixed(2);
-          cartSubtotal.innerHTML = subtotal;
-          cartTaxes.innerHTML = taxes;
-          cartTotal.innerHTML = total;
-        } else {
-          updateQuantity(itemId, val)
-        }
+            columnName = (cssId[1] === "price") ? "price" : "quantity";
+        (columnName === "price") ? updatePriceGiven(itemId, val) : updateQuantity(itemId, val);
       },
       printReciept = () => {
 
@@ -81,7 +64,7 @@ const Cart = (props) => {
                     id={`item-subtotal-${cartItem.item.id}`}
                     className={`item-subtotal`}
                     disabled={true}
-                    value={(cartItem.item.price * cartItem.quantity).toFixed(2)}
+                    value={(cartItem.priceGiven * cartItem.quantity).toFixed(2)}
                   />
                 </td>
                 <td>
