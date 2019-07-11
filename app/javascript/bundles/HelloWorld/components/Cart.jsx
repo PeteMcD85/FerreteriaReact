@@ -5,6 +5,7 @@ const Cart = (props) => {
       removeFromCart = props.removeFromCart,
       updateQuantity = props.updateQuantity,
       updatePriceGiven = props.updatePriceGiven,
+      orderCart = props.orderCart,
       subtotal = cart.reduce((total, cartItem)=> {
         return total += (+cartItem.priceGiven * cartItem.quantity)
       }, 0).toFixed(2),
@@ -19,6 +20,7 @@ const Cart = (props) => {
       },
       printReciept = () => {
         console.log('printReciept');
+        orderCart();
       }
   return (
     <div id="cart">

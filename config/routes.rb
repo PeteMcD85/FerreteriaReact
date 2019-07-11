@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get 'hello_world', to: 'hello_world#index'
   resources :items
 
-  resources :orders, only:[:create]
+  resources :orders, only:[:create, :show]
 
 
   root 'items#index'

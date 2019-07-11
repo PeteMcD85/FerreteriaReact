@@ -106,10 +106,12 @@ export default class HelloWorld extends React.Component {
           "Content-Type": "application/json"
         }
       }).then(response => {
+        console.log('response');
+        console.log(response);
         if (!response.ok) { throw response; }
-        return response.json();
-      }).then((data) => {
-        console.log(data);
+        return response.url;
+      }).then((url) => {
+        window.location.replace(url);
       }).catch(error => {
         console.error("error", error);
       });
@@ -157,6 +159,7 @@ export default class HelloWorld extends React.Component {
                  removeFromCart={this.removeFromCart}
                  updateQuantity={this.updateQuantity}
                  updatePriceGiven={this.updatePriceGiven}
+                 orderCart={this.orderCart}
                /> }
            </div>
          }
