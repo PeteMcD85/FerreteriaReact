@@ -25,8 +25,6 @@ protect_from_forgery :except => [:create]
       }
     end
     redirect_to @order
-
-    5
   end
 
   def show

@@ -3,7 +3,7 @@ class ItemOrder < ApplicationRecord
   belongs_to :order
 
   def subtotal
-    self.quantity * self.price_given
+  sprintf('%.2f', self.quantity * self.price_given) 
   end
 
   def item

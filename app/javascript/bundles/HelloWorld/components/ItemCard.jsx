@@ -33,7 +33,7 @@ const ItemCard = (props) => {
         cartButton.innerText = `${newCartButtonPretext} from Cart`;
       },
       setQuantityValue = (id) => {
-        let itemInCart = cart.find((cartItem)=> cartItem.item.id == id);
+        let itemInCart = cart.cartItems.find((cartItem)=> cartItem.item.id == id);
         if (itemInCart) return {value: itemInCart.quantity, disabled: true, text: "Remove from Cart" }
         return {value: "", disabled: false, text: "Add to Cart" }
       };

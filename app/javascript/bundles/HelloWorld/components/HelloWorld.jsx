@@ -32,11 +32,17 @@ export default class HelloWorld extends React.Component {
       selectedNavListInactives: [],
       signedIn: this.props.signedIn,
       picUrls: this.props.picUrls,
-      cart: [],
+      cart: {
+        cartItems: [],
+        cartTotal: {
+          subtotal: 0,
+          taxes: 0,
+          total: 0
+        }
+      },
       showCart: false
    };
-   this.updateSelectedNavList("All")
-   console.log(this.state);
+   this.updateSelectedNavList("All");
   }
 
   updateSelectedNavList = (navName) => {
@@ -57,36 +63,67 @@ export default class HelloWorld extends React.Component {
       )
   }
 
-  updateQuantity = (id, quantity) => {
-    let cart = this.state.cart,
-        itemIndex = cart.findIndex((cartItem)=> cartItem.item.id == id);
-    cart[itemIndex].quantity = quantity;
-    this.setState({ cart: cart });
+  calculateCartTotal = (cartItems) => {
+    let subtotal = cartItems.reduce((total, cartItem)=> {
+          return total += +cartItem.subtotal
+        }, 0).toFixed(2),
+        taxes = (subtotal * .115).toFixed(2),
+        total = (+subtotal + +taxes).toFixed(2);
+    return {subtotal: subtotal, taxes: taxes, total: total}
   }
 
-  updatePriceGiven = (id, priceGiven) => {
+  updateCartItem = (id, columnName, columnValue) => {
     let cart = this.state.cart,
-        itemIndex = cart.findIndex((cartItem)=> cartItem.item.id == id);
-    cart[itemIndex].priceGiven = priceGiven;
-    this.setState({ cart: cart });
+        cartItems = cart.cartItems,
+        itemIndex = cartItems.findIndex((cartItem)=> cartItem.item.id == id),
+        cartItem = cartItems[itemIndex];
+    cartItem[columnName] = columnValue;
+    cartItem['subtotal'] = (cartItem.priceGiven * cartItem.quantity).toFixed(2);
+    cartItems[itemIndex] = cartItem;
+    this.setState({
+      cart: {
+        cartItems: cartItems,
+        cartTotal: this.calculateCartTotal(cartItems)
+      }
+    });
   }
 
   addToCart = (id, quantity) => {
-    let cart = this.state.cart,
+    let cartItems = this.state.cart.cartItems,
         item = this.state.activeItems.find((item)=> item.id == id);
-    cart.push({item: item, quantity: quantity, priceGiven: item.price});
-    this.setState({ cart: cart });
+    cartItems.push({item: item, quantity: quantity, priceGiven: item.price, subtotal: (+quantity * +item.price).toFixed(2) });
+    this.setState({
+      cart: {
+        cartItems: cartItems,
+        cartTotal: this.calculateCartTotal(cartItems)
+      }
+    });
   }
 
   removeFromCart = (id) => {
-    let cart = this.state.cart,
+    let cartItems = this.state.cart.cartItems,
         itemToRemove = cart.findIndex((cartItem)=> cartItem.item.id == id );
-        cart.splice(itemToRemove,1);
+        cartItems.splice(itemToRemove,1);
+    this.setState({
+      cart: {
+        cartItems: cartItems,
+        cartTotal: calculateCartTotal(cartItems)
+      }
+    });
     this.setState({ cart: cart });
   }
 
   clearCart = () => {
-    this.setState({ cart: [] })
+    this.setState({
+      cart: {
+        cartItems: [],
+        cartTotal: {
+          subtotal: 0,
+          taxes: 0,
+          total: 0
+        }
+      }
+   })
   }
 
   orderCart = () => {
@@ -157,8 +194,7 @@ export default class HelloWorld extends React.Component {
                <Cart
                  cart={cart}
                  removeFromCart={this.removeFromCart}
-                 updateQuantity={this.updateQuantity}
-                 updatePriceGiven={this.updatePriceGiven}
+                 updateCartItem={this.updateCartItem}
                  orderCart={this.orderCart}
                /> }
            </div>

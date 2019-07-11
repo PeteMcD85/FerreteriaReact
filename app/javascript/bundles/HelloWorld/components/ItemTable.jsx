@@ -32,7 +32,7 @@ const ItemTable = (props) => {
       },
       setQuantityValue = (id) => {
         console.log(cart);
-        let itemInCart = cart.find((cartItem)=> cartItem.item.id == id);
+        let itemInCart = cartItems.find((cartItem)=> cartItem.item.id == id);
         if (itemInCart) return {value: itemInCart.quantity, disabled: true, text: "Remove from Cart" }
         return {value: "", disabled: false, text: "Add to Cart" }
       };

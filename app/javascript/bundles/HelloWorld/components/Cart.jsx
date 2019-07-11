@@ -3,20 +3,14 @@ import React from 'react'
 const Cart = (props) => {
   let cart = props.cart,
       removeFromCart = props.removeFromCart,
-      updateQuantity = props.updateQuantity,
-      updatePriceGiven = props.updatePriceGiven,
+      updateCartItem = props.updateCartItem,
       orderCart = props.orderCart,
-      subtotal = cart.reduce((total, cartItem)=> {
-        return total += (+cartItem.priceGiven * cartItem.quantity)
-      }, 0).toFixed(2),
-      taxes = (subtotal * .115).toFixed(2),
-      total = (+subtotal + +taxes).toFixed(2),
       getSubtotal = (e) => {
-        let val = e.target.valueAsNumber,
+        let columnValue = e.target.valueAsNumber,
             cssId = e.target.id.split('-'),
             itemId = cssId[2],
-            columnName = (cssId[1] === "price") ? "price" : "quantity";
-        (columnName === "price") ? updatePriceGiven(itemId, val) : updateQuantity(itemId, val);
+            columnName = (cssId[1] === "price") ? "priceGiven" : "quantity";
+            updateCartItem(itemId, columnName, columnValue);
       },
       printReciept = () => {
         console.log('printReciept');
@@ -36,7 +30,7 @@ const Cart = (props) => {
             <th>Quantity</th>
             <th>Subtotal</th>
           </tr>
-          { cart.map((cartItem, ind) => {
+          { cart.cartItems.map((cartItem, ind) => {
             return (
               <tr key={ind} className="cart-item">
                 <td>{cartItem.item.brand}</td>
@@ -68,7 +62,7 @@ const Cart = (props) => {
                     id={`item-subtotal-${cartItem.item.id}`}
                     className={`item-subtotal`}
                     disabled={true}
-                    value={(cartItem.priceGiven * cartItem.quantity).toFixed(2)}
+                    value={cartItem.subtotal}
                   />
                 </td>
                 <td>
@@ -80,17 +74,17 @@ const Cart = (props) => {
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Subtotal</td>
-            <td id="cart-subtotal-value">{subtotal}</td>
+            <td id="cart-subtotal-value">{cart.cartTotal.subtotal}</td>
           </tr>
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Taxes</td>
-            <td id="cart-taxes-value">{taxes}</td>
+            <td id="cart-taxes-value">{cart.cartTotal.taxes}</td>
           </tr>
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Total</td>
-            <td id="cart-total-value">{total}</td>
+            <td id="cart-total-value">{cart.cartTotal.total}</td>
           </tr>
         </tbody>
       </table>
