@@ -134,8 +134,8 @@ export default class HelloWorld extends React.Component {
         method: "POST",
         body: JSON.stringify({
           order: {
-            order_type: 'sale',
-            item_orders: cart
+            orderType: 'sale',
+            itemOrders: cart
           }
         }),
         headers: {
