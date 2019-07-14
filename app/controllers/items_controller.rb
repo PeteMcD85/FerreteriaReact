@@ -7,10 +7,8 @@ class ItemsController < ApplicationController
     @items = Item.all
     @active_items = @items.get_actives
     @inactive_items = @items.get_inactives
-    # @brand_items = @items.get_actives.get_brand("Lanco")
     @categories = Item.distinct_categories
-    # @brands = Item.distinct_brands
-    @brands = [{brand:"Lanco"}]
+    @brands = [{brand:"Lanco"}, {brand:"Wilsonart"}, {brand:"Temar"}, {brand:"Hafelle"}, {brand:"Pfister"}, {brand:"Amana Tools"}, {brand:"Eagel Tools"}, {brand:"Blum"}, {brand:"Sait"}, {brand:"3M"}]
     @pic_urls = @items.map do |item|
       pic_url = ""
       pic_url = url_for(item.pic) if item.pic.attached?
@@ -115,7 +113,7 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:active, :name, :category, :brand, :size, :thickness, :color, :price , :pic, :inventory)
+    params.require(:item).permit(:active, :name, :category, :brand, :size, :thickness, :color, :sold_price , :bought_price, :pic, :inventory)
                           # .merge(user_id: current_user.id)
   end
 

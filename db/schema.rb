@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_12_162406) do
+
+ActiveRecord::Schema.define(version: 2019_07_14_020901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,12 +57,13 @@ ActiveRecord::Schema.define(version: 2019_07_12_162406) do
     t.string "size"
     t.string "color"
     t.string "thickness"
-    t.decimal "price", precision: 10, scale: 2
+    t.decimal "sold_price", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image"
     t.boolean "active"
     t.integer "inventory"
+    t.decimal "bought_price", precision: 10, scale: 2
   end
 
   create_table "orders", force: :cascade do |t|

@@ -29,6 +29,7 @@ const Cart = (props) => {
             <th>Price</th>
             <th>Quantity</th>
             <th>Subtotal</th>
+            <th>Remove</th>
           </tr>
           { cart.cartItems.map((cartItem, ind) => {
             return (
@@ -72,17 +73,17 @@ const Cart = (props) => {
             )
           })}
           <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
+            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Subtotal</td>
             <td id="cart-subtotal-value">{cart.cartTotal.subtotal}</td>
           </tr>
           <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
+            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Taxes</td>
             <td id="cart-taxes-value">{cart.cartTotal.taxes}</td>
           </tr>
           <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
+            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Total</td>
             <td id="cart-total-value">{cart.cartTotal.total}</td>
           </tr>

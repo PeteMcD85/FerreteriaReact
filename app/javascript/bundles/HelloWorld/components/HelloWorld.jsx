@@ -233,6 +233,7 @@ export default class HelloWorld extends React.Component {
                    selectedNavName={selectedNavName}
                    signedIn={signedIn}
                    picUrls={picUrls}
+                   cart={cart}
                  />
                </div>
              }

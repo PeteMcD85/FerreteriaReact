@@ -9,7 +9,8 @@ const ItemCard = (props) => {
       color = item.color,
       size = item.size,
       thickness = item.thickness,
-      price = Number(item.price).toFixed(2),
+      sold_price = Number(item.sold_price).toFixed(2),
+      bought_price = Number(item.bought_price).toFixed(2),
       active = props.active,
       signedIn = props.signedIn,
       isPicUrl = (picUrl !== "") ?  true : false,
@@ -34,11 +35,11 @@ const ItemCard = (props) => {
       },
       setQuantityValue = (id) => {
         let itemInCart = cart.cartItems.find((cartItem)=> cartItem.item.id == id);
+
         if (itemInCart) return {value: itemInCart.quantity, disabled: true, text: "Remove from Cart" }
         return {value: "", disabled: false, text: "Add to Cart" }
       };
-
-      console.log(cart);
+      // console.log(cart);
   return (
       <div className="item">
         {isPicUrl !== ""  && <img className="item-pic" src={picUrl} />}
@@ -47,10 +48,12 @@ const ItemCard = (props) => {
         {color && <p>color: {color}</p>}
         <p>size: {size}</p>
         {thickness && <p>thickness: {thickness}</p>}
-        <p>price: ${price}</p>
+        <p>price: ${sold_price}</p>
+
         {signedIn &&
           <div className="active-card">
-            <p>Active: {active}</p>
+           <p>Bought Price: {bought_price}</p>
+            <p>Active {active}</p>
             <a href={`/items/${id}/edit`}>Edit</a>
             <div className="update-cart-div">
               <p>Quantity:
@@ -70,7 +73,6 @@ const ItemCard = (props) => {
             </div>
           </div>
         }
-
       </div>
   )
 }

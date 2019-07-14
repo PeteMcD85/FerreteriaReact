@@ -7,7 +7,8 @@ const ItemTable = (props) => {
       brand = item.brand,
       thickness = item.thickness,
       size = item.size,
-      price = Number(item.price).toFixed(2),
+      sold_price = Number(item.sold_price).toFixed(2),
+      bought_price = Number(item.bought_price).toFixed(2),
       active = item.active,
       signedIn = props.signedIn,
       addToCart = props.addToCart,
@@ -41,7 +42,8 @@ const ItemTable = (props) => {
       <td>{brand}</td>
       <td>{size}</td>
       <td>{thickness}</td>
-      <td>{price}</td>
+      <td>{sold_price}</td>
+      {signedIn && <td>{bought_price}</td>}
       {signedIn && <td>{String(active)}</td>}
       { signedIn &&
         <td>
