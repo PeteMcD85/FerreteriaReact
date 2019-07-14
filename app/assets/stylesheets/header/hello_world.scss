@@ -16,23 +16,20 @@ body {
      width: 80%; }
 
   div.search {
-    display: flex;
+
     height: 1.5rem;
     margin: 2rem;
-    justify-content: center;
 
   input#item{
-    justify-content: center;
     height: 1.5rem;
-    width: 10rem;
+    width: 50%;
     font-size: 15px;
-    margin: 0;
+    margin-left: 2rem;
     border-right: 0;
     padding-right: 0; }
 
   input#search{
     margin: 0;
-    border-left: 0;
     padding-left: 0;
     font-size: 1.1rem;
     background-color: white; }
@@ -66,16 +63,30 @@ body {
 }//end of .devise
 }// end of media-query
 
+// ++++++++++++++++++++++++++++++ DeskTop +++++++++++++++++++++++++++++++++++
 
+@media only screen and (min-width: 992px) {
 
-//+++++++++++++++++++++++++++ Media-Query for labtops & desktops ++++++++++++++
-//
-// @media only screen and (min-width: 1025px) and (max-width: 1280px) {
-//
-// .devise{
-//
-//
-//
-//
-// }//end of .devise
-// }// end of media-query
+.devise{
+  display: flex;
+  margin-bottom: 2rem;
+
+ div.search{
+  margin: 0;
+  margin-top: 25%;
+  width: 100%;
+
+  input#item{
+  }
+
+  input#search{
+  }
+}// end of .search
+
+  img.style_image{
+   width: 25%;
+   margin-left: 2rem;
+   margin-right: 4rem;}
+}//end of devise
+
+}//end of min 992px
