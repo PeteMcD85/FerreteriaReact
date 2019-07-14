@@ -14,6 +14,7 @@ const ItemTable = (props) => {
       addToCart = props.addToCart,
       removeFromCart = props.removeFromCart,
       cart = props.cart,
+      cartItems = cart.cartItems,
       addItem = (id) => {
         let quantityInput = document.getElementById(`quantity-${id}`),
             quantityValue = +quantityInput.value,

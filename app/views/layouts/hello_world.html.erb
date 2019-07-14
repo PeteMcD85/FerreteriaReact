@@ -1,47 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>ReactOnRailsWithWebpacker</title>
-   <%= csrf_meta_tags %>
-   <%= stylesheet_link_tag 'application'%>
-   <%= javascript_pack_tag 'hello-world-bundle' %>
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-
-<body>
+  <head>
+    <title>ReactOnRailsWithWebpacker</title>
+     <%= csrf_meta_tags %>
+     <%= stylesheet_link_tag 'application'%>
+     <%= javascript_pack_tag 'hello-world-bundle' %>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
     <div class="devise">
       <%= image_tag ("logo2.png"), :class => "style_image"%>
       <i class="fas fa-map-marked">
-    <div class="search">
-      <%= form_tag(items_path method: :get) do %>
-      <%= text_field_tag :item, params[:item] %>
-      <%= submit_tag 'Search', name: nil, id:"search" %>
     </div>
-  </div><!-- end of .devise -->
-  <% end %>
-     <!-- <i class="fa fa-phone"></i> -->
-     <!-- <i class="fa fa-map-marker"></i> -->
-
-
-<%= yield %>
-
-
-<% if user_signed_in? %>
-  <div class="dropdown">
-      <strong><%= current_user.name %></strong>
-  <div class="dropdown-content">
-      <%= link_to  'Create New Item', new_item_path %>
-      <%= link_to 'Edit profile', edit_user_registration_path %>
-      <%= button_to "Logout", destroy_user_session_path, :method => :delete %>
-      <%= link_to "Sign up", new_user_registration_path  %>
-  </div><!-- end of .dropdown-content -->
-  </div><!-- end of .dropdown -->
-
-<% else %>
-  <div class="login">
-     <%= link_to "Login", new_user_session_path %>
-  </div>
-<% end %>
-
+    <%= yield %>
+    <%= display_user_sign_in(user_signed_in?)%>
   </body>
 </html>

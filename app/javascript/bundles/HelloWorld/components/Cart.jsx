@@ -44,7 +44,7 @@ const Cart = (props) => {
                     type="number"
                     id={`item-price-${cartItem.item.id}`}
                     className={`item-price`}
-                    defaultValue={cartItem.item.price}
+                    defaultValue={cartItem.item.sold_price}
                     onChange={getSubtotal}
                   />
                 </td>
