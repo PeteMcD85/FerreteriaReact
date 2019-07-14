@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2019_07_14_020901) do
 
   # These are extensions that must be enabled in order to support this database
@@ -43,6 +44,8 @@ ActiveRecord::Schema.define(version: 2019_07_14_020901) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "price_given"
+    t.decimal "subtotal"
+    t.integer "quantity_refunded"
     t.index ["item_id"], name: "index_item_orders_on_item_id"
     t.index ["order_id"], name: "index_item_orders_on_order_id"
   end
@@ -67,6 +70,9 @@ ActiveRecord::Schema.define(version: 2019_07_14_020901) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "order_type"
+    t.decimal "subtotal"
+    t.decimal "taxes"
+    t.decimal "total"
   end
 
   create_table "users", force: :cascade do |t|
