@@ -44,7 +44,45 @@
   color: blue; }
 }// end of .login
 
- #cart{
+// +++++++++++++++++++++++++++++++ PVC TABLE +++++++++++++++++++++++++++++++++++
+
+ .pvc-table{
+
+   width: 100%;
+
+  table{
+    position: relative;
+    left: 0;
+    right: 0;
+
+    tbody{
+     display: block;
+     width: 100%;
+     overflow-y: scroll;}
+
+   tr{
+     width: 100%; }
+
+   tr:nth-child(even){ background-color: #f2f2f2;}
+
+   th{
+     padding: 12px;
+     text-align: left;
+     background-color: #4CAF50;
+     color:white; }
+
+   input.quantity-input{
+     width: 50px; }
+
+   td, th{
+     border-collapse: collapse;
+     border: 1px black;
+     padding: 15px; }
+   }//end of table
+ }//end of cart
+
+ // ++++++++++++++++++++++++++++++++ CART TABLE +++++++++++++++++++++++++++++++
+ #cart {
    width: 100%;
 
   table{
@@ -82,19 +120,17 @@
    }//end of table
  }//end of cart
 
+ .order {
+   input{
+     width: 50px;
+   }
+ }
+
 
   @media only screen and (min-width: 765px) {
     .category-brand{
       display:none; }
     }//end of min 765px
-
-
-
-.order {
-  input{
-    width: 50px;
-  }
-}
 
 @import "variables.scss";
 @import "cart.scss";
