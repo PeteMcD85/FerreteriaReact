@@ -20,9 +20,35 @@ export default class Order extends React.Component {
 
   refundItem = (e) => {
     e.persist();
-    console.log(e.target);
-    let cssId = e.target.id.split('-'),
-        itemId = cssId[1];
+    console.log(e);
+    let cssId = e.target.id,
+        itemId = cssId.split('-')[1],
+        quantityValue = document.getElementById(`quantity-${itemId}`).value,
+        cartItemRow = document.getElementById(`cart-item-${itemId}`),
+        tdParent = e.target.parentNode;
+    addRefundQuantityColumn();
+    // input.setAttribute('type', 'number');
+    // input.setAttribute('id', `refund-quantity-${itemId}`);
+    // cartItemRow.insertBefore(td, tdParent);
+    // console.log(tableHeaders);
+    function addRefundQuantityColumn(){
+      let tableHeaders = document.getElementById('order-th'),
+          thChildren = tableHeaders.children,
+          RefQuantExist = [...thChildren].find((val)=> val.innerText === "Refund Quantity");
+      if(!RefQuantExist) addTH()
+      function addTH(){
+        let th = document.createElement("th"),
+            text = document.createTextNode("Refund Quantity");
+        th.appendChild(text);
+        tableHeaders.insertBefore(th, tableHeaders.childNodes[thChildren.length-1]);
+
+      }
+      function addTD(){
+        let td = document.createElement("td"),
+            input = document.createElement("input");
+        td.appendChild(input);
+      }
+    }
 
   }
 
@@ -35,7 +61,7 @@ export default class Order extends React.Component {
         <h1>{order.id}</h1>
         <table>
           <tbody>
-            <tr>
+            <tr id={`order-th`}>
               <th>Brand</th>
               <th>Name</th>
               <th>Color</th>
@@ -48,7 +74,7 @@ export default class Order extends React.Component {
             </tr>
             {cartItems.map((cartItem, ind)=> {
               return (
-                <tr key={ind}>
+                <tr key={ind} id={`cart-item-${cartItem.id}`}>
                   <td>{cartItem.brand}</td>
                   <td>{cartItem.name}</td>
                   <td>{cartItem.color}</td>

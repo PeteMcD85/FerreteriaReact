@@ -83,6 +83,12 @@
 
 
 
+.order {
+  input{
+    width: 50px;
+  }
+}
+
 @import "variables.scss";
 @import "hello_world.scss";
 @import "nav_list/*";
