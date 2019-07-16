@@ -17,8 +17,11 @@ Rails.application.routes.draw do
 
   resources :orders, only:[:index, :show, :create, :update]
 
+  # get :search, controller: :items
 
   root 'items#index'
+
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

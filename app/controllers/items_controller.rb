@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
     layout "hello_world"
 
-    # before_action :redirect_if_not_signed_in, only: [:show, :new, :create, :update, :destroy]
+  # before_action :force_json, only: :search
 
   def index
     @items = Item.all
@@ -14,6 +14,11 @@ class ItemsController < ApplicationController
       pic_url = url_for(item.pic) if item.pic.attached?
       { id: item.id, pic_url: pic_url }
     end
+
+  # def search
+  #   @items = Item.ransack(item_params).result(distinct: true)
+  # end
+
     respond_to do |format|
       format.html
       format.json { render json: {
@@ -114,7 +119,10 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:active, :name, :category, :brand, :size, :thickness, :color, :sold_price , :bought_price, :pic, :inventory)
-                          # .merge(user_id: current_user.id)
+  end
+
+  def force_json
+    request.format = :json
   end
 
 end

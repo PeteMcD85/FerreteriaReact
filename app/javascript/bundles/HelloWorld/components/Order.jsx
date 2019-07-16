@@ -58,7 +58,6 @@ export default class Order extends React.Component {
         cartItems = this.state.cartItems;
     return (
       <div className="order">
-        <h1>{order.id}</h1>
         <table>
           <tbody>
             <tr id={`order-th`}>
@@ -67,10 +66,11 @@ export default class Order extends React.Component {
               <th>Color</th>
               <th>Size</th>
               <th>Thickness</th>
+
               <th>Price</th>
-              <th>Price Given</th>
-              <th>Quantity</th>
-              <th>Subtotal</th>
+              <th>Quantity Sold</th>
+
+              <th>Refund</th>
             </tr>
             {cartItems.map((cartItem, ind)=> {
               return (
@@ -80,10 +80,10 @@ export default class Order extends React.Component {
                   <td>{cartItem.color}</td>
                   <td>{cartItem.size}</td>
                   <td>{cartItem.thickness}</td>
-                  <td>{cartItem.price}</td>
+
                   <td>{cart[ind].price_given}</td>
                   <td id={`quantity-${cartItem.id}`}>{cart[ind].quantity}</td>
-                  <td>{cart[ind].subtotal}</td>
+
                   <td>
                     <button onClick={this.refundItem} id={`refund-${cartItem.id}`}>Refund</button>
                   </td>
@@ -91,17 +91,17 @@ export default class Order extends React.Component {
               )
             })}
             <tr>
-              <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+              <td></td><td></td><td></td><td></td><td></td><td></td>
               <td>Subtotal</td>
               <td id="cart-subtotal-value">{order.subtotal}</td>
             </tr>
             <tr>
-              <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+              <td></td><td></td><td></td><td></td><td></td><td></td>
               <td>Taxes</td>
               <td id="cart-taxes-value">{order.taxes}</td>
             </tr>
             <tr>
-              <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+              <td></td><td></td><td></td><td></td><td></td><td></td>
               <td>Total</td>
               <td id="cart-total-value">{order.total}</td>
             </tr>
