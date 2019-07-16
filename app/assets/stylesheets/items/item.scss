@@ -14,6 +14,13 @@
   }
 
   p{
-    margin: 0;
+    font-size: 17px;
+    font-weight: bolder;
+    margin: 0; }
+}
+
+div.active-card{
+  p, a{
+    display: none;
   }
 }

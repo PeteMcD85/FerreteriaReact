@@ -44,11 +44,11 @@ const ItemCard = (props) => {
       <div className="item">
         {isPicUrl !== ""  && <img className="item-pic" src={picUrl} />}
         <h2>{name}</h2>
-        <p>brand: {brand}</p>
+        <p>{brand}</p>
         {color && <p>color: {color}</p>}
         <p>size: {size}</p>
         {thickness && <p>thickness: {thickness}</p>}
-        <p>price: ${sold_price}</p>
+        <h4>price: ${sold_price}</h4>
 
         {signedIn &&
           <div className="active-card">
@@ -56,14 +56,14 @@ const ItemCard = (props) => {
             <p>Active {active}</p>
             <a href={`/items/${id}/edit`}>Edit</a>
             <div className="update-cart-div">
-              <p>Quantity:
+              <h4>Quantity
                 <input type="number"
                   className="quantity-input"
                   id={`quantity-${id}`}
                   defaultValue={setQuantityValue(id).value}
                   disabled={setQuantityValue(id).disabled}>
                 </input>
-              </p>
+              </h4>
               <button
                 className="cart-button"
                 id = {`cart-button-${id}`}
