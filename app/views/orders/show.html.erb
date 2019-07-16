@@ -1,1 +1,50 @@
-<%= react_component('Order', props: {order: @order, cart: @cart, cartItems: @cart_items}, prerender: false) %>
+<%# = react_component('Order', props: {order: @order, cart: @cart, cart_items: @cart_items}, prerender: false) %>
+<div className="order">
+  <h1><%= @order.id %></h1>
+  <table>
+    <tbody>
+      <tr id="order-th">
+        <th>Brand</th>
+        <th>Name</th>
+        <th>Color</th>
+        <th>Size</th>
+        <th>Thickness</th>
+        <th>Price</th>
+        <th>Price Given</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+      <% @cart_items.each_with_index do |cart_item, ind| %>
+          <tr  id= "<%= "cart-item-#{cart_item.id}" %>">
+            <td><%= cart_item.brand %></td>
+            <td><%= cart_item.name %></td>
+            <td><%= cart_item.color %></td>
+            <td><%= cart_item.size %></td>
+            <td><%= cart_item.thickness %></td>
+            <td><%= cart_item.sold_price %></td>
+            <td><%= @cart[ind].price_given %></td>
+            <td id="<%= "quantity-#{cart_item.id}" %>"><%= @cart[ind].quantity %></td>
+            <td><%= @cart[ind].subtotal %></td>
+            <td>
+              <%= link_to "Refund", edit_order_item_order_path(@order,cart_item.id) %>
+            </td>
+          </tr>
+        <% end %>
+      <tr>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td>Subtotal</td>
+        <td id="cart-subtotal-value"><%= @order.subtotal %></td>
+      </tr>
+      <tr>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td>Taxes</td>
+        <td id="cart-taxes-value"><%= @order.taxes %></td>
+      </tr>
+      <tr>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td>Total</td>
+        <td id="cart-total-value"><%= @order.total %>}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

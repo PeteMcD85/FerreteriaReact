@@ -1,9 +1,0 @@
-<div class="dropdown">
-  <strong><%= current_user.name %></strong>
-  <div class="dropdown-content">
-      <%= link_to  'Create New Item', new_item_path %>
-      <%= link_to 'Edit profile', edit_user_registration_path %>
-      <%= button_to "Logout", destroy_user_session_path, :method => :delete %>
-      <%= link_to "Sign up", new_user_registration_path  %>
-  </div><!-- end of .dropdown-content -->
-</div><!-- end of .dropdown -->

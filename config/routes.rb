@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   get 'hello_world', to: 'hello_world#index'
   resources :items
 
-  resources :orders, only:[:index, :show, :create, :update]
+  resources :orders, only:[:index, :show, :create, :update] do
+    resources :item_orders, only:[:edit, :update]
+  end
 
 
   root 'items#index'
