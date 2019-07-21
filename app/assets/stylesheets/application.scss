@@ -22,15 +22,23 @@
 .phone-map {
   text-align: center;
 
-i {
+button {
   margin: 0 50px 0 50px;
-  color: #4CAF50;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+i {
+  margin: none;
   font-size: 30px; }
-}
+
+i:hover {
+  font-size: 32px;}
+} //end of button
+} //end of .phone-map
 
 // +++++++++++++++++++++++++++ SEARCH BAR ++++++++++++++++++++++++++++++++++++
-.search-bar {
-  position: relative;
+.search {
   text-align: center;
   margin: 1rem;
 
@@ -42,22 +50,26 @@ input {
   height: 2rem;
   width: 50vw; }
 
-// input [type=text] {
-//   padding-left: 10px; }
-
+button{
+  position: relative;
 
 i {
   position: absolute;
-  font-size: 15px;
-  bottom: 12px;
-  left: 540px; }
+  font-size: 16px;
+  right: 30px;
+  bottom: .1px;}
+}//end of button
 
 input:hover {
   box-shadow: 0 10px 18px 0 rgba(1,1,1,0.2), 0 8px 22px 0 rgba(1,1,1,1.19); }
 
+button {
+
 i:hover {
   cursor: pointer;
-  font-size: 17px; }
+  font-size: 19px; }
+}
+
 }//end of search-bar
 
 

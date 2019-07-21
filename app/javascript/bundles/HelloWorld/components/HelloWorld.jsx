@@ -23,12 +23,10 @@ export default class HelloWorld extends React.Component {
 constructor(props) {
   super(props);
   this.state = {
-
-    term: '',
-    autoCompleteResults: [],
-    itemSelected: {},
-    showItemSelected: false,
-
+    query: '',
+    queryListActiveItems: this.props.activeItems,
+    showQueryList: false,
+    queryLength: 0,
     activeItems: this.props.activeItems,
     inactiveItems: this.props.inactiveItems,
     brands: this.props.brands,
@@ -49,13 +47,12 @@ constructor(props) {
     showCart: false
  };
 
-// $.getJSON('/search?q=' + this.state.term).then(response => this.setState({ autoCompleteResults: response.items}))
-
 this.updateSelectedNavList("All");
 
 }
 
 updateSelectedNavList = (navName) => {
+  console.log(navName);
   fetch("/items.json")
     .then(res => res.json())
     .then(
@@ -63,7 +60,8 @@ updateSelectedNavList = (navName) => {
         this.setState({
           selectedNavName: navName,
           selectedNavList: result.actives[navName],
-          selectedNavListInactives: result.inactives[navName]
+          selectedNavListInactives: result.inactives[navName],
+          showQueryList: false
         });
       },
       (error) => {
@@ -177,15 +175,56 @@ dropdown = (e) => {
       console.log(e);
 };
 
+handleOnInputChange = (event) => {
+  event.persist();
+  const query = event.target.value;
+  this.getQueriedItems(query)
+}
+
+getQueriedItems = (query) => {
+  query = query.trim();
+  let currentQueryLength = query.length;
+  console.log(currentQueryLength);
+  if(currentQueryLength === 0) {
+    this.setState({
+      showQueryList: false ,
+      queryListActiveItems: this.state.activeItems
+    });
+  } else {
+      let words = query.split(" "),
+          queryListActiveItems = (currentQueryLength < this.state.queryLength) ? this.state.queryListActiveItems : this.state.activeItems,
+          queriedItems = queryListActiveItems.filter((activeItem) => {
+            let name = activeItem.name.toLowerCase(),
+                category = activeItem.category ? activeItem.category.toLowerCase() : "",
+                brand = activeItem.brand ? activeItem.brand.toLowerCase() : "",
+                size = activeItem.size ? activeItem. size.toLowerCase() : "",
+                color = activeItem.color ? activeItem.color.toLowerCase() : "",
+                stockNumber = activeItem.stock_number ? activeItem.stock_number.toLowerCase() : "",
+                thickness = activeItem.thickness ? activeItem.thickness.toLowerCase() : "",
+                returnItem = false;
+            words.forEach((word) => {
+              word = word.toLowerCase();
+              returnItem = (name.includes(word) || category.includes(word) || brand.includes(word) || size.includes(word) || color.includes(word) || thickness.includes(word)) ? true : false;
+            })
+            if (returnItem) return activeItem
+          });//end of getQueriedItems
+      this.setState({
+        query: query,
+        queryListActiveItems: queriedItems,
+        showQueryList: true,
+        queryLength: currentQueryLength,
+        selectedNavName: "query"
+      })
+    }//end of if else
+
+}
+
 render() {
-  let brands = this.state.brands,
+  let queriedItems = this.state.queriedItems,
+      showQueryList = this.state.showQueryList,
+      queryListActiveItems = this.state.queryListActiveItems,
+      brands = this.state.brands,
       categories = this.state.categories,
-
-      autoCompleteList = this.state.autoCompleteResults.map((response, index) => { <div key={index}>
-            { response.active_items }
-           </div>
-         }),
-
       selectedNavName = this.state.selectedNavName,
       selectedNavList = this.state.selectedNavList,
       selectedNavListInactives = this.state.selectedNavListInactives,
@@ -193,7 +232,8 @@ render() {
       picUrls = this.state.picUrls,
       cart = this.state.cart,
       showCart = this.state.showCart;
-      console.log(this.state);
+      showQueryList = this.state.showQueryList;
+
 return (
   <div className="hello-world">
     { signedIn &&
@@ -215,17 +255,19 @@ return (
            /> }
        </div>
      }
+
      { !showCart &&
        <div>
          <div className="phone-map">
-          <i className="fa fa-phone-square"></i>
-          <i className="fa fa-map-pin"></i>
-        </div>
-         <div className="search-bar">
-           <input type="text" placeholder=" ..Search"/>
-           // {autoCompleteList}
-           <i className="fa fa-search"></i>
+          <button> <i className="fa fa-phone-square"></i> </button>
+          <button> <i className="fa fa-map-pin"></i> </button>
          </div>
+
+         <div className="search">
+           <input type="text" placeholder=" ..Search" onChange={this.handleOnInputChange} />
+           <button> <i className="fa fa-search" onClick={this.queriedItems}></i> </button>
+         </div>
+
          <div className="category-brand">
            <p onClick={(e) => this.dropdown(e)}>Categories</p>
            <p onClick={(e) => this.dropdown(e)}>Brands</p>
@@ -241,26 +283,55 @@ return (
             columnName="category"
             updateSelectedNavList={this.updateSelectedNavList}
          />
-         <Items
-           items={selectedNavList}
-           selectedNavName={selectedNavName}
-           signedIn={signedIn}
-           picUrls={picUrls}
-           addToCart ={this.addToCart}
-           removeFromCart={this.removeFromCart}
-           cart={cart}
-         />
-       {signedIn &&
-         <div>
-           <h2>Inactive Items</h2>
-         <Items
-           items={selectedNavListInactives}
-           selectedNavName={selectedNavName}
-           signedIn={signedIn}
-           picUrls={picUrls}
-           cart={cart}
-         />
+         {showQueryList &&
+           <div>
+             <Items
+               items={queryListActiveItems}
+               selectedNavName="query"
+               signedIn={signedIn}
+               picUrls={picUrls}
+               addToCart ={this.addToCart}
+               removeFromCart={this.removeFromCart}
+               cart={cart}
+             />
+             {signedIn &&
+               <div>
+                 <h2>Inactive Items</h2>
+                 <Items
+                   items={selectedNavListInactives}
+                   selectedNavName={selectedNavName}
+                   signedIn={signedIn}
+                   picUrls={picUrls}
+                   cart={cart}
+                 />
+              </div>
+              }
            </div>
+          }
+         {!showQueryList &&
+           <div>
+             <Items
+               items={selectedNavList}
+               selectedNavName={selectedNavName}
+               signedIn={signedIn}
+               picUrls={picUrls}
+               addToCart ={this.addToCart}
+               removeFromCart={this.removeFromCart}
+               cart={cart}
+             />
+           {signedIn &&
+             <div>
+               <h2>Inactive Items</h2>
+               <Items
+                 items={selectedNavListInactives}
+                 selectedNavName={selectedNavName}
+                 signedIn={signedIn}
+                 picUrls={picUrls}
+                 cart={cart}
+               />
+              </div>
+             }
+          </div>
          }
          </div>
        </div>
