@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_16_185402) do
+ActiveRecord::Schema.define(version: 2019_07_22_143531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2019_07_16_185402) do
     t.decimal "subtotal"
     t.integer "quantity_refunded"
     t.integer "latest_quantity"
+    t.decimal "subtotal_refunded"
     t.index ["item_id"], name: "index_item_orders_on_item_id"
     t.index ["order_id"], name: "index_item_orders_on_order_id"
   end
@@ -73,6 +74,9 @@ ActiveRecord::Schema.define(version: 2019_07_16_185402) do
     t.decimal "subtotal"
     t.decimal "taxes"
     t.decimal "total"
+    t.decimal "subtotal_refunded"
+    t.decimal "taxes_refunded"
+    t.decimal "total_refunded"
   end
 
   create_table "users", force: :cascade do |t|

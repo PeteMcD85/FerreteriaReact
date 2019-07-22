@@ -34,23 +34,32 @@ protect_from_forgery :except => [:create]
     order = params[:order]
     cart_items = order[:itemOrders][:cartItems]
     cart_total = order[:itemOrders][:cartTotal]
-    orderParams = {
+    order_params = {
       order_type: order[:orderType],
       subtotal: cart_total[:subtotal],
       taxes: cart_total[:taxes],
       total: cart_total[:total]
     }
-    @order = Order.create(orderParams)
-    cart_items.each do |cart_item|
-      @order.item_orders.create(
-        item_id: cart_item[:item][:id],
-        order_id: @order[:id],
-        quantity: cart_item[:quantity],
-        price_given: cart_item[:priceGiven],
-        subtotal: cart_item[:subtotal]
-      )
-    end
+    @order = Order.new(order_params)
+    if @order.save
+      cart_items.each do |cart_item|
+        item = Item.find(cart_item[:item][:id])
+        p "+++++++++++++++++++++++++++++++++++++++++++++++++++"
+        p item
+        new_quantity = item[:inventory] - cart_item[:quantity]
+        item.update( inventory: new_quantity )
+        @order.item_orders.create(
+          item_id: cart_item[:item][:id],
+          order_id: @order[:id],
+          quantity: cart_item[:quantity],
+          price_given: cart_item[:priceGiven],
+          subtotal: cart_item[:subtotal]
+        )
+      end
     redirect_to orders_path
+    else
+
+    end
   end
 
 end
