@@ -232,7 +232,7 @@ render() {
       picUrls = this.state.picUrls,
       cart = this.state.cart,
       showCart = this.state.showCart;
-      showQueryList = this.state.showQueryList;
+
 
 return (
   <div className="hello-world">
