@@ -14,9 +14,10 @@ class ItemOrdersController < ApplicationController
     @item_order = ItemOrder.find([params[:id]]).first
     @item = Item.find(@item_order.item_id)
     if @item_order.update(item_order_params)
-      @item_order.update_item_order
-      @item_order.update_item_inventory
-      redirect_to @item_order
+      @item_order.update_subtotal_refunded
+      @item_order.item.update_inventory(@item_order.calc_item_inventory)
+      @item_order.order.update_subtotal_refunded.update_taxes_refunded.update_total_refunded
+      redirect_to order_path(@order)
     else
       render 'edit'
     end

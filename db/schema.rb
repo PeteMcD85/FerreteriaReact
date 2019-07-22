@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 2019_07_22_143531) do
     t.decimal "price_given"
     t.decimal "subtotal"
     t.integer "quantity_refunded"
-    t.integer "latest_quantity"
     t.decimal "subtotal_refunded"
     t.index ["item_id"], name: "index_item_orders_on_item_id"
     t.index ["order_id"], name: "index_item_orders_on_order_id"
