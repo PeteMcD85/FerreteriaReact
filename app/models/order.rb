@@ -12,7 +12,8 @@ class Order < ApplicationRecord
   end
 
   def calc_taxes_refunded
-    sprintf( '%.2f', self.subtotal_refunded * 0.115 )
+    taxes = self.taxes == 0 ? 0 : self.subtotal_refunded * 0.115
+    sprintf( '%.2f', taxes )
   end
 
   def calc_total_refunded

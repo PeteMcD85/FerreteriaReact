@@ -75,6 +75,7 @@ export default class HelloWorld extends React.Component {
 
   updateCartItem = (id, columnName, columnValue) => {
     let cart = this.state.cart,
+        taxFree = this.state.taxFree,
         cartItems = cart.cartItems,
         itemIndex = cartItems.findIndex((cartItem)=> cartItem.item.id == id),
         cartItem = cartItems[itemIndex];
@@ -84,31 +85,33 @@ export default class HelloWorld extends React.Component {
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems)
+        cartTotal: this.calculateCartTotal(cartItems, taxFree)
       }
     });
   }
 
   addToCart = (id, quantity) => {
     let cartItems = this.state.cart.cartItems,
+        taxFree = this.state.taxFree,
         item = this.state.activeItems.find((item)=> item.id == id);
     cartItems.push({item: item, quantity: quantity, priceGiven: item.sold_price, subtotal: (+quantity * +item.sold_price).toFixed(2) });
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems)
+        cartTotal: this.calculateCartTotal(cartItems, taxFree)
       }
     });
   }
 
   removeFromCart = (id) => {
     let cartItems = this.state.cart.cartItems,
+        taxFree = this.state.taxFree,
         itemToRemove = cartItems.findIndex((cartItem)=> cartItem.item.id == id );
         cartItems.splice(itemToRemove,1);
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems)
+        cartTotal: this.calculateCartTotal(cartItems, taxFree)
       }
     });
   }
