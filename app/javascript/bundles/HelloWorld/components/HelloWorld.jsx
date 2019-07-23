@@ -40,7 +40,8 @@ export default class HelloWorld extends React.Component {
           total: 0
         }
       },
-      showCart: false
+      showCart: false,
+      taxFree: false
    };
    this.updateSelectedNavList("All");
   }
@@ -63,11 +64,11 @@ export default class HelloWorld extends React.Component {
       )
   }
 
-  calculateCartTotal = (cartItems) => {
+  calculateCartTotal = (cartItems, taxFree=false) => {
     let subtotal = cartItems.reduce((total, cartItem)=> {
           return total += +cartItem.subtotal
         }, 0).toFixed(2),
-        taxes = (subtotal * .115).toFixed(2),
+        taxes = taxFree ? 0 : (subtotal * .115).toFixed(2),
         total = (+subtotal + +taxes).toFixed(2);
     return {subtotal: subtotal, taxes: taxes, total: total}
   }
@@ -127,14 +128,16 @@ export default class HelloWorld extends React.Component {
 
   orderCart = () => {
     let csrfToken = document.querySelector("[name='csrf-token']").content,
-        cart = this.state.cart;
+        cart = this.state.cart,
+        taxFree = this.state.taxFree;
     fetch(
       "/orders", {
         method: "POST",
         body: JSON.stringify({
           order: {
             orderType: 'sale',
-            itemOrders: cart
+            itemOrders: cart,
+            taxFree: taxFree
           }
         }),
         headers: {
@@ -153,10 +156,10 @@ export default class HelloWorld extends React.Component {
       });
   }
 
-    cartButton = () => {
-      let showCart = (this.state.showCart) ? false : true;
-      this.setState({ showCart: showCart })
-    }
+  cartButton = () => {
+    let showCart = (this.state.showCart) ? false : true;
+    this.setState({ showCart: showCart })
+  }
 
   dropdown = (e) => {
     e.persist();
@@ -165,7 +168,26 @@ export default class HelloWorld extends React.Component {
         columnList = document.getElementsByClassName(columnName)[0];
         columnList.classList.toggle('hidden');
         console.log(e);
-  };
+  }
+
+  updateTaxFree = () => {
+    let taxFree = this.state.taxFree ? false : true,
+        cart = this.state.cart;
+    if (taxFree) {
+      cart.cartTotal.taxes = 0;
+      cart.cartTotal.total = cart.cartTotal.subtotal;
+    } else {
+      let cartTotal = this.calculateCartTotal(cart.cartItems, taxFree);
+      console.log(cartTotal);
+      cart.cartTotal.taxes = cartTotal.taxes;
+      cart.cartTotal.total = cartTotal.total;
+    }
+    this.setState({
+      taxFree: taxFree,
+      cart: cart
+    });
+  }
+
   render() {
     let brands = this.state.brands,
         categories = this.state.categories,
@@ -175,7 +197,8 @@ export default class HelloWorld extends React.Component {
         signedIn = this.state.signedIn,
         picUrls = this.state.picUrls,
         cart = this.state.cart,
-        showCart = this.state.showCart;
+        showCart = this.state.showCart,
+        taxFree = this.state.taxFree;
         console.log(this.state);
     return (
       <div className="hello-world">
@@ -188,6 +211,9 @@ export default class HelloWorld extends React.Component {
                <button id="clear-cart-button" onClick={this.clearCart}>
                  Clear Cart
                </button>
+               <label>Tax Free
+                 <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
+               </label>
              </div>
              { showCart &&
                <Cart

@@ -13,6 +13,9 @@
         <th>Price Given</th>
         <th>Quantity</th>
         <th>Subtotal</th>
+        <th>Subtotal Refunded</th>
+        <th>Quantity Refunded</th>
+        <th>Inventory</th>
       </tr>
       <% @cart_items.each_with_index do |cart_item, ind| %>
           <tr  id= "<%= "cart-item-#{cart_item.id}" %>">
@@ -25,26 +28,36 @@
             <td><%= @cart[ind].price_given %></td>
             <td id="<%= "quantity-#{cart_item.id}" %>"><%= @cart[ind].quantity %></td>
             <td><%= @cart[ind].subtotal %></td>
+            <td><%= @cart[ind].subtotal_refunded %></td>
+            <td><%= @cart[ind].quantity_refunded %></td>
+            <td><%= cart_item.inventory %></td>
             <td>
-              <%= link_to "Refund", edit_order_item_order_path(@order,cart_item.id) %>
+              <%= link_to "Refund", edit_order_item_order_path(@order,@cart[ind].id) %>
             </td>
           </tr>
         <% end %>
       <tr>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
         <td>Subtotal</td>
-        <td id="cart-subtotal-value"><%= @order.subtotal %></td>
+        <td class="cart-subtotal-value"><%= @order.subtotal %></td>
+        <td>Subtotal Refunded</td>
+        <td class="cart-subtotal-value"><%= @order.subtotal_refunded %></td>
       </tr>
       <tr>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
         <td>Taxes</td>
-        <td id="cart-taxes-value"><%= @order.taxes %></td>
+        <td class="cart-taxes-value"><%= @order.taxes %></td>
+        <td>Taxes Refunded</td>
+        <td class="cart-taxes-value"><%= @order.taxes_refunded %></td>
       </tr>
       <tr>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
         <td>Total</td>
-        <td id="cart-total-value"><%= @order.total %></td>
+        <td class="cart-total-value"><%= @order.total %></td>
+        <td>Total Refunded</td>
+        <td class="cart-total-value"><%= @order.total_refunded %></td>
       </tr>
+
     </tbody>
   </table>
 </div>

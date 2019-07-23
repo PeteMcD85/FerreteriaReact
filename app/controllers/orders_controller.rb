@@ -38,7 +38,8 @@ protect_from_forgery :except => [:create]
       order_type: order[:orderType],
       subtotal: cart_total[:subtotal],
       taxes: cart_total[:taxes],
-      total: cart_total[:total]
+      total: cart_total[:total],
+      tax_free: order[:taxFree]
     }
     @order = Order.new(order_params)
     if @order.save
