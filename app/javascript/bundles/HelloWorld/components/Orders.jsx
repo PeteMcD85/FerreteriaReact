@@ -15,11 +15,12 @@ export default class Orders extends React.Component {
       orders: props.orders,
       displayedOrders: props.orders
     };
-    console.log(this.state);
+  }
+  componentDidMount() {
+    this.updateOrders();
   }
 
-  updateOrders = (e) => {
-    e.persist();
+  updateOrders = () => {
     let startRange = new Date(document.getElementById('start-range').value).toISOString(),
         endRange = new Date(document.getElementById('end-range').value).toISOString(),
         orders = this.state.orders;
@@ -32,7 +33,13 @@ export default class Orders extends React.Component {
     this.setState({
       displayedOrders: orders
     })
+  }
 
+  getSum = (column) => {
+    let displayedOrders = this.state.displayedOrders;
+    return displayedOrders.reduce((total, order) => {
+      return +total + +order[column]
+    }, 0)
   }
 
   render() {
@@ -64,21 +71,40 @@ export default class Orders extends React.Component {
               <th>Credit Card</th>
               <th>Check</th>
               <th>Debit</th>
+              <th>Subtotal Refunded</th>
+              <th>Taxes Refunded</th>
+              <th>Total Refunded</th>
             </tr>
           {displayedOrders.map((order, ind)=> {
             return (
               <tr key={ind}>
-                <td><a href={`orders/${order.id}`}>{order.created_at}</a></td>
+                <td><a href={`/orders/${order.id}`}>{order.created_at}</a></td>
                 <td>{order.subtotal}</td>
                 <td>{order.taxes}</td>
                 <td>{order.total}</td>
                 <td>{order.cash_payed}</td>
-                <td>{order.credit_card__payed}</td>
+                <td>{order.credit_card_payed}</td>
                 <td>{order.check_payed}</td>
                 <td>{order.debit_payed}</td>
+                <td>{order.subtotal_refunded}</td>
+                <td>{order.taxes_refunded}</td>
+                <td>{order.total_refunded}</td>
               </tr>
             )
           })}
+          <tr>
+            <td></td>
+            <td>{this.getSum('subtotal')}</td>
+            <td>{this.getSum('taxes')}</td>
+            <td>{this.getSum('total')}</td>
+            <td>{this.getSum('cash_payed')}</td>
+            <td>{this.getSum('credit_card_payed')}</td>
+            <td>{this.getSum('check_payed')}</td>
+            <td>{this.getSum('debit_payed')}</td>
+            <td>{this.getSum('subtotal_refunded')}</td>
+            <td>{this.getSum('taxes_refunded')}</td>
+            <td>{this.getSum('total_refunded')}</td>
+          </tr>
           </tbody>
         </table>
       </div>
