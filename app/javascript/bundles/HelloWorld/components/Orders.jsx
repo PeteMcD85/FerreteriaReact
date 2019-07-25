@@ -12,16 +12,47 @@ export default class Orders extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      orders: props.orders
+      orders: props.orders,
+      displayedOrders: props.orders
     };
     console.log(this.state);
   }
 
+  updateOrders = (e) => {
+    e.persist();
+    let startRange = new Date(document.getElementById('start-range').value).toISOString(),
+        endRange = new Date(document.getElementById('end-range').value).toISOString(),
+        orders = this.state.orders;
+    console.log(startRange);
+    console.log(endRange);
+    orders = orders.filter((val)=>{
+      let orderDate = new Date(val.created_at.split('T')[0]).toISOString();
+      return (startRange <= orderDate && endRange >= orderDate)
+    });
+    this.setState({
+      displayedOrders: orders
+    })
+
+  }
+
   render() {
-    let orders = this.state.orders;
+    let orders = this.state.orders,
+        displayedOrders = this.state.displayedOrders,
+        today = new Date(),
+        dd = String(today.getDate()).padStart(2, '0'),
+        mm = String(today.getMonth() + 1).padStart(2, '0'),
+        yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        console.log(today);
     return (
       <div className="orders">
         <h1>Orders</h1>
+        <label>
+          <input type="date" id="start-range" defaultValue={today} onChange={this.updateOrders} />
+        </label>
+        <label>
+          <input type="date" id="end-range" defaultValue={today} onChange={this.updateOrders} />
+        </label>
         <table>
           <tbody>
             <tr>
@@ -34,7 +65,7 @@ export default class Orders extends React.Component {
               <th>Check</th>
               <th>Debit</th>
             </tr>
-          {orders.map((order, ind)=> {
+          {displayedOrders.map((order, ind)=> {
             return (
               <tr key={ind}>
                 <td><a href={`orders/${order.id}`}>{order.created_at}</a></td>

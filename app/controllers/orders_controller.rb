@@ -64,8 +64,11 @@ protect_from_forgery :except => [:create]
       end
     redirect_to orders_path
     else
-
     end
+  end
+
+  def search
+    p "+++++++++++++++++++++++++++"
   end
 
 end
