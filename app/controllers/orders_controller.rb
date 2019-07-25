@@ -34,12 +34,17 @@ protect_from_forgery :except => [:create]
     order = params[:order]
     cart_items = order[:itemOrders][:cartItems]
     cart_total = order[:itemOrders][:cartTotal]
+
     order_params = {
       order_type: order[:orderType],
       subtotal: cart_total[:subtotal],
       taxes: cart_total[:taxes],
       total: cart_total[:total],
-      tax_free: order[:taxFree]
+      tax_free: order[:taxFree],
+      cash_payed: order[:cashPayed],
+      credit_card_payed: order[:creditCardPayed],
+      debit_payed: order[:debitPayed],
+      check_payed: order[:checkPayed]
     }
     @order = Order.new(order_params)
     if @order.save

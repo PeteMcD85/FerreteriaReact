@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_23_153531) do
+ActiveRecord::Schema.define(version: 2019_07_25_033344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,11 @@ ActiveRecord::Schema.define(version: 2019_07_23_153531) do
     t.decimal "taxes_refunded", default: "0.0"
     t.decimal "total_refunded", default: "0.0"
     t.boolean "tax_free", default: false
+    t.decimal "debt"
+    t.decimal "credit_card_payed", default: "0.0"
+    t.decimal "cash_payed", default: "0.0"
+    t.decimal "check_payed", default: "0.0"
+    t.decimal "debit_payed", default: "0.0"
   end
 
   create_table "users", force: :cascade do |t|

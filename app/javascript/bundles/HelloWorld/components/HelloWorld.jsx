@@ -41,7 +41,8 @@ export default class HelloWorld extends React.Component {
         }
       },
       showCart: false,
-      taxFree: false
+      taxFree: false,
+      paymentMethod: ''
    };
    this.updateSelectedNavList("All");
   }
@@ -132,7 +133,36 @@ export default class HelloWorld extends React.Component {
   orderCart = () => {
     let csrfToken = document.querySelector("[name='csrf-token']").content,
         cart = this.state.cart,
-        taxFree = this.state.taxFree;
+        cartTotal = cart.cartTotal.total,
+        taxFree = this.state.taxFree,
+        paymentMethod = this.state.paymentMethod,
+        customMethod = {
+          cash:0,
+          creditCard:0,
+          check:0,
+          debit:0
+        };
+    if(paymentMethod === '') return alert('must choose a payment method')
+    if (paymentMethod === 'custom') {
+      let cashAmount = +document.getElementById('custom-cash').value,
+          creditCardAmount = +document.getElementById('custom-credit-card').value,
+          checkAmount = +document.getElementById('custom-check').value,
+          debitAmount = +document.getElementById('custom-debit').value;
+      // console.log(cashAmount);
+      // console.log(creditCardAmount);
+      // console.log(checkAmount);
+      // console.log(debitAmount);
+      if(cartTotal !== (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2)) {
+        return alert(`Custom amount must equal ${cartTotal}`)
+      } else {
+        customMethod.cash = cashAmount;
+        customMethod.creditCard = creditCardAmount;
+        customMethod.check = checkAmount;
+        customMethod.debit = debitAmount;
+      }
+    } else {
+      customMethod[paymentMethod] = cartTotal
+    }
     fetch(
       "/orders", {
         method: "POST",
@@ -140,7 +170,11 @@ export default class HelloWorld extends React.Component {
           order: {
             orderType: 'sale',
             itemOrders: cart,
-            taxFree: taxFree
+            taxFree: taxFree,
+            cashPayed: customMethod.cash,
+            creditCardPayed: customMethod.creditCard,
+            debitPayed: customMethod.debit,
+            checkPayed: customMethod.cash
           }
         }),
         headers: {
@@ -165,12 +199,10 @@ export default class HelloWorld extends React.Component {
   }
 
   dropdown = (e) => {
-    e.persist();
     let target = e.target.innerHTML,
         columnName = (target === "Categories") ? "category-list" : "brand-list",
         columnList = document.getElementsByClassName(columnName)[0];
         columnList.classList.toggle('hidden');
-        console.log(e);
   }
 
   updateTaxFree = () => {
@@ -189,6 +221,18 @@ export default class HelloWorld extends React.Component {
       taxFree: taxFree,
       cart: cart
     });
+  }
+
+  updatePaymentMethod = (e) => {
+    let val =e.target.value,
+        customPayment = document.getElementById('customPaymentMethod');
+    console.log(val);
+    if(val === 'custom') {
+      customPayment.classList.remove('hidden')
+    } else {
+      customPayment.classList.add('hidden')
+    }
+    this.setState({paymentMethod: val})
   }
 
   render() {
@@ -217,6 +261,37 @@ export default class HelloWorld extends React.Component {
                <label>Tax Free
                  <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
                </label>
+               <label>Cash
+                 <input type='radio' name="paymentMethod" value="cash" onChange={this.updatePaymentMethod}/>
+               </label>
+               <label>Credit Card
+                 <input type='radio' name="paymentMethod" value="creditCard" onChange={this.updatePaymentMethod}/>
+               </label>
+               <label>Check
+                 <input type='radio' name="paymentMethod" value="check" onChange={this.updatePaymentMethod}/>
+               </label>
+               <label>Debit
+                 <input type='radio' name="paymentMethod" value="debit" onChange={this.updatePaymentMethod}/>
+               </label>
+               <span>
+                 <label>Custom
+                   <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
+                 </label>
+                 <div id="customPaymentMethod" className="hidden">
+                   <label>Cash
+                     <input type='number' id="custom-cash" />
+                   </label>
+                   <label>Credit Card
+                     <input type='number' id="custom-credit-card" />
+                   </label>
+                   <label>Check
+                     <input type='number' id="custom-check" />
+                   </label>
+                   <label>Debit
+                     <input type='number' id="custom-debit" />
+                   </label>
+                 </div>
+               </span>
              </div>
              { showCart &&
                <Cart
