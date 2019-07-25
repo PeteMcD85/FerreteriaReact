@@ -18,6 +18,10 @@
  *= require font-awesome
 */
 
+.hidden {
+  display: none;
+}
+
 // ++++++++++++++++++++++++++++ phone-map ++++++++++++++++++++++++++++++++++++
 .phone-map {
   text-align: center;
@@ -77,7 +81,13 @@ i:hover {
 // ++++++++++++++++++++++++++++++ NAV +++++++++++++++++++++++++++++++++++++++
 #nav-list {
   position: inherit;
-}
+
+  .dropdown{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+  }
+}//end of #nav-list
 
 .category-brand {
   display: flex;
@@ -91,6 +101,7 @@ i:hover {
 
 // +++++++++++++++++++++++++++++++++++ CART BUTTONS +++++++++++++++++++++++++
 .cart-buttons {
+  text-align: center;
 
 #cart-button, #clear-cart-button {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
@@ -154,9 +165,9 @@ a:hover {
   color: blue; }
 }// end of .login
 
-// +++++++++++++++++++++++++++++++ PVC TABLE +++++++++++++++++++++++++++++++++++
+// +++++++++++++++++++++++++++++++ TABLE +++++++++++++++++++++++++++++++++++
 
-.pvc-table {
+.table {
  width: 100%;
 
 table {
@@ -323,10 +334,18 @@ div.dropdown {
 
 
 // ++++++++++++++++++++++++++ @media min 765px +++++++++++++++++++++++++++++++
-  @media only screen and (min-width: 765px) {
-    .category-brand {
-      display:none; }
-    }//end of min 765px
+@media only screen and (min-width: 765px) {
+  #nav-list{
+
+  .dropdown{
+    display: flex;
+    flex-direction: column; }
+  }//end of #nav-list
+
+  div.category-brand {
+    display: none; }
+
+}//end of min 765px
 
 @import "variables.scss";
 @import "cart.scss";

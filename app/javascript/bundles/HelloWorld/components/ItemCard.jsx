@@ -10,8 +10,6 @@ const ItemCard = (props) => {
       size = item.size,
       thickness = item.thickness,
       sold_price = Number(item.sold_price).toFixed(2),
-      bought_price = Number(item.bought_price).toFixed(2),
-      active = props.active,
       signedIn = props.signedIn,
       isPicUrl = (picUrl !== "") ?  true : false,
       addToCart = props.addToCart,
@@ -43,17 +41,14 @@ const ItemCard = (props) => {
   return (
       <div className="item">
         {isPicUrl !== ""  && <img className="item-pic" src={picUrl} />}
-        <h2>{name}</h2>
-        <p>{brand}</p>
+        {name && <h2>{name}</h2>}
+        {brand && <p>{brand}</p>}
         {color && <p>{color}</p>}
-        <p>size: {size}</p>
+        {size && <p>{size}</p>}
         {thickness && <p>{thickness}</p>}
         <h4>price: ${sold_price}</h4>
-
         {signedIn &&
           <div className="active-card">
-           <p>Bought Price: {bought_price}</p>
-            <p>Active {active}</p>
             <a href={`/items/${id}/edit`}>Edit</a>
             <div className="update-cart-div">
               <h4>Quantity

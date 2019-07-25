@@ -7,18 +7,23 @@ const ItemsTable = (props) => {
       signedIn = props.signedIn,
       addToCart = props.addToCart,
       removeFromCart = props.removeFromCart,
-      cart = props.cart;
+      cart = props.cart,
+      checkColumn = (column) => {
+        let returnColumn = false;
+        items.forEach((val)=>{
+          if (val[column]) returnColumn = true
+        })
+      };
   return (
-    <div className="pvc-table">
+    <div className="table">
     <table>
       <tbody>
         <tr>
+          <th>Name</th>
           <th>Brand</th>
           <th>Size</th>
           <th>Thickness</th>
           {signedIn && <th>Price</th>}
-          {signedIn && <th>CompanyPrice</th>}
-          {signedIn && <th>Active</th>}
           {signedIn && <th>Edit</th>}
           {signedIn && <th>Amount</th>}
         </tr>

@@ -258,10 +258,12 @@ return (
 
      { !showCart &&
        <div>
-         <div className="phone-map">
+
+       { !signedIn &&
+          <div className="phone-map">
           <button> <i className="fa fa-phone-square"></i> </button>
           <button> <i className="fa fa-map-pin"></i> </button>
-         </div>
+         </div> }
 
          <div className="search">
            <input type="text" placeholder=" ..Search" onChange={this.handleOnInputChange} />
@@ -272,7 +274,9 @@ return (
            <p onClick={(e) => this.dropdown(e)}>Categories</p>
            <p onClick={(e) => this.dropdown(e)}>Brands</p>
          </div>
+
          <div id="nav-list">
+         <div className="dropdown">
          <NavList
             columnList={brands}
             columnName="brand"
@@ -283,6 +287,7 @@ return (
             columnName="category"
             updateSelectedNavList={this.updateSelectedNavList}
          />
+         </div>
          {showQueryList &&
            <div>
              <Items
