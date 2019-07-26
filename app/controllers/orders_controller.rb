@@ -50,8 +50,6 @@ protect_from_forgery :except => [:create]
     if @order.save
       cart_items.each do |cart_item|
         item = Item.find(cart_item[:item][:id])
-        p "+++++++++++++++++++++++++++++++++++++++++++++++++++"
-        p item
         new_quantity = item[:inventory] - cart_item[:quantity]
         item.update( inventory: new_quantity )
         @order.item_orders.create(
@@ -65,10 +63,6 @@ protect_from_forgery :except => [:create]
     redirect_to orders_path
     else
     end
-  end
-
-  def search
-    p "+++++++++++++++++++++++++++"
   end
 
 end

@@ -42,7 +42,11 @@ export default class HelloWorld extends React.Component {
       },
       showCart: false,
       taxFree: false,
-      paymentMethod: ''
+      paymentMethod: '',
+      query: '',
+      queryListActiveItems: this.props.activeItems,
+      showQueryList: false,
+      queryLength: 0,
    };
    this.updateSelectedNavList("All");
   }
@@ -236,6 +240,49 @@ export default class HelloWorld extends React.Component {
     this.setState({paymentMethod: val})
   }
 
+  handleOnInputChange = (event) => {
+    event.persist();
+    const query = event.target.value;
+    this.getQueriedItems(query)
+  }
+
+  getQueriedItems = (query) => {
+    query = query.trim();
+    let currentQueryLength = query.length;
+    console.log(currentQueryLength);
+    if(currentQueryLength === 0) {
+      this.setState({
+        showQueryList: false ,
+        queryListActiveItems: this.state.activeItems
+      });
+    } else {
+        let words = query.split(" "),
+            queryListActiveItems = this.state.activeItems,
+            queriedItems = queryListActiveItems.filter((activeItem) => {
+              let name = activeItem.name.toLowerCase(),
+                  category = activeItem.category ? activeItem.category.toLowerCase() : "",
+                  brand = activeItem.brand ? activeItem.brand.toLowerCase() : "",
+                  size = activeItem.size ? activeItem. size.toLowerCase() : "",
+                  color = activeItem.color ? activeItem.color.toLowerCase() : "",
+                  stockNumber = activeItem.stock_number ? activeItem.stock_number.toLowerCase() : "",
+                  thickness = activeItem.thickness ? activeItem.thickness.toLowerCase() : "",
+                  returnItem = false;
+              words.forEach((word) => {
+                word = word.toLowerCase();
+                returnItem = (name.includes(word) || category.includes(word) || brand.includes(word) || size.includes(word) || color.includes(word) || thickness.includes(word)) ? true : false;
+              })
+              if (returnItem) return activeItem
+            });//end of getQueriedItems
+        this.setState({
+          query: query,
+          queryListActiveItems: queriedItems,
+          showQueryList: true,
+          queryLength: currentQueryLength,
+          selectedNavName: "query"
+        })
+      }//end of if else
+
+  }
   render() {
     let brands = this.state.brands,
         categories = this.state.categories,
@@ -246,53 +293,60 @@ export default class HelloWorld extends React.Component {
         picUrls = this.state.picUrls,
         cart = this.state.cart,
         showCart = this.state.showCart,
-        taxFree = this.state.taxFree;
+        taxFree = this.state.taxFree,
+        showQueryList = this.state.showQueryList,
+        queryListActiveItems = this.state.queryListActiveItems;
         console.log(this.state);
     return (
       <div className="hello-world">
         { signedIn &&
            <div>
              <div>
-               <button id="cart-button" onClick={this.cartButton}>
-                 {(showCart) ? "Add More Items" : "Check Out"}
-               </button>
-               <button id="clear-cart-button" onClick={this.clearCart}>
-                 Clear Cart
-               </button>
-               <label>Tax Free
-                 <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
-               </label>
-               <label>Cash
-                 <input type='radio' name="paymentMethod" value="cash" onChange={this.updatePaymentMethod}/>
-               </label>
-               <label>Credit Card
-                 <input type='radio' name="paymentMethod" value="creditCard" onChange={this.updatePaymentMethod}/>
-               </label>
-               <label>Check
-                 <input type='radio' name="paymentMethod" value="check" onChange={this.updatePaymentMethod}/>
-               </label>
-               <label>Debit
-                 <input type='radio' name="paymentMethod" value="debit" onChange={this.updatePaymentMethod}/>
-               </label>
-               <span>
-                 <label>Custom
-                   <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
+               <div className="cart-buttons">
+                 <button id="cart-button" onClick={this.cartButton}>
+                   {(showCart) ? "Add More Items" : "Check Out"}
+                 </button>
+                 <button id="clear-cart-button" onClick={this.clearCart}>
+                   Clear Cart
+                 </button>
+               </div>
+               <div className="payment-methods">
+                 <label>Tax Free
+                   <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
                  </label>
-                 <div id="customPaymentMethod" className="hidden">
-                   <label>Cash
-                     <input type='number' id="custom-cash" />
+                 <label>Cash
+                   <input type='radio' name="paymentMethod" value="cash" onChange={this.updatePaymentMethod}/>
+                 </label>
+                 <label>Credit Card
+                   <input type='radio' name="paymentMethod" value="creditCard" onChange={this.updatePaymentMethod}/>
+                 </label>
+                 <label>Check
+                   <input type='radio' name="paymentMethod" value="check" onChange={this.updatePaymentMethod}/>
+                 </label>
+                 <label>Debit
+                   <input type='radio' name="paymentMethod" value="debit" onChange={this.updatePaymentMethod}/>
+                 </label>
+                 <span>
+                   <label>Custom
+                     <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
                    </label>
-                   <label>Credit Card
-                     <input type='number' id="custom-credit-card" />
-                   </label>
-                   <label>Check
-                     <input type='number' id="custom-check" />
-                   </label>
-                   <label>Debit
-                     <input type='number' id="custom-debit" />
-                   </label>
-                 </div>
-               </span>
+                   <div id="customPaymentMethod" className="hidden">
+                     <label>Cash
+                       <input type='number' id="custom-cash" />
+                     </label>
+                     <label>Credit Card
+                       <input type='number' id="custom-credit-card" />
+                     </label>
+                     <label>Check
+                       <input type='number' id="custom-check" />
+                     </label>
+                     <label>Debit
+                       <input type='number' id="custom-debit" />
+                     </label>
+                   </div>
+                 </span>
+               </div>
+
              </div>
              { showCart &&
                <Cart
@@ -305,21 +359,61 @@ export default class HelloWorld extends React.Component {
          }
          { !showCart &&
            <div>
+             { !signedIn &&
+                 <div className="phone-map">
+                 <button> <i className="fa fa-phone-square"></i> </button>
+                 <button> <i className="fa fa-map-pin"></i> </button>
+                </div>
+              }
+
+              <div className="search">
+                <input type="text" placeholder=" ..Search" onChange={this.handleOnInputChange} />
+                <button> <i className="fa fa-search" onClick={this.getQueriedItems}></i> </button>
+              </div>
              <div className="category-brand">
                <p onClick={(e) => this.dropdown(e)}>Categories</p>
                <p onClick={(e) => this.dropdown(e)}>Brands</p>
              </div>
              <div id="nav-list">
-             <NavList
-                columnList={brands}
-                columnName="brand"
-                updateSelectedNavList={this.updateSelectedNavList}
-             />
-             <NavList
-                columnList={categories}
-                columnName="category"
-                updateSelectedNavList={this.updateSelectedNavList}
-             />
+               <div className="dropdown">
+                 <NavList
+                    columnList={brands}
+                    columnName="brand"
+                    updateSelectedNavList={this.updateSelectedNavList}
+                 />
+                 <NavList
+                    columnList={categories}
+                    columnName="category"
+                    updateSelectedNavList={this.updateSelectedNavList}
+                 />
+               </div>
+               {showQueryList &&
+                <div>
+                  <Items
+                    items={queryListActiveItems}
+                    selectedNavName="query"
+                    signedIn={signedIn}
+                    picUrls={picUrls}
+                    addToCart ={this.addToCart}
+                    removeFromCart={this.removeFromCart}
+                    cart={cart}
+                  />
+                  {signedIn &&
+                    <div>
+                      <h2>Inactive Items</h2>
+                      <Items
+                        items={selectedNavListInactives}
+                        selectedNavName={selectedNavName}
+                        signedIn={signedIn}
+                        picUrls={picUrls}
+                        cart={cart}
+                      />
+                   </div>
+                   }
+                </div>
+               }
+              {!showQueryList &&
+                <div>
              <Items
                items={selectedNavList}
                selectedNavName={selectedNavName}
@@ -340,6 +434,8 @@ export default class HelloWorld extends React.Component {
                    cart={cart}
                  />
                </div>
+             }
+             </div>
              }
              </div>
            </div>
