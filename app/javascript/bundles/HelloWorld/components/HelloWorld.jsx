@@ -27,7 +27,7 @@ export default class HelloWorld extends React.Component {
       inactiveItems: this.props.inactiveItems,
       brands: this.props.brands,
       categories: this.props.categories,
-      selectedNavName: "All",
+      selectedNavName: "Todo",
       selectedNavList : [],
       selectedNavListInactives: [],
       signedIn: this.props.signedIn,
@@ -49,7 +49,7 @@ export default class HelloWorld extends React.Component {
       queryLength: 0,
       customerChange:0
    };
-   this.updateSelectedNavList("All");
+   this.updateSelectedNavList("Todo");
   }
 
   updateSelectedNavList = (navName) => {
@@ -296,6 +296,7 @@ export default class HelloWorld extends React.Component {
 
   }
 
+
   updateCashRecieved = (e) => {
     let cartTotal = this.state.cart.cartTotal.total,
         val = e.target.value,
@@ -306,6 +307,7 @@ export default class HelloWorld extends React.Component {
     this.setState({customerChange: customerChange})
   }
 
+r
   render() {
     let brands = this.state.brands,
         categories = this.state.categories,
@@ -330,10 +332,10 @@ export default class HelloWorld extends React.Component {
              <div>
                <div className="cart-buttons">
                  <button id="cart-button" onClick={this.cartButton}>
-                   {(showCart) ? "Add More Items" : "Check Out"}
+                   {(showCart) ? "Añadir más Artículos" : "Check Out"}
                  </button>
                  <button id="clear-cart-button" onClick={this.clearCart}>
-                   Clear Cart
+                   Vaciar Carrito
                  </button>
                </div>
                <div className="payment-methods">

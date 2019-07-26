@@ -21,15 +21,15 @@ const Cart = (props) => {
       <table>
         <tbody>
           <tr>
-            <th>Brand</th>
-            <th>Name</th>
+            <th>Marca</th>
+            <th>Nombre</th>
             <th>Color</th>
-            <th>Size</th>
-            <th>Thickness</th>
-            <th>Price</th>
-            <th>Quantity</th>
+            <th>Tamaño</th>
+            <th>Grosor</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
             <th>Subtotal</th>
-            <th>Remove</th>
+            <th>Delete</th>
           </tr>
           { cart.cartItems.map((cartItem, ind) => {
             return (
@@ -75,21 +75,21 @@ const Cart = (props) => {
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Subtotal</td>
-            <td id="cart-subtotal-value">{cart.cartTotal.subtotal}</td>
+            <td id="cart-subtotal-value">${cart.cartTotal.subtotal}</td>
           </tr>
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Taxes</td>
-            <td id="cart-taxes-value">{cart.cartTotal.taxes}</td>
+            <td id="cart-taxes-value">${cart.cartTotal.taxes}</td>
           </tr>
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Total</td>
-            <td id="cart-total-value">{cart.cartTotal.total}</td>
+            <td id="cart-total-value">${cart.cartTotal.total}</td>
           </tr>
         </tbody>
       </table>
-      <button onClick={printReciept}>Print Reciept</button>
+      <button onClick={printReciept}>Imprima el Recibo</button>
 
     </div>
   )
