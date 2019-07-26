@@ -11,8 +11,9 @@ const Items = (props) => {
       picUrls = props.picUrls,
       cart = props.cart,
       addToCart = props.addToCart,
-      removeFromCart = props.removeFromCart;
-  if (selectedNavName !== "PVC" && selectedNavName !== "Tornillos" && selectedNavName !== "Tinte" && selectedNavName !== "query") {
+      removeFromCart = props.removeFromCart,
+      category = props.category;
+  if (selectedNavName !== "PVC" && selectedNavName !== "Tornillos" && selectedNavName !== "Tinte" && selectedNavName !== "query" && selectedNavName !== "SeamFil") {
     return (
       <div className="item-cards">
          <ItemsCard
