@@ -275,7 +275,10 @@ getQueriedItems = (query) => {
 };
 
   render() {
-    let brands = this.state.brands,
+    let queriedItems = this.state.queriedItems,
+        showQueryList = this.state.showQueryList,
+        queryListActiveItems = this.state.queryListActiveItems,
+        brands = this.state.brands,
         categories = this.state.categories,
         selectedNavName = this.state.selectedNavName,
         selectedNavList = this.state.selectedNavList,
@@ -285,86 +288,95 @@ getQueriedItems = (query) => {
         cart = this.state.cart,
         showCart = this.state.showCart,
         taxFree = this.state.taxFree;
-    
-    return (
-      <div className="hello-world">
-        { signedIn &&
-           <div>
-             <div className="payment-method">
-               <label>Tax Free
-                 <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
-               </label>
-               <label>Cash
-                 <input type='radio' name="paymentMethod" value="cash" onChange={this.updatePaymentMethod}/>
-               </label>
-               <label>Credit Card
-                 <input type='radio' name="paymentMethod" value="creditCard" onChange={this.updatePaymentMethod}/>
-               </label>
-               <label>Check
-                 <input type='radio' name="paymentMethod" value="check" onChange={this.updatePaymentMethod}/>
-               </label>
-               <label>Debit
-                 <input type='radio' name="paymentMethod" value="debit" onChange={this.updatePaymentMethod}/>
-               </label>
-               <span>
-                 <label>Custom
-                   <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
-                 </label>
-                 <div id="customPaymentMethod" className="hidden">
-                   <label>Cash
-                     <input type='number' id="custom-cash" />
-                   </label>
-                   <label>Credit Card
-                     <input type='number' id="custom-credit-card" />
-                   </label>
-                   <label>Check
-                     <input type='number' id="custom-check" />
-                   </label>
-                   <label>Debit
-                     <input type='number' id="custom-debit" />
-                   </label>
-                 </div>
-               </span>
 
-               <div className="cart-buttons">
-                 <button id="cart-button" onClick={this.cartButton}>
-                   {(showCart) ? "Add More Items" : "Check Out"}
-                 </button>
-                 <button id="clear-cart-button" onClick={this.clearCart}>
-                   Clear Cart
-                 </button>
-               </div>
-
-             </div>
-             { showCart &&
-               <Cart
-                 cart={cart}
-                 removeFromCart={this.removeFromCart}
-                 updateCartItem={this.updateCartItem}
-                 orderCart={this.orderCart}
-               /> }
+return (
+  <div className="hello-world">
+  { signedIn &&
+     <div>
+       <div>
+         <button id="cart-button" onClick={this.cartButton}>
+           {(showCart) ? "Add More Items" : "Check Out"}
+         </button>
+         <button id="clear-cart-button" onClick={this.clearCart}>
+           Clear Cart
+         </button>
+         <label>Tax Free
+           <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
+         </label>
+         <label>Cash
+           <input type='radio' name="paymentMethod" value="cash" onChange={this.updatePaymentMethod}/>
+         </label>
+         <label>Credit Card
+           <input type='radio' name="paymentMethod" value="creditCard" onChange={this.updatePaymentMethod}/>
+         </label>
+         <label>Check
+           <input type='radio' name="paymentMethod" value="check" onChange={this.updatePaymentMethod}/>
+         </label>
+         <label>Debit
+           <input type='radio' name="paymentMethod" value="debit" onChange={this.updatePaymentMethod}/>
+         </label>
+         <span>
+           <label>Custom
+             <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
+           </label>
+           <div id="customPaymentMethod" className="hidden">
+             <label>Cash
+               <input type='number' id="custom-cash" />
+             </label>
+             <label>Credit Card
+               <input type='number' id="custom-credit-card" />
+             </label>
+             <label>Check
+               <input type='number' id="custom-check" />
+             </label>
+             <label>Debit
+               <input type='number' id="custom-debit" />
+             </label>
            </div>
-         }
-         { !showCart &&
+         </span>
+      </div>
+         { showCart &&
+           <Cart
+             cart={cart}
+             removeFromCart={this.removeFromCart}
+             updateCartItem={this.updateCartItem}
+             orderCart={this.orderCart}
+           /> }
+       </div>
+     }
+     { !showCart &&
+       <div>
+       { !signedIn &&
+          <div className="phone-map">
+          <button> <i className="fa fa-phone-square"></i> </button>
+          <button> <i className="fa fa-map-pin"></i> </button>
+         </div> }
+         <div className="search">
+           <input type="text" placeholder=" ..Search" onChange={this.handleOnInputChange} />
+           <button> <i className="fa fa-search" onClick={this.queriedItems}></i> </button>
+         </div>
+         <div className="category-brand">
+           <p onClick={(e) => this.dropdown(e)}>Categories</p>
+           <p onClick={(e) => this.dropdown(e)}>Brands</p>
+         </div>
+         <div id="nav-list">
+         <div className="dropdown">
+         <NavList
+            columnList={brands}
+            columnName="brand"
+            updateSelectedNavList={this.updateSelectedNavList}
+         />
+         <NavList
+            columnList={categories}
+            columnName="category"
+            updateSelectedNavList={this.updateSelectedNavList}
+         />
+         </div>
+         {showQueryList &&
            <div>
-             <div className="category-brand">
-               <p onClick={(e) => this.dropdown(e)}>Categories</p>
-               <p onClick={(e) => this.dropdown(e)}>Brands</p>
-             </div>
-             <div id="nav-list">
-             <NavList
-                columnList={brands}
-                columnName="brand"
-                updateSelectedNavList={this.updateSelectedNavList}
-             />
-             <NavList
-                columnList={categories}
-                columnName="category"
-                updateSelectedNavList={this.updateSelectedNavList}
-             />
              <Items
-               items={selectedNavList}
-               selectedNavName={selectedNavName}
+               items={queryListActiveItems}
+               selectedNavName="query"
                signedIn={signedIn}
                picUrls={picUrls}
                addToCart ={this.addToCart}
@@ -381,12 +393,39 @@ getQueriedItems = (query) => {
                    picUrls={picUrls}
                    cart={cart}
                  />
-               </div>
-             }
-             </div>
+              </div>
+              }
            </div>
+          }
+         {!showQueryList &&
+           <div>
+             <Items
+               items={selectedNavList}
+               selectedNavName={selectedNavName}
+               signedIn={signedIn}
+               picUrls={picUrls}
+               addToCart ={this.addToCart}
+               removeFromCart={this.removeFromCart}
+               cart={cart}
+             />
+           {signedIn &&
+             <div>
+               <h2>Inactive Items</h2>
+               <Items
+                 items={selectedNavListInactives}
+                 selectedNavName={selectedNavName}
+                 signedIn={signedIn}
+                 picUrls={picUrls}
+                 cart={cart}
+               />
+              </div>
+             }
+          </div>
          }
+         </div>
        </div>
-    );
-  }
+     }
+   </div>
+);
+}
 }
