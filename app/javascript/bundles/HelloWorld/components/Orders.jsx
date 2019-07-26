@@ -80,12 +80,14 @@ export default class Orders extends React.Component {
     return (
       <div className="orders">
         <h1>Ordenes</h1>
+      <div className="date-range">
         <label>
           <input type="date" id="start-range" defaultValue={today} onChange={this.updateOrders} />
         </label>
         <label>
           <input type="date" id="end-range" defaultValue={today} onChange={this.updateOrders} />
         </label>
+      </div> 
         <table>
           <tbody>
             <tr>
@@ -119,7 +121,7 @@ export default class Orders extends React.Component {
             )
           })}
           <tr>
-            <td></td>
+            <td>TOTAL</td>
             <td>{this.getSum('subtotal')}</td>
             <td>{this.getSum('taxes')}</td>
             <td>{this.getSum('total')}</td>

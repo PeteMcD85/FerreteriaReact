@@ -58,15 +58,13 @@ export default class Order extends React.Component {
         <table>
           <tbody>
             <tr id={`order-th`}>
-              <th>Brand</th>
-              <th>Name</th>
-              <th>Color</th>
-              <th>Size</th>
-              <th>Thickness</th>
-
-              <th>Price</th>
-              <th>Quantity Sold</th>
-
+              <th>Marca</th>
+              <th>Nombre</th>
+              <th>Categoría</th>
+              <th>Tamaño</th>
+              <th>Grosor</th>
+              <th>Precio</th>
+              <th>Cantidad Vendida</th>
               <th>Refund</th>
             </tr>
             {cartItems.map((cartItem, ind)=> {

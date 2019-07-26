@@ -365,7 +365,6 @@ export default class HelloWorld extends React.Component {
                  <button> <i className="fa fa-map-pin"></i> </button>
                 </div>
               }
-
               <div className="search">
                 <input type="text" placeholder=" ..Search" onChange={this.handleOnInputChange} />
                 <button> <i className="fa fa-search" onClick={this.getQueriedItems}></i> </button>
