@@ -27,7 +27,7 @@ export default class HelloWorld extends React.Component {
       inactiveItems: this.props.inactiveItems,
       brands: this.props.brands,
       categories: this.props.categories,
-      selectedNavName: "All",
+      selectedNavName: "Todo",
       selectedNavList : [],
       selectedNavListInactives: [],
       signedIn: this.props.signedIn,
@@ -48,7 +48,7 @@ export default class HelloWorld extends React.Component {
       showQueryList: false,
       queryLength: 0,
    };
-   this.updateSelectedNavList("All");
+   this.updateSelectedNavList("Todo");
   }
 
   updateSelectedNavList = (navName) => {
