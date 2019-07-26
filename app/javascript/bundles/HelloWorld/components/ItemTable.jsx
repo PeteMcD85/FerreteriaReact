@@ -1,20 +1,20 @@
 import React from 'react'
 
-
 const ItemTable = (props) => {
   let item = props.item,
       id = item.id,
+      name = item.name,
       brand = item.brand,
+      color = item.color,
       thickness = item.thickness,
       size = item.size,
       sold_price = Number(item.sold_price).toFixed(2),
-      bought_price = Number(item.bought_price).toFixed(2),
-      active = item.active,
       signedIn = props.signedIn,
       addToCart = props.addToCart,
       removeFromCart = props.removeFromCart,
       cart = props.cart,
       cartItems = cart.cartItems,
+      category = props.category,
       addItem = (id) => {
         let quantityInput = document.getElementById(`quantity-${id}`),
             quantityValue = +quantityInput.value,
@@ -30,29 +30,26 @@ const ItemTable = (props) => {
           removeFromCart(id);
         }
         cartButton.innerText = `${newCartButtonPretext} from Cart`;
-        console.log(quantityInput);
       },
       setQuantityValue = (id) => {
-        console.log(cart);
         let itemInCart = cartItems.find((cartItem)=> cartItem.item.id == id);
         if (itemInCart) return {value: itemInCart.quantity, disabled: true, text: "Remove from Cart" }
         return {value: "", disabled: false, text: "Add to Cart" }
       };
+
   return (
     <tr>
-      <td>{brand}</td>
-      <td>{size}</td>
-      <td>{thickness}</td>
-      <td>{sold_price}</td>
-      {signedIn && <td>{bought_price}</td>}
-      {signedIn && <td>{String(active)}</td>}
-      { signedIn &&
-        <td>
-          <a href={`/items/${id}/edit`}>Edit</a>
-        </td>}
+      {name && <td>{name}</td>}
+      {brand && <td>{brand}</td>}
+      {size && <td>{size}</td>}
+      {thickness && <td>{thickness}</td>}
+      {color && <td>{color}</td>}
+      {sold_price && <td>${sold_price}</td>}
       {signedIn &&
+        <td><a href={`/items/${id}/edit`}>Edit</a></td>}
+        {signedIn &&
         <td className="update-cart-td">
-          <span>Quantity:
+          <span>Quantity
             <input type="number"
               className="quantity-input"
               id={`quantity-${id}`}
@@ -67,9 +64,7 @@ const ItemTable = (props) => {
             {setQuantityValue(id).text}
           </button>
         </td>}
-
     </tr>
-
   )
 }
 

@@ -11,8 +11,6 @@ const ItemCard = (props) => {
       thickness = item.thickness,
       inventory= item.inventory,
       sold_price = Number(item.sold_price).toFixed(2),
-      bought_price = Number(item.bought_price).toFixed(2),
-      active = props.active,
       signedIn = props.signedIn,
       isPicUrl = (picUrl !== "") ?  true : false,
       addToCart = props.addToCart,
@@ -44,27 +42,24 @@ const ItemCard = (props) => {
   return (
       <div className="item">
         {isPicUrl !== ""  && <img className="item-pic" src={picUrl} />}
-        <h2>{name}</h2>
-        <p>brand: {brand}</p>
-        {color && <p>color: {color}</p>}
-        <p>size: {size}</p>
-        {thickness && <p>thickness: {thickness}</p>}
-        <p>price: ${sold_price}</p>
-
+        {name && <h2>{name}</h2>}
+        {brand && <p>{brand}</p>}
+        {color && <p>{color}</p>}
+        {size && <p>{size}</p>}
+        {thickness && <p>{thickness}</p>}
+        <h4>precio: ${sold_price}</h4>
         {signedIn &&
           <div className="active-card">
-           <p>Bought Price: {bought_price}</p>
-            <p>Active {active}</p>
             <a href={`/items/${id}/edit`}>Edit</a>
             <div className="update-cart-div">
-              <p>Quantity:
+              <h4>Quantity
                 <input type="number"
                   className="quantity-input"
                   id={`quantity-${id}`}
                   defaultValue={setQuantityValue(id).value}
                   disabled={setQuantityValue(id).disabled}>
                 </input>
-              </p>
+              </h4>
               <button
                 className="cart-button"
                 id = {`cart-button-${id}`}

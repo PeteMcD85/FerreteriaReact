@@ -14,26 +14,6 @@ body {
      margin-left: auto;
      margin-right: auto;
      width: 80%; }
-
-  div.search {
-
-    height: 1.5rem;
-    margin: 2rem;
-
-  input#item{
-    height: 1.5rem;
-    width: 50%;
-    font-size: 15px;
-    margin-left: 2rem;
-    border-right: 0;
-    padding-right: 0; }
-
-  input#search{
-    margin: 0;
-    padding-left: 0;
-    font-size: 1.1rem;
-    background-color: white; }
- }//end of .search
 } // end of .devise
 
 
@@ -43,19 +23,6 @@ body {
 @media only screen and (min-width: 765px) {
 
 .devise{
-  i{
-    font-size: 15px; }
-
-.search{
-  margin: 2rem;
-
-  input#item{
-   width: 20rem;
-   height: 3rem;}
-
-   input#search{
-    height: 2rem; }
-}// end of .search
 
   img.style_image {
      width: 70%; }
@@ -68,25 +35,9 @@ body {
 @media only screen and (min-width: 992px) {
 
 .devise{
-  display: flex;
-  margin-bottom: 2rem;
-
- div.search{
-  margin: 0;
-  margin-top: 25%;
-  width: 100%;
-
-  input#item{
-  }
-
-  input#search{
-  }
-}// end of .search
 
   img.style_image{
-   width: 25%;
-   margin-left: 2rem;
-   margin-right: 4rem;}
+   width: 60%; }
 }//end of devise
 
 }//end of min 992px

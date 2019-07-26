@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2019_07_25_033344) do
     t.boolean "active"
     t.integer "inventory"
     t.decimal "bought_price", precision: 10, scale: 2
+    t.string "stock_number"
   end
 
   create_table "orders", force: :cascade do |t|

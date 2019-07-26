@@ -11,8 +11,9 @@ const Items = (props) => {
       picUrls = props.picUrls,
       cart = props.cart,
       addToCart = props.addToCart,
-      removeFromCart = props.removeFromCart;
-  if (selectedNavName !== "PVC") {
+      removeFromCart = props.removeFromCart,
+      category = props.category;
+  if (selectedNavName !== "PVC" && selectedNavName !== "Tornillos" && selectedNavName !== "Tinte" && selectedNavName !== "query" && selectedNavName !== "SeamFil") {
     return (
       <div className="item-cards">
          <ItemsCard
@@ -25,18 +26,51 @@ const Items = (props) => {
          />
       </div>
     );
+  } else if (selectedNavName === "query") {
+      let itemsCard = [],
+          itemsTable = [];
+      items.forEach((item) => {
+        if(item.category === "PVC" || item.category === "Tornillos" || item.category === "Tinte" || item.category === "SeamFil") {
+          itemsTable.push(item);
+        } else {
+          itemsCard.push(item);
+        }
+      });
+      return (
+          <div>
+          <ItemsTable
+            items={itemsTable}
+            signedIn={signedIn}
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+            cart={cart}
+            category={category}
+          />
+          <div className="item-cards">
+             <ItemsCard
+               items={itemsCard}
+               signedIn={signedIn}
+               picUrls={picUrls}
+               addToCart={addToCart}
+               removeFromCart={removeFromCart}
+               cart={cart}
+             />
+          </div>
+        </div>
+      )
   } else {
-    return (
-      <div>
-        <ItemsTable
-          items={items}
-          signedIn={signedIn}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
-          cart={cart}
-        />
-      </div>
-    );
+      return (
+        <div>
+          <ItemsTable
+            items={items}
+            signedIn={signedIn}
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+            cart={cart}
+            category={category}
+          />
+        </div>
+      );
   }
 }
 
