@@ -15,6 +15,7 @@ export default class Orders extends React.Component {
       orders: props.orders,
       displayedOrders: props.orders
     };
+
   }
   componentDidMount() {
     this.updateOrders();
@@ -40,6 +41,7 @@ export default class Orders extends React.Component {
     return displayedOrders.reduce((total, order) => {
       return +total + +order[column]
     }, 0)
+
   }
 
   render() {

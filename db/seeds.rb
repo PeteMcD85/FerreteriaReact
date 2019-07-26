@@ -6,11 +6,57 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# items = [
+#   { name: 'Tinte P53Q ', category: 'Tinte', brand: 'TEMAR', color: 'Wenge', size: 'Quarto', sold_price: 14, bought_price: 10 },
+#   { name: 'Tinte P47Q', category: 'Tinte', brand: 'TEMAR', color: 'Ash Black', size: 'Quarto', sold_price: 14 },
+#   { name: 'Tinte P38Q', category: 'Tinte', brand: 'TEMAR', color: 'Colonial Cherry', size: 'Quarto', sold_price: 14 },
+#   { name: 'Tinte P26Q', category: 'Tinte', brand: 'TEMAR', color: 'Walnut', size: 'Quarto', sold_price: 14 },
+#   { name: 'Tinte P20Q', category: 'Tinte', brand: 'TEMAR', color: 'Nogal Brown', size: 'Quarto', sold_price: 14 },
+#
+#   { name: 'Tinte P-54-04 ', category: 'Tinte', brand: 'CANMAR', color: 'Red Walnut', size: 'Quarto', sold_price: 14 },
+#   { name: 'Tinte P-42-04 ', category: 'Tinte', brand: 'CANMAR', color: 'Cherry', size: 'Quarto', sold_price: 14 },
+#   { name: 'Tinte P40Q', category: 'Tinte', brand: 'CANMAR', color: 'Natural Oak', size: ' Quarto', sold_price: 14 },
+#   { name: 'Tinte P-26-04 ', category: 'Tinte', brand: 'CANMAR', color: 'Walnut', size: 'Quarto', sold_price: 14 },
+#   { name: 'Tinte P21Q', category: 'Tinte', brand: 'CANMAR', color: 'Cherry Birch', size: ' Quarto ', sold_price: 14 },
+#
+#   { name: 'Tinte P54G', category: 'Tinte', brand: 'TEMAR', color: 'Red Walnut', size: 'Galón ', sold_price: 29, bought_price: 21 },
+#   { name: 'Tinte P53G', category: 'Tinte', brand: 'TEMAR', color: 'Wenge', size: 'Galón ', sold_price: 29 },
+#   { name: 'Tinte P47G', category: 'Tinte', brand: 'TEMAR', color: 'Ash Black', size: 'Galón ', sold_price: 29 },
+#   { name: 'Tinte P40G', category: 'Tinte', brand: 'TEMAR', color: 'Natural Oak', size: 'Galón ', sold_price: 29 },
+#   { name: 'Tinte P38G', category: 'Tinte', brand: 'TEMAR', color: 'Cherry', size: 'Galón ', sold_price: 29 },
+#   { name: 'Tinte P32G', category: 'Tinte', brand: 'TEMAR', color: 'Red Mahogany', size: 'Galón ', sold_price: 29 },
+#   { name: 'Tinte P30G', category: 'Tinte', brand: 'TEMAR', color: 'Maple Wongs', size: 'Galón ', sold_price: 29 },
+#   { name: 'Tinte P26G', category: 'Tinte', brand: 'TEMAR', color: 'Walnut', size: 'Galón ', sold_price: 29 },
+#   { name: 'Tinte P21G', category: 'Tinte', brand: 'TEMAR', color: 'Cherry Birch', size: 'Galón ', sold_price: 29 },
+#   { name: 'Tinte P-42-01 ', category: 'Tinte', brand: 'CANMAR', color: 'Cherry Birch', size: 'Galón ', sold_price: 29 },
+#
+#   { name: 'Tinte P47P', category: 'Tinte', brand: 'TEMAR', color: 'Ash Black', size: ' 5 Galón', sold_price: 100, bought_price: 69.50 },
+#   { name: 'Tinte P21P', category: 'Tinte', brand: 'TEMAR', color: 'Cherry Birch', size: ' 5 Galón ', sold_price: 100, bought_price: 69.50 },
+#   { name: 'Tinte P30P', category: 'Tinte', brand: 'TEMAR', color: 'Maple Wongs', size: ' 5 Galón ', sold_price: 100, bought_price: 69.50 },
+#   { name: 'Tinte P54P', category: 'Tinte', brand: 'TEMAR', color: 'Walnut', size: ' 5 Galón ', sold_price: 100, bought_price: 69.50}]
+#
+#   items.each do |item|
+#    Item.create(item.merge!(active:true))
+#   end
+#   p Item.all.count
 
 
+
+
+
+# items = [
+#   { name: 'Tornillos #8', category: 'Tornillos', brand: 'Hafelle', size: '3/4"', sold_price: 44 },
+#   { name: 'Tornillos #8', category: 'Tornillos',  brand: 'Hafelle', size: '1"',  sold_price: 35.95 },
+#   { name: 'Tornillos #8', category: 'Tornillos',  brand: 'Hafelle', size: '1 1/4"',  sold_price: 23.95 },
+#   { name: 'Tornillos #8', category: 'Tornillos',  brand: 'Hafelle', size: '1 1/2"',  sold_price: 16.50 },
+#   { name: 'Tornillos #8', category: 'Tornillos',  brand: 'Hafelle', size: '1 3/4"',  sold_price: 45 },
+#   { name: 'Tornillos #8', category: 'Tornillos',  brand: 'Hafelle', size: '2"',  sold_price: 36.95 },
+#   { name: 'Tornillos #8', category: 'Tornillos',  brand: 'Hafelle', size: '3"',  sold_price: 30.50 }
+# ]
+# items.each do |item|
+#  Item.create(item.merge!(active:true))
+# end
 # p Item.all.count
-
-
 
 #   items = [
 #     { name: 'PVC', category: 'PVC', brand: 'Pelicano', size: '3/4', thickness: '.50', price: 44 },

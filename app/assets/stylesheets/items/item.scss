@@ -1,7 +1,7 @@
 .item {
   text-align: center;
   padding: 1em;
-  margin-top: 30px;
+  margin: 30px 5px;
 
   .item-pic{
     width: 200px;
@@ -14,6 +14,13 @@
   }
 
   p{
-    margin: 0;
+    font-size: 17px;
+    font-weight: bolder;
+    margin: 0; }
+}
+
+div.active-card{
+  p, a{
+    // display: none;
   }
 }

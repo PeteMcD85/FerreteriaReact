@@ -19,8 +19,11 @@ Rails.application.routes.draw do
     resources :item_orders, only:[:edit, :update]
   end
 
+  # get :search, controller: :items
 
   root 'items#index'
+
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
