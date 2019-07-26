@@ -64,7 +64,7 @@ export default class Orders extends React.Component {
   getSum = (column) => {
     let displayedOrders = this.state.displayedOrders;
     return displayedOrders.reduce((total, order) => {
-      return +total + +order[column]
+      return (+total + +order[column]).toFixed(2)
     }, 0)
   }
 

@@ -125,3 +125,12 @@
 # p Item.all.count
 # seed_users
 # seed_items
+
+
+
+
+
+items.each do |item|
+  item.pic_url = ''
+  Item.create(item)
+end

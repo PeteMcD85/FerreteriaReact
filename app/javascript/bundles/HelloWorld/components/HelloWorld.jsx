@@ -248,8 +248,8 @@ export default class HelloWorld extends React.Component {
 
   getQueriedItems = (query) => {
     query = query.trim();
-    let currentQueryLength = query.length;
-    console.log(currentQueryLength);
+    let currentQueryLength = query.length,
+        prevQueryLength = this.state.queryLength;
     if(currentQueryLength === 0) {
       this.setState({
         showQueryList: false ,
@@ -257,7 +257,9 @@ export default class HelloWorld extends React.Component {
       });
     } else {
         let words = query.split(" "),
-            queryListActiveItems = this.state.activeItems,
+            stateActiveItems = this.state.activeItems,
+            stateQueryListActiveItems = this.state.queryListActiveItems,
+            queryListActiveItems = (currentQueryLength < prevQueryLength) ? stateActiveItems :  stateQueryListActiveItems,
             queriedItems = queryListActiveItems.filter((activeItem) => {
               let name = activeItem.name.toLowerCase(),
                   category = activeItem.category ? activeItem.category.toLowerCase() : "",
@@ -267,12 +269,15 @@ export default class HelloWorld extends React.Component {
                   stockNumber = activeItem.stock_number ? activeItem.stock_number.toLowerCase() : "",
                   thickness = activeItem.thickness ? activeItem.thickness.toLowerCase() : "",
                   returnItem = false;
-              words.forEach((word) => {
+              words.forEach((word, ind) => {
+                if (ind > 0 && !returnItem) return
                 word = word.toLowerCase();
                 returnItem = (name.includes(word) || category.includes(word) || brand.includes(word) || size.includes(word) || color.includes(word) || thickness.includes(word)) ? true : false;
               })
               if (returnItem) return activeItem
             });//end of getQueriedItems
+            console.log('queriedItems');
+            console.log(queriedItems);
         this.setState({
           query: query,
           queryListActiveItems: queriedItems,
