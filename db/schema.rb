@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_14_020901) do
+ActiveRecord::Schema.define(version: 2019_07_25_033344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,8 @@ ActiveRecord::Schema.define(version: 2019_07_14_020901) do
     t.datetime "updated_at", null: false
     t.decimal "price_given"
     t.decimal "subtotal"
-    t.integer "quantity_refunded"
+    t.integer "quantity_refunded", default: 0
+    t.decimal "subtotal_refunded", default: "0.0"
     t.index ["item_id"], name: "index_item_orders_on_item_id"
     t.index ["order_id"], name: "index_item_orders_on_order_id"
   end
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 2019_07_14_020901) do
     t.boolean "active"
     t.integer "inventory"
     t.decimal "bought_price", precision: 10, scale: 2
+    t.string "stock_number"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -72,6 +74,15 @@ ActiveRecord::Schema.define(version: 2019_07_14_020901) do
     t.decimal "subtotal"
     t.decimal "taxes"
     t.decimal "total"
+    t.decimal "subtotal_refunded", default: "0.0"
+    t.decimal "taxes_refunded", default: "0.0"
+    t.decimal "total_refunded", default: "0.0"
+    t.boolean "tax_free", default: false
+    t.decimal "debt"
+    t.decimal "credit_card_payed", default: "0.0"
+    t.decimal "cash_payed", default: "0.0"
+    t.decimal "check_payed", default: "0.0"
+    t.decimal "debit_payed", default: "0.0"
   end
 
   create_table "users", force: :cascade do |t|

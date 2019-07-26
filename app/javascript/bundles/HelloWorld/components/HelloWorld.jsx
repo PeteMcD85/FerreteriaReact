@@ -40,7 +40,9 @@ export default class HelloWorld extends React.Component {
           total: 0
         }
       },
-      showCart: false
+      showCart: false,
+      taxFree: false,
+      paymentMethod: ''
    };
    this.updateSelectedNavList("All");
   }
@@ -63,17 +65,18 @@ export default class HelloWorld extends React.Component {
       )
   }
 
-  calculateCartTotal = (cartItems) => {
+  calculateCartTotal = (cartItems, taxFree=false) => {
     let subtotal = cartItems.reduce((total, cartItem)=> {
           return total += +cartItem.subtotal
         }, 0).toFixed(2),
-        taxes = (subtotal * .115).toFixed(2),
+        taxes = taxFree ? 0 : (subtotal * .115).toFixed(2),
         total = (+subtotal + +taxes).toFixed(2);
     return {subtotal: subtotal, taxes: taxes, total: total}
   }
 
   updateCartItem = (id, columnName, columnValue) => {
     let cart = this.state.cart,
+        taxFree = this.state.taxFree,
         cartItems = cart.cartItems,
         itemIndex = cartItems.findIndex((cartItem)=> cartItem.item.id == id),
         cartItem = cartItems[itemIndex];
@@ -83,31 +86,33 @@ export default class HelloWorld extends React.Component {
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems)
+        cartTotal: this.calculateCartTotal(cartItems, taxFree)
       }
     });
   }
 
   addToCart = (id, quantity) => {
     let cartItems = this.state.cart.cartItems,
+        taxFree = this.state.taxFree,
         item = this.state.activeItems.find((item)=> item.id == id);
     cartItems.push({item: item, quantity: quantity, priceGiven: item.sold_price, subtotal: (+quantity * +item.sold_price).toFixed(2) });
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems)
+        cartTotal: this.calculateCartTotal(cartItems, taxFree)
       }
     });
   }
 
   removeFromCart = (id) => {
     let cartItems = this.state.cart.cartItems,
+        taxFree = this.state.taxFree,
         itemToRemove = cartItems.findIndex((cartItem)=> cartItem.item.id == id );
         cartItems.splice(itemToRemove,1);
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems)
+        cartTotal: this.calculateCartTotal(cartItems, taxFree)
       }
     });
   }
@@ -127,14 +132,49 @@ export default class HelloWorld extends React.Component {
 
   orderCart = () => {
     let csrfToken = document.querySelector("[name='csrf-token']").content,
-        cart = this.state.cart;
+        cart = this.state.cart,
+        cartTotal = cart.cartTotal.total,
+        taxFree = this.state.taxFree,
+        paymentMethod = this.state.paymentMethod,
+        customMethod = {
+          cash:0,
+          creditCard:0,
+          check:0,
+          debit:0
+        };
+    if(paymentMethod === '') return alert('must choose a payment method')
+    if (paymentMethod === 'custom') {
+      let cashAmount = +document.getElementById('custom-cash').value,
+          creditCardAmount = +document.getElementById('custom-credit-card').value,
+          checkAmount = +document.getElementById('custom-check').value,
+          debitAmount = +document.getElementById('custom-debit').value;
+      // console.log(cashAmount);
+      // console.log(creditCardAmount);
+      // console.log(checkAmount);
+      // console.log(debitAmount);
+      if(cartTotal !== (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2)) {
+        return alert(`Custom amount must equal ${cartTotal}`)
+      } else {
+        customMethod.cash = cashAmount;
+        customMethod.creditCard = creditCardAmount;
+        customMethod.check = checkAmount;
+        customMethod.debit = debitAmount;
+      }
+    } else {
+      customMethod[paymentMethod] = cartTotal
+    }
     fetch(
       "/orders", {
         method: "POST",
         body: JSON.stringify({
           order: {
             orderType: 'sale',
-            itemOrders: cart
+            itemOrders: cart,
+            taxFree: taxFree,
+            cashPayed: customMethod.cash,
+            creditCardPayed: customMethod.creditCard,
+            debitPayed: customMethod.debit,
+            checkPayed: customMethod.cash
           }
         }),
         headers: {
@@ -153,19 +193,48 @@ export default class HelloWorld extends React.Component {
       });
   }
 
-    cartButton = () => {
-      let showCart = (this.state.showCart) ? false : true;
-      this.setState({ showCart: showCart })
-    }
+  cartButton = () => {
+    let showCart = (this.state.showCart) ? false : true;
+    this.setState({ showCart: showCart })
+  }
 
   dropdown = (e) => {
-    e.persist();
     let target = e.target.innerHTML,
         columnName = (target === "Categories") ? "category-list" : "brand-list",
         columnList = document.getElementsByClassName(columnName)[0];
         columnList.classList.toggle('hidden');
-        console.log(e);
-  };
+  }
+
+  updateTaxFree = () => {
+    let taxFree = this.state.taxFree ? false : true,
+        cart = this.state.cart;
+    if (taxFree) {
+      cart.cartTotal.taxes = 0;
+      cart.cartTotal.total = cart.cartTotal.subtotal;
+    } else {
+      let cartTotal = this.calculateCartTotal(cart.cartItems, taxFree);
+      console.log(cartTotal);
+      cart.cartTotal.taxes = cartTotal.taxes;
+      cart.cartTotal.total = cartTotal.total;
+    }
+    this.setState({
+      taxFree: taxFree,
+      cart: cart
+    });
+  }
+
+  updatePaymentMethod = (e) => {
+    let val =e.target.value,
+        customPayment = document.getElementById('customPaymentMethod');
+    console.log(val);
+    if(val === 'custom') {
+      customPayment.classList.remove('hidden')
+    } else {
+      customPayment.classList.add('hidden')
+    }
+    this.setState({paymentMethod: val})
+  }
+
   render() {
     let brands = this.state.brands,
         categories = this.state.categories,
@@ -175,7 +244,8 @@ export default class HelloWorld extends React.Component {
         signedIn = this.state.signedIn,
         picUrls = this.state.picUrls,
         cart = this.state.cart,
-        showCart = this.state.showCart;
+        showCart = this.state.showCart,
+        taxFree = this.state.taxFree;
         console.log(this.state);
     return (
       <div className="hello-world">
@@ -188,6 +258,40 @@ export default class HelloWorld extends React.Component {
                <button id="clear-cart-button" onClick={this.clearCart}>
                  Clear Cart
                </button>
+               <label>Tax Free
+                 <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
+               </label>
+               <label>Cash
+                 <input type='radio' name="paymentMethod" value="cash" onChange={this.updatePaymentMethod}/>
+               </label>
+               <label>Credit Card
+                 <input type='radio' name="paymentMethod" value="creditCard" onChange={this.updatePaymentMethod}/>
+               </label>
+               <label>Check
+                 <input type='radio' name="paymentMethod" value="check" onChange={this.updatePaymentMethod}/>
+               </label>
+               <label>Debit
+                 <input type='radio' name="paymentMethod" value="debit" onChange={this.updatePaymentMethod}/>
+               </label>
+               <span>
+                 <label>Custom
+                   <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
+                 </label>
+                 <div id="customPaymentMethod" className="hidden">
+                   <label>Cash
+                     <input type='number' id="custom-cash" />
+                   </label>
+                   <label>Credit Card
+                     <input type='number' id="custom-credit-card" />
+                   </label>
+                   <label>Check
+                     <input type='number' id="custom-check" />
+                   </label>
+                   <label>Debit
+                     <input type='number' id="custom-debit" />
+                   </label>
+                 </div>
+               </span>
              </div>
              { showCart &&
                <Cart

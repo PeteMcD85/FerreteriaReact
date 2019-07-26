@@ -12,7 +12,7 @@ const Items = (props) => {
       cart = props.cart,
       addToCart = props.addToCart,
       removeFromCart = props.removeFromCart;
-  if (selectedNavName !== "PVC") {
+  if (selectedNavName !== "PVC" !== "Tinte") {
     return (
       <div className="item-cards">
          <ItemsCard
