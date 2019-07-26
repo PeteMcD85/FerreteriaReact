@@ -293,13 +293,15 @@ return (
   <div className="hello-world">
   { signedIn &&
      <div>
-       <div>
+       <div className="cart-buttons">
          <button id="cart-button" onClick={this.cartButton}>
            {(showCart) ? "Add More Items" : "Check Out"}
          </button>
          <button id="clear-cart-button" onClick={this.clearCart}>
            Clear Cart
          </button>
+        </div>
+        <div className="payment-methods">
          <label>Tax Free
            <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
          </label>

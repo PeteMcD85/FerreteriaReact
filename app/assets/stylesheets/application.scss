@@ -17,6 +17,23 @@
 /*
  *= require font-awesome
 */
+// +++++++++++++++++++++++++++++++++ PAYMENT METHODS ++++++++++++++++++++++++++
+
+.payment-methods{
+  text-align: center;
+
+  label{
+    margin: 1.25rem;
+    font-size: 15px;
+    font-weight: bolder;
+
+  input{
+    cursor: pointer; }
+}//end of label
+}//end of .payment-methods
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .hidden {
   display: none;
