@@ -253,7 +253,10 @@ export default class HelloWorld extends React.Component {
     if(currentQueryLength === 0) {
       this.setState({
         showQueryList: false ,
-        queryListActiveItems: this.state.activeItems
+        queryListActiveItems: this.state.activeItems,
+        query: "",
+        queryLength: currentQueryLength,
+        selectedNavName: "All"
       });
     } else {
         let words = query.split(" "),
