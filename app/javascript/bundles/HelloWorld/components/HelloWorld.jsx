@@ -217,6 +217,7 @@ export default class HelloWorld extends React.Component {
       cart.cartTotal.taxes = cartTotal.taxes;
       cart.cartTotal.total = cartTotal.total;
     }
+
     this.setState({
       taxFree: taxFree,
       cart: cart

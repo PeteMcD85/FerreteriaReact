@@ -47,7 +47,7 @@ const ItemCard = (props) => {
         {color && <p>{color}</p>}
         {size && <p>{size}</p>}
         {thickness && <p>{thickness}</p>}
-        <h4>precio: ${sold_price}</h4>
+        <h4>price: ${sold_price}</h4>
         {signedIn &&
           <div className="active-card">
             <a href={`/items/${id}/edit`}>Edit</a>

@@ -15,6 +15,32 @@ export default class Orders extends React.Component {
       orders: props.orders,
       displayedOrders: props.orders
     };
+    console.log(this.state);
+  }
+  componentDidMount() {
+    this.updateOrders();
+  }
+
+  updateOrders = () => {
+    let startRange = new Date(document.getElementById('start-range').value).toISOString(),
+        endRange = new Date(document.getElementById('end-range').value).toISOString(),
+        orders = this.state.orders;
+    console.log(startRange);
+    console.log(endRange);
+    orders = orders.filter((val)=>{
+      let orderDate = new Date(val.created_at.split('T')[0]).toISOString();
+      return (startRange <= orderDate && endRange >= orderDate)
+    });
+    this.setState({
+      displayedOrders: orders
+    })
+  }
+
+  getSum = (column) => {
+    let displayedOrders = this.state.displayedOrders;
+    return displayedOrders.reduce((total, order) => {
+      return +total + +order[column]
+    }, 0)
   }
   componentDidMount() {
     this.updateOrders();
@@ -53,7 +79,7 @@ export default class Orders extends React.Component {
         console.log(today);
     return (
       <div className="orders">
-        <h1>Orders</h1>
+        <h1>Ordenes</h1>
         <label>
           <input type="date" id="start-range" defaultValue={today} onChange={this.updateOrders} />
         </label>

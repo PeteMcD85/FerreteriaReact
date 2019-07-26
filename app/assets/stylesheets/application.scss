@@ -18,31 +18,64 @@
  *= require font-awesome
 */
 
+// ++++++++++++++++++++++++++++++ ORDERS +++++++++++++++++++++++++++++++++++++
+// 
+// .orders {
+//    width: 100%;
+//
+// table {
+//   width: 100vw;
+//
+// tbody {
+//   width: 100%;
+//   display: block;
+//   width: 100%;
+//   overflow-y: scroll; }
+//
+// tr {
+//   display: flex;
+//   width: 100%; }
+//
+// tr:nth-child(even) { background-color: #f2f2f2; }
+//
+// th {
+//   padding: 12px;
+//   text-align: left;
+//   background-color: #4CAF50;
+//   color:white; }
+//
+// input.quantity-input {
+//   width: 5rem; }
+//
+// td, th {
+//   border-collapse: collapse;
+//   padding: 12px; }
+//    }//end of table
+//  }//end of cart
+//
+
+
+// +++++++++++++++++++++++++++++++++ PAYMENT METHODS ++++++++++++++++++++++++++
+
+.payment-methods{
+  text-align: center;
+
+  label{
+    margin: 1.25rem;
+    font-size: 15px;
+    font-weight: bolder;
+
+  input{
+    cursor: pointer; }
+}//end of label
+}//end of .payment-methods
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 .hidden {
   display: none;
 }
-
-.update-cart-td {
-
-  button.cart-button{
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    background-color: #8C8C89;
-    margin: 4px;
-    border: none;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 10px; }
-
-  button.cart-button:hover {
-    cursor: pointer;
-    box-shadow: 0 10px 18px 0 rgba(1,1,1,0.2), 0 8px 22px 0 rgba(1,1,1,1.19); }
-}//end of .update-cart-td
-
-
-
 
 // ++++++++++++++++++++++++++++ phone-map ++++++++++++++++++++++++++++++++++++
 .phone-map {
@@ -214,7 +247,7 @@ th {
   color:white; }
 
 input.quantity-input {
-  width: 5rem; }
+  width: 50px; }
 
 td, th {
   width: 100%;
