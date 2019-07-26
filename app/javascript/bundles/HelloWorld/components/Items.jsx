@@ -11,9 +11,8 @@ const Items = (props) => {
       picUrls = props.picUrls,
       cart = props.cart,
       addToCart = props.addToCart,
-      removeFromCart = props.removeFromCart,
-      category = props.category;
-  if (selectedNavName !== "PVC" && selectedNavName !== "Tornillos" && selectedNavName !== "Tinte" && selectedNavName !== "query" && selectedNavName !== "SeamFil") {
+      removeFromCart = props.removeFromCart;
+  if (selectedNavName !== "PVC" && selectedNavName !== "Tornillos" && selectedNavName !== "Tinte" && selectedNavName !== "query") {
     return (
       <div className="item-cards">
          <ItemsCard
@@ -27,15 +26,18 @@ const Items = (props) => {
       </div>
     );
   } else if (selectedNavName === "query") {
+    console.log('query');
       let itemsCard = [],
           itemsTable = [];
       items.forEach((item) => {
-        if(item.category === "PVC" || item.category === "Tornillos" || item.category === "Tinte" || item.category === "SeamFil") {
+        if(item.category === "PVC" || item.category === "Tornillos" || item.category === "Tinte") {
           itemsTable.push(item);
         } else {
           itemsCard.push(item);
         }
       });
+      console.log(itemsCard);
+      console.log(itemsTable);
       return (
           <div>
           <ItemsTable
@@ -44,7 +46,6 @@ const Items = (props) => {
             addToCart={addToCart}
             removeFromCart={removeFromCart}
             cart={cart}
-            category={category}
           />
           <div className="item-cards">
              <ItemsCard
@@ -67,7 +68,6 @@ const Items = (props) => {
             addToCart={addToCart}
             removeFromCart={removeFromCart}
             cart={cart}
-            category={category}
           />
         </div>
       );

@@ -15,20 +15,19 @@ export default class Order extends React.Component {
       cart: props.cart,
       cartItems: props.cartItems
     }
+    console.log(this.state);
   }
 
   refundItem = (e) => {
     e.persist();
+    console.log(e);
     let cssId = e.target.id,
         itemId = cssId.split('-')[1],
         quantityValue = document.getElementById(`quantity-${itemId}`).value,
         cartItemRow = document.getElementById(`cart-item-${itemId}`),
         tdParent = e.target.parentNode;
     addRefundQuantityColumn();
-    // input.setAttribute('type', 'number');
-    // input.setAttribute('id', `refund-quantity-${itemId}`);
-    // cartItemRow.insertBefore(td, tdParent);
-    // console.log(tableHeaders);
+
     function addRefundQuantityColumn(){
       let tableHeaders = document.getElementById('order-th'),
           thChildren = tableHeaders.children,
