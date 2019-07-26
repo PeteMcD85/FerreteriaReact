@@ -73,27 +73,28 @@ respond_to do |format|
 end
 end # END of index Method
 
-def show
-  @item = Item.find(params[:id])
-  if @item.pic.attached?
-    respond_to do |format|
-      format.html
-      format.json {
-        render json: {
-          pic_url: url_for(@item.pic)
+
+  def show
+    @item = Item.find(params[:id])
+    if @item.pic.attached?
+      respond_to do |format|
+        format.html
+        format.json {
+          render json: {
+            pic_url: url_for(@item.pic)
+          }
         }
-      }
-  end
-  else
-    respond_to do |format|
-      format.html
-      format.json {
-        render json: {
-          pic_url: ""
-        }
-      }
     end
-  end
+    else
+      respond_to do |format|
+        format.html
+        format.json {
+          render json: {
+            pic_url: ""
+          }
+        }
+      end
+    end
 end
 
 def new
