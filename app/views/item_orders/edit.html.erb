@@ -1,0 +1,33 @@
+<%= form_for @item_order, url: {action: "update"} do |f| %>
+  <table>
+    <tbody>
+      <tr id="order-th">
+        <th>Brand</th>
+        <th>Name</th>
+        <th>Color</th>
+        <th>Size</th>
+        <th>Thickness</th>
+        <th>Price</th>
+        <th>Price Given</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th>Refund Quantity</th>
+        <th>Refund Subtotal</th>
+      </tr>
+      <tr  id= "<%= "cart-item-#{@item_order.id}" %>">
+        <td><%= @item.brand %></td>
+        <td><%= @item.name %></td>
+        <td><%= @item.color %></td>
+        <td><%= @item.size %></td>
+        <td><%= @item.thickness %></td>
+        <td><%= @item.sold_price %></td>
+        <td><%= @item_order.price_given %></td>
+        <td id="<%= "quantity-#{@item_order.id}" %>"><%= @item_order.quantity %></td>
+        <td><%= @item_order.subtotal %></td>
+        <td><%= f.number_field :quantity_refunded, value: @item_order.quantity_refunded, max: @item_order.quantity, min: 0 %></td>
+        <td><%= @item_order.subtotal_refunded %></td>
+        <td><%= f.submit "Update" %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>

@@ -13,7 +13,6 @@ const Cart = (props) => {
             updateCartItem(itemId, columnName, columnValue);
       },
       printReciept = () => {
-        console.log('printReciept');
         orderCart();
       }
   return (

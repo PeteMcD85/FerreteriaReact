@@ -96,6 +96,10 @@
   }
 }
 
+.hidden {
+  display: none;
+}
+
 @import "variables.scss";
 @import "cart.scss";
 @import "nav_list/*";
