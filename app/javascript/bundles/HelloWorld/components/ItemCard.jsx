@@ -9,6 +9,7 @@ const ItemCard = (props) => {
       color = item.color,
       size = item.size,
       thickness = item.thickness,
+      inventory= item.inventory,
       sold_price = Number(item.sold_price).toFixed(2),
       signedIn = props.signedIn,
       isPicUrl = (picUrl !== "") ?  true : false,
@@ -21,7 +22,7 @@ const ItemCard = (props) => {
             cartButton = document.getElementById(`cart-button-${id}`),
             cartButtonPretext = cartButton.innerText.split(" ")[0],
             newCartButtonPretext = (cartButtonPretext === "Add") ? "Remove" : "Add"
-        if (!quantityValue || quantityValue < 1) return alert("Must enter quantity to be greater than 0")
+        if (!quantityValue || quantityValue < 1 || quantityValue > inventory ) return alert(`Quantity must be greater than 0 and less than ${inventory}`)
         if (cartButtonPretext === "Add") {
           quantityInput.disabled = true;
           addToCart(id,quantityValue);

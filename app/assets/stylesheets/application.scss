@@ -18,6 +18,7 @@
  *= require font-awesome
 */
 
+
 .hidden {
   display: none;
 }
@@ -367,10 +368,24 @@ div.dropdown {
   div.category-brand {
     display: none; }
 
-}//end of min 765px
+
+  @media only screen and (min-width: 765px) {
+    .category-brand{
+      display:none; }
+  }
+
+  .order {
+    
+    input{
+      width: 50px;  }
+  }//end of .order
+
+  .hidden {
+    display: none;
+  }
+
 
 @import "variables.scss";
-@import "cart.scss";
 @import "nav_list/*";
 @import "items/*";
 @import "font-awesome";
