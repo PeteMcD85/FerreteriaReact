@@ -58,15 +58,13 @@ export default class Order extends React.Component {
         <table>
           <tbody>
             <tr id={`order-th`}>
-              <th>Brand</th>
-              <th>Name</th>
+              <th>Marca</th>
+              <th>Nombre</th>
               <th>Color</th>
-              <th>Size</th>
-              <th>Thickness</th>
-
-              <th>Price</th>
-              <th>Quantity Sold</th>
-
+              <th>Tamaño</th>
+              <th>Grosor</th>
+              <th>Precio</th>
+              <th>Cantidad Vendida</th>
               <th>Refund</th>
             </tr>
             {cartItems.map((cartItem, ind)=> {
@@ -77,7 +75,6 @@ export default class Order extends React.Component {
                   <td>{cartItem.color}</td>
                   <td>{cartItem.size}</td>
                   <td>{cartItem.thickness}</td>
-
                   <td>{cart[ind].price_given}</td>
                   <td id={`quantity-${cartItem.id}`}>{cart[ind].quantity}</td>
 
