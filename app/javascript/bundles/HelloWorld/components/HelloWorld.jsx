@@ -74,173 +74,127 @@ export default class HelloWorld extends React.Component {
     return {subtotal: subtotal, taxes: taxes, total: total}
   }
 
-  updateCartItem = (id, columnName, columnValue) => {
-    let cart = this.state.cart,
-        taxFree = this.state.taxFree,
-        cartItems = cart.cartItems,
-        itemIndex = cartItems.findIndex((cartItem)=> cartItem.item.id == id),
-        cartItem = cartItems[itemIndex];
-    cartItem[columnName] = columnValue;
-    cartItem['subtotal'] = (cartItem.priceGiven * cartItem.quantity).toFixed(2);
-    cartItems[itemIndex] = cartItem;
-    this.setState({
-      cart: {
-        cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems, taxFree)
+updateSelectedNavList = (navName) => {
+  console.log(navName);
+  fetch("/items.json")
+    .then(res => res.json())
+    .then(
+      (result) => {
+        this.setState({
+          selectedNavName: navName,
+          selectedNavList: result.actives[navName],
+          selectedNavListInactives: result.inactives[navName],
+          showQueryList: false
+        });
+      },
+      (error) => {
+        console.error("Error retrieving results for updateSelectedNavList AJAX method");
+        console.error(error);
       }
-    });
+    )
   }
 
-  addToCart = (id, quantity) => {
-    let cartItems = this.state.cart.cartItems,
-        taxFree = this.state.taxFree,
-        item = this.state.activeItems.find((item)=> item.id == id);
-    cartItems.push({item: item, quantity: quantity, priceGiven: item.sold_price, subtotal: (+quantity * +item.sold_price).toFixed(2) });
-    this.setState({
-      cart: {
-        cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems, taxFree)
-      }
-    });
-  }
+calculateCartTotal = (cartItems) => {
+  let subtotal = cartItems.reduce((total, cartItem)=> {
+        return total += +cartItem.subtotal
+      }, 0).toFixed(2),
+      taxes = (subtotal * .115).toFixed(2),
+      total = (+subtotal + +taxes).toFixed(2);
+  return {subtotal: subtotal, taxes: taxes, total: total}
+}
 
-  removeFromCart = (id) => {
-    let cartItems = this.state.cart.cartItems,
-        taxFree = this.state.taxFree,
-        itemToRemove = cartItems.findIndex((cartItem)=> cartItem.item.id == id );
-        cartItems.splice(itemToRemove,1);
-    this.setState({
-      cart: {
-        cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems, taxFree)
-      }
-    });
-  }
+updateCartItem = (id, columnName, columnValue) => {
+  let cart = this.state.cart,
+      cartItems = cart.cartItems,
+      itemIndex = cartItems.findIndex((cartItem)=> cartItem.item.id == id),
+      cartItem = cartItems[itemIndex];
+  cartItem[columnName] = columnValue;
+  cartItem['subtotal'] = (cartItem.priceGiven * cartItem.quantity).toFixed(2);
+  cartItems[itemIndex] = cartItem;
+  this.setState({
+    cart: {
+      cartItems: cartItems,
+      cartTotal: this.calculateCartTotal(cartItems)
+    }
+  });
+}
 
-  clearCart = () => {
-    this.setState({
-      cart: {
-        cartItems: [],
-        cartTotal: {
-          subtotal: 0,
-          taxes: 0,
-          total: 0
+addToCart = (id, quantity) => {
+  let cartItems = this.state.cart.cartItems,
+      item = this.state.activeItems.find((item)=> item.id == id);
+  cartItems.push({item: item, quantity: quantity, priceGiven: item.sold_price, subtotal: (+quantity * +item.sold_price).toFixed(2) });
+  this.setState({
+    cart: {
+      cartItems: cartItems,
+      cartTotal: this.calculateCartTotal(cartItems)
+    }
+  });
+}
+
+removeFromCart = (id) => {
+  let cartItems = this.state.cart.cartItems,
+      itemToRemove = cartItems.findIndex((cartItem)=> cartItem.item.id == id );
+      cartItems.splice(itemToRemove,1);
+  this.setState({
+    cart: {
+      cartItems: cartItems,
+      cartTotal: this.calculateCartTotal(cartItems)
+    }
+  });
+}
+
+orderCart = () => {
+  let csrfToken = document.querySelector("[name='csrf-token']").content,
+      cart = this.state.cart;
+  fetch(
+    "/orders", {
+      method: "POST",
+      body: JSON.stringify({
+        order: {
+          orderType: 'sale',
+          itemOrders: cart
         }
+      }),
+      headers: {
+        "X-CSRF-Token": csrfToken,
+        "Content-Type": "application/json"
       }
-   })
-  }
-
-  orderCart = () => {
-    let csrfToken = document.querySelector("[name='csrf-token']").content,
-        cart = this.state.cart,
-        cartTotal = cart.cartTotal.total,
-        taxFree = this.state.taxFree,
-        paymentMethod = this.state.paymentMethod,
-        customMethod = {
-          cash:0,
-          creditCard:0,
-          check:0,
-          debit:0
-        };
-    if(paymentMethod === '') return alert('must choose a payment method')
-    if (paymentMethod === 'custom') {
-      let cashAmount = +document.getElementById('custom-cash').value,
-          creditCardAmount = +document.getElementById('custom-credit-card').value,
-          checkAmount = +document.getElementById('custom-check').value,
-          debitAmount = +document.getElementById('custom-debit').value;
-
-      if(cartTotal !== (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2)) {
-        return alert(`Custom amount must equal ${cartTotal}`)
-      } else {
-        customMethod.cash = cashAmount;
-        customMethod.creditCard = creditCardAmount;
-        customMethod.check = checkAmount;
-        customMethod.debit = debitAmount;
-      }
-    } else {
-      customMethod[paymentMethod] = cartTotal
-    }
-    fetch(
-      "/orders", {
-        method: "POST",
-        body: JSON.stringify({
-          order: {
-            orderType: 'sale',
-            itemOrders: cart,
-            taxFree: taxFree,
-            cashPayed: customMethod.cash,
-            creditCardPayed: customMethod.creditCard,
-            debitPayed: customMethod.debit,
-            checkPayed: customMethod.cash
-          }
-        }),
-        headers: {
-          "X-CSRF-Token": csrfToken,
-          "Content-Type": "application/json"
-        }
-      }).then(response => {
-        console.log('response');
-        console.log(response);
-        if (!response.ok) { throw response; }
-        return response.url;
-      }).then((url) => {
-        window.location.replace(url);
-      }).catch(error => {
-        console.error("error", error);
-      });
-  }
-
-  cartButton = () => {
-    let showCart = (this.state.showCart) ? false : true;
-    this.setState({ showCart: showCart })
-  }
-
-  dropdown = (e) => {
-    let target = e.target.innerHTML,
-        columnName = (target === "Categories") ? "category-list" : "brand-list",
-        columnList = document.getElementsByClassName(columnName)[0];
-        columnList.classList.toggle('hidden');
-  }
-
-  updateTaxFree = () => {
-    let taxFree = this.state.taxFree ? false : true,
-        cart = this.state.cart;
-    if (taxFree) {
-      cart.cartTotal.taxes = 0;
-      cart.cartTotal.total = cart.cartTotal.subtotal;
-    } else {
-      let cartTotal = this.calculateCartTotal(cart.cartItems, taxFree);
-      console.log(cartTotal);
-      cart.cartTotal.taxes = cartTotal.taxes;
-      cart.cartTotal.total = cartTotal.total;
-    }
-    this.setState({
-      taxFree: taxFree,
-      cart: cart
+    }).then(response => {
+      console.log('response');
+      console.log(response);
+      if (!response.ok) { throw response; }
+      return response.url;
+    }).then((url) => {
+      window.location.replace(url);
+    }).catch(error => {
+      console.error("error", error);
     });
-  }
+}
 
-  updatePaymentMethod = (e) => {
-    let val =e.target.value,
-        customPayment = document.getElementById('customPaymentMethod');
-    console.log(val);
-    if(val === 'custom') {
-      customPayment.classList.remove('hidden')
-    } else {
-      customPayment.classList.add('hidden')
-    }
-    this.setState({paymentMethod: val})
-  }
+cartButton = () => {
+  let showCart = (this.state.showCart) ? false : true;
+  this.setState({ showCart: showCart })
+}
+
+dropdown = (e) => {
+  e.persist();
+  let target = e.target.innerHTML,
+      columnName = (target === "Categories") ? "category-list" : "brand-list",
+      columnList = document.getElementsByClassName(columnName)[0];
+      columnList.classList.toggle('hidden');
+      console.log(e);
+};
 
 handleOnInputChange = (event) => {
   event.persist();
   const query = event.target.value;
   this.getQueriedItems(query)
-};
+}
 
 getQueriedItems = (query) => {
   query = query.trim();
   let currentQueryLength = query.length;
+  console.log(currentQueryLength);
   if(currentQueryLength === 0) {
     this.setState({
       showQueryList: false ,
@@ -272,7 +226,8 @@ getQueriedItems = (query) => {
         selectedNavName: "query"
       })
     }//end of if else
-};
+
+}
 
   render() {
     let queriedItems = this.state.queriedItems,
@@ -346,21 +301,26 @@ return (
            /> }
        </div>
      }
+
      { !showCart &&
        <div>
+
        { !signedIn &&
           <div className="phone-map">
           <button> <i className="fa fa-phone-square"></i> </button>
           <button> <i className="fa fa-map-pin"></i> </button>
          </div> }
+
          <div className="search">
            <input type="text" placeholder=" ..Search" onChange={this.handleOnInputChange} />
            <button> <i className="fa fa-search" onClick={this.queriedItems}></i> </button>
          </div>
+
          <div className="category-brand">
            <p onClick={(e) => this.dropdown(e)}>Categories</p>
            <p onClick={(e) => this.dropdown(e)}>Brands</p>
          </div>
+
          <div id="nav-list">
          <div className="dropdown">
          <NavList

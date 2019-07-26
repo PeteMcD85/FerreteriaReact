@@ -15,10 +15,12 @@ export default class Order extends React.Component {
       cart: props.cart,
       cartItems: props.cartItems
     }
+    console.log(this.state);
   }
 
   refundItem = (e) => {
     e.persist();
+    console.log(e);
     let cssId = e.target.id,
         itemId = cssId.split('-')[1],
         quantityValue = document.getElementById(`quantity-${itemId}`).value,

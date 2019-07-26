@@ -15,6 +15,7 @@ export default class Orders extends React.Component {
       orders: props.orders,
       displayedOrders: props.orders
     };
+    console.log(this.state);
   }
   componentDidMount() {
     this.updateOrders();
