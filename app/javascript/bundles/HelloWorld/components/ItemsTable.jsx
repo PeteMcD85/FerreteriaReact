@@ -13,19 +13,20 @@ const ItemsTable = (props) => {
         items.forEach((val)=>{
           if (val[column]) returnColumn = true
         })
+        return returnColumn
       };
   return (
     <div className="table">
     <table>
       <tbody>
         <tr>
-          <th>Name</th>
-          <th>Brand</th>
-          <th>Size</th>
-          <th>Thickness</th>
-          {signedIn && <th>Price</th>}
+          {checkColumn("name") && <th>Nombre</th>}
+          {checkColumn("brand") && <th>Marca</th>}
+          {checkColumn("size") && <th>Tamaño</th>}
+          {checkColumn("thickness") && <th>Grosor</th>}
+          {checkColumn("sold_price") && <th>Precio</th>}
           {signedIn && <th>Edit</th>}
-          {signedIn && <th>Amount</th>}
+          {signedIn && <th>Cantidad</th>}
         </tr>
         {items.map((item,ind)=> {
           return (
