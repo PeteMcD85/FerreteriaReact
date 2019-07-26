@@ -283,6 +283,7 @@ export default class HelloWorld extends React.Component {
       }//end of if else
 
   }
+
   render() {
     let brands = this.state.brands,
         categories = this.state.categories,
@@ -304,10 +305,10 @@ export default class HelloWorld extends React.Component {
              <div>
                <div className="cart-buttons">
                  <button id="cart-button" onClick={this.cartButton}>
-                   {(showCart) ? "Add More Items" : "Check Out"}
+                   {(showCart) ? "Añadir más Artículos" : "Check Out"}
                  </button>
                  <button id="clear-cart-button" onClick={this.clearCart}>
-                   Clear Cart
+                   Vaciar Carrito
                  </button>
                </div>
                <div className="payment-methods">

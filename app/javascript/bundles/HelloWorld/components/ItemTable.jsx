@@ -50,7 +50,7 @@ const ItemTable = (props) => {
         </td>}
       {signedIn &&
         <td className="update-cart-td">
-          <span>Quantity:
+          <span>Cantidad 
             <input type="number"
               className="quantity-input"
               id={`quantity-${id}`}
