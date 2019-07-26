@@ -14,7 +14,6 @@ export default class Orders extends React.Component {
     this.state = {
       orders: props.orders
     };
-    console.log(this.state);
   }
 
   render() {

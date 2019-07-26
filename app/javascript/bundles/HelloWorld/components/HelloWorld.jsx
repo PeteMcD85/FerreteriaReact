@@ -52,7 +52,6 @@ this.updateSelectedNavList("All");
 }
 
 updateSelectedNavList = (navName) => {
-  console.log(navName);
   fetch("/items.json")
     .then(res => res.json())
     .then(
@@ -69,7 +68,7 @@ updateSelectedNavList = (navName) => {
         console.error(error);
       }
     )
-  }
+  };
 
 calculateCartTotal = (cartItems) => {
   let subtotal = cartItems.reduce((total, cartItem)=> {
@@ -78,7 +77,7 @@ calculateCartTotal = (cartItems) => {
       taxes = (subtotal * .115).toFixed(2),
       total = (+subtotal + +taxes).toFixed(2);
   return {subtotal: subtotal, taxes: taxes, total: total}
-}
+};
 
 updateCartItem = (id, columnName, columnValue) => {
   let cart = this.state.cart,
@@ -94,7 +93,7 @@ updateCartItem = (id, columnName, columnValue) => {
       cartTotal: this.calculateCartTotal(cartItems)
     }
   });
-}
+};
 
 addToCart = (id, quantity) => {
   let cartItems = this.state.cart.cartItems,
@@ -106,7 +105,7 @@ addToCart = (id, quantity) => {
       cartTotal: this.calculateCartTotal(cartItems)
     }
   });
-}
+};
 
 removeFromCart = (id) => {
   let cartItems = this.state.cart.cartItems,
@@ -118,7 +117,7 @@ removeFromCart = (id) => {
       cartTotal: this.calculateCartTotal(cartItems)
     }
   });
-}
+};
 
 clearCart = () => {
   this.setState({
@@ -131,7 +130,7 @@ clearCart = () => {
       }
     }
  })
-}
+};
 
 orderCart = () => {
   let csrfToken = document.querySelector("[name='csrf-token']").content,
@@ -150,8 +149,6 @@ orderCart = () => {
         "Content-Type": "application/json"
       }
     }).then(response => {
-      console.log('response');
-      console.log(response);
       if (!response.ok) { throw response; }
       return response.url;
     }).then((url) => {
@@ -159,12 +156,12 @@ orderCart = () => {
     }).catch(error => {
       console.error("error", error);
     });
-}
+};
 
 cartButton = () => {
   let showCart = (this.state.showCart) ? false : true;
   this.setState({ showCart: showCart })
-}
+};
 
 dropdown = (e) => {
   e.persist();
@@ -172,19 +169,17 @@ dropdown = (e) => {
       columnName = (target === "Categories") ? "category-list" : "brand-list",
       columnList = document.getElementsByClassName(columnName)[0];
       columnList.classList.toggle('hidden');
-      console.log(e);
 };
 
 handleOnInputChange = (event) => {
   event.persist();
   const query = event.target.value;
   this.getQueriedItems(query)
-}
+};
 
 getQueriedItems = (query) => {
   query = query.trim();
   let currentQueryLength = query.length;
-  console.log(currentQueryLength);
   if(currentQueryLength === 0) {
     this.setState({
       showQueryList: false ,
@@ -216,8 +211,7 @@ getQueriedItems = (query) => {
         selectedNavName: "query"
       })
     }//end of if else
-
-}
+};
 
 render() {
   let queriedItems = this.state.queriedItems,
@@ -255,26 +249,21 @@ return (
            /> }
        </div>
      }
-
      { !showCart &&
        <div>
-
        { !signedIn &&
           <div className="phone-map">
           <button> <i className="fa fa-phone-square"></i> </button>
           <button> <i className="fa fa-map-pin"></i> </button>
          </div> }
-
          <div className="search">
            <input type="text" placeholder=" ..Search" onChange={this.handleOnInputChange} />
            <button> <i className="fa fa-search" onClick={this.queriedItems}></i> </button>
          </div>
-
          <div className="category-brand">
            <p onClick={(e) => this.dropdown(e)}>Categories</p>
            <p onClick={(e) => this.dropdown(e)}>Brands</p>
          </div>
-
          <div id="nav-list">
          <div className="dropdown">
          <NavList
