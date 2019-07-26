@@ -53,7 +53,7 @@ export default class Orders extends React.Component {
         console.log(today);
     return (
       <div className="orders">
-        <h1>Orders</h1>
+        <h1>Ordenes</h1>
         <label>
           <input type="date" id="start-range" defaultValue={today} onChange={this.updateOrders} />
         </label>
