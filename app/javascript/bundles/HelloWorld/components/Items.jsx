@@ -28,7 +28,8 @@ const Items = (props) => {
   } else if (selectedNavName === "query") {
     console.log('query');
       let itemsCard = [],
-          itemsTable = [];
+          itemsTable = [],
+          showTable = false;
       items.forEach((item) => {
         if(item.category === "PVC" || item.category === "Tornillos" || item.category === "Tinte") {
           itemsTable.push(item);
@@ -36,28 +37,30 @@ const Items = (props) => {
           itemsCard.push(item);
         }
       });
-      console.log(itemsCard);
-      console.log(itemsTable);
+      if (itemsTable.length > 0) showTable = true;
       return (
           <div>
-          <ItemsTable
-            items={itemsTable}
-            signedIn={signedIn}
-            addToCart={addToCart}
-            removeFromCart={removeFromCart}
-            cart={cart}
-          />
-          <div className="item-cards">
-             <ItemsCard
-               items={itemsCard}
-               signedIn={signedIn}
-               picUrls={picUrls}
-               addToCart={addToCart}
-               removeFromCart={removeFromCart}
-               cart={cart}
-             />
+            { showTable &&
+              <div>
+                <ItemsTable
+                  items={itemsTable}
+                  signedIn={signedIn}
+                  addToCart={addToCart}
+                  removeFromCart={removeFromCart}
+                  cart={cart}
+                />
+              </div> }
+            <div className="item-cards">
+               <ItemsCard
+                 items={itemsCard}
+                 signedIn={signedIn}
+                 picUrls={picUrls}
+                 addToCart={addToCart}
+                 removeFromCart={removeFromCart}
+                 cart={cart}
+               />
+            </div>
           </div>
-        </div>
       )
   } else {
       return (

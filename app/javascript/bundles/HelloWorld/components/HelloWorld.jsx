@@ -47,6 +47,7 @@ export default class HelloWorld extends React.Component {
       queryListActiveItems: this.props.activeItems,
       showQueryList: false,
       queryLength: 0,
+      customerChange:0
    };
    this.updateSelectedNavList("Todo");
   }
@@ -147,15 +148,12 @@ export default class HelloWorld extends React.Component {
           debit:0
         };
     if(paymentMethod === '') return alert('must choose a payment method')
+    if(paymentMethod === 'cash')
     if (paymentMethod === 'custom') {
       let cashAmount = +document.getElementById('custom-cash').value,
           creditCardAmount = +document.getElementById('custom-credit-card').value,
           checkAmount = +document.getElementById('custom-check').value,
           debitAmount = +document.getElementById('custom-debit').value;
-      // console.log(cashAmount);
-      // console.log(creditCardAmount);
-      // console.log(checkAmount);
-      // console.log(debitAmount);
       if(cartTotal !== (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2)) {
         return alert(`Custom amount must equal ${cartTotal}`)
       } else {
@@ -230,12 +228,18 @@ export default class HelloWorld extends React.Component {
 
   updatePaymentMethod = (e) => {
     let val =e.target.value,
-        customPayment = document.getElementById('customPaymentMethod');
+        customPayment = document.getElementById('customPaymentMethod'),
+        cashPayment = document.getElementById('cashPaymentMethod');
     console.log(val);
-    if(val === 'custom') {
-      customPayment.classList.remove('hidden')
+    if (val === 'custom') {
+      customPayment.classList.remove('hidden');
+      cashPayment.classList.add('hidden')
+    } else if (val === 'cash') {
+      customPayment.classList.add('hidden');
+      cashPayment.classList.remove('hidden');
     } else {
-      customPayment.classList.add('hidden')
+      customPayment.classList.add('hidden');
+      cashPayment.classList.add('hidden')
     }
     this.setState({paymentMethod: val})
   }
@@ -248,16 +252,21 @@ export default class HelloWorld extends React.Component {
 
   getQueriedItems = (query) => {
     query = query.trim();
-    let currentQueryLength = query.length;
-    console.log(currentQueryLength);
+    let currentQueryLength = query.length,
+        prevQueryLength = this.state.queryLength;
     if(currentQueryLength === 0) {
       this.setState({
         showQueryList: false ,
-        queryListActiveItems: this.state.activeItems
+        queryListActiveItems: this.state.activeItems,
+        query: "",
+        queryLength: currentQueryLength,
+        selectedNavName: "All"
       });
     } else {
         let words = query.split(" "),
-            queryListActiveItems = this.state.activeItems,
+            stateActiveItems = this.state.activeItems,
+            stateQueryListActiveItems = this.state.queryListActiveItems,
+            queryListActiveItems = (currentQueryLength < prevQueryLength) ? stateActiveItems :  stateQueryListActiveItems,
             queriedItems = queryListActiveItems.filter((activeItem) => {
               let name = activeItem.name.toLowerCase(),
                   category = activeItem.category ? activeItem.category.toLowerCase() : "",
@@ -267,12 +276,15 @@ export default class HelloWorld extends React.Component {
                   stockNumber = activeItem.stock_number ? activeItem.stock_number.toLowerCase() : "",
                   thickness = activeItem.thickness ? activeItem.thickness.toLowerCase() : "",
                   returnItem = false;
-              words.forEach((word) => {
+              words.forEach((word, ind) => {
+                if (ind > 0 && !returnItem) return
                 word = word.toLowerCase();
                 returnItem = (name.includes(word) || category.includes(word) || brand.includes(word) || size.includes(word) || color.includes(word) || thickness.includes(word)) ? true : false;
               })
               if (returnItem) return activeItem
             });//end of getQueriedItems
+            console.log('queriedItems');
+            console.log(queriedItems);
         this.setState({
           query: query,
           queryListActiveItems: queriedItems,
@@ -284,6 +296,18 @@ export default class HelloWorld extends React.Component {
 
   }
 
+
+  updateCashRecieved = (e) => {
+    let cartTotal = this.state.cart.cartTotal.total,
+        val = e.target.value,
+        customerChange = (+val - +cartTotal ).toFixed(2);
+        console.log(val);
+        console.log(cartTotal);
+
+    this.setState({customerChange: customerChange})
+  }
+
+r
   render() {
     let brands = this.state.brands,
         categories = this.state.categories,
@@ -296,12 +320,15 @@ export default class HelloWorld extends React.Component {
         showCart = this.state.showCart,
         taxFree = this.state.taxFree,
         showQueryList = this.state.showQueryList,
-        queryListActiveItems = this.state.queryListActiveItems;
+        queryListActiveItems = this.state.queryListActiveItems,
+        cartTotal = cart.cartTotal.total,
+        customerChange = this.state.customerChange;
         console.log(this.state);
     return (
       <div className="hello-world">
         { signedIn &&
            <div>
+
              <div>
                <div className="cart-buttons">
                  <button id="cart-button" onClick={this.cartButton}>
@@ -344,6 +371,12 @@ export default class HelloWorld extends React.Component {
                      <label>Debit
                        <input type='number' id="custom-debit" />
                      </label>
+                   </div>
+                   <div id="cashPaymentMethod" className="hidden">
+                     <label>Efectivo Recibido
+                       <input type='number' id="cash-recieved" onChange={this.updateCashRecieved}/>
+                     </label>
+                     <span> - ${cartTotal} = ${customerChange}</span>
                    </div>
                  </span>
                </div>
