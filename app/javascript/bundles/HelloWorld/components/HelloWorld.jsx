@@ -291,7 +291,7 @@ export default class HelloWorld extends React.Component {
               words.forEach((word, ind) => {
                 if (ind > 0 && !returnItem) return
                 word = word.toLowerCase();
-                returnItem = (name.includes(word) || category.includes(word) || brand.includes(word) || size.includes(word) || color.includes(word) || thickness.includes(word)) ? true : false;
+                returnItem = (name.includes(word) || category.includes(word) || brand.includes(word) || size.includes(word) || color.includes(word) || thickness.includes(word) || stockNumber.includes(word)) ? true : false;
               })
               if (returnItem) return activeItem
             });//end of getQueriedItems
@@ -404,14 +404,11 @@ export default class HelloWorld extends React.Component {
                         {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange)}`}
                        </div>
                       </div>
-                       <div className="pop-up">
-
-                     <div id="cash-payment-method" className="hidden">
+                       <div id="cash-payment-method" className="hidden">
                        <label>Efectivo Recibido
                          <input type='number' id="cash-recieved" onChange={this.updateCashRecieved}/>
                        </label>
                        <span> ${cartTotal} = ${customerChange}</span>
-                     </div>
                     </div>
                    </span>
                  </div>
