@@ -19,7 +19,6 @@ export default class HelloWorld extends React.Component {
   /**
    * @param props
    */
-
   constructor(props) {
     super(props);
     this.state = {
@@ -148,12 +147,15 @@ export default class HelloWorld extends React.Component {
           debit:0
         };
     if(paymentMethod === '') return alert('must choose a payment method')
-    if(paymentMethod === 'cash')
     if (paymentMethod === 'custom') {
       let cashAmount = +document.getElementById('custom-cash').value,
           creditCardAmount = +document.getElementById('custom-credit-card').value,
           checkAmount = +document.getElementById('custom-check').value,
           debitAmount = +document.getElementById('custom-debit').value;
+      // console.log(cashAmount);
+      // console.log(creditCardAmount);
+      // console.log(checkAmount);
+      // console.log(debitAmount);
       if(cartTotal !== (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2)) {
         return alert(`Custom amount must equal ${cartTotal}`)
       } else {
@@ -225,6 +227,7 @@ export default class HelloWorld extends React.Component {
       cart: cart
     });
   }
+
 
   updatePaymentMethod = (e) => {
     let val =e.target.value,
@@ -306,7 +309,6 @@ export default class HelloWorld extends React.Component {
 
     this.setState({customerChange: customerChange})
   }
-
 
   render() {
     let brands = this.state.brands,
