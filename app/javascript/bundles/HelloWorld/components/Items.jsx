@@ -12,7 +12,8 @@ const Items = (props) => {
       cart = props.cart,
       addToCart = props.addToCart,
       removeFromCart = props.removeFromCart;
-  if (selectedNavName !== "PVC" && selectedNavName !== "Tornillos" && selectedNavName !== "Tinte" && selectedNavName !== "query") {
+  if (selectedNavName !== "PVC" && selectedNavName !== "Tornillos" && selectedNavName !== "Tinte" && selectedNavName !== "query" && selectedNavName !== "Goznes" && selectedNavName !== "Correderas" && selectedNavName !== "Routers" && selectedNavName !== "Tapcon" && selectedNavName !== "Staples" && selectedNavName !== "Laminados" && selectedNavName !== "Sait" && selectedNavName !== "SeamFil") {
+
     return (
       <div className="item-cards">
          <ItemsCard
@@ -30,7 +31,7 @@ const Items = (props) => {
       let itemsCard = [],
           itemsTable = [];
       items.forEach((item) => {
-        if(item.category === "PVC" || item.category === "Tornillos" || item.category === "Tinte") {
+        if(item.category === "PVC" || item.category === "Tornillos" || item.category === "Tinte" || item.category === "Goznes" || item.category === "Correderas" || item.category === "Routers" || item.category === "Tapcon" || item.category === "Staples" || item.category === "Laminados" || item.brand === "Sait" || item.category === "SeamFil") {
           itemsTable.push(item);
         } else {
           itemsCard.push(item);
