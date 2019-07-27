@@ -116,6 +116,7 @@ end
 
 def edit
   @item = Item.find(params[:id])
+    @categories = Item.distinct_categories.map {|item| item.category}
 end
 
 def update

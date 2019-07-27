@@ -8,12 +8,13 @@ const ItemsTable = (props) => {
       addToCart = props.addToCart,
       removeFromCart = props.removeFromCart,
       cart = props.cart,
+      selectedNavName = props.selectedNavName,
       checkColumn = (column) => {
         let returnColumn = false;
         items.forEach((val)=>{
           if (val[column]) returnColumn = true
         })
-        if (column === 'sold_price') returnColumn = false
+        if (column === 'sold_price' && selectedNavName === "PVC" && !signedIn ) returnColumn = false
         return returnColumn
       };
   return (
