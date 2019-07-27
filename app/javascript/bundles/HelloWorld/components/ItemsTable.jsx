@@ -13,6 +13,7 @@ const ItemsTable = (props) => {
         items.forEach((val)=>{
           if (val[column]) returnColumn = true
         })
+        if (column === 'sold_price') returnColumn = false
         return returnColumn
       };
   return (
