@@ -27,7 +27,7 @@ respond_to do |format|
       Blum: @items.get_brand("Blum").get_actives,
       Sait: @items.get_brand("Sait").get_actives,
       "3M": @items.get_brand("3M").get_actives,
-      Todo: @items.remove_category("PVC").remove_category("Tornillos").remove_category("Tinte").remove_category("Goznes").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Staples").remove_category("Laminados").remove_brand("Sait").remove_brand("SeamFil").get_actives,
+      Todo: @items.remove_category("PVC").remove_category("Tornillos").remove_category("Tinte").remove_category("Goznes").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Staples").remove_category("Laminados").remove_brand("Sait").remove_category("SeamFil").get_actives,
       PVC: @items.get_category("PVC").get_actives,
       Herramientas: @items.get_category("Herramientas").get_actives,
       Goznes: @items.get_category("Goznes").get_actives,
