@@ -1,22 +1,22 @@
 <%# = react_component('Order', props: {order: @order, cart: @cart, cart_items: @cart_items}, prerender: false) %>
 <%= link_to 'Orders', orders_path %>
-<div className="order">
+<div class="order">
   <h1><%= @order.id %></h1>
   <table>
     <tbody>
-      <tr id="order-th">
-        <th>Brand</th>
-        <th>Name</th>
+      <tr class="order-th">
+        <th>Marca</th>
+        <th>Nombre</th>
         <th>Color</th>
-        <th>Size</th>
-        <th>Thickness</th>
-        <th>Price</th>
-        <th>Price Given</th>
-        <th>Quantity</th>
+        <th>Tamaño</th>
+        <th>Grosor</th>
+        <th>Precio Dado</th>
+        <th>Cantidad</th>
         <th>Subtotal</th>
         <th>Subtotal Refunded</th>
-        <th>Quantity Refunded</th>
-        <th>Inventory</th>
+        <th>Cuantidad Refunded</th>
+        <th>Inventario</th>
+        <th>Refund</th>
       </tr>
       <% @cart_items.each_with_index do |cart_item, ind| %>
           <tr  id= "<%= "cart-item-#{cart_item.id}" %>">
@@ -25,11 +25,10 @@
             <td><%= cart_item.color %></td>
             <td><%= cart_item.size %></td>
             <td><%= cart_item.thickness %></td>
-            <td><%= cart_item.sold_price %></td>
-            <td><%= @cart[ind].price_given %></td>
+            <td>$<%= @cart[ind].price_given %></td>
             <td id="<%= "quantity-#{cart_item.id}" %>"><%= @cart[ind].quantity %></td>
-            <td><%= @cart[ind].subtotal %></td>
-            <td><%= @cart[ind].subtotal_refunded %></td>
+            <td>$<%= @cart[ind].subtotal %></td>
+            <td>$<%= @cart[ind].subtotal_refunded %></td>
             <td><%= @cart[ind].quantity_refunded %></td>
             <td><%= cart_item.inventory %></td>
             <td>
@@ -40,23 +39,23 @@
       <tr>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
         <td>Subtotal</td>
-        <td class="cart-subtotal-value"><%= @order.subtotal %></td>
+        <td class="cart-subtotal-value">$<%= @order.subtotal %></td>
         <td>Subtotal Refunded</td>
-        <td class="cart-subtotal-value"><%= @order.subtotal_refunded %></td>
+        <td class="cart-subtotal-value">$<%= @order.subtotal_refunded %></td>
       </tr>
       <tr>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
         <td>Taxes</td>
-        <td class="cart-taxes-value"><%= @order.taxes %></td>
+        <td class="cart-taxes-value">$<%= @order.taxes %></td>
         <td>Taxes Refunded</td>
-        <td class="cart-taxes-value"><%= @order.taxes_refunded %></td>
+        <td class="cart-taxes-value">$<%= @order.taxes_refunded %></td>
       </tr>
       <tr>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
         <td>Total</td>
-        <td class="cart-total-value"><%= @order.total %></td>
+        <td class="cart-total-value">$<%= @order.total %></td>
         <td>Total Refunded</td>
-        <td class="cart-total-value"><%= @order.total_refunded %></td>
+        <td class="cart-total-value">$<%= @order.total_refunded %></td>
       </tr>
 
     </tbody>

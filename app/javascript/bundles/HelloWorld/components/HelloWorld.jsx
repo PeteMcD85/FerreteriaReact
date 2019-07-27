@@ -178,7 +178,7 @@ export default class HelloWorld extends React.Component {
             cashPayed: customMethod.cash,
             creditCardPayed: customMethod.creditCard,
             debitPayed: customMethod.debit,
-            checkPayed: customMethod.cash
+            checkPayed: customMethod.check
           }
         }),
         headers: {

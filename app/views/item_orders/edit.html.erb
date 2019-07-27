@@ -1,19 +1,21 @@
 <%= link_to 'Order', order_path(@order) %>
 <%= form_for @item_order, url: {action: "update"} do |f| %>
-  <table>
+
+  <table class="item-order-table">
     <tbody>
-      <tr id="order-th">
-        <th>Brand</th>
-        <th>Name</th>
+      <tr class="order-th">
+        <th>Marca</th>
+        <th>Nombre</th>
         <th>Color</th>
-        <th>Size</th>
-        <th>Thickness</th>
-        <th>Price</th>
-        <th>Price Given</th>
-        <th>Quantity</th>
+        <th>Tamaño</th>
+        <th>Grosor</th>
+        <th>Precio</th>
+        <th>Precio Dado</th>
+        <th>Cantidad</th>
         <th>Subtotal</th>
-        <th>Refund Quantity</th>
+        <th>Refund Cantidad</th>
         <th>Refund Subtotal</th>
+        <th>Actualizar</th>
       </tr>
       <tr  id= "<%= "cart-item-#{@item_order.id}" %>">
         <td><%= @item.brand %></td>
@@ -21,8 +23,8 @@
         <td><%= @item.color %></td>
         <td><%= @item.size %></td>
         <td><%= @item.thickness %></td>
-        <td><%= @item.sold_price %></td>
-        <td><%= @item_order.price_given %></td>
+        <td>$<%= @item.sold_price %></td>
+        <td>$<%= @item_order.price_given %></td>
         <td id="<%= "quantity-#{@item_order.id}" %>"><%= @item_order.quantity %></td>
         <td><%= @item_order.subtotal %></td>
         <td><%= f.number_field :quantity_refunded, value: @item_order.quantity_refunded, max: @item_order.quantity, min: 0 %></td>

@@ -1,61 +1,64 @@
-<p>
- <%= display_image(@item) %>
-</p>
+<div class="show-item">
+  <p>
+   <%= display_image(@item) %>
+  </p>
 
-<p>
-  <strong>Active:</strong>
-  <%= @item.active %>
-</p>
+  <p>
+    <strong>Activo:</strong>
+    <%= @item.active %>
+  </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @item.name %>
-</p>
+  <p>
+    <strong>Nombre:</strong>
+    <%= @item.name %>
+  </p>
 
-<p>
-  <strong>Category:</strong>
-  <%= @item.category %>
-</p>
+  <p>
+    <strong>Categoría:</strong>
+    <%= @item.category %>
+  </p>
 
-<p>
-  <strong>Brand:</strong>
-  <%= @item.brand %>
-</p>
+  <p>
+    <strong>Marca:</strong>
+    <%= @item.brand %>
+  </p>
 
-<p>
-  <strong>Size:</strong>
-  <%= @item.size %>
-</p>
+  <p>
+    <strong>Tamaño:</strong>
+    <%= @item.size %>
+  </p>
 
-<p>
-  <strong>Thickness:</strong>
-  <%= @item.thickness %>
-</p>
+  <p>
+    <strong>Grosor:</strong>
+    <%= @item.thickness %>
+  </p>
 
-<p>
-  <strong>Color:</strong>
-  <%= @item.color %>
-</p>
+  <p>
+    <strong>Color:</strong>
+    <%= @item.color %>
+  </p>
 
-<p>
-  <strong>Sold Price:</strong>
-  <%= @item.sold_price %>
-</p>
+  <p>
+    <strong>Precio De Venta:</strong>
+    <%= @item.sold_price %>
+  </p>
 
-<p>
-  <strong>Bought Price:</strong>
-  <%= @item.bought_price %>
-</p>
+  <p>
+    <strong>Precio De Compra:</strong>
+    <%= @item.bought_price %>
+  </p>
 
-<p>
-  <strong>Inventory:</strong>
-  <%= @item.inventory %>
-</p>
+  <p>
+    <strong>Inventario:</strong>
+    <%= @item.inventory %>
+  </p>
 
-<p>
-  <strong>Stock Number:</strong>
-  <%= @item.stock_number %>
-</p>
+  <p>
+    <strong>Número De Artículo:</strong>
+    <%= @item.stock_number %>
+  </p>
+</div>
+
 
 
 <%= link_to 'Back', items_path %>

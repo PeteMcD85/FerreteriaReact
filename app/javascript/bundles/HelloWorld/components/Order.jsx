@@ -57,7 +57,7 @@ export default class Order extends React.Component {
       <div className="order">
         <table>
           <tbody>
-            <tr id={`order-th`}>
+            <tr id={`order-th`} >
               <th>Marca</th>
               <th>Nombre</th>
               <th>Color</th>
@@ -75,7 +75,7 @@ export default class Order extends React.Component {
                   <td>{cartItem.color}</td>
                   <td>{cartItem.size}</td>
                   <td>{cartItem.thickness}</td>
-                  <td>{cart[ind].price_given}</td>
+                  <td>${cart[ind].price_given}</td>
                   <td id={`quantity-${cartItem.id}`}>{cart[ind].quantity}</td>
 
                   <td>
@@ -87,17 +87,17 @@ export default class Order extends React.Component {
             <tr>
               <td></td><td></td><td></td><td></td><td></td><td></td>
               <td>Subtotal</td>
-              <td id="cart-subtotal-value">{order.subtotal}</td>
+              <td id="cart-subtotal-value">${order.subtotal}</td>
             </tr>
             <tr>
               <td></td><td></td><td></td><td></td><td></td><td></td>
               <td>Taxes</td>
-              <td id="cart-taxes-value">{order.taxes}</td>
+              <td id="cart-taxes-value">${order.taxes}</td>
             </tr>
             <tr>
               <td></td><td></td><td></td><td></td><td></td><td></td>
               <td>Total</td>
-              <td id="cart-total-value">{order.total}</td>
+              <td id="cart-total-value">${order.total}</td>
             </tr>
           </tbody>
         </table>
