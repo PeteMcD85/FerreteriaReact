@@ -19,6 +19,7 @@ export default class HelloWorld extends React.Component {
   /**
    * @param props
    */
+
   constructor(props) {
     super(props);
     this.state = {
@@ -373,7 +374,7 @@ export default class HelloWorld extends React.Component {
                      <label>Custom
                        <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
                      </label>
-                     <div id="customPaymentMethod" className="hidden">
+                     <div id="custom-payment-method" className="hidden">
                        <label>Cash
                          <input type='number' id="custom-cash" onChange={this.updateCustomInputChange} />
                        </label>
@@ -390,7 +391,7 @@ export default class HelloWorld extends React.Component {
                         {`${(customTotal < cartTotal) ? 'Falta' : 'Cambio de Cliente' } : ${customerChange}`}
                        </div>
                      </div>
-                     <div id="cashPaymentMethod" className="hidden">
+                     <div id="cash-payment-method" className="hidden">
                        <label>Efectivo Recibido
                          <input type='number' id="cash-recieved" onChange={this.updateCashRecieved}/>
                        </label>
