@@ -99,10 +99,13 @@ end
 
 def new
   @item = Item.new
+  @categories = Item.distinct_categories.map {|item| item.category}
 end
 
 def create
   @item = Item.new(item_params)
+  p '+++++++++++++++++++++++++++++++++++++++++'
+  p item_params
 
   if @item.save
     redirect_to @item
