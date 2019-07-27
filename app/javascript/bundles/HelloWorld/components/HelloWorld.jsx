@@ -153,9 +153,10 @@ export default class HelloWorld extends React.Component {
       let cashAmount = +document.getElementById('custom-cash').value,
           creditCardAmount = +document.getElementById('custom-credit-card').value,
           checkAmount = +document.getElementById('custom-check').value,
-          debitAmount = +document.getElementById('custom-debit').value;
-      if(cartTotal !== (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2)) {
-        return alert(`Custom amount must equal ${cartTotal}`)
+          debitAmount = +document.getElementById('custom-debit').value,
+          customTotal = (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2);
+      if(cartTotal < customTotal) {
+        return alert(`${customTotal}:Amount must be greater than ${cartTotal}`)
       } else {
         customMethod.cash = cashAmount;
         customMethod.creditCard = creditCardAmount;
@@ -163,6 +164,10 @@ export default class HelloWorld extends React.Component {
         customMethod.debit = debitAmount;
       }
     } else {
+      if (paymentMethod === 'cash') {
+        let customerChange = this.state.customerChange;
+        if (customerChange < 0) return alert('Efectivo Recibido must be greater than 0')
+      }
       customMethod[paymentMethod] = cartTotal
     }
     fetch(
@@ -187,9 +192,15 @@ export default class HelloWorld extends React.Component {
         console.log('response');
         console.log(response);
         if (!response.ok) { throw response; }
-        return response.url;
-      }).then((url) => {
-        window.location.replace(url);
+        return response.json();
+      }).then((res) => {
+        let orderId = res.order_id,
+            orderIdDiv = document.getElementById('order-id');
+        orderIdDiv.innerText = `Order Number : ${orderId}`;
+        window.print();
+
+        console.log(res);
+        // window.location.replace(url);
       }).catch(error => {
         console.error("error", error);
       });
@@ -354,6 +365,8 @@ export default class HelloWorld extends React.Component {
              </div>
              { showCart &&
                <div>
+                 <div id="order-id">
+                 </div>
                  <div className="payment-methods">
                    <label>Tax Free
                      <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
