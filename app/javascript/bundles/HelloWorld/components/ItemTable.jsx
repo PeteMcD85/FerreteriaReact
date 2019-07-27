@@ -6,6 +6,7 @@ const ItemTable = (props) => {
       id = item.id,
       name = item.name,
       brand = item.brand,
+      color = item.color,
       thickness = item.thickness,
       size = item.size,
       sold_price = Number(item.sold_price).toFixed(2),
@@ -39,6 +40,7 @@ const ItemTable = (props) => {
       {name && <td>{name}</td>}
       {brand && <td>{brand}</td>}
       {size && <td>{size}</td>}
+      {color && <td>{color}</td>}
       {thickness && <td>{thickness}</td>}
       {signedIn && <td>$ {sold_price}</td>}
       { signedIn &&
@@ -47,7 +49,7 @@ const ItemTable = (props) => {
         </td>}
       {signedIn &&
         <td className="update-cart-td">
-          <span>Cantidad 
+          <span>Cantidad
             <input type="number"
               className="quantity-input"
               id={`quantity-${id}`}

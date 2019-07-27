@@ -175,7 +175,7 @@ export default class HelloWorld extends React.Component {
             cashPayed: customMethod.cash,
             creditCardPayed: customMethod.creditCard,
             debitPayed: customMethod.debit,
-            checkPayed: customMethod.cash
+            checkPayed: customMethod.check
           }
         }),
         headers: {
@@ -228,8 +228,8 @@ export default class HelloWorld extends React.Component {
 
   updatePaymentMethod = (e) => {
     let val =e.target.value,
-        customPayment = document.getElementById('customPaymentMethod'),
-        cashPayment = document.getElementById('cashPaymentMethod');
+        customPayment = document.getElementById('custom-payment-method'),
+        cashPayment = document.getElementById('cash-payment-method');
     console.log(val);
     if (val === 'custom') {
       customPayment.classList.remove('hidden');

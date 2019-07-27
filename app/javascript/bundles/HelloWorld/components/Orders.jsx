@@ -110,31 +110,31 @@ export default class Orders extends React.Component {
             return (
               <tr key={ind}>
                 <td><a href={`/orders/${order.id}`}>{order.created_at}</a></td>
-                <td>{order.subtotal}</td>
-                <td>{order.taxes}</td>
-                <td>{order.total}</td>
-                <td>{order.cash_payed}</td>
-                <td>{order.credit_card_payed}</td>
-                <td>{order.check_payed}</td>
-                <td>{order.debit_payed}</td>
-                <td>{order.subtotal_refunded}</td>
-                <td>{order.taxes_refunded}</td>
-                <td>{order.total_refunded}</td>
+                <td>${order.subtotal}</td>
+                <td>${order.taxes}</td>
+                <td>${order.total}</td>
+                <td>${order.cash_payed}</td>
+                <td>${order.credit_card_payed}</td>
+                <td>${order.check_payed}</td>
+                <td>${order.debit_payed}</td>
+                <td>${order.subtotal_refunded}</td>
+                <td>${order.taxes_refunded}</td>
+                <td>${order.total_refunded}</td>
               </tr>
             )
           })}
           <tr>
             <td></td>
-            <td>{this.getSum('subtotal')}</td>
-            <td>{this.getSum('taxes')}</td>
-            <td>{this.getSum('total')}</td>
-            <td>{this.getSum('cash_payed')}</td>
-            <td>{this.getSum('credit_card_payed')}</td>
-            <td>{this.getSum('check_payed')}</td>
-            <td>{this.getSum('debit_payed')}</td>
-            <td>{this.getSum('subtotal_refunded')}</td>
-            <td>{this.getSum('taxes_refunded')}</td>
-            <td>{this.getSum('total_refunded')}</td>
+            <td>${this.getSum('subtotal')}</td>
+            <td>${this.getSum('taxes')}</td>
+            <td>${this.getSum('total')}</td>
+            <td>${this.getSum('cash_payed')}</td>
+            <td>${this.getSum('credit_card_payed')}</td>
+            <td>${this.getSum('check_payed')}</td>
+            <td>${this.getSum('debit_payed')}</td>
+            <td>${this.getSum('subtotal_refunded')}</td>
+            <td>${this.getSum('taxes_refunded')}</td>
+            <td>${this.getSum('total_refunded')}</td>
           </tr>
           </tbody>
         </table>
