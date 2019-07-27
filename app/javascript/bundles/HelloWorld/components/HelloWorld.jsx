@@ -307,7 +307,7 @@ export default class HelloWorld extends React.Component {
     this.setState({customerChange: customerChange})
   }
 
-r
+
   render() {
     let brands = this.state.brands,
         categories = this.state.categories,
