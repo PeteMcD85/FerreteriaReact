@@ -401,15 +401,18 @@ export default class HelloWorld extends React.Component {
                          <input type='number' id="custom-debit" onChange={this.updateCustomInputChange} />
                        </label>
                        <div id="custom-change" >
-                        {`${(customTotal < cartTotal) ? 'Falta' : 'Cambio de Cliente' } : ${customerChange}`}
+                        {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange)}`}
                        </div>
-                     </div>
+                      </div>
+                       <div className="pop-up">
+
                      <div id="cash-payment-method" className="hidden">
                        <label>Efectivo Recibido
                          <input type='number' id="cash-recieved" onChange={this.updateCashRecieved}/>
                        </label>
-                       <span> - ${cartTotal} = ${customerChange}</span>
+                       <span> ${cartTotal} = ${customerChange}</span>
                      </div>
+                    </div>
                    </span>
                  </div>
                  <Cart
