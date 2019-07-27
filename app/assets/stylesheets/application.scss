@@ -18,6 +18,49 @@
  *= require font-awesome
 */
 
+// ++++++++++++++++++++++++++++ CustomPAYMENTMETHOD ++++++++++++++++++++++++++++
+#custom-payment-method {
+  display: flex;
+  &.hidden {
+    display: none;
+  }
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+label {
+
+input {
+  margin: 5px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: normal;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+input:hover {
+  box-shadow: 0 10px 18px 0 rgba(1,1,1,0.2), 0 8px 22px 0 rgba(1,1,1,1.19); }
+}// end of label
+}// end of #custom-payment-method
+
+// ++++++++++++++++++++++++++++++++ CASH +++++++++++++++++++++++++++++++++++++++
+#cash-payment-method {
+    padding: 15px;
+
+  input#cash-recieved{
+    margin: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: normal;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+
+  input#cash-recieved:hover {
+    box-shadow: 0 10px 18px 0 rgba(1,1,1,0.2), 0 8px 22px 0 rgba(1,1,1,1.19); }
+
+}// end of #cashPaymmentMethod
+
+// ++++++++++++++++++++++++++++++ .show-item +++++++++++++++++++++++++++++++++++
 .show-item{
 
 p {
@@ -192,12 +235,9 @@ td, th { padding: 8px 1px; }
   text-align: center;
 
   label{
-    margin: 1.25rem;
+    padding: 10px 20px;
     font-size: 15px;
     font-weight: bolder;
-
-  input{
-    cursor: pointer; }
 }//end of label
 }//end of .payment-methods
 

@@ -231,8 +231,8 @@ export default class HelloWorld extends React.Component {
 
   updatePaymentMethod = (e) => {
     let val =e.target.value,
-        customPayment = document.getElementById('customPaymentMethod'),
-        cashPayment = document.getElementById('cashPaymentMethod');
+        customPayment = document.getElementById('custom-payment-method'),
+        cashPayment = document.getElementById('cash-payment-method');
     console.log(val);
     if (val === 'custom') {
       customPayment.classList.remove('hidden');
@@ -360,7 +360,7 @@ export default class HelloWorld extends React.Component {
                    <label>Custom
                      <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
                    </label>
-                   <div id="customPaymentMethod" className="hidden">
+                   <div id="custom-payment-method" className="hidden">
                      <label>Cash
                        <input type='number' id="custom-cash" />
                      </label>
@@ -374,7 +374,7 @@ export default class HelloWorld extends React.Component {
                        <input type='number' id="custom-debit" />
                      </label>
                    </div>
-                   <div id="cashPaymentMethod" className="hidden">
+                   <div id="cash-payment-method" className="hidden">
                      <label>Efectivo Recibido
                        <input type='number' id="cash-recieved" onChange={this.updateCashRecieved}/>
                      </label>

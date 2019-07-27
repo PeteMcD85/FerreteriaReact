@@ -23,6 +23,7 @@ const ItemsTable = (props) => {
           {checkColumn("name") && <th>Nombre</th>}
           {checkColumn("brand") && <th>Marca</th>}
           {checkColumn("size") && <th>Tamaño</th>}
+          {checkColumn("color") && <th>Color</th>}
           {checkColumn("thickness") && <th>Grosor</th>}
           {checkColumn("sold_price") && <th>Precio</th>}
           {signedIn && <th>Edit</th>}
