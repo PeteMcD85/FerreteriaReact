@@ -26,13 +26,10 @@ const ItemTable = (props) => {
           addToCart(id,quantityValue);
         } else {
           quantityInput.disabled = false;
-          removeFromCart(id);
         }
         cartButton.innerText = `${newCartButtonPretext} from Cart`;
-        console.log(quantityInput);
       },
       setQuantityValue = (id) => {
-        console.log(cart);
         let itemInCart = cartItems.find((cartItem)=> cartItem.item.id == id);
         if (itemInCart) return {value: itemInCart.quantity, disabled: true, text: "Remove from Cart" }
         return {value: "", disabled: false, text: "Add to Cart" }
