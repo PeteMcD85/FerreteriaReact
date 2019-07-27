@@ -13,7 +13,7 @@ const NavList = (props) => {
 
       <div className={`${columnName}-list hidden` }>
         <ul>
-          {isCategory && <li onClick={updateNav}>All</li>}
+          {isCategory && <li onClick={updateNav}>Todo</li>}
           {columnList.map((nav, ind)=> {
         return <li key={ind} onClick={updateNav}>{nav[`${columnName}`]}</li>
           })}

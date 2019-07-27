@@ -80,16 +80,21 @@ export default class Orders extends React.Component {
     return (
       <div className="orders">
         <h1>Ordenes</h1>
+        <h4>Fechas</h4>
+      <div className="date-range">
+        <p>Desde</p>
         <label>
           <input type="date" id="start-range" defaultValue={today} onChange={this.updateOrders} />
         </label>
+        <p>a</p>
         <label>
           <input type="date" id="end-range" defaultValue={today} onChange={this.updateOrders} />
         </label>
+      </div>
         <table>
           <tbody>
             <tr>
-              <th>DateTime</th>
+              <th>Fecha Y Hora</th>
               <th>Subtotal</th>
               <th>Taxes</th>
               <th>Total</th>
