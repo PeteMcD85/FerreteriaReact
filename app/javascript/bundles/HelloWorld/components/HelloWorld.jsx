@@ -156,7 +156,10 @@ export default class HelloWorld extends React.Component {
           checkAmount = +document.getElementById('custom-check').value,
           debitAmount = +document.getElementById('custom-debit').value,
           customTotal = (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2);
-      if(cartTotal < customTotal) {
+      if(+cartTotal > +customTotal) {
+        console.log('print');
+        console.log(cartTotal);
+        console.log(customTotal);
         return alert(`${customTotal}:Debe ser mayor que ${cartTotal}`)
       } else {
         customMethod.cash = cashAmount;
@@ -239,7 +242,13 @@ export default class HelloWorld extends React.Component {
 
   updateTaxFree = () => {
     let taxFree = this.state.taxFree ? false : true,
-        cart = this.state.cart;
+    cart = this.state.cart,
+    cartTotal = this.state.cart.cartTotal.total;
+    document.getElementById('custom-cash').value = 0;
+    document.getElementById('custom-credit-card').value = 0;
+    document.getElementById('custom-check').value = 0;
+    document.getElementById('custom-debit').value = 0;
+    document.getElementById('cash-recieved').value = 0;
     if (taxFree) {
       cart.cartTotal.taxes = 0;
       cart.cartTotal.total = cart.cartTotal.subtotal;
@@ -252,7 +261,9 @@ export default class HelloWorld extends React.Component {
 
     this.setState({
       taxFree: taxFree,
-      cart: cart
+      cart: cart,
+      customTotal: 0,
+      customerChange: 0
     });
   }
 
@@ -260,6 +271,11 @@ export default class HelloWorld extends React.Component {
     let val =e.target.value,
         customPayment = document.getElementById('custom-payment-method'),
         cashPayment = document.getElementById('cash-payment-method');
+  document.getElementById('custom-cash').value = 0;
+   document.getElementById('custom-credit-card').value = 0;
+   document.getElementById('custom-check').value = 0;
+   document.getElementById('custom-debit').value = 0;
+   document.getElementById('cash-recieved').value = 0;
     console.log(val);
     if (val === 'custom') {
       customPayment.classList.remove('hidden');
@@ -271,7 +287,12 @@ export default class HelloWorld extends React.Component {
       customPayment.classList.add('hidden');
       cashPayment.classList.add('hidden')
     }
-    this.setState({paymentMethod: val})
+    this.setState({
+      paymentMethod: val,
+      customTotal: 0,
+      customerChange: 0
+    })
+
   }
 
   handleOnInputChange = (event) => {
