@@ -85,6 +85,7 @@ export default class Orders extends React.Component {
         <table>
           <tbody>
             <tr>
+              <th>Order Number</th>
               <th>Fecha Y Hora</th>
               <th>Subtotal</th>
               <th>Taxes</th>
@@ -100,6 +101,7 @@ export default class Orders extends React.Component {
           {displayedOrders.map((order, ind)=> {
             return (
               <tr key={ind}>
+                <td>{order.id}</td>
                 <td><a href={`/orders/${order.id}`}>{order.created_at}</a></td>
                 <td>${order.subtotal}</td>
                 <td>${order.taxes}</td>

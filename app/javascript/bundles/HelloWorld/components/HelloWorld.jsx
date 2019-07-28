@@ -199,26 +199,9 @@ export default class HelloWorld extends React.Component {
         let orderId = res.order_id,
             orderIdDiv = document.getElementById('order-id');
         orderIdDiv.innerText = `Order Number : ${orderId}`;
-        // window.print();
-        console.log(res);
-        this.updateSelectedNavList("Todo");
-        this.clearCart();
-        this.setState({
-          showCart: false,
-          selectedNavName: "Todo",
-          selectedNavList: this.state.activeItems,
-          selectedNavListInactives: this.state.inactiveItems,
-          showQueryList: false,
-          cart: {
-            cartItems: [],
-            cartTotal: {
-              subtotal: 0,
-              taxes: 0,
-              total: 0
-            }
-          }
-        })
+        window.print();
 
+        console.log(res);
         // window.location.replace(url);
       }).catch(error => {
         console.error("error", error);
@@ -239,13 +222,7 @@ export default class HelloWorld extends React.Component {
 
   updateTaxFree = () => {
     let taxFree = this.state.taxFree ? false : true,
-        cart = this.state.cart,
-        cartTotal = this.state.cart.cartTotal.total;
-    document.getElementById('custom-cash').value = 0;
-    document.getElementById('custom-credit-card').value = 0;
-    document.getElementById('custom-check').value = 0;
-    document.getElementById('custom-debit').value = 0;
-    document.getElementById('cash-recieved').value = 0;
+        cart = this.state.cart;
     if (taxFree) {
       cart.cartTotal.taxes = 0;
       cart.cartTotal.total = cart.cartTotal.subtotal;
@@ -255,25 +232,17 @@ export default class HelloWorld extends React.Component {
       cart.cartTotal.taxes = cartTotal.taxes;
       cart.cartTotal.total = cartTotal.total;
     }
+
     this.setState({
       taxFree: taxFree,
-      cart: cart,
-
-      customTotal: 0,
-      customerChange: 0
+      cart: cart
     });
   }
-
 
   updatePaymentMethod = (e) => {
     let val =e.target.value,
         customPayment = document.getElementById('custom-payment-method'),
         cashPayment = document.getElementById('cash-payment-method');
-    document.getElementById('custom-cash').value = 0;
-    document.getElementById('custom-credit-card').value = 0;
-    document.getElementById('custom-check').value = 0;
-    document.getElementById('custom-debit').value = 0;
-    document.getElementById('cash-recieved').value = 0;
     console.log(val);
     if (val === 'custom') {
       customPayment.classList.remove('hidden');
@@ -285,11 +254,7 @@ export default class HelloWorld extends React.Component {
       customPayment.classList.add('hidden');
       cashPayment.classList.add('hidden')
     }
-    this.setState({
-      paymentMethod: val,
-      customTotal: 0,
-      customerChange: 0
-    })
+    this.setState({paymentMethod: val})
   }
 
   handleOnInputChange = (event) => {
@@ -344,17 +309,13 @@ export default class HelloWorld extends React.Component {
 
   }
 
-
   updateCashRecieved = (e) => {
     let cartTotal = this.state.cart.cartTotal.total,
         val = e.target.value,
         customerChange = (+val - +cartTotal ).toFixed(2);
         console.log(val);
         console.log(cartTotal);
-    this.setState({
-      customerChange: customerChange,
-
-    })
+    this.setState({customerChange: customerChange})
   }
 
   updateCustomInputChange = () => {
@@ -370,8 +331,6 @@ export default class HelloWorld extends React.Component {
       customerChange: customerChange
     });
   }
-
-
 
   render() {
     let brands = this.state.brands,
@@ -465,9 +424,9 @@ export default class HelloWorld extends React.Component {
          { !showCart &&
            <div>
              { !signedIn &&
-                <div className="phone-map">
-                <a href="tel:+7872348563">Telefono<i className="fa fa-phone-square"></i></a>
-                <a href="https://www.google.com/maps/place/Ferreteria+Anibal+Centro+Gabinetes+Y+Topes/@18.3784426,-66.2011181,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036b0434b58e1d:0xccad113b4a621685!8m2!3d18.3784375!4d-66.1989294">Mapa<i className="fa fa-map-pin"></i></a>
+                 <div className="phone-map">
+                 <button> <i className="fa fa-phone-square"></i> </button>
+                 <button> <i className="fa fa-map-pin"></i> </button>
                 </div>
               }
 
