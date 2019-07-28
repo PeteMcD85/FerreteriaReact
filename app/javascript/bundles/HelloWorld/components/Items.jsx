@@ -49,6 +49,7 @@ const Items = (props) => {
                   addToCart={addToCart}
                   removeFromCart={removeFromCart}
                   cart={cart}
+                  selectedNavName={selectedNavName}
                 />
               </div> }
             <div className="item-cards">
@@ -72,6 +73,7 @@ const Items = (props) => {
             addToCart={addToCart}
             removeFromCart={removeFromCart}
             cart={cart}
+            selectedNavName={selectedNavName}
           />
         </div>
       );
