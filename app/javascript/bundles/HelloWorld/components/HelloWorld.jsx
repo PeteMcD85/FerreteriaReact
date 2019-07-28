@@ -149,7 +149,7 @@ export default class HelloWorld extends React.Component {
           check:0,
           debit:0
         };
-    if(paymentMethod === '') return alert('must choose a payment method')
+    if(paymentMethod === '') return alert('Debe elegir el método de pago')
     if (paymentMethod === 'custom') {
       let cashAmount = +document.getElementById('custom-cash').value,
           creditCardAmount = +document.getElementById('custom-credit-card').value,
@@ -157,7 +157,7 @@ export default class HelloWorld extends React.Component {
           debitAmount = +document.getElementById('custom-debit').value,
           customTotal = (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2);
       if(cartTotal < customTotal) {
-        return alert(`${customTotal}:Amount must be greater than ${cartTotal}`)
+        return alert(`${customTotal}:Debe ser mayor que ${cartTotal}`)
       } else {
         customMethod.cash = cashAmount;
         customMethod.creditCard = creditCardAmount;
@@ -166,8 +166,9 @@ export default class HelloWorld extends React.Component {
       }
     } else {
       if (paymentMethod === 'cash') {
-        let customerChange = this.state.customerChange;
-        if (customerChange < 0) return alert('Efectivo Recibido must be greater than 0')
+        let customerChange = this.state.customerChange,
+            cashRecieved = document.getElementById('cash-recieved').value;
+        if (customerChange < 0 || cashRecieved < cartTotal) return alert(`Efectivo Recibido debe ser mayor que ${cartTotal}`)
       }
       customMethod[paymentMethod] = cartTotal
     }
@@ -366,8 +367,7 @@ export default class HelloWorld extends React.Component {
              </div>
              { showCart &&
                <div>
-                 <div id="order-id">
-                 </div>
+                 <div id="order-id"></div>
                  <div className="payment-methods">
                    <label>Tax Free
                      <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
@@ -402,14 +402,14 @@ export default class HelloWorld extends React.Component {
                          <input type='number' id="custom-debit" onChange={this.updateCustomInputChange} />
                        </label>
                        <div id="custom-change" >
-                        {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange)}`}
+                        {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange).toFixed(2)}`}
                        </div>
                       </div>
                        <div id="cash-payment-method" className="hidden">
                        <label>Efectivo Recibido
                          <input type='number' id="cash-recieved" onChange={this.updateCashRecieved}/>
                        </label>
-                       <span> ${cartTotal} = ${customerChange}</span>
+                       <span>  {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange.toFixed(2))}`}</span>
                     </div>
                    </span>
                  </div>
