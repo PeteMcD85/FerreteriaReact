@@ -172,7 +172,10 @@ td, th {
 // ++++++++++++++++++++++++++++++ ORDERS +++++++++++++++++++++++++++++++++++++
 //
 .orders {
-
+.search-orders {
+  display: flex;
+  justify-content: center;
+}
   table { width: 100%; }
 
 h1 { text-align: center; }

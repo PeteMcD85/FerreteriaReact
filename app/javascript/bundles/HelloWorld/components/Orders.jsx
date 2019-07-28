@@ -80,7 +80,9 @@ export default class Orders extends React.Component {
         </label>
       </div>
       <div className="search-orders">
-        <input type="number" onChange={this.searchOrder} />
+        <label> Search by Order Number :
+          <input type="number" onChange={this.searchOrder} />
+        </label>
       </div>
         <table>
           <tbody>
@@ -94,8 +96,6 @@ export default class Orders extends React.Component {
               <th>Credit Card</th>
               <th>Check</th>
               <th>Debit</th>
-              <th>Subtotal Refunded</th>
-              <th>Taxes Refunded</th>
               <th>Total Refunded</th>
             </tr>
           {displayedOrders.map((order, ind)=> {
@@ -110,14 +110,26 @@ export default class Orders extends React.Component {
                 <td>${order.credit_card_payed}</td>
                 <td>${order.check_payed}</td>
                 <td>${order.debit_payed}</td>
-                <td>${order.subtotal_refunded}</td>
-                <td>${order.taxes_refunded}</td>
                 <td>${order.total_refunded}</td>
               </tr>
             )
           })}
+          </tbody>
+        </table>
+        <table>
+            <caption>Total de Ordenes</caption>
+          <tbody>
+            <tr>
+              <th>Subtotal</th>
+              <th>Taxes</th>
+              <th>Total</th>
+              <th>Cash</th>
+              <th>Credit Card</th>
+              <th>Check</th>
+              <th>Debit</th>
+              <th>Total Refunded</th>
+            </tr>
           <tr>
-            <td></td>
             <td>${this.getSum('subtotal')}</td>
             <td>${this.getSum('taxes')}</td>
             <td>${this.getSum('total')}</td>
@@ -125,8 +137,6 @@ export default class Orders extends React.Component {
             <td>${this.getSum('credit_card_payed')}</td>
             <td>${this.getSum('check_payed')}</td>
             <td>${this.getSum('debit_payed')}</td>
-            <td>${this.getSum('subtotal_refunded')}</td>
-            <td>${this.getSum('taxes_refunded')}</td>
             <td>${this.getSum('total_refunded')}</td>
           </tr>
           </tbody>
