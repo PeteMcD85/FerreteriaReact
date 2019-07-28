@@ -535,12 +535,12 @@ button:hover {
  // +++++++++++++++++++++++++++++++ dropdown login ++++++++++++++++++++++++++++
 
 div.dropdown {
-  position: relative;
-  display: block;
+  display: flex;
+  margin: 20px;
 
   div.dropdown-content {
-    // display: none;
-    position: relative;
+    display: flex;
+    margin: 10px;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -548,8 +548,14 @@ div.dropdown {
     z-index: 1;
 
    a {
+     margin: 15px;
      text-decoration: none;
      color: black; }
+
+    .button_to {
+      display: flex;
+      margin: 15px;
+    }
 
    input {
      cursor: pointer;
