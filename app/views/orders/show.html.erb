@@ -37,25 +37,28 @@
           </tr>
         <% end %>
       <tr>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td>Subtotal</td>
+        <td>Subtotal Original</td>
         <td class="cart-subtotal-value">$<%= @order.subtotal %></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+
         <td>Subtotal Refunded</td>
         <td class="cart-subtotal-value">$<%= @order.subtotal_refunded %></td>
       </tr>
       <tr>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td>Taxes</td>
+        <td>Taxes Original</td>
         <td class="cart-taxes-value">$<%= @order.taxes %></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+
         <td>Taxes Refunded</td>
         <td class="cart-taxes-value">$<%= @order.taxes_refunded %></td>
       </tr>
       <tr>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        <td>Total</td>
+        <td>Total Original</td>
         <td class="cart-total-value">$<%= @order.total %></td>
-        <td>Total Refunded</td>
-        <td class="cart-total-value">$<%= @order.total_refunded %></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+
+        <td class="total-refund">Total Refunded</td>
+        <td class="cart-total-value total-refund">$<%= @order.total_refunded %></td>
       </tr>
 
     </tbody>

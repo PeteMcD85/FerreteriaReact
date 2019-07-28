@@ -104,6 +104,10 @@ input:hover{
 
 
 // +++++++++++++++++++++++++ .item-order-table +++++++++++++++++++++++++++++++
+.total-refund {
+  background-color: yellow;
+}
+
 table.item-order-table {
 
   table { width:100%; }
@@ -420,7 +424,6 @@ tbody {
   width: 100%; }
 
 tr {
-  display: flex;
   width: 100%; }
 
 tr:nth-child(even) { background-color: #f2f2f2;}
