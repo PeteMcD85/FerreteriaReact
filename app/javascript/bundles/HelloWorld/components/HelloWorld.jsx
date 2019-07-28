@@ -426,9 +426,9 @@ export default class HelloWorld extends React.Component {
          { !showCart &&
            <div>
              { !signedIn &&
-                 <div className="phone-map">
-                 <button> <i className="fa fa-phone-square"></i> </button>
-                 <button> <i className="fa fa-map-pin"></i> </button>
+                <div className="phone-map">
+                <a href="tel:+7872348563">Telefono<i className="fa fa-phone-square"></i></a>
+                <a href="https://www.google.com/maps/place/Ferreteria+Anibal+Centro+Gabinetes+Y+Topes/@18.3784426,-66.2011181,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036b0434b58e1d:0xccad113b4a621685!8m2!3d18.3784375!4d-66.1989294">Mapa<i className="fa fa-map-pin"></i></a>
                 </div>
               }
 
