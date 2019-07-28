@@ -166,8 +166,9 @@ export default class HelloWorld extends React.Component {
       }
     } else {
       if (paymentMethod === 'cash') {
-        let customerChange = this.state.customerChange;
-        if (customerChange < 0) return alert('Efectivo Recibido debe ser mayor que 0')
+        let customerChange = this.state.customerChange,
+            cashRecieved = document.getElementById('cash-recieved').value,
+        if (customerChange < 0 || cashRecieved < cartTotal) return alert(`Efectivo Recibido debe ser mayor que ${cartTotal}`)
       }
       customMethod[paymentMethod] = cartTotal
     }

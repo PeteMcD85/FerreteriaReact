@@ -18,14 +18,14 @@ const Cart = (props) => {
       }
   return (
     <div id="cart">
-     <label>
-        Cliente:
-         <input  id="order-name" type="text" />
-         </label>
-         <label>
-        Teléfono:
-         <input id="order-telephone" type="text" />
-         </label>
+     // <label>
+     //    Cliente:
+     //     <input  id="order-name" type="text" />
+     //     </label>
+     //     <label>
+     //    Teléfono:
+     //     <input id="order-telephone" type="text" />
+     //     </label>
       <table>
         <tbody>
           <tr>
