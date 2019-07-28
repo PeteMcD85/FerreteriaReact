@@ -336,13 +336,14 @@ export default class HelloWorld extends React.Component {
   }
 
   updateCustomInputChange = () => {
-    let cashAmount = +document.getElementById('custom-cash').value,
-        creditCardAmount = +document.getElementById('custom-credit-card').value,
-        checkAmount = +document.getElementById('custom-check').value,
-        debitAmount = +document.getElementById('custom-debit').value,
+    let cashAmount = document.getElementById('custom-cash').value,
+        creditCardAmount = document.getElementById('custom-credit-card').value,
+        checkAmount = document.getElementById('custom-check').value,
+        debitAmount = document.getElementById('custom-debit').value,
         cartTotal = this.state.cart.cartTotal.total,
-        customTotal = (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2),
-        customerChange = (customTotal - cartTotal).toFixed(2);
+        customTotal = (+cashAmount + +creditCardAmount + +checkAmount + +debitAmount).toFixed(2),
+        customerChange = (+customTotal - +cartTotal).toFixed(2);
+        console.log('update');
     this.setState({
       customTotal: customTotal,
       customerChange: customerChange
@@ -424,7 +425,7 @@ export default class HelloWorld extends React.Component {
                        <label>Efectivo Recibido
                          <input type='number' id="cash-recieved" onChange={this.updateCashRecieved}/>
                        </label>
-                       <span>  {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange.toFixed(2))}`}</span>
+                       <span>  {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange).toFixed(2)}`}</span>
                     </div>
                    </span>
                  </div>
