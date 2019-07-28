@@ -132,7 +132,9 @@ table.item-order-table {
 .table {
 
 
-  table{ width: 100%; }
+  table{
+    width: 100%;
+    table-layout: inherit; }
 
 td {
 
@@ -456,6 +458,7 @@ td, th {
   width: 100%;
 
 table {
+  table-layout: inherit;
   width: 100%;
 
 tbody {
@@ -467,7 +470,7 @@ tr { width: 100%; }
 tr:nth-child(even) { background-color: #f2f2f2;}
 
 th {
-   padding: 12px;
+   font-size: 14px;
    text-align: left;
    background-color: #4CAF50;
    color:white; }
@@ -483,8 +486,8 @@ input.item-subtotal {
 
 td, th{
    width: 100%;
-   border-collapse: collapse;
-   padding: 15px; }
+   // border-collapse: collapse;
+   padding: 10px 5px; }
 
 td {
 

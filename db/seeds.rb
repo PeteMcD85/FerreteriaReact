@@ -26,18 +26,6 @@
 #   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '5" 800X A/O ', sold_price: 7 },
 #   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '5" 1200X A/O ', sold_price: 7 },
 #
-<<<<<<< HEAD
-#   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 100X A/O ', sold_price: .65 },
-#   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 220X A/O ', sold_price: .65 },
-#   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 100X 3S Stearate A/O ', sold_price: .65 },
-#   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 120X 3S Stearate A/O ', sold_price: .65 },
-#   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 320X 3S Stearate A/O ', sold_price: .65 },
-#   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 100X Silicon Carbide ', sold_price: .65 },
-#   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 150X Silicon Carbide ', sold_price: .65 },
-#   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 220X Silicon Carbide ', sold_price: .65 },
-#   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 600X Silicon Carbide ', sold_price: .65 },
-#   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 1200X Silicon Carbide ', sold_price: .65 }
-=======
 #   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 100X A/O ', sold_price: 0.65 },
 #   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 220X A/O ', sold_price: 0.65 },
 #   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 100X 3S Stearate A/O ', sold_price: 0.65 },
@@ -48,7 +36,6 @@
 #   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 220X Silicon Carbide ', sold_price: 0.65 },
 #   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 600X Silicon Carbide ', sold_price: 0.65 },
 #   { name: 'Lijas', brand: 'Sait', category: 'Sait', size: '9X11 1200X Silicon Carbide ', sold_price: 0.65 }
->>>>>>> 6357b17bc783cedf24a72183593cb164dbff7f24
 # ]
 #
 #   items2.each do |item|
