@@ -29,7 +29,7 @@ const Cart = (props) => {
             <th>Precio</th>
             <th>Cantidad</th>
             <th>Subtotal</th>
-            <th>Delete</th>
+            <th className="hide-for-print">Delete</th>
           </tr>
           { cart.cartItems.map((cartItem, ind) => {
             return (
@@ -67,7 +67,7 @@ const Cart = (props) => {
                   />
                 </td>
                 <td>
-                  <button onClick={()=> removeFromCart(cartItem.item.id)}>Remove Item</button>
+                  <button className="hide-for-print" onClick={()=> removeFromCart(cartItem.item.id)}>Remove Item</button>
                 </td>
               </tr>
             )
@@ -89,7 +89,7 @@ const Cart = (props) => {
           </tr>
         </tbody>
       </table>
-      <button onClick={printReciept}>Imprima el Recibo</button>
+      <button className="hide-for-print" onClick={printReciept}>Imprima el Recibo</button>
 
     </div>
   )

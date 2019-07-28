@@ -15,7 +15,8 @@
 
   <p>
    <%= form.label :Categoria %><br>
-   <%= form.text_field :category %>
+   <%#= form.text_field :category %>
+   <%= select_tag(:category, options_for_select(@categories, @item.set_default_value ), class:"select") %>
   </p>
 
   <p>

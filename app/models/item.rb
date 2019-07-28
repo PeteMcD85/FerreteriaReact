@@ -17,4 +17,8 @@ class Item < ApplicationRecord
     self.update(inventory: quantity)
   end
 
+  def set_default_value
+    self[:category] ? self[:category] : ""
+  end
+
 end
