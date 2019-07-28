@@ -149,7 +149,7 @@ export default class HelloWorld extends React.Component {
           check:0,
           debit:0
         };
-    if(paymentMethod === '') return alert('must choose a payment method')
+    if(paymentMethod === '') return alert('Debe elegir el método de pago')
     if (paymentMethod === 'custom') {
       let cashAmount = +document.getElementById('custom-cash').value,
           creditCardAmount = +document.getElementById('custom-credit-card').value,
@@ -157,7 +157,7 @@ export default class HelloWorld extends React.Component {
           debitAmount = +document.getElementById('custom-debit').value,
           customTotal = (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2);
       if(cartTotal < customTotal) {
-        return alert(`${customTotal}:Amount must be greater than ${cartTotal}`)
+        return alert(`${customTotal}:Debe ser mayor que ${cartTotal}`)
       } else {
         customMethod.cash = cashAmount;
         customMethod.creditCard = creditCardAmount;
@@ -167,7 +167,7 @@ export default class HelloWorld extends React.Component {
     } else {
       if (paymentMethod === 'cash') {
         let customerChange = this.state.customerChange;
-        if (customerChange < 0) return alert('Efectivo Recibido must be greater than 0')
+        if (customerChange < 0) return alert('Efectivo Recibido debe ser mayor que 0')
       }
       customMethod[paymentMethod] = cartTotal
     }
@@ -366,8 +366,7 @@ export default class HelloWorld extends React.Component {
              </div>
              { showCart &&
                <div>
-                 <div id="order-id">
-                 </div>
+                 <div id="order-id"></div>
                  <div className="payment-methods">
                    <label>Tax Free
                      <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
