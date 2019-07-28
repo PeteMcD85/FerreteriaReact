@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_25_033344) do
+ActiveRecord::Schema.define(version: 2019_07_28_035400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 2019_07_25_033344) do
     t.decimal "cash_payed", default: "0.0"
     t.decimal "check_payed", default: "0.0"
     t.decimal "debit_payed", default: "0.0"
+    t.string "name"
+    t.string "telephone"
   end
 
   create_table "users", force: :cascade do |t|
