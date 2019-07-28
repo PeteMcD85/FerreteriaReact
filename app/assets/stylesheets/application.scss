@@ -26,7 +26,9 @@
   }
   justify-content: space-around;
   flex-wrap: wrap;
-
+#custom-change {
+  width: 95vw;
+}
 label {
 
 input {
@@ -252,7 +254,8 @@ td, th { padding: 8px 1px; }
 .phone-map {
   text-align: center;
 
-button {
+a {
+  color: black;
   margin: 0 50px 0 50px;
   background-color: transparent;
   border: none;
@@ -349,6 +352,12 @@ i:hover {
 
 // +++++++++++++++++++++++++++ add to cart button on CARDS ++++++++++++++++++
 .active-card {
+
+.update-cart-div{
+
+p {
+  margin: 5px; }
+}// end of .update-cart-div
 
 input.quantity-input {
   box-sizing: border-box;
@@ -527,7 +536,7 @@ div.dropdown {
   display: block;
 
   div.dropdown-content {
-    display: none;
+    // display: none;
     position: relative;
     background-color: #f9f9f9;
     min-width: 160px;
@@ -550,8 +559,8 @@ div.dropdown {
  }// end dropdown-content
  }//end of dropdown
 
- div.dropdown:hover .dropdown-content {
-    display: inline-block; }
+ // div.dropdown:hover .dropdown-content {
+ //    display: inline-block; }
 
 
 // ++++++++++++++++++++++++++ @media min 765px +++++++++++++++++++++++++++++++

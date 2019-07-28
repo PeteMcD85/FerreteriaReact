@@ -27,8 +27,11 @@ respond_to do |format|
       Blum: @items.get_brand("Blum").get_actives,
       Sait: @items.get_brand("Sait").get_actives,
       "3M": @items.get_brand("3M").get_actives,
-      Todo: @items.remove_category("PVC").remove_category("Tornillos").remove_category("Tinte").remove_category("Goznes").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Staples").remove_category("Laminados").remove_brand("Sait").remove_category("SeamFil").get_actives,
+      Todo: @items.remove_category("PVC").remove_category("Brazos").remove_category("Superficie").remove_category("Tornillos").remove_category("Tinte").remove_category("Goznes").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Discos").remove_category("Staples").remove_category("Fregaderos").remove_category("Laminados").remove_brand("Sait").remove_category("SeamFil").remove_category("Clavos").get_actives,
       PVC: @items.get_category("PVC").get_actives,
+      PVC: @items.get_category("Superficie").get_actives,
+      PVC: @items.get_category("Brazos").get_actives,
+      Clavos: @items.get_category("Clavos").get_actives,
       Herramientas: @items.get_category("Herramientas").get_actives,
       Goznes: @items.get_category("Goznes").get_actives,
       Tinte: @items.get_category("Tinte").get_actives,
@@ -36,10 +39,12 @@ respond_to do |format|
       Tornillos: @items.get_category("Tornillos").get_actives,
       Tiradores: @items.get_category("Tiradores").get_actives,
       Correderas: @items.get_category("Correderas").get_actives,
+      Fregaderos: @items.get_category("Fregaderos").get_actives,
       Routers: @items.get_category("Routers").get_actives,
       Tapcon: @items.get_category("Tapcon").get_actives,
       Staples: @items.get_category("Staples").get_actives,
       SeamFil: @items.get_category("SeamFil").get_actives,
+      Discos: @items.get_category("Discos").get_actives,
       Laminados: @items.get_category("Laminados").get_actives
     } ,
     inactives:{
@@ -53,10 +58,14 @@ respond_to do |format|
       Blum: @items.get_brand("Blum").get_inactives,
       Sait: @items.get_brand("Sait").get_inactives,
       "3M": @items.get_brand("3M").get_inactives,
-      Todo: @items.remove_category("PVC").remove_category("Tornillos").remove_category("Tinte").remove_category("Goznes").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Staples").remove_category("Laminados").remove_brand("Sait").remove_category("SeamFil").get_inactives,
+      Todo: @items.remove_category("PVC").remove_category("Brazos").remove_category("Superficie").remove_category("Tornillos").remove_category("Tinte").remove_category("Goznes").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Discos").remove_category("Staples").remove_category("Fregaderos").remove_category("Laminados").remove_brand("Sait").remove_category("SeamFil").get_inactives.remove_category("Clavos").get_inactives,
       PVC: @items.get_category("PVC").get_inactives,
+      PVC: @items.get_category("Superficie").get_inactives,
+      PVC: @items.get_category("Brazos").get_inactives,
+      Clavos: @items.get_category("Clavos").get_inactives,
       Herramientas: @items.get_category("Herramientas").get_inactives,
       Goznes: @items.get_category("Goznes").get_inactives,
+      Discos: @items.get_category("Discos").get_inactives,
       Tinte: @items.get_category("Tinte").get_inactives,
       Mezcladoras: @items.get_category("Mezcladoras").get_inactives,
       Tornillos: @items.get_category("Tornillos").get_inactives,
@@ -66,6 +75,7 @@ respond_to do |format|
       Tapcon: @items.get_category("Tapcon").get_inactives,
       Staples: @items.get_category("Staples").get_inactives,
       SeamFil: @items.get_category("SeamFil").get_inactives,
+      Fregaderos: @items.get_category("Fregaderos").get_inactives,
       Laminados: @items.get_category("Laminados").get_inactives
     } ,
     pic_urls: @pic_urls
@@ -99,10 +109,15 @@ end
 
 def new
   @item = Item.new
+
+  @categories = Item.distinct_categories.map {|item| item.category}
+
 end
 
 def create
   @item = Item.new(item_params)
+  p '+++++++++++++++++++++++++++++++++++++++++'
+  p item_params
 
   if @item.save
     redirect_to @item
@@ -113,6 +128,7 @@ end
 
 def edit
   @item = Item.find(params[:id])
+    @categories = Item.distinct_categories.map {|item| item.category}
 end
 
 def update

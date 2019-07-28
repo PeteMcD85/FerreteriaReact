@@ -8,8 +8,8 @@ protect_from_forgery :except => [:create]
       format.html
       format.json {
         render json: {
-          # orders: @orders
-          items: Item.all
+          orders: @orders
+          #items: Item.all
         }
       }
     end
@@ -61,8 +61,9 @@ protect_from_forgery :except => [:create]
           subtotal: cart_item[:subtotal]
         )
       end
-    redirect_to orders_path
+      return render :json => { order_id: @order.id }
     else
+      render :json => { }, :status => 500
     end
   end
 

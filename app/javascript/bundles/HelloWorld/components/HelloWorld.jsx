@@ -19,6 +19,7 @@ export default class HelloWorld extends React.Component {
   /**
    * @param props
    */
+
   constructor(props) {
     super(props);
     this.state = {
@@ -46,7 +47,8 @@ export default class HelloWorld extends React.Component {
       queryListActiveItems: this.props.activeItems,
       showQueryList: false,
       queryLength: 0,
-      customerChange:0
+      customerChange:0,
+      customTotal: 0
    };
    this.updateSelectedNavList("Todo");
   }
@@ -59,7 +61,8 @@ export default class HelloWorld extends React.Component {
           this.setState({
             selectedNavName: navName,
             selectedNavList: result.actives[navName],
-            selectedNavListInactives: result.inactives[navName]
+            selectedNavListInactives: result.inactives[navName],
+            showQueryList: false
           });
         },
         (error) => {
@@ -151,13 +154,10 @@ export default class HelloWorld extends React.Component {
       let cashAmount = +document.getElementById('custom-cash').value,
           creditCardAmount = +document.getElementById('custom-credit-card').value,
           checkAmount = +document.getElementById('custom-check').value,
-          debitAmount = +document.getElementById('custom-debit').value;
-      // console.log(cashAmount);
-      // console.log(creditCardAmount);
-      // console.log(checkAmount);
-      // console.log(debitAmount);
-      if(cartTotal !== (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2)) {
-        return alert(`Custom amount must equal ${cartTotal}`)
+          debitAmount = +document.getElementById('custom-debit').value,
+          customTotal = (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2);
+      if(cartTotal < customTotal) {
+        return alert(`${customTotal}:Amount must be greater than ${cartTotal}`)
       } else {
         customMethod.cash = cashAmount;
         customMethod.creditCard = creditCardAmount;
@@ -165,6 +165,10 @@ export default class HelloWorld extends React.Component {
         customMethod.debit = debitAmount;
       }
     } else {
+      if (paymentMethod === 'cash') {
+        let customerChange = this.state.customerChange;
+        if (customerChange < 0) return alert('Efectivo Recibido must be greater than 0')
+      }
       customMethod[paymentMethod] = cartTotal
     }
     fetch(
@@ -189,9 +193,15 @@ export default class HelloWorld extends React.Component {
         console.log('response');
         console.log(response);
         if (!response.ok) { throw response; }
-        return response.url;
-      }).then((url) => {
-        window.location.replace(url);
+        return response.json();
+      }).then((res) => {
+        let orderId = res.order_id,
+            orderIdDiv = document.getElementById('order-id');
+        orderIdDiv.innerText = `Order Number : ${orderId}`;
+        window.print();
+
+        console.log(res);
+        // window.location.replace(url);
       }).catch(error => {
         console.error("error", error);
       });
@@ -282,7 +292,7 @@ export default class HelloWorld extends React.Component {
               words.forEach((word, ind) => {
                 if (ind > 0 && !returnItem) return
                 word = word.toLowerCase();
-                returnItem = (name.includes(word) || category.includes(word) || brand.includes(word) || size.includes(word) || color.includes(word) || thickness.includes(word)) ? true : false;
+                returnItem = (name.includes(word) || category.includes(word) || brand.includes(word) || size.includes(word) || color.includes(word) || thickness.includes(word) || stockNumber.includes(word)) ? true : false;
               })
               if (returnItem) return activeItem
             });//end of getQueriedItems
@@ -306,8 +316,21 @@ export default class HelloWorld extends React.Component {
         customerChange = (+val - +cartTotal ).toFixed(2);
         console.log(val);
         console.log(cartTotal);
-
     this.setState({customerChange: customerChange})
+  }
+
+  updateCustomInputChange = () => {
+    let cashAmount = +document.getElementById('custom-cash').value,
+        creditCardAmount = +document.getElementById('custom-credit-card').value,
+        checkAmount = +document.getElementById('custom-check').value,
+        debitAmount = +document.getElementById('custom-debit').value,
+        cartTotal = this.state.cart.cartTotal.total,
+        customTotal = (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2),
+        customerChange = (customTotal - cartTotal).toFixed(2);
+    this.setState({
+      customTotal: customTotal,
+      customerChange: customerChange
+    });
   }
 
   render() {
@@ -324,13 +347,13 @@ export default class HelloWorld extends React.Component {
         showQueryList = this.state.showQueryList,
         queryListActiveItems = this.state.queryListActiveItems,
         cartTotal = cart.cartTotal.total,
-        customerChange = this.state.customerChange;
-        console.log(this.state);
+        customerChange = this.state.customerChange,
+        customTotal = this.state.customTotal;
+    console.log(this.state);
     return (
       <div className="hello-world">
         { signedIn &&
            <div>
-
              <div>
                <div className="cart-buttons">
                  <button id="cart-button" onClick={this.cartButton}>
@@ -340,65 +363,72 @@ export default class HelloWorld extends React.Component {
                    Vaciar Carrito
                  </button>
                </div>
-               <div className="payment-methods">
-                 <label>Tax Free
-                   <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
-                 </label>
-                 <label>Cash
-                   <input type='radio' name="paymentMethod" value="cash" onChange={this.updatePaymentMethod}/>
-                 </label>
-                 <label>Credit Card
-                   <input type='radio' name="paymentMethod" value="creditCard" onChange={this.updatePaymentMethod}/>
-                 </label>
-                 <label>Check
-                   <input type='radio' name="paymentMethod" value="check" onChange={this.updatePaymentMethod}/>
-                 </label>
-                 <label>Debit
-                   <input type='radio' name="paymentMethod" value="debit" onChange={this.updatePaymentMethod}/>
-                 </label>
-                 <span>
-                   <label>Custom
-                     <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
-                   </label>
-                   <div id="custom-payment-method" className="hidden">
-                     <label>Cash
-                       <input type='number' id="custom-cash" />
-                     </label>
-                     <label>Credit Card
-                       <input type='number' id="custom-credit-card" />
-                     </label>
-                     <label>Check
-                       <input type='number' id="custom-check" />
-                     </label>
-                     <label>Debit
-                       <input type='number' id="custom-debit" />
-                     </label>
-                   </div>
-                   <div id="cash-payment-method" className="hidden">
-                     <label>Efectivo Recibido
-                       <input type='number' id="cash-recieved" onChange={this.updateCashRecieved}/>
-                     </label>
-                     <span> - ${cartTotal} = ${customerChange}</span>
-                   </div>
-                 </span>
-               </div>
-
              </div>
              { showCart &&
-               <Cart
-                 cart={cart}
-                 removeFromCart={this.removeFromCart}
-                 updateCartItem={this.updateCartItem}
-                 orderCart={this.orderCart}
-               /> }
+               <div>
+                 <div id="order-id">
+                 </div>
+                 <div className="payment-methods">
+                   <label>Tax Free
+                     <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
+                   </label>
+                   <label>Cash
+                     <input type='radio' name="paymentMethod" value="cash" onChange={this.updatePaymentMethod}/>
+                   </label>
+                   <label>Credit Card
+                     <input type='radio' name="paymentMethod" value="creditCard" onChange={this.updatePaymentMethod}/>
+                   </label>
+                   <label>Check
+                     <input type='radio' name="paymentMethod" value="check" onChange={this.updatePaymentMethod}/>
+                   </label>
+                   <label>Debit
+                     <input type='radio' name="paymentMethod" value="debit" onChange={this.updatePaymentMethod}/>
+                   </label>
+                   <span>
+                     <label>Custom
+                       <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
+                     </label>
+                     <div id="custom-payment-method" className="hidden">
+                       <label>Cash
+                         <input type='number' id="custom-cash" onChange={this.updateCustomInputChange} />
+                       </label>
+                       <label>Credit Card
+                         <input type='number' id="custom-credit-card" onChange={this.updateCustomInputChange} />
+                       </label>
+                       <label>Check
+                         <input type='number' id="custom-check" onChange={this.updateCustomInputChange} />
+                       </label>
+                       <label>Debit
+                         <input type='number' id="custom-debit" onChange={this.updateCustomInputChange} />
+                       </label>
+                       <div id="custom-change" >
+                        {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange)}`}
+                       </div>
+                      </div>
+                       <div id="cash-payment-method" className="hidden">
+                       <label>Efectivo Recibido
+                         <input type='number' id="cash-recieved" onChange={this.updateCashRecieved}/>
+                       </label>
+                       <span> ${cartTotal} = ${customerChange}</span>
+                    </div>
+                   </span>
+                 </div>
+                 <Cart
+                   cart={cart}
+                   removeFromCart={this.removeFromCart}
+                   updateCartItem={this.updateCartItem}
+                   orderCart={this.orderCart}
+                 />
+               </div>
+ }
            </div>
          }
          { !showCart &&
            <div>
              { !signedIn &&
-                 <div className="phone-map">
-                 <button> <i className="fa fa-phone-square"></i> </button>
-                 <button> <i className="fa fa-map-pin"></i> </button>
+                <div className="phone-map">
+                <a href="tel:+7872348563">Telefono<i className="fa fa-phone-square"></i></a>
+                <a href="https://www.google.com/maps/place/Ferreteria+Anibal+Centro+Gabinetes+Y+Topes/@18.3784426,-66.2011181,17z/data=!3m1!4b1!4m5!3m4!1s0x8c036b0434b58e1d:0xccad113b4a621685!8m2!3d18.3784375!4d-66.1989294">Mapa<i className="fa fa-map-pin"></i></a>
                 </div>
               }
 

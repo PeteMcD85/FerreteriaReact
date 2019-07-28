@@ -9,8 +9,9 @@ const ItemCard = (props) => {
       color = item.color,
       size = item.size,
       thickness = item.thickness,
+      stockNumber= item.stock_number,
       inventory= item.inventory,
-      sold_price = Number(item.sold_price).toFixed(2),
+      soldPrice = Number(item.sold_price).toFixed(2),
       signedIn = props.signedIn,
       isPicUrl = (picUrl !== "") ?  true : false,
       addToCart = props.addToCart,
@@ -47,11 +48,13 @@ const ItemCard = (props) => {
         {color && <p>{color}</p>}
         {size && <p>{size}</p>}
         {thickness && <p>{thickness}</p>}
-        <h4>price: ${sold_price}</h4>
+        <h4>Precio: ${soldPrice}</h4>
         {signedIn &&
           <div className="active-card">
             <a href={`/items/${id}/edit`}>Edit</a>
             <div className="update-cart-div">
+            {stockNumber && <p>Número de Artículo: {stockNumber}</p>}
+            {inventory && <p>Inventario: {inventory}</p>}
               <h4>Quantity
                 <input type="number"
                   className="quantity-input"

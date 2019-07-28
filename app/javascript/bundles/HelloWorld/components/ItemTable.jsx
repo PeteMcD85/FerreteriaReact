@@ -9,6 +9,7 @@ const ItemTable = (props) => {
       color = item.color,
       thickness = item.thickness,
       size = item.size,
+      inventory = item.inventory,
       sold_price = Number(item.sold_price).toFixed(2),
       signedIn = props.signedIn,
       addToCart = props.addToCart,
@@ -43,6 +44,7 @@ const ItemTable = (props) => {
       {color && <td>{color}</td>}
       {thickness && <td>{thickness}</td>}
       {signedIn && <td>$ {sold_price}</td>}
+      {signedIn && <td>{inventory}</td>}
       { signedIn &&
         <td>
           <a href={`/items/${id}/edit`}>Edit</a>

@@ -13,35 +13,12 @@ export default class Orders extends React.Component {
     super(props);
     this.state = {
       orders: props.orders,
-      displayedOrders: props.orders
+      displayedOrders: props.orders,
+      query:''
     };
     console.log(this.state);
   }
-  componentDidMount() {
-    this.updateOrders();
-  }
 
-  updateOrders = () => {
-    let startRange = new Date(document.getElementById('start-range').value).toISOString(),
-        endRange = new Date(document.getElementById('end-range').value).toISOString(),
-        orders = this.state.orders;
-    console.log(startRange);
-    console.log(endRange);
-    orders = orders.filter((val)=>{
-      let orderDate = new Date(val.created_at.split('T')[0]).toISOString();
-      return (startRange <= orderDate && endRange >= orderDate)
-    });
-    this.setState({
-      displayedOrders: orders
-    })
-  }
-
-  getSum = (column) => {
-    let displayedOrders = this.state.displayedOrders;
-    return displayedOrders.reduce((total, order) => {
-      return +total + +order[column]
-    }, 0)
-  }
   componentDidMount() {
     this.updateOrders();
   }
@@ -68,6 +45,17 @@ export default class Orders extends React.Component {
     }, 0)
   }
 
+  searchOrder = (e) => {
+    let query = e.target.value.trim(),
+        orders = this.state.orders,
+        displayedOrders = orders.filter((order)=>{
+          console.log(order);
+          return String(order.id).includes(query)
+        })
+
+    this.setState({ displayedOrders: displayedOrders})
+  }
+
   render() {
     let orders = this.state.orders,
         displayedOrders = this.state.displayedOrders,
@@ -90,6 +78,9 @@ export default class Orders extends React.Component {
         <label>
           <input type="date" id="end-range" defaultValue={today} onChange={this.updateOrders} />
         </label>
+      </div>
+      <div className="search-orders">
+        <input type="number" onChange={this.searchOrder} />
       </div>
         <table>
           <tbody>

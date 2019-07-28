@@ -12,7 +12,7 @@ const Items = (props) => {
       cart = props.cart,
       addToCart = props.addToCart,
       removeFromCart = props.removeFromCart;
-  if (selectedNavName !== "PVC" && selectedNavName !== "Tornillos" && selectedNavName !== "Tinte" && selectedNavName !== "query" && selectedNavName !== "Goznes" && selectedNavName !== "Correderas" && selectedNavName !== "Routers" && selectedNavName !== "Tapcon" && selectedNavName !== "Staples" && selectedNavName !== "Laminados" && selectedNavName !== "Sait" && selectedNavName !== "SeamFil") {
+  if (selectedNavName !== "PVC" && selectedNavName !== "Tornillos" && selectedNavName !== "Tinte" && selectedNavName !== "query" && selectedNavName !== "Goznes" && selectedNavName !== "Correderas" && selectedNavName !== "Routers" && selectedNavName !== "Tapcon" && selectedNavName !== "Staples" && selectedNavName !== "Laminados" && selectedNavName !== "Sait" && selectedNavName !== "SeamFil" && selectedNavName !== "Clavos" && selectedNavName !== "Discos" && selectedNavName !== "Fregaderos") {
 
     return (
       <div className="item-cards">
@@ -32,7 +32,7 @@ const Items = (props) => {
           itemsTable = [],
           showTable = false;
       items.forEach((item) => {
-        if(item.category === "PVC" || item.category === "Tornillos" || item.category === "Tinte" || item.category === "Goznes" || item.category === "Correderas" || item.category === "Routers" || item.category === "Tapcon" || item.category === "Staples" || item.category === "Laminados" || item.brand === "Sait" || item.category === "SeamFil") {
+        if(item.category === "PVC" || item.category === "Tornillos" || item.category === "Tinte" || item.category === "Goznes" || item.category === "Correderas" || item.category === "Routers" || item.category === "Tapcon" || item.category === "Staples" || item.category === "Laminados" || item.brand === "Sait" || item.category === "SeamFil" || item.category === "Clavos" || item.category === "Discos" || item.category === "Fregaderos") {
           itemsTable.push(item);
         } else {
           itemsCard.push(item);
@@ -49,6 +49,7 @@ const Items = (props) => {
                   addToCart={addToCart}
                   removeFromCart={removeFromCart}
                   cart={cart}
+                  selectedNavName={selectedNavName}
                 />
               </div> }
             <div className="item-cards">
@@ -72,6 +73,7 @@ const Items = (props) => {
             addToCart={addToCart}
             removeFromCart={removeFromCart}
             cart={cart}
+            selectedNavName={selectedNavName}
           />
         </div>
       );
