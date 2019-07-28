@@ -199,9 +199,26 @@ export default class HelloWorld extends React.Component {
         let orderId = res.order_id,
             orderIdDiv = document.getElementById('order-id');
         orderIdDiv.innerText = `Order Number : ${orderId}`;
-        window.print();
-
+        // window.print();
         console.log(res);
+        this.updateSelectedNavList("Todo");
+        this.clearCart();
+        this.setState({
+          showCart: false,
+          selectedNavName: "Todo",
+          selectedNavList: this.state.activeItems,
+          selectedNavListInactives: this.state.inactiveItems,
+          showQueryList: false,
+          cart: {
+            cartItems: [],
+            cartTotal: {
+              subtotal: 0,
+              taxes: 0,
+              total: 0
+            }
+          }
+        })
+
         // window.location.replace(url);
       }).catch(error => {
         console.error("error", error);
@@ -222,7 +239,13 @@ export default class HelloWorld extends React.Component {
 
   updateTaxFree = () => {
     let taxFree = this.state.taxFree ? false : true,
-        cart = this.state.cart;
+        cart = this.state.cart,
+        cartTotal = this.state.cart.cartTotal.total;
+    document.getElementById('custom-cash').value = 0;
+    document.getElementById('custom-credit-card').value = 0;
+    document.getElementById('custom-check').value = 0;
+    document.getElementById('custom-debit').value = 0;
+    document.getElementById('cash-recieved').value = 0;
     if (taxFree) {
       cart.cartTotal.taxes = 0;
       cart.cartTotal.total = cart.cartTotal.subtotal;
@@ -232,10 +255,12 @@ export default class HelloWorld extends React.Component {
       cart.cartTotal.taxes = cartTotal.taxes;
       cart.cartTotal.total = cartTotal.total;
     }
-
     this.setState({
       taxFree: taxFree,
-      cart: cart
+      cart: cart,
+
+      customTotal: 0,
+      customerChange: 0
     });
   }
 
@@ -244,6 +269,11 @@ export default class HelloWorld extends React.Component {
     let val =e.target.value,
         customPayment = document.getElementById('custom-payment-method'),
         cashPayment = document.getElementById('cash-payment-method');
+    document.getElementById('custom-cash').value = 0;
+    document.getElementById('custom-credit-card').value = 0;
+    document.getElementById('custom-check').value = 0;
+    document.getElementById('custom-debit').value = 0;
+    document.getElementById('cash-recieved').value = 0;
     console.log(val);
     if (val === 'custom') {
       customPayment.classList.remove('hidden');
@@ -255,7 +285,11 @@ export default class HelloWorld extends React.Component {
       customPayment.classList.add('hidden');
       cashPayment.classList.add('hidden')
     }
-    this.setState({paymentMethod: val})
+    this.setState({
+      paymentMethod: val,
+      customTotal: 0,
+      customerChange: 0
+    })
   }
 
   handleOnInputChange = (event) => {
@@ -317,7 +351,10 @@ export default class HelloWorld extends React.Component {
         customerChange = (+val - +cartTotal ).toFixed(2);
         console.log(val);
         console.log(cartTotal);
-    this.setState({customerChange: customerChange})
+    this.setState({
+      customerChange: customerChange,
+
+    })
   }
 
   updateCustomInputChange = () => {
@@ -333,6 +370,8 @@ export default class HelloWorld extends React.Component {
       customerChange: customerChange
     });
   }
+
+
 
   render() {
     let brands = this.state.brands,

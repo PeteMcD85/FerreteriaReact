@@ -6,7 +6,7 @@ def index
   @active_items = @items.get_actives
   @inactive_items = @items.get_inactives
   @categories = Item.distinct_categories
-  @brands = [{brand:"Lanco"}, {brand:"Wilsonart"}, {brand:"Temar"}, {brand:"Hafelle"}, {brand:"Pfister"}, {brand:"Amana Tools"}, {brand:"Eagel Tools"}, {brand:"Blum"}, {brand:"Sait"}, {brand:"3M"}]
+  @brands = [{brand:"Lanco"}, {brand:"Wilsonart"}, {brand:"Temar"}, {brand:"Hafelle"}, {brand:"Pfister"}, {brand:"Blum"}, {brand:"Sait"}, {brand:"3M"}]
   @pic_urls = @items.map do |item|
     pic_url = ""
     pic_url = url_for(item.pic) if item.pic.attached?
@@ -22,18 +22,17 @@ respond_to do |format|
       Temar: @items.get_brand("Temar").get_actives,
       Hafelle: @items.get_brand("Hafelle").get_actives,
       Pfister: @items.get_brand("Pfister").get_actives,
-      Amana: @items.get_brand("Amana Tools").get_actives,
-      Eagle: @items.get_brand("Eagle Tools").get_actives,
       Blum: @items.get_brand("Blum").get_actives,
       Sait: @items.get_brand("Sait").get_actives,
       "3M": @items.get_brand("3M").get_actives,
-      Todo: @items.remove_category("PVC").remove_category("Brazos").remove_category("Superficie").remove_category("Tornillos").remove_category("Tinte").remove_category("Goznes").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Discos").remove_category("Staples").remove_category("Fregaderos").remove_category("Laminados").remove_brand("Sait").remove_category("SeamFil").remove_category("Clavos").get_actives,
+      Todo: @items.remove_category("PVC").remove_category("Brazos").remove_category("Superficie").remove_category("Tornillos").remove_category("Tinte").remove_category("Gozne").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Discos").remove_category("Staples").remove_category("Fregaderos").remove_category("Laminados").remove_brand("Sait").remove_brand("Temar").remove_category("SeamFil").remove_category("Clavos").get_actives,
       PVC: @items.get_category("PVC").get_actives,
-      PVC: @items.get_category("Superficie").get_actives,
-      PVC: @items.get_category("Brazos").get_actives,
+      Pegamento: @items.get_category("Pegamento").get_actives,
+      Superficie: @items.get_category("Superficie").get_actives,
+      Brazos: @items.get_category("Brazos").get_actives,
       Clavos: @items.get_category("Clavos").get_actives,
       Herramientas: @items.get_category("Herramientas").get_actives,
-      Goznes: @items.get_category("Goznes").get_actives,
+      Gozne: @items.get_category("Gozne").get_actives,
       Tinte: @items.get_category("Tinte").get_actives,
       Mezcladoras: @items.get_category("Mezcladoras").get_actives,
       Tornillos: @items.get_category("Tornillos").get_actives,
@@ -53,18 +52,17 @@ respond_to do |format|
       Temar: @items.get_brand("Temar").get_inactives,
       Hafelle: @items.get_brand("Hafelle").get_inactives,
       Pfister: @items.get_brand("Pfister").get_inactives,
-      Amana: @items.get_brand("Amana Tools").get_inactives,
-      Eagle: @items.get_brand("Eagle Tools").get_inactives,
       Blum: @items.get_brand("Blum").get_inactives,
       Sait: @items.get_brand("Sait").get_inactives,
       "3M": @items.get_brand("3M").get_inactives,
-      Todo: @items.remove_category("PVC").remove_category("Brazos").remove_category("Superficie").remove_category("Tornillos").remove_category("Tinte").remove_category("Goznes").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Discos").remove_category("Staples").remove_category("Fregaderos").remove_category("Laminados").remove_brand("Sait").remove_category("SeamFil").get_inactives.remove_category("Clavos").get_inactives,
+      Todo: @items.remove_category("PVC").remove_category("Brazos").remove_category("Superficie").remove_brand("Temar").remove_category("Tornillos").remove_category("Tinte").remove_category("Gozne").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Discos").remove_category("Staples").remove_category("Fregaderos").remove_category("Laminados").remove_brand("Sait").remove_category("SeamFil").get_inactives.remove_category("Clavos").get_inactives,
       PVC: @items.get_category("PVC").get_inactives,
-      PVC: @items.get_category("Superficie").get_inactives,
-      PVC: @items.get_category("Brazos").get_inactives,
+      Pegamento: @items.get_category("Pegamento").get_inactives,
+      Superficie: @items.get_category("Superficie").get_inactives,
+      Brazos: @items.get_category("Brazos").get_inactives,
       Clavos: @items.get_category("Clavos").get_inactives,
       Herramientas: @items.get_category("Herramientas").get_inactives,
-      Goznes: @items.get_category("Goznes").get_inactives,
+      Gozne: @items.get_category("Gozne").get_inactives,
       Discos: @items.get_category("Discos").get_inactives,
       Tinte: @items.get_category("Tinte").get_inactives,
       Mezcladoras: @items.get_category("Mezcladoras").get_inactives,
