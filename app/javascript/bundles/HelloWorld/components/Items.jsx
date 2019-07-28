@@ -12,7 +12,7 @@ const Items = (props) => {
       cart = props.cart,
       addToCart = props.addToCart,
       removeFromCart = props.removeFromCart;
-  if (selectedNavName !== "PVC" && selectedNavName !== "Tornillos" && selectedNavName !== "Tinte" && selectedNavName !== "query" && selectedNavName !== "Gozne" && selectedNavName !== "Correderas" && selectedNavName !== "Routers" && selectedNavName !== "Tapcon" && selectedNavName !== "Staples" && selectedNavName !== "Laminados" && selectedNavName !== "Sait" && selectedNavName !== "SeamFil" && selectedNavName !== "Clavos" && selectedNavName !== "Discos" && selectedNavName !== "Fregaderos") {
+  if (selectedNavName !== "PVC" && selectedNavName !== "Tornillos" && selectedNavName !== "Tinte" && selectedNavName !== "query" && selectedNavName !== "Gozne" && selectedNavName !== "Correderas" && selectedNavName !== "Routers" && selectedNavName !== "Tapcon" && selectedNavName !== "Staples" && selectedNavName !== "Laminados" && selectedNavName !== "Sait" && selectedNavName !== "SeamFil" && selectedNavName !== "Clavos" && selectedNavName !== "Discos" && selectedNavName !== "Fregaderos" && selectedNavName !== "Superficie" && selectedNavName !== "Brazos" && selectedNavName !== "Madera" && selectedNavName !== "Tiradores") {
 
     return (
       <div className="item-cards">
@@ -32,7 +32,7 @@ const Items = (props) => {
           itemsTable = [],
           showTable = false;
       items.forEach((item) => {
-        if(item.category === "PVC" || item.category === "Tornillos" || item.category === "Tinte" || item.category === "Gozne" || item.category === "Correderas" || item.category === "Routers" || item.category === "Tapcon" || item.category === "Staples" || item.category === "Laminados" || item.brand === "Sait" || item.category === "SeamFil" || item.category === "Clavos" || item.category === "Discos" || item.category === "Fregaderos") {
+        if(item.category === "PVC" || item.category === "Tornillos" || item.category === "Tinte" || item.category === "Gozne" || item.category === "Correderas" || item.category === "Routers" || item.category === "Tapcon" || item.category === "Staples" || item.category === "Laminados" || item.brand === "Sait" || item.category === "SeamFil" || item.category === "Clavos" || item.category === "Discos" || item.category === "Superficie" || item.category === "Fregaderos" || item.category === "Brazos" || item.category === "Tiradores"|| item.category === "Madera" ) {
           itemsTable.push(item);
         } else {
           itemsCard.push(item);
