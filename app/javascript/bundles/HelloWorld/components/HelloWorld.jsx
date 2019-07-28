@@ -61,7 +61,8 @@ export default class HelloWorld extends React.Component {
           this.setState({
             selectedNavName: navName,
             selectedNavList: result.actives[navName],
-            selectedNavListInactives: result.inactives[navName]
+            selectedNavListInactives: result.inactives[navName],
+            showQueryList: false
           });
         },
         (error) => {
