@@ -3,7 +3,7 @@ layout 'hello_world'
 protect_from_forgery :except => [:create]
 
   def index
-    @orders = Order.all
+    @orders = Order.all.order(:id)
     respond_to do |format|
       format.html
       format.json {
