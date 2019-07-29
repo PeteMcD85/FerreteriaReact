@@ -143,12 +143,15 @@ export default class HelloWorld extends React.Component {
         cartTotal = cart.cartTotal.total,
         taxFree = this.state.taxFree,
         paymentMethod = this.state.paymentMethod,
+        orderPhone = document.getElementById('order-phone').value,
+        orderName = document.getElementById('order-name').value,
         customMethod = {
           cash:0,
           creditCard:0,
           check:0,
           debit:0
         };
+    if(!orderName || orderName.trim() === "") return alert('Proporcione un nombre')
     if(paymentMethod === '') return alert('Debe elegir el método de pago')
     if (paymentMethod === 'custom') {
       let cashAmount = +document.getElementById('custom-cash').value,
@@ -186,7 +189,9 @@ export default class HelloWorld extends React.Component {
             cashPayed: customMethod.cash,
             creditCardPayed: customMethod.creditCard,
             debitPayed: customMethod.debit,
-            checkPayed: customMethod.check
+            checkPayed: customMethod.check,
+            orderName: orderName,
+            orderPhone: orderPhone
           }
         }),
         headers: {
@@ -405,6 +410,14 @@ export default class HelloWorld extends React.Component {
              { showCart &&
                <div>
                  <div id="order-id"></div>
+                 <div id="order-name-div">
+                  <label>
+                    <input id="order-name" placeholder="Nombre" />
+                  </label>
+                  <label>
+                    <input id="order-phone"  placeholder="Numero de Telefono" />
+                  </label>
+                 </div>
                  <div className="payment-methods">
                    <label>Tax Free
                      <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
