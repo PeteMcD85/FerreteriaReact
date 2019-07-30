@@ -50,7 +50,7 @@ export default class Orders extends React.Component {
         orders = this.state.orders,
         displayedOrders = orders.filter((order)=>{
           console.log(order);
-          return String(order.id).includes(query)
+          return( String(order.id).includes(query) || order.name.includes(query) )
         })
 
     this.setState({ displayedOrders: displayedOrders})
@@ -80,14 +80,15 @@ export default class Orders extends React.Component {
         </label>
       </div>
       <div className="search-orders">
-        <label> Search by Order Number :
-          <input type="number" onChange={this.searchOrder} />
+        <label> Search :
+          <input type="text" placeholder="Nombre or Order Number" onChange={this.searchOrder} />
         </label>
       </div>
         <table>
           <tbody>
             <tr>
               <th>Order Number</th>
+              <th>Nombre</th>
               <th>Fecha Y Hora</th>
               <th>Subtotal</th>
               <th>Taxes</th>
@@ -102,6 +103,7 @@ export default class Orders extends React.Component {
             return (
               <tr key={ind}>
                 <td>{order.id}</td>
+                <td>{order.name}</td>
                 <td><a href={`/orders/${order.id}`}>{order.created_at}</a></td>
                 <td>${order.subtotal}</td>
                 <td>${order.taxes}</td>

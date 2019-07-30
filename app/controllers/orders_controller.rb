@@ -48,7 +48,9 @@ protect_from_forgery :except => [:create]
       cash_payed: order[:cashPayed],
       credit_card_payed: order[:creditCardPayed],
       debit_payed: order[:debitPayed],
-      check_payed: order[:checkPayed]
+      check_payed: order[:checkPayed],
+      name: order[:orderName],
+      telephone: order[:orderPhone]
     }
     @order = Order.new(order_params)
     if @order.save

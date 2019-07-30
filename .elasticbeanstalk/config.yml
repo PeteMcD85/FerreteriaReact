@@ -1,12 +1,16 @@
 branch-defaults:
   master:
-    environment: null
-    group_suffix: null
+
+    environment: production
+environment-defaults:
+production:
+  branch: null
+  repository: null
 global:
   application_name: ferreteriaReact
   branch: master
   default_ec2_keyname: aws-eb
-  default_platform: Ruby 2.6 (Passenger Standalone)
+  default_platform: Ruby 2.6 (Puma)
   default_region: us-east-1
   include_git_submodules: true
   instance_profile: null
