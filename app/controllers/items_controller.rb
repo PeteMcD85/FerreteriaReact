@@ -25,8 +25,9 @@ respond_to do |format|
       Blum: @items.get_brand("Blum").get_actives,
       Sait: @items.get_brand("Sait").get_actives,
       "3M": @items.get_brand("3M").get_actives,
-      Todo: @items.remove_category("PVC").remove_category("Brazos").remove_category("Superficie").remove_category("Tornillos").remove_category("Tinte").remove_category("Gozne").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Discos").remove_category("Staples").remove_category("Fregaderos").remove_category("Laminados").remove_brand("Sait").remove_brand("Temar").remove_category("SeamFil").remove_category("Madera").remove_category("Clavos").get_actives,
+      Todo: @items.remove_category("PVC").remove_category("Brazos").remove_category("Superficie").remove_category("Tornillos").remove_category("Tinte").remove_category("Gozne").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Discos").remove_category("Staples").remove_category("Fregaderos").remove_category("Laminados").remove_brand("Sait").remove_brand("Temar").remove_category("Lazy Susan").remove_category("SeamFil").remove_category("Madera").remove_category("Clavos").get_actives,
       PVC: @items.get_category("PVC").get_actives,
+      "Lazy Susan": @items.get_category("Lazy Susan").get_actives,
       Cuchilla: @items.get_category("Cuchilla").get_actives,
       Madera: @items.get_category("Madera").get_actives,
       Superficie: @items.get_category("Superficie").get_actives,
@@ -56,8 +57,9 @@ respond_to do |format|
       Blum: @items.get_brand("Blum").get_inactives,
       Sait: @items.get_brand("Sait").get_inactives,
       "3M": @items.get_brand("3M").get_inactives,
-      Todo: @items.remove_category("PVC").remove_category("Brazos").remove_category("Madera").remove_category("Superficie").remove_brand("Temar").remove_category("Tornillos").remove_category("Tinte").remove_category("Gozne").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Discos").remove_category("Staples").remove_category("Fregaderos").remove_category("Laminados").remove_brand("Sait").remove_category("SeamFil").get_inactives.remove_category("Clavos").get_inactives,
+      Todo: @items.remove_category("PVC").remove_category("Lazy Susan").remove_category("Brazos").remove_category("Madera").remove_category("Superficie").remove_brand("Temar").remove_category("Tornillos").remove_category("Tinte").remove_category("Gozne").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Discos").remove_category("Staples").remove_category("Fregaderos").remove_category("Laminados").remove_brand("Sait").remove_category("SeamFil").get_inactives.remove_category("Clavos").get_inactives,
       PVC: @items.get_category("PVC").get_inactives,
+      "Lazy Susan": @items.get_category("Lazy Susan").get_inactives,
       Cuchilla: @items.get_category("Cuchilla").get_inactives,
       Madera: @items.get_category("Madera").get_inactives,
       Superficie: @items.get_category("Superficie").get_inactives,
@@ -110,13 +112,14 @@ end
 def new
   @item = Item.new
   @categories = Item.distinct_categories.map{|item| item.category}.sort
-
+  p '++++++++++++++++++++++++++++++++++New'
+  p @categories
 
 end
 
 def create
   @item = Item.new(item_params)
-  p '+++++++++++++++++++++++++++++++++++++++++'
+  p '+++++++++++++++++++++++++++++++++++++++++Create'
   p item_params
   if @item.save
     redirect_to @item
