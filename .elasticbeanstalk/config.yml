@@ -1,10 +1,11 @@
 branch-defaults:
   master:
+
     environment: production
 environment-defaults:
-  production:
-    branch: null
-    repository: null
+production:
+  branch: null
+  repository: null
 global:
   application_name: ferreteriaReact
   branch: master
