@@ -209,25 +209,25 @@ export default class HelloWorld extends React.Component {
         orderIdDiv.innerText = `Order Number : ${orderId}`;
         window.print();
         // location.reload();
-        // location.reload(true);
+        location.reload(true);
         console.log(res);
         // this.updateSelectedNavList("Todo");
         // this.clearCart();
-        this.setState({
-          showCart: false,
-          selectedNavName: "Todo",
-          selectedNavList: this.state.activeItems,
-          selectedNavListInactives: this.state.inactiveItems,
-          showQueryList: false,
-          cart: {
-            cartItems: [],
-            cartTotal: {
-              subtotal: 0,
-              taxes: 0,
-              total: 0
-            }
-          }
-        })
+        // this.setState({
+        //   showCart: false,
+        //   selectedNavName: "Todo",
+        //   selectedNavList: this.state.activeItems,
+        //   selectedNavListInactives: this.state.inactiveItems,
+        //   showQueryList: false,
+        //   cart: {
+        //     cartItems: [],
+        //     cartTotal: {
+        //       subtotal: 0,
+        //       taxes: 0,
+        //       total: 0
+        //     }
+        //   }
+        // })
         // window.location.replace(url);
       }).catch(error => {
         console.error("error", error);
