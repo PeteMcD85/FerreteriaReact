@@ -1,4 +1,7 @@
 <div class="show-item">
+
+<%= link_to "Home", items_path %>
+
   <p>
    <%= display_image(@item) %>
   </p>
@@ -58,7 +61,3 @@
     <%= @item.stock_number %>
   </p>
 </div>
-
-
-
-<%= link_to 'Back', items_path %>
