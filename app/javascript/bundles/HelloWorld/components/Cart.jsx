@@ -89,7 +89,7 @@ const Cart = (props) => {
           </tr>
         </tbody>
       </table>
-      <button className="hide-for-print" onClick={printReciept}>Imprima el Recibo</button>
+      <button id="print-button" className="hide-for-print" onClick={printReciept}>Imprima el Recibo</button>
 
     </div>
   )
