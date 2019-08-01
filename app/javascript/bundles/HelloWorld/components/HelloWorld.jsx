@@ -208,14 +208,17 @@ export default class HelloWorld extends React.Component {
         return response.json();
       }).then((res) => {
         let orderId = res.order_id,
-            orderIdDiv = document.getElementById('order-id');
+            orderIdDiv = document.getElementById('order-id'),
+            creationErrors = res.creation_errors;
         orderIdDiv.innerText = `Order Number : ${orderId}`;
         window.print();
         printButton.disabled = false
         printButton.innerHTML = "Imprima el Recibo"
         // location.reload();
-        location.reload(true);
         console.log(res);
+        if(creationErrors.length > 0) return alert('Todo los articulos no fui en el Orden, save un copy de reciept y llama Stephen. Por Favor Reload Page')
+        location.reload(true);
+
         // this.updateSelectedNavList("Todo");
         // this.clearCart();
         // this.setState({

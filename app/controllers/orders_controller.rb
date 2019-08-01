@@ -38,6 +38,7 @@ protect_from_forgery :except => [:create]
     order = params[:order]
     cart_items = order[:itemOrders][:cartItems]
     cart_total = order[:itemOrders][:cartTotal]
+    creation_errors = []
 
     order_params = {
       order_type: order[:orderType],
@@ -65,8 +66,9 @@ protect_from_forgery :except => [:create]
           price_given: cart_item[:priceGiven],
           subtotal: cart_item[:subtotal]
         )
-      end
-      return render :json => { order_id: @order.id }
+      end # end of cart_items.each
+      creation_errors.push("Item Orders is not equal to cart items") if cart_items.count != @order.item_orders.count
+      return render :json => { order_id: @order.id , creation_errors: creation_errors}
     else
       render :json => { }, :status => 500
     end
