@@ -48,7 +48,8 @@ export default class HelloWorld extends React.Component {
       showQueryList: false,
       queryLength: 0,
       customerChange:0,
-      customTotal: 0
+      customTotal: 0,
+      customItemId: 9999
    };
    this.updateSelectedNavList("Todo");
   }
@@ -114,6 +115,21 @@ export default class HelloWorld extends React.Component {
   addCustomItemToCart = (customItemValues) => {
     console.log('customItemValues');
     console.log(customItemValues);
+    console.log(this.state.cart);
+    let cartItems = this.state.cart.cartItems,
+        taxFree = this.state.taxFree,
+        item = customItemValues,
+        customItemId = this.state.customItemId;
+        item.id = customItemId + 1;
+        item.brand = 'Custom Item';
+    cartItems.push({item: item, quantity: customItemValues.quantity, priceGiven: customItemValues.price_given, subtotal: customItemValues.subtotal});
+    this.setState({
+      cart: {
+        cartItems: cartItems,
+        cartTotal: this.calculateCartTotal(cartItems, taxFree)
+      },
+      customItemId: item.id
+    });
   }
 
   removeFromCart = (id) => {

@@ -18,20 +18,30 @@ const Cart = (props) => {
         orderCart();
       },
       displayCustomItemForm = (e) => {
-        // e.persist();
-        // console.log(e);
         let customItemRow = document.getElementById('custom-item-row'),
             addCIToCart = () => {
               console.log('addCIToCart');
               let customItemName =  document.getElementById('custom-item-name').value,
               customItemPrice =  document.getElementById('custom-item-price').value,
               customItemQuantity =  document.getElementById('custom-item-quantity').value,
+              customItemSubtotal = (+customItemPrice * +customItemQuantity).toFixed(2),
               customItemValues = {
                 name:customItemName,
-                price:customItemPrice,
-                quantity:customItemQuantity
+                sold_price:customItemPrice,
+                quantity:customItemQuantity,
+                subtotal:customItemSubtotal
               }
-              addCustomItemToCart(customItemValues)
+              addCustomItemToCart(customItemValues);
+              console.log(customItemRow);
+              customItemRow.innerHTML = `
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td>
+                 <button id="custom-item-button"> Create Item</button>
+                </td>
+              `;
+              let customItemButton = document.getElementById('custom-item-button');
+              customItemButton.addEventListener('click', displayCustomItemForm);
+
             }
         customItemRow.innerHTML = `
           <td></td>
@@ -111,7 +121,7 @@ const Cart = (props) => {
             )
           })}
           <tr id="custom-item-row">
-          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             <td>
              <button id="custom-item-button" onClick={displayCustomItemForm}> Create Item</button>
             </td>

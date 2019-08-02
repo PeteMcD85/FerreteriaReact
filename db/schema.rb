@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2019_08_01_025155) do
     t.string "name"
     t.decimal "quantity"
     t.decimal "price_given"
+    t.decimal "subtotal"
     t.bigint "orders_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

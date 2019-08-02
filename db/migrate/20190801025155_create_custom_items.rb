@@ -4,6 +4,7 @@ class CreateCustomItems < ActiveRecord::Migration[5.2]
       t.string :name
       t.numeric :quantity
       t.decimal :price_given
+      t.decimal :subtotal
       t.references :orders, foreign_key: true
 
       t.timestamps
