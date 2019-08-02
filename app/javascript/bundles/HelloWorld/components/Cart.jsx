@@ -20,7 +20,19 @@ const Cart = (props) => {
       displayCustomItemForm = (e) => {
         // e.persist();
         // console.log(e);
-        let customItemRow = document.getElementById('custom-item-row');
+        let customItemRow = document.getElementById('custom-item-row'),
+            addCIToCart = () => {
+              console.log('addCIToCart');
+              let customItemName =  document.getElementById('custom-item-name').value,
+              customItemPrice =  document.getElementById('custom-item-price').value,
+              customItemQuantity =  document.getElementById('custom-item-quantity').value,
+              customItemValues = {
+                name:customItemName,
+                price:customItemPrice,
+                quantity:customItemQuantity
+              }
+              addCustomItemToCart(customItemValues)
+            }
         customItemRow.innerHTML = `
           <td></td>
           <td>
@@ -37,8 +49,10 @@ const Cart = (props) => {
           <td>
             <button id='add-to-cart-button'>Add to Cart</button>
           </td>
-        `
+        `;
+        let addToCartButton =  document.getElementById('add-to-cart-button');
 
+        addToCartButton.addEventListener('click', addCIToCart);
       };
   return (
     <div id="cart">

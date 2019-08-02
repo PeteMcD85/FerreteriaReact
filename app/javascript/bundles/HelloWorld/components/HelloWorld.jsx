@@ -111,8 +111,9 @@ export default class HelloWorld extends React.Component {
     });
   }
 
-  addCustomItemToCart = () => {
-    console.log('addCustomItemToCart');
+  addCustomItemToCart = (customItemValues) => {
+    console.log('customItemValues');
+    console.log(customItemValues);
   }
 
   removeFromCart = (id) => {
