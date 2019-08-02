@@ -1,0 +1,4 @@
+class CustomItem < ApplicationRecord
+  belongs_to :order
+
+end

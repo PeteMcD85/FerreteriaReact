@@ -63,10 +63,7 @@ export default class Orders extends React.Component {
         dd = String(today.getDate()).padStart(2, '0'),
         mm = String(today.getMonth() + 1).padStart(2, '0'),
         yyyy = today.getFullYear();
-        today = yyyy + '-' + mm + '-' + dd,
-        formatDateTime =  () => {
-          console.log(this);
-        };
+        today = yyyy + '-' + mm + '-' + dd;
     return (
       <div className="orders">
         <h1>Ordenes</h1>
@@ -106,7 +103,7 @@ export default class Orders extends React.Component {
               <tr key={ind}>
                 <td>{order.id}</td>
                 <td>{order.name}</td>
-                <td><a href={`/orders/${order.id}`}>{new Date(order.created_at).strftime("Printed on %m/%d/%Y")}</a></td>
+                <td><a href={`/orders/${order.id}`}>{order.created_at}</a></td>
                 <td>${order.subtotal}</td>
                 <td>${order.taxes}</td>
                 <td>${order.total}</td>

@@ -111,6 +111,10 @@ export default class HelloWorld extends React.Component {
     });
   }
 
+  addCustomItemToCart = () => {
+    console.log('addCustomItemToCart');
+  }
+
   removeFromCart = (id) => {
     let cartItems = this.state.cart.cartItems,
         taxFree = this.state.taxFree,
@@ -393,7 +397,6 @@ export default class HelloWorld extends React.Component {
         cartTotal = cart.cartTotal.total,
         customerChange = this.state.customerChange,
         customTotal = this.state.customTotal;
-    console.log(this.state);
     return (
       <div className="hello-world">
         { signedIn &&
@@ -469,6 +472,7 @@ export default class HelloWorld extends React.Component {
                    removeFromCart={this.removeFromCart}
                    updateCartItem={this.updateCartItem}
                    orderCart={this.orderCart}
+                   addCustomItemToCart={this.addCustomItemToCart}
                  />
                </div>
  }

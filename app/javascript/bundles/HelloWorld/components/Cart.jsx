@@ -2,6 +2,7 @@ import React from 'react'
 
 const Cart = (props) => {
   let cart = props.cart,
+      addCustomItemToCart= props.addCustomItemToCart,
       removeFromCart = props.removeFromCart,
       updateCartItem = props.updateCartItem,
       orderCart = props.orderCart,
@@ -15,7 +16,30 @@ const Cart = (props) => {
       printReciept = () => {
         console.log('printReciept');
         orderCart();
-      }
+      },
+      displayCustomItemForm = (e) => {
+        // e.persist();
+        // console.log(e);
+        let customItemRow = document.getElementById('custom-item-row');
+        customItemRow.innerHTML = `
+          <td></td>
+          <td>
+            <input type='text' id='custom-item-name' placeholder='Nombre' />
+          </td>
+          <td></td><td></td><td></td>
+          <td>
+            <input type='number' id='custom-item-price' placeholder='Precio' />
+          </td>
+          <td>
+            <input type='number' id='custom-item-quantity' placeholder='Cantidad' />
+          </td>
+          <td></td>
+          <td>
+            <button id='add-to-cart-button'>Add to Cart</button>
+          </td>
+        `
+
+      };
   return (
     <div id="cart">
       <table>
@@ -72,6 +96,12 @@ const Cart = (props) => {
               </tr>
             )
           })}
+          <tr id="custom-item-row">
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            <td>
+             <button id="custom-item-button" onClick={displayCustomItemForm}> Create Item</button>
+            </td>
+          </tr>
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Subtotal</td>
