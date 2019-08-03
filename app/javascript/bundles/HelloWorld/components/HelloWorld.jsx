@@ -160,9 +160,9 @@ export default class HelloWorld extends React.Component {
           debitAmount = +document.getElementById('custom-debit').value,
           customTotal = (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2);
       if(+cartTotal > +customTotal) {
-        console.log('print');
-        console.log(cartTotal);
-        console.log(customTotal);
+        // console.log('print');
+        // console.log(cartTotal);
+        // console.log(customTotal);
         return alert(`${customTotal}:Debe ser mayor que ${cartTotal}`)
       } else {
         customMethod.cash = cashAmount;
@@ -174,7 +174,7 @@ export default class HelloWorld extends React.Component {
       if (paymentMethod === 'cash') {
         let customerChange = this.state.customerChange,
             cashRecieved = document.getElementById('cash-recieved').value;
-        if (customerChange < 0 || cashRecieved < cartTotal) return alert(`Efectivo Recibido debe ser mayor que ${cartTotal}`)
+        if (+customerChange < 0 || +cashRecieved < +cartTotal) return alert(`Efectivo Recibido debe ser mayor que ${cartTotal}`)
       }
       customMethod[paymentMethod] = cartTotal
     }
