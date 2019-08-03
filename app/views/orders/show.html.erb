@@ -44,8 +44,8 @@
               <td>$<%= cart_item.price_given %></td>
               <td><%= cart_item.quantity %></td>
               <td>$<%= cart_item.subtotal %></td>
-              <td>$<%#= cart_item.subtotal_refunded %></td>
-              <td><%#= cart_item.quantity_refunded %></td>
+              <td>$<%= cart_item.subtotal_refunded %></td>
+              <td><%= cart_item.quantity_refunded %></td>
               <td></td>
               <td>
                 <%= link_to "Refund", edit_order_custom_item_path(@order,cart_item.id) %>

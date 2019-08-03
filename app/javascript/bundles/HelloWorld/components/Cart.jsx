@@ -12,7 +12,7 @@ const Cart = (props) => {
             itemId = cssId[2],
             columnName = (cssId[1] === "price") ? "priceGiven" : "quantity";
             updateCartItem(itemId, columnName, columnValue);
-      },
+            },
       printReciept = () => {
         console.log('printReciept');
         orderCart();
@@ -80,6 +80,8 @@ const Cart = (props) => {
             <th className="hide-for-print">Delete</th>
           </tr>
           { cart.cartItems.map((cartItem, ind) => {
+            let soldPrice = cartItem.item.sold_price,
+                defaultValuePrice = soldPrice ? soldPrice : cartItem.priceGiven;
             return (
               <tr key={ind} className="cart-item">
                 <td>{cartItem.item.brand}</td>
@@ -92,7 +94,7 @@ const Cart = (props) => {
                     type="number"
                     id={`item-price-${cartItem.item.id}`}
                     className={`item-price`}
-                    defaultValue={cartItem.item.sold_price}
+                    defaultValue={defaultValuePrice}
                     onChange={getSubtotal}
                   />
                 </td>
