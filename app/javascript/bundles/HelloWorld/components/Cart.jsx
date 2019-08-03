@@ -27,12 +27,12 @@ const Cart = (props) => {
               customItemSubtotal = (+customItemPrice * +customItemQuantity).toFixed(2),
               customItemValues = {
                 name:customItemName,
-                sold_price:customItemPrice,
+                priceGiven:customItemPrice,
                 quantity:customItemQuantity,
                 subtotal:customItemSubtotal
               }
               addCustomItemToCart(customItemValues);
-              console.log(customItemRow);
+              console.log(customItemValues);
               customItemRow.innerHTML = `
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td>

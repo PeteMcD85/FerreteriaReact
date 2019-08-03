@@ -122,7 +122,7 @@ export default class HelloWorld extends React.Component {
         customItemId = this.state.customItemId;
         item.id = customItemId + 1;
         item.brand = 'Custom Item';
-    cartItems.push({item: item, quantity: customItemValues.quantity, priceGiven: customItemValues.price_given, subtotal: customItemValues.subtotal});
+    cartItems.push({item: item, quantity: customItemValues.quantity, priceGiven: customItemValues.priceGiven, subtotal: customItemValues.subtotal});
     this.setState({
       cart: {
         cartItems: cartItems,
