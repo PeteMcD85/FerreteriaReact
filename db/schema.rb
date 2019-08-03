@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(version: 2019_08_01_025155) do
     t.decimal "quantity"
     t.decimal "price_given"
     t.decimal "subtotal"
+    t.integer "quantity_refunded", default: 0
+    t.decimal "subtotal_refunded", default: "0.0"
     t.bigint "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

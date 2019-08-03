@@ -5,6 +5,8 @@ class CreateCustomItems < ActiveRecord::Migration[5.2]
       t.numeric :quantity
       t.decimal :price_given
       t.decimal :subtotal
+      t.integer :quantity_refunded, default: 0
+      t.decimal :subtotal_refunded, default: "0.0"
       t.references :order, foreign_key: true
 
       t.timestamps
