@@ -34,7 +34,4 @@ class ItemOrder < ApplicationRecord
   def update_item_inventory(quantity_refunded)
     self.item.update_inventory(@item_order.calc_item_inventory)
   end
-
-
-
 end

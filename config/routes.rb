@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :orders, only:[:index, :show, :create, :update] do
     resources :item_orders, only:[:edit, :update]
+    resources :custom_items, only:[:edit, :update]
   end
 
   # get :search, controller: :items

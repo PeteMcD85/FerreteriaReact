@@ -1,13 +1,16 @@
 class Order < ApplicationRecord
   has_many :item_orders , :dependent => :destroy
   has_many :items, through: :item_orders
+  has_many :custom_items, :dependent => :destroy
   accepts_nested_attributes_for :item_orders
   enum order_type: [:sale, :buy, :void]
 
   def calc_subtotal_refunded
     p "+++++++++++++++++++++++++++++++"
     p self.item_orders
-    subtotal = self.item_orders.reduce(0) { |st, item_order| st + item_order.subtotal_refunded }
+    subtotal_item_orders = self.item_orders.reduce(0) { |st, item_order| st + item_order.subtotal_refunded }
+    subtotal_custom_items = self.custom_items.reduce(0) { |st, custom_item| st + custom_item.subtotal_refunded }
+    subtotal = subtotal_item_orders + subtotal_custom_items
     sprintf( '%.2f', subtotal )
   end
 

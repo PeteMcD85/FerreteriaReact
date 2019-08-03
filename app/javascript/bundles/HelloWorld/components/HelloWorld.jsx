@@ -48,7 +48,8 @@ export default class HelloWorld extends React.Component {
       showQueryList: false,
       queryLength: 0,
       customerChange:0,
-      customTotal: 0
+      customTotal: 0,
+      customItemId: 9999
    };
    this.updateSelectedNavList("Todo");
   }
@@ -108,6 +109,26 @@ export default class HelloWorld extends React.Component {
         cartItems: cartItems,
         cartTotal: this.calculateCartTotal(cartItems, taxFree)
       }
+    });
+  }
+
+  addCustomItemToCart = (customItemValues) => {
+    console.log('customItemValues');
+    console.log(customItemValues);
+    console.log(this.state.cart);
+    let cartItems = this.state.cart.cartItems,
+        taxFree = this.state.taxFree,
+        item = customItemValues,
+        customItemId = this.state.customItemId;
+        item.id = customItemId + 1;
+        item.brand = 'Custom Item';
+    cartItems.push({item: item, quantity: customItemValues.quantity, priceGiven: customItemValues.priceGiven, subtotal: customItemValues.subtotal});
+    this.setState({
+      cart: {
+        cartItems: cartItems,
+        cartTotal: this.calculateCartTotal(cartItems, taxFree)
+      },
+      customItemId: item.id
     });
   }
 
@@ -393,7 +414,6 @@ export default class HelloWorld extends React.Component {
         cartTotal = cart.cartTotal.total,
         customerChange = this.state.customerChange,
         customTotal = this.state.customTotal;
-    console.log(this.state);
     return (
       <div className="hello-world">
         { signedIn &&
@@ -469,6 +489,7 @@ export default class HelloWorld extends React.Component {
                    removeFromCart={this.removeFromCart}
                    updateCartItem={this.updateCartItem}
                    orderCart={this.orderCart}
+                   addCustomItemToCart={this.addCustomItemToCart}
                  />
                </div>
  }
