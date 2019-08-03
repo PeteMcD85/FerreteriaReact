@@ -21,7 +21,8 @@ protect_from_forgery :except => [:create]
   def show
     @order = Order.find(params[:id])
     @cart = @order.item_orders
-    @cart_items = @cart.map {|cart_item| Item.find(cart_item.item_id) }
+    @cart_item_orders = @cart.map {|cart_item| Item.find(cart_item.item_id) }
+    @cart_custom_items = @order.custom_items.map {|cart_item| CustomItem.find(cart_item.id) }
     respond_to do |format|
       format.html
       format.json {
@@ -38,7 +39,7 @@ protect_from_forgery :except => [:create]
     order = params[:order]
     cart_items = order[:itemOrders][:cartItems]
     cart_total = order[:itemOrders][:cartTotal]
-
+    order_errors = []
     order_params = {
       order_type: order[:orderType],
       subtotal: cart_total[:subtotal],
@@ -55,18 +56,37 @@ protect_from_forgery :except => [:create]
     @order = Order.new(order_params)
     if @order.save
       cart_items.each do |cart_item|
-        item = Item.find(cart_item[:item][:id])
-        new_quantity = item[:inventory] - cart_item[:quantity]
-        item.update( inventory: new_quantity )
-        @order.item_orders.create(
-          item_id: cart_item[:item][:id],
-          order_id: @order[:id],
-          quantity: cart_item[:quantity],
-          price_given: cart_item[:priceGiven],
-          subtotal: cart_item[:subtotal]
-        )
-      end
-      return render :json => { order_id: @order.id }
+        item_id = cart_item[:item][:id]
+        item = Item.find(item_id) if item_id < 9999
+        if item
+          @item_order = @order.item_orders.new(
+            item_id: cart_item[:item][:id],
+            order_id: @order[:id],
+            quantity: cart_item[:quantity],
+            price_given: cart_item[:priceGiven],
+            subtotal: cart_item[:subtotal]
+          )
+          if @item_order.save
+            new_quantity = item[:inventory] - cart_item[:quantity]
+            item.update( inventory: new_quantity )
+          else
+            order_errors.push("Item order was not saved")
+          end # end of item_order.save
+        else
+          @custom_items = @order.custom_items.new(
+            quantity: cart_item[:quantity],
+            price_given: cart_item[:priceGiven],
+            subtotal: cart_item[:subtotal],
+            name: cart_item[:name]
+          )
+          if @custom_items.save
+
+          else
+            order_errors.push("Custom item was not saved")
+          end
+        end #end of if and else item
+      end # end of cart_items.each
+      return render :json => { order_id: @order.id , order_errors: order_errors}
     else
       render :json => { }, :status => 500
     end

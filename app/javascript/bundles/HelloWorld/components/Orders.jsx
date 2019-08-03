@@ -64,7 +64,6 @@ export default class Orders extends React.Component {
         mm = String(today.getMonth() + 1).padStart(2, '0'),
         yyyy = today.getFullYear();
         today = yyyy + '-' + mm + '-' + dd;
-        console.log(today);
     return (
       <div className="orders">
         <h1>Ordenes</h1>
