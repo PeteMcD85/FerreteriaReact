@@ -368,7 +368,9 @@ export default class HelloWorld extends React.Component {
           selectedNavName: columnName,
           selectedNavList: result.actives,
           selectedNavListInactives: result.inactives,
-          showQueryList: false
+          showQueryList: false,
+          itemsStartRange:0,
+          itemsEndRange:10
         });
       },
       (error) => {
@@ -376,6 +378,28 @@ export default class HelloWorld extends React.Component {
         console.error(error);
       }
     )
+  }
+
+  updateItemsRange = (direction) => {
+    let itemsStartRange = this.state.itemsStartRange,
+        itemsEndRange = this.state.itemsEndRange,
+        max = this.state.selectedNavList.length;
+    if (direction === 'more') {
+      itemsStartRange += 10;
+      itemsEndRange += 10;
+      // if (itemsEndRange >= max) document.getElementById('increase-range-button').disabled = true;
+      // if (itemsStartRange !== 0) document.getElementById('decrease-range-button').disabled = false;
+    } else {
+      itemsStartRange -= 10;
+      itemsEndRange -= 10;
+      console.log(document.getElementById('decrease-range-button'));
+      // if (itemsStartRange === 0) document.getElementById('decrease-range-button').disabled = true;
+      // if (itemsEndRange < max) document.getElementById('increase-range-button').disabled = false;
+    }
+    this.setState({
+      itemsStartRange: itemsStartRange,
+      itemsEndRange: itemsEndRange
+    })
   }
 
   render() {
@@ -518,6 +542,7 @@ export default class HelloWorld extends React.Component {
                     cart={cart}
                     itemsStartRange={itemsStartRange}
                     itemsEndRange={itemsEndRange}
+                    updateItemsRange={this.updateItemsRange}
                   />
                   {signedIn &&
                     <div>
@@ -545,6 +570,7 @@ export default class HelloWorld extends React.Component {
                cart={cart}
                itemsStartRange={itemsStartRange}
                itemsEndRange={itemsEndRange}
+               updateItemsRange={this.updateItemsRange}
              />
              {signedIn &&
                <div>

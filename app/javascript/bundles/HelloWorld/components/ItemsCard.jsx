@@ -9,13 +9,21 @@ const ItemsCard = (props) => {
       removeFromCart = props.removeFromCart,
       itemsStartRange = props.itemsStartRange,
       itemsEndRange = props.itemsEndRange,
+      max = items.length,
       cart = props.cart,
-      getPicUrl = (id) => picUrls.find( (val) => val.id === id);
+      updateItemsRange = props.updateItemsRange,
+      disableLess = itemsStartRange === 0 ? true : false,
+      disableMore = itemsEndRange >= max ? true : false,
+      getPicUrl = (id) => picUrls.find( (val) => val.id === id),
+      updateRange = (e) => {
+        let direction = e.target.classList.contains('more') ? 'more' : 'less';
+        updateItemsRange(direction);
+      };
   return (
     <div>
       <div id="range-buttons-div">
-        <button classsName="range-buttons"><i class="fa fa-angle-left"></i></button>
-        <button classsName="range-buttons"><i class="fa fa-angle-right"></i></button>
+        <button id= "decrease-range-button" className="range-buttons" onClick={updateRange}  disabled={disableLess}><i className="fa fa-angle-left" ></i></button>
+        <button id= "increase-range-button" className="range-buttons more" onClick={updateRange} disabled={disableMore}><i className="fa fa-angle-right more"></i></button>
       </div>
       <ul>
         {items.map((item,ind)=>{
