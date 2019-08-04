@@ -4,10 +4,12 @@ const NavList = (props) => {
   let columnList = props.columnList,
       columnName = props.columnName,
       updateSelectedNavList = props.updateSelectedNavList,
+      getCategoryBrand = props.getCategoryBrand,
       isCategory = (columnName === 'category') ? true : false,
       updateNav = (event) => {
        let navPropName = event.target.innerText;
-       updateSelectedNavList(navPropName)
+       // updateSelectedNavList(navPropName)
+       getCategoryBrand(columnName, navPropName)
      };
   return (
 
