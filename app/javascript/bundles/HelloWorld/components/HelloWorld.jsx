@@ -51,28 +51,8 @@ export default class HelloWorld extends React.Component {
       customTotal: 0,
       customItemId: 9999
    };
-   // this.updateSelectedNavList("Todo");
    this.getCategoryBrand("category", "Todo");
   }
-
-  // updateSelectedNavList = (navName) => {
-  //   fetch("/items.json")
-  //     .then(res => res.json())
-  //     .then(
-  //       (result) => {
-  //         this.setState({
-  //           selectedNavName: navName,
-  //           selectedNavList: result.actives[navName],
-  //           selectedNavListInactives: result.inactives[navName],
-  //           showQueryList: false
-  //         });
-  //       },
-  //       (error) => {
-  //         console.error("Error retrieving results for updateSelectedNavList AJAX method");
-  //         console.error(error);
-  //       }
-  //     )
-  // }
 
   calculateCartTotal = (cartItems, taxFree=false) => {
     let subtotal = cartItems.reduce((total, cartItem)=> {
@@ -518,13 +498,11 @@ export default class HelloWorld extends React.Component {
                  <NavList
                     columnList={brands}
                     columnName="brand"
-                    updateSelectedNavList={this.updateSelectedNavList}
                     getCategoryBrand={this.getCategoryBrand}
                  />
                  <NavList
                     columnList={categories}
                     columnName="category"
-                    updateSelectedNavList={this.updateSelectedNavList}
                     getCategoryBrand={this.getCategoryBrand}
                  />
                </div>
