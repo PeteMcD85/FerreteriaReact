@@ -143,17 +143,20 @@ class ItemsController < ApplicationController
   end
 
   def get_category_brand
-    @items = Items.all
+    p 'getCategoryBrand+++++++++++++++++++++++++++++++++'
+    p params
+    @items = Item.all
     column = params[:column]
-    column_name= column[:name]
+    column_name= params[:columnName]
     respond_to do |format|
     format.html
-    format.json { 
+    format.json {
       render json: {
-          actives: @items.get_category(column_name).get_actives,
-          inactives: @items.get_category(column_name).get_inactives
+          actives: @items.get_category(column_name).get_actives
+          inactives: @items.get_category(column_name).get_inactiveas
         }
       }
+    end
   end
 
   private

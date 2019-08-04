@@ -398,6 +398,21 @@ export default class HelloWorld extends React.Component {
     });
   }
 
+  getCategoryBrand = (column, columnName) => {
+    fetch(`/get_category_brand.json?column=${column}&columnName=${columnName}`)
+    .then(res => res.json())
+    .then(
+      (result) => {
+        console.log('getCategoryBrand');
+        console.log(result);
+      },
+      (error) => {
+        console.error("Error retrieving results for updateSelectedNavList AJAX method");
+        console.error(error);
+      }
+    )
+  }
+
   render() {
     let brands = this.state.brands,
         categories = this.state.categories,
@@ -518,11 +533,13 @@ export default class HelloWorld extends React.Component {
                     columnList={brands}
                     columnName="brand"
                     updateSelectedNavList={this.updateSelectedNavList}
+                    getCategoryBrand={this.getCategoryBrand}
                  />
                  <NavList
                     columnList={categories}
                     columnName="category"
                     updateSelectedNavList={this.updateSelectedNavList}
+                    getCategoryBrand={this.getCategoryBrand}
                  />
                </div>
                {showQueryList &&
