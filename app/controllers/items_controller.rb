@@ -142,23 +142,18 @@ class ItemsController < ApplicationController
     redirect_to items_path
   end
 
-  def get_category
-    category = params[:category]
+  def get_category_brand
+    @items = Items.all
+    column = params[:column]
+    column_name= column[:name]
     respond_to do |format|
     format.html
-    format.json { render json: {
-      actives:{
-        Laminados: @items.get_category("Laminados").get_actives
-      } ,
-      inactives:{
-        Laminados: @items.get_category("Laminados").get_inactives
-      } ,
-      pic_urls: @pic_urls
-      } }
-  end
-
-  def get_brand
-
+    format.json { 
+      render json: {
+          actives: @items.get_category(column_name).get_actives,
+          inactives: @items.get_category(column_name).get_inactives
+        }
+      }
   end
 
   private
