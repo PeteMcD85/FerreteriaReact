@@ -49,7 +49,9 @@ export default class HelloWorld extends React.Component {
       queryLength: 0,
       customerChange:0,
       customTotal: 0,
-      customItemId: 9999
+      customItemId: 9999,
+      itemsStartRange: 0,
+      itemsEndRange: 10
    };
    this.getCategoryBrand("category", "Todo");
   }
@@ -362,9 +364,6 @@ export default class HelloWorld extends React.Component {
     .then(res => res.json())
     .then(
       (result) => {
-
-        console.log('getCategoryBrand');
-        console.log(result);
         this.setState({
           selectedNavName: columnName,
           selectedNavList: result.actives,
@@ -394,7 +393,9 @@ export default class HelloWorld extends React.Component {
         queryListActiveItems = this.state.queryListActiveItems,
         cartTotal = cart.cartTotal.total,
         customerChange = this.state.customerChange,
-        customTotal = this.state.customTotal;
+        customTotal = this.state.customTotal,
+        itemsStartRange = this.state.itemsStartRange,
+        itemsEndRange = this.state.itemsEndRange;
     return (
       <div className="hello-world">
         { signedIn &&
@@ -484,7 +485,6 @@ export default class HelloWorld extends React.Component {
              <a href="https://www.google.com/maps/place/Ferreteria+Anibal+Centro+Gabinetes+Y+Topes/@18.3784375,-66.2011181,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xccad113b4a621685!8m2!3d18.3784375!4d-66.1989294">Mapa<i className="fa fa-map-pin"></i></a>
             </div>
             }
-
               <div className="search">
                 <input type="text" placeholder=" ..Search" onChange={this.handleOnInputChange} />
                 <button> <i className="fa fa-search" onClick={this.getQueriedItems}></i> </button>
@@ -516,6 +516,8 @@ export default class HelloWorld extends React.Component {
                     addToCart ={this.addToCart}
                     removeFromCart={this.removeFromCart}
                     cart={cart}
+                    itemsStartRange={itemsStartRange}
+                    itemsEndRange={itemsEndRange}
                   />
                   {signedIn &&
                     <div>
@@ -541,6 +543,8 @@ export default class HelloWorld extends React.Component {
                addToCart ={this.addToCart}
                removeFromCart={this.removeFromCart}
                cart={cart}
+               itemsStartRange={itemsStartRange}
+               itemsEndRange={itemsEndRange}
              />
              {signedIn &&
                <div>
