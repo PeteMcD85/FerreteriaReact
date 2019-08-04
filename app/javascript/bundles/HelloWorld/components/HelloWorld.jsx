@@ -506,8 +506,9 @@ export default class HelloWorld extends React.Component {
             }
 
               <div className="search">
-                <input type="text" placeholder=" ..Search" onChange={this.handleOnInputChange} />
-                <button> <i className="fa fa-search" onClick={this.getQueriedItems}></i> </button>
+                <input type="text" placeholder=" ..Buscar" onChange={this.handleOnInputChange} />
+                <i className="fa fa-search" onClick={this.getQueriedItems}>
+                </i>
               </div>
              <div className="category-brand">
                <p onClick={(e) => this.dropdown(e)}>Categories</p>
