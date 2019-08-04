@@ -49,30 +49,12 @@ export default class HelloWorld extends React.Component {
       queryLength: 0,
       customerChange:0,
       customTotal: 0,
-      customItemId: 9999
+      customItemId: 9999,
+      itemsStartRange: 0,
+      itemsEndRange: 10
    };
-   // this.updateSelectedNavList("Todo");
    this.getCategoryBrand("category", "Todo");
   }
-
-  // updateSelectedNavList = (navName) => {
-  //   fetch("/items.json")
-  //     .then(res => res.json())
-  //     .then(
-  //       (result) => {
-  //         this.setState({
-  //           selectedNavName: navName,
-  //           selectedNavList: result.actives[navName],
-  //           selectedNavListInactives: result.inactives[navName],
-  //           showQueryList: false
-  //         });
-  //       },
-  //       (error) => {
-  //         console.error("Error retrieving results for updateSelectedNavList AJAX method");
-  //         console.error(error);
-  //       }
-  //     )
-  // }
 
   calculateCartTotal = (cartItems, taxFree=false) => {
     let subtotal = cartItems.reduce((total, cartItem)=> {
@@ -382,14 +364,13 @@ export default class HelloWorld extends React.Component {
     .then(res => res.json())
     .then(
       (result) => {
-
-        console.log('getCategoryBrand');
-        console.log(result);
         this.setState({
           selectedNavName: columnName,
           selectedNavList: result.actives,
           selectedNavListInactives: result.inactives,
-          showQueryList: false
+          showQueryList: false,
+          itemsStartRange:0,
+          itemsEndRange:10
         });
       },
       (error) => {
@@ -397,6 +378,28 @@ export default class HelloWorld extends React.Component {
         console.error(error);
       }
     )
+  }
+
+  updateItemsRange = (direction) => {
+    let itemsStartRange = this.state.itemsStartRange,
+        itemsEndRange = this.state.itemsEndRange,
+        max = this.state.selectedNavList.length;
+    if (direction === 'more') {
+      itemsStartRange += 10;
+      itemsEndRange += 10;
+      // if (itemsEndRange >= max) document.getElementById('increase-range-button').disabled = true;
+      // if (itemsStartRange !== 0) document.getElementById('decrease-range-button').disabled = false;
+    } else {
+      itemsStartRange -= 10;
+      itemsEndRange -= 10;
+      console.log(document.getElementById('decrease-range-button'));
+      // if (itemsStartRange === 0) document.getElementById('decrease-range-button').disabled = true;
+      // if (itemsEndRange < max) document.getElementById('increase-range-button').disabled = false;
+    }
+    this.setState({
+      itemsStartRange: itemsStartRange,
+      itemsEndRange: itemsEndRange
+    })
   }
 
   render() {
@@ -414,7 +417,9 @@ export default class HelloWorld extends React.Component {
         queryListActiveItems = this.state.queryListActiveItems,
         cartTotal = cart.cartTotal.total,
         customerChange = this.state.customerChange,
-        customTotal = this.state.customTotal;
+        customTotal = this.state.customTotal,
+        itemsStartRange = this.state.itemsStartRange,
+        itemsEndRange = this.state.itemsEndRange;
     return (
       <div className="hello-world">
         { signedIn &&
@@ -504,7 +509,6 @@ export default class HelloWorld extends React.Component {
              <a href="https://www.google.com/maps/place/Ferreteria+Anibal+Centro+Gabinetes+Y+Topes/@18.3784375,-66.2011181,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xccad113b4a621685!8m2!3d18.3784375!4d-66.1989294">Mapa<i className="fa fa-map-pin"></i></a>
             </div>
             }
-
               <div className="search">
                 <input type="text" placeholder=" ..Search" onChange={this.handleOnInputChange} />
                 <button> <i className="fa fa-search" onClick={this.getQueriedItems}></i> </button>
@@ -518,13 +522,11 @@ export default class HelloWorld extends React.Component {
                  <NavList
                     columnList={brands}
                     columnName="brand"
-                    updateSelectedNavList={this.updateSelectedNavList}
                     getCategoryBrand={this.getCategoryBrand}
                  />
                  <NavList
                     columnList={categories}
                     columnName="category"
-                    updateSelectedNavList={this.updateSelectedNavList}
                     getCategoryBrand={this.getCategoryBrand}
                  />
                </div>
@@ -538,6 +540,9 @@ export default class HelloWorld extends React.Component {
                     addToCart ={this.addToCart}
                     removeFromCart={this.removeFromCart}
                     cart={cart}
+                    itemsStartRange={itemsStartRange}
+                    itemsEndRange={itemsEndRange}
+                    updateItemsRange={this.updateItemsRange}
                   />
                   {signedIn &&
                     <div>
@@ -563,6 +568,9 @@ export default class HelloWorld extends React.Component {
                addToCart ={this.addToCart}
                removeFromCart={this.removeFromCart}
                cart={cart}
+               itemsStartRange={itemsStartRange}
+               itemsEndRange={itemsEndRange}
+               updateItemsRange={this.updateItemsRange}
              />
              {signedIn &&
                <div>
