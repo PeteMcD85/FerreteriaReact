@@ -51,27 +51,28 @@ export default class HelloWorld extends React.Component {
       customTotal: 0,
       customItemId: 9999
    };
-   this.updateSelectedNavList("Todo");
+   // this.updateSelectedNavList("Todo");
+   this.getCategoryBrand("category", "Todo");
   }
 
-  updateSelectedNavList = (navName) => {
-    fetch("/items.json")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            selectedNavName: navName,
-            selectedNavList: result.actives[navName],
-            selectedNavListInactives: result.inactives[navName],
-            showQueryList: false
-          });
-        },
-        (error) => {
-          console.error("Error retrieving results for updateSelectedNavList AJAX method");
-          console.error(error);
-        }
-      )
-  }
+  // updateSelectedNavList = (navName) => {
+  //   fetch("/items.json")
+  //     .then(res => res.json())
+  //     .then(
+  //       (result) => {
+  //         this.setState({
+  //           selectedNavName: navName,
+  //           selectedNavList: result.actives[navName],
+  //           selectedNavListInactives: result.inactives[navName],
+  //           showQueryList: false
+  //         });
+  //       },
+  //       (error) => {
+  //         console.error("Error retrieving results for updateSelectedNavList AJAX method");
+  //         console.error(error);
+  //       }
+  //     )
+  // }
 
   calculateCartTotal = (cartItems, taxFree=false) => {
     let subtotal = cartItems.reduce((total, cartItem)=> {
@@ -181,9 +182,6 @@ export default class HelloWorld extends React.Component {
           debitAmount = +document.getElementById('custom-debit').value,
           customTotal = (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2);
       if(+cartTotal > +customTotal) {
-        // console.log('print');
-        // console.log(cartTotal);
-        // console.log(customTotal);
         return alert(`${customTotal}:Debe ser mayor que ${cartTotal}`)
       } else {
         customMethod.cash = cashAmount;
@@ -229,27 +227,8 @@ export default class HelloWorld extends React.Component {
             orderIdDiv = document.getElementById('order-id');
         orderIdDiv.innerText = `Order Number : ${orderId}`;
         window.print();
-        // location.reload();
         location.reload(true);
         console.log(res);
-        // this.updateSelectedNavList("Todo");
-        // this.clearCart();
-        // this.setState({
-        //   showCart: false,
-        //   selectedNavName: "Todo",
-        //   selectedNavList: this.state.activeItems,
-        //   selectedNavListInactives: this.state.inactiveItems,
-        //   showQueryList: false,
-        //   cart: {
-        //     cartItems: [],
-        //     cartTotal: {
-        //       subtotal: 0,
-        //       taxes: 0,
-        //       total: 0
-        //     }
-        //   }
-        // })
-        // window.location.replace(url);
       }).catch(error => {
         console.error("error", error);
       });
