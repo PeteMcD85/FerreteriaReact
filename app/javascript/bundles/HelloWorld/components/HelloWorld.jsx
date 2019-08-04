@@ -382,8 +382,15 @@ export default class HelloWorld extends React.Component {
     .then(res => res.json())
     .then(
       (result) => {
+
         console.log('getCategoryBrand');
         console.log(result);
+        this.setState({
+          selectedNavName: columnName,
+          selectedNavList: result.actives,
+          selectedNavListInactives: result.inactives,
+          showQueryList: false
+        });
       },
       (error) => {
         console.error("Error retrieving results for updateSelectedNavList AJAX method");
