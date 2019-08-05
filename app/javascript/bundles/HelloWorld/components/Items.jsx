@@ -44,6 +44,9 @@ const Items = (props) => {
           itemsCard.push(item);
         }
       });
+      console.log(items);
+      console.log('itemsCard');
+      console.log(itemsCard);
       if (itemsTable.length > 0) showTable = true;
       return (
           <div>
@@ -60,12 +63,15 @@ const Items = (props) => {
               </div> }
             <div className="item-cards">
                <ItemsCard
-                 items={itemsCard}
-                 signedIn={signedIn}
-                 picUrls={picUrls}
-                 addToCart={addToCart}
-                 removeFromCart={removeFromCart}
-                 cart={cart}
+               items={itemsCard}
+               signedIn={signedIn}
+               picUrls={picUrls}
+               addToCart={addToCart}
+               removeFromCart={removeFromCart}
+               cart={cart}
+               itemsStartRange={itemsStartRange}
+               itemsEndRange={itemsEndRange}
+               updateItemsRange={updateItemsRange}
                />
             </div>
           </div>
