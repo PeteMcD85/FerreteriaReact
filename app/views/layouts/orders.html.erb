@@ -6,18 +6,14 @@
       <%= stylesheet_link_tag 'print' , media:"print"%>
      <%= stylesheet_link_tag 'application'%>
 
-     <%= javascript_pack_tag 'hello-world-bundle' %>
+     <%= javascript_pack_tag 'orders-bundle' %>
      <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <div class="devise">
       <%= image_tag ("printLogo.png"), :class => "style_image"%>
-      <%= display_user_sign_in(user_signed_in?)%>
     </div>
-<<<<<<< HEAD
-=======
     <%= display_user_sign_in(user_signed_in?)%>
->>>>>>> 00ffbeaf5acd8095eb7e4ff599621bba093c0c51
     <%= yield %>
 
   </body>
