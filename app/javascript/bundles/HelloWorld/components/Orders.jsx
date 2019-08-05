@@ -50,7 +50,7 @@ export default class Orders extends React.Component {
         orders = this.state.orders,
         displayedOrders = orders.filter((order)=>{
           let orderName = order.name ? order.name : "";
-          return( String(order.id).includes(query) || orderName )
+          return( String(order.id).includes(query) || orderName.includes(query) )
         })
 
     this.setState({ displayedOrders: displayedOrders})
