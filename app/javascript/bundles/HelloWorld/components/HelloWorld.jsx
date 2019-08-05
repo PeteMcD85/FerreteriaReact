@@ -167,6 +167,7 @@ export default class HelloWorld extends React.Component {
         paymentMethod = this.state.paymentMethod,
         orderPhone = document.getElementById('order-phone').value,
         orderName = document.getElementById('order-name').value,
+        printButton = document.getElementById('print-button'),
         customMethod = {
           cash:0,
           creditCard:0,
@@ -197,6 +198,8 @@ export default class HelloWorld extends React.Component {
       }
       customMethod[paymentMethod] = cartTotal
     }
+    printButton.disabled = true
+    printButton.innerHTML = "Printing"
     fetch(
       "/orders", {
         method: "POST",
@@ -227,6 +230,9 @@ export default class HelloWorld extends React.Component {
             orderIdDiv = document.getElementById('order-id');
         orderIdDiv.innerText = `Order Number : ${orderId}`;
         window.print();
+        printButton.disabled = false
+        printButton.innerHTML = "Imprima el Recibo"
+        // location.reload();
         location.reload(true);
         console.log(res);
       }).catch(error => {
