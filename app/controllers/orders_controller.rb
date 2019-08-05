@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-layout 'hello_world'
+layout 'orders'
 protect_from_forgery :except => [:create]
 
   def index

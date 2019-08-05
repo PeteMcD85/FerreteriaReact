@@ -2,9 +2,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 // COMPONENTS
+import Accountant from './Accountant'
+import Cart from './Cart'
 import Items from './Items'
 import NavList from './NavList'
-import Cart from './Cart'
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
@@ -51,7 +52,8 @@ export default class HelloWorld extends React.Component {
       customTotal: 0,
       customItemId: 9999,
       itemsStartRange: 0,
-      itemsEndRange: 10
+      itemsEndRange: 10,
+      showAccountant:false
    };
    this.getCategoryBrand("category", "Todo");
   }
@@ -387,14 +389,9 @@ export default class HelloWorld extends React.Component {
     if (direction === 'more') {
       itemsStartRange += 10;
       itemsEndRange += 10;
-      // if (itemsEndRange >= max) document.getElementById('increase-range-button').disabled = true;
-      // if (itemsStartRange !== 0) document.getElementById('decrease-range-button').disabled = false;
     } else {
       itemsStartRange -= 10;
       itemsEndRange -= 10;
-      console.log(document.getElementById('decrease-range-button'));
-      // if (itemsStartRange === 0) document.getElementById('decrease-range-button').disabled = true;
-      // if (itemsEndRange < max) document.getElementById('increase-range-button').disabled = false;
     }
     this.setState({
       itemsStartRange: itemsStartRange,
@@ -403,7 +400,8 @@ export default class HelloWorld extends React.Component {
   }
 
   render() {
-    let brands = this.state.brands,
+    let activeItems = this.state.activeItems,
+        brands = this.state.brands,
         categories = this.state.categories,
         selectedNavName = this.state.selectedNavName,
         selectedNavList = this.state.selectedNavList,
@@ -419,7 +417,8 @@ export default class HelloWorld extends React.Component {
         customerChange = this.state.customerChange,
         customTotal = this.state.customTotal,
         itemsStartRange = this.state.itemsStartRange,
-        itemsEndRange = this.state.itemsEndRange;
+        itemsEndRange = this.state.itemsEndRange,
+        showAccountant = this.state.showAccountant;
     return (
       <div className="hello-world">
         { signedIn &&
@@ -591,5 +590,5 @@ export default class HelloWorld extends React.Component {
          }
        </div>
     );
-  }
-}
+  } // END of render
+} // END of class
