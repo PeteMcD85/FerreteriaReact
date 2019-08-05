@@ -36,7 +36,7 @@ const Cart = (props) => {
               customItemRow.innerHTML = `
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td>
-                 <button id="custom-item-button"> Create Item</button>
+                 <button id="custom-item-button">Crear Elemento</button>
                 </td>
               `;
               let customItemButton = document.getElementById('custom-item-button');
@@ -125,7 +125,7 @@ const Cart = (props) => {
           <tr id="custom-item-row">
             <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             <td>
-             <button id="custom-item-button" onClick={displayCustomItemForm}> Create Item</button>
+             <button id="custom-item-button" className="hide-for-print" onClick={displayCustomItemForm}> Crear Elemento</button>
             </td>
           </tr>
           <tr>

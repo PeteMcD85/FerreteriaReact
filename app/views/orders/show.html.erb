@@ -16,7 +16,7 @@
         <th>Subtotal Refunded</th>
         <th>Cuantidad Refunded</th>
         <th>Inventario</th>
-        <th>Refund</th>
+        <th class="hide-for-print">Refund</th>
       </tr>
       <% @cart_item_orders.each_with_index do |cart_item, ind| %>
           <tr  id= "<%= "cart-item-#{cart_item.id}" %>">
@@ -32,7 +32,7 @@
             <td><%= @cart[ind].quantity_refunded %></td>
             <td><%= cart_item.inventory %></td>
             <td>
-              <%= link_to "Refund", edit_order_item_order_path(@order,@cart[ind].id) %>
+              <%= link_to "Refund", edit_order_item_order_path(@order,@cart[ind].id), :class => "hide-for-print" %>
             </td>
           </tr>
         <% end %>
