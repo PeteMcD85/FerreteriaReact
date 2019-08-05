@@ -1,14 +1,4 @@
 
-@media print {
-// FOR Print
-* {
-  color: black !important;
-  font-size: 16px !important; }
-
-td { text-align: center !important; }
-
-
-
  // ++++++++++++++++++++++++++++++++ CART TABLE +++++++++++++++++++++++++++++++
 
 #cart {
@@ -60,10 +50,7 @@ label {
 
 // ++++++++++++++++++++++++++ CustomPAYMENTMETHOD ++++++++++++++++++++++++++++
 #cash-payment-method {
-  margin: 20px;
-
-  &.hidden { display: none; }
-}// end of cash-payment-method
+  margin: 20px; }
 
 #custom-payment-method-div {
 
@@ -74,33 +61,5 @@ label {
     flex-wrap: wrap;
     justify-content: space-around;
 
-
   }// end of #custom-payment-method
 }// end of #custom-payment-method-div
-
-.payment-methods {
-  display: flex-wrap !important;
-
-label { display: inline-flex !important; }
-}
-// end of .payment-methods
-
-.devise  {
-  display: flex !important;
-  justify-content: center !important;
-
-img { width: 500px !important; }
-}// end of .devise
-
-.cart-buttons, .hide-for-print { display: none !important; }
-
-input { width: 95px !important; }
-}//end of @media print
-
-
-
-
-@import "variables.scss";
-@import "nav_list/*";
-@import "items/*";
-@import "font-awesome";

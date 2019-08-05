@@ -257,7 +257,7 @@ export default class HelloWorld extends React.Component {
 
   updatePaymentMethod = (e) => {
     let val =e.target.value,
-        customPayment = document.getElementById('custom-payment-method'),
+        customPayment = document.getElementById('custom-payment-method-div'),
         cashPayment = document.getElementById('cash-payment-method');
   document.getElementById('custom-cash').value = 0;
    document.getElementById('custom-credit-card').value = 0;
@@ -465,19 +465,21 @@ export default class HelloWorld extends React.Component {
                      <label>Custom
                        <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
                      </label>
-                     <div id="custom-payment-method" className="hidden">
-                       <label>Cash
-                         <input type='number' id="custom-cash" onChange={this.updateCustomInputChange} />
-                       </label>
-                       <label>Credit Card
-                         <input type='number' id="custom-credit-card" onChange={this.updateCustomInputChange} />
-                       </label>
-                       <label>Check
-                         <input type='number' id="custom-check" onChange={this.updateCustomInputChange} />
-                       </label>
-                       <label>Debit
-                         <input type='number' id="custom-debit" onChange={this.updateCustomInputChange} />
-                       </label>
+                     <div id="custom-payment-method-div" className="hidden">
+                      <div id="custom-payment-method">
+                         <label>Cash
+                           <input type='number' id="custom-cash" onChange={this.updateCustomInputChange} />
+                         </label>
+                         <label>Credit Card
+                           <input type='number' id="custom-credit-card" onChange={this.updateCustomInputChange} />
+                         </label>
+                         <label>Check
+                           <input type='number' id="custom-check" onChange={this.updateCustomInputChange} />
+                         </label>
+                         <label>Debit
+                           <input type='number' id="custom-debit" onChange={this.updateCustomInputChange} />
+                         </label>
+                       </div>
                        <div id="custom-change" >
                         {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange).toFixed(2)}`}
                        </div>
