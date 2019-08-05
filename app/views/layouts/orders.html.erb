@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ReactOnRailsWithWebpacker</title>
+     <%= csrf_meta_tags %>
+      <%= stylesheet_link_tag 'print' , media:"print"%>
+     <%= stylesheet_link_tag 'application'%>
+
+     <%= javascript_pack_tag 'orders-bundle' %>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="devise">
+      <%= image_tag ("printLogo.png"), :class => "style_image"%>
+    </div>
+    <%= display_user_sign_in(user_signed_in?)%>
+    <%= yield %>
+
+  </body>
+</html>
