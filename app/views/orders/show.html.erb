@@ -48,7 +48,7 @@
               <td><%= cart_item.quantity_refunded %></td>
               <td></td>
               <td>
-                <%= link_to "Refund", edit_order_custom_item_path(@order,cart_item.id) %>
+                <%= link_to "Refund", edit_order_custom_item_path(@order,cart_item.id), :class => "hide-for-print" %>
               </td>
             </tr>
           <% end %>
