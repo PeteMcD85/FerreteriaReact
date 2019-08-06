@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 const ItemTable = (props) => {
   let item = props.item,
       id = item.id,
@@ -22,12 +21,13 @@ const ItemTable = (props) => {
             cartButton = document.getElementById(`cart-button-${id}`),
             cartButtonPretext = cartButton.innerText.split(" ")[0],
             newCartButtonPretext = (cartButtonPretext === "Add") ? "Remove" : "Add"
-        if (!quantityValue || quantityValue < 1) return alert("Must enter quantity to be greater than 0")
+        if (!quantityValue || quantityValue < 1 || quantityValue > inventory) return alert(`Must enter quantity to be greater than 0 and less then ${inventory}`)
         if (cartButtonPretext === "Add") {
           quantityInput.disabled = true;
           addToCart(id,quantityValue);
         } else {
           quantityInput.disabled = false;
+          removeFromCart(id);
         }
         cartButton.innerText = `${newCartButtonPretext} from Cart`;
       },
@@ -66,9 +66,7 @@ const ItemTable = (props) => {
             {setQuantityValue(id).text}
           </button>
         </td>}
-
     </tr>
-
   )
 }
 

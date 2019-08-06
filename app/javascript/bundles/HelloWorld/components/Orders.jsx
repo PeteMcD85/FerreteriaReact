@@ -50,7 +50,7 @@ export default class Orders extends React.Component {
         orders = this.state.orders,
         displayedOrders = orders.filter((order)=>{
           let orderName = order.name ? order.name : "";
-          return( String(order.id).includes(query) || orderName )
+          return( String(order.id).includes(query) || orderName.includes(query) )
         })
 
     this.setState({ displayedOrders: displayedOrders})
@@ -64,7 +64,6 @@ export default class Orders extends React.Component {
         mm = String(today.getMonth() + 1).padStart(2, '0'),
         yyyy = today.getFullYear();
         today = yyyy + '-' + mm + '-' + dd;
-        console.log(today);
     return (
       <div className="orders">
         <h1>Ordenes</h1>

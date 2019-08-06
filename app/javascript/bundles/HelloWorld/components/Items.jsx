@@ -11,7 +11,10 @@ const Items = (props) => {
       picUrls = props.picUrls,
       cart = props.cart,
       addToCart = props.addToCart,
-      removeFromCart = props.removeFromCart;
+      removeFromCart = props.removeFromCart,
+      itemsStartRange = props.itemsStartRange,
+      itemsEndRange = props.itemsEndRange,
+      updateItemsRange = props.updateItemsRange;
   if (selectedNavName !== "PVC" && selectedNavName !== "Tornillos" && selectedNavName !== "Tinte" && selectedNavName !== "query" && selectedNavName !== "Gozne" && selectedNavName !== "Correderas" && selectedNavName !== "Routers" && selectedNavName !== "Tapcon" && selectedNavName !== "Staples" && selectedNavName !== "Laminados" && selectedNavName !== "Sait" && selectedNavName !== "SeamFil" && selectedNavName !== "Clavos" && selectedNavName !== "Discos" && selectedNavName !== "Fregaderos" && selectedNavName !== "Superficie" && selectedNavName !== "Brazos" && selectedNavName !== "Madera" && selectedNavName !== "Tiradores" && selectedNavName !== "Lazy Susan" && selectedNavName !== "Temar") {
 
     return (
@@ -23,6 +26,9 @@ const Items = (props) => {
            addToCart={addToCart}
            removeFromCart={removeFromCart}
            cart={cart}
+           itemsStartRange={itemsStartRange}
+           itemsEndRange={itemsEndRange}
+           updateItemsRange={updateItemsRange}
          />
       </div>
     );
@@ -38,6 +44,9 @@ const Items = (props) => {
           itemsCard.push(item);
         }
       });
+      console.log(items);
+      console.log('itemsCard');
+      console.log(itemsCard);
       if (itemsTable.length > 0) showTable = true;
       return (
           <div>
@@ -54,12 +63,15 @@ const Items = (props) => {
               </div> }
             <div className="item-cards">
                <ItemsCard
-                 items={itemsCard}
-                 signedIn={signedIn}
-                 picUrls={picUrls}
-                 addToCart={addToCart}
-                 removeFromCart={removeFromCart}
-                 cart={cart}
+               items={itemsCard}
+               signedIn={signedIn}
+               picUrls={picUrls}
+               addToCart={addToCart}
+               removeFromCart={removeFromCart}
+               cart={cart}
+               itemsStartRange={itemsStartRange}
+               itemsEndRange={itemsEndRange}
+               updateItemsRange={updateItemsRange}
                />
             </div>
           </div>

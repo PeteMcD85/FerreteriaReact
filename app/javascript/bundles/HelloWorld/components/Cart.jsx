@@ -2,6 +2,7 @@ import React from 'react'
 
 const Cart = (props) => {
   let cart = props.cart,
+      addCustomItemToCart= props.addCustomItemToCart,
       removeFromCart = props.removeFromCart,
       updateCartItem = props.updateCartItem,
       orderCart = props.orderCart,
@@ -11,11 +12,58 @@ const Cart = (props) => {
             itemId = cssId[2],
             columnName = (cssId[1] === "price") ? "priceGiven" : "quantity";
             updateCartItem(itemId, columnName, columnValue);
-      },
+            },
       printReciept = () => {
         console.log('printReciept');
         orderCart();
-      }
+      },
+      displayCustomItemForm = (e) => {
+        let customItemRow = document.getElementById('custom-item-row'),
+            addCIToCart = () => {
+              console.log('addCIToCart');
+              let customItemName =  document.getElementById('custom-item-name').value,
+              customItemPrice =  document.getElementById('custom-item-price').value,
+              customItemQuantity =  document.getElementById('custom-item-quantity').value,
+              customItemSubtotal = (+customItemPrice * +customItemQuantity).toFixed(2),
+              customItemValues = {
+                name:customItemName,
+                priceGiven:customItemPrice,
+                quantity:customItemQuantity,
+                subtotal:customItemSubtotal
+              }
+              addCustomItemToCart(customItemValues);
+              console.log(customItemValues);
+              customItemRow.innerHTML = `
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td>
+                 <button id="custom-item-button">Crear Elemento</button>
+                </td>
+              `;
+              let customItemButton = document.getElementById('custom-item-button');
+              customItemButton.addEventListener('click', displayCustomItemForm);
+
+            }
+        customItemRow.innerHTML = `
+          <td></td>
+          <td>
+            <input type='text' id='custom-item-name' placeholder='Nombre' />
+          </td>
+          <td></td><td></td><td></td>
+          <td>
+            <input type='number' id='custom-item-price' placeholder='Precio' />
+          </td>
+          <td>
+            <input type='number' id='custom-item-quantity' placeholder='Cantidad' />
+          </td>
+          <td></td>
+          <td>
+            <button id='add-to-cart-button'>Add to Cart</button>
+          </td>
+        `;
+        let addToCartButton =  document.getElementById('add-to-cart-button');
+
+        addToCartButton.addEventListener('click', addCIToCart);
+      };
   return (
     <div id="cart">
       <table>
@@ -32,6 +80,8 @@ const Cart = (props) => {
             <th className="hide-for-print">Delete</th>
           </tr>
           { cart.cartItems.map((cartItem, ind) => {
+            let soldPrice = cartItem.item.sold_price,
+                defaultValuePrice = soldPrice ? soldPrice : cartItem.priceGiven;
             return (
               <tr key={ind} className="cart-item">
                 <td>{cartItem.item.brand}</td>
@@ -40,16 +90,16 @@ const Cart = (props) => {
                 <td>{cartItem.item.size}</td>
                 <td>{cartItem.item.thickness}</td>
                 <td>
-                  <input
+                  <input key={`item-price-${cartItem.item.id}`}
                     type="number"
                     id={`item-price-${cartItem.item.id}`}
                     className={`item-price`}
-                    defaultValue={cartItem.item.sold_price}
+                    defaultValue={defaultValuePrice}
                     onChange={getSubtotal}
                   />
                 </td>
                 <td>
-                  <input
+                  <input key={`item-quantity-${cartItem.item.id}`}
                     type="number"
                     id={`item-quantity-${cartItem.item.id}`}
                     className={`item-quantity`}
@@ -72,6 +122,12 @@ const Cart = (props) => {
               </tr>
             )
           })}
+          <tr id="custom-item-row">
+            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            <td>
+             <button id="custom-item-button" className="hide-for-print" onClick={displayCustomItemForm}> Crear Elemento</button>
+            </td>
+          </tr>
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Subtotal</td>

@@ -2,9 +2,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 // COMPONENTS
+import Accountant from './Accountant'
+import Cart from './Cart'
 import Items from './Items'
 import NavList from './NavList'
-import Cart from './Cart'
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
@@ -48,28 +49,13 @@ export default class HelloWorld extends React.Component {
       showQueryList: false,
       queryLength: 0,
       customerChange:0,
-      customTotal: 0
+      customTotal: 0,
+      customItemId: 9999,
+      itemsStartRange: 0,
+      itemsEndRange: 10,
+      showAccountant:false
    };
-   this.updateSelectedNavList("Todo");
-  }
-
-  updateSelectedNavList = (navName) => {
-    fetch("/items.json")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            selectedNavName: navName,
-            selectedNavList: result.actives[navName],
-            selectedNavListInactives: result.inactives[navName],
-            showQueryList: false
-          });
-        },
-        (error) => {
-          console.error("Error retrieving results for updateSelectedNavList AJAX method");
-          console.error(error);
-        }
-      )
+   this.getCategoryBrand("category", "Todo");
   }
 
   calculateCartTotal = (cartItems, taxFree=false) => {
@@ -111,11 +97,33 @@ export default class HelloWorld extends React.Component {
     });
   }
 
+  addCustomItemToCart = (customItemValues) => {
+    console.log('customItemValues');
+    console.log(customItemValues);
+    console.log(this.state.cart);
+    let cartItems = this.state.cart.cartItems,
+        taxFree = this.state.taxFree,
+        item = customItemValues,
+        customItemId = this.state.customItemId;
+        item.id = customItemId + 1;
+        item.brand = 'Custom Item';
+    cartItems.push({item: item, quantity: customItemValues.quantity, priceGiven: customItemValues.priceGiven, subtotal: customItemValues.subtotal});
+    this.setState({
+      cart: {
+        cartItems: cartItems,
+        cartTotal: this.calculateCartTotal(cartItems, taxFree)
+      },
+      customItemId: item.id
+    });
+  }
+
   removeFromCart = (id) => {
     let cartItems = this.state.cart.cartItems,
         taxFree = this.state.taxFree,
+        doc = document.getElementById(`item-price-${id}`),
         itemToRemove = cartItems.findIndex((cartItem)=> cartItem.item.id == id );
         cartItems.splice(itemToRemove,1);
+
     this.setState({
       cart: {
         cartItems: cartItems,
@@ -161,9 +169,6 @@ export default class HelloWorld extends React.Component {
           debitAmount = +document.getElementById('custom-debit').value,
           customTotal = (cashAmount + creditCardAmount + checkAmount + debitAmount).toFixed(2);
       if(+cartTotal > +customTotal) {
-        console.log('print');
-        console.log(cartTotal);
-        console.log(customTotal);
         return alert(`${customTotal}:Debe ser mayor que ${cartTotal}`)
       } else {
         customMethod.cash = cashAmount;
@@ -283,7 +288,7 @@ export default class HelloWorld extends React.Component {
 
   updatePaymentMethod = (e) => {
     let val =e.target.value,
-        customPayment = document.getElementById('custom-payment-method'),
+        customPayment = document.getElementById('custom-payment-method-div'),
         cashPayment = document.getElementById('cash-payment-method');
   document.getElementById('custom-cash').value = 0;
    document.getElementById('custom-credit-card').value = 0;
@@ -385,8 +390,47 @@ export default class HelloWorld extends React.Component {
     });
   }
 
+  getCategoryBrand = (column, columnName) => {
+    fetch(`/get_category_brand.json?column=${column}&columnName=${columnName}`)
+    .then(res => res.json())
+    .then(
+      (result) => {
+        this.setState({
+          selectedNavName: columnName,
+          selectedNavList: result.actives,
+          selectedNavListInactives: result.inactives,
+          showQueryList: false,
+          itemsStartRange:0,
+          itemsEndRange:10
+        });
+      },
+      (error) => {
+        console.error("Error retrieving results for updateSelectedNavList AJAX method");
+        console.error(error);
+      }
+    )
+  }
+
+  updateItemsRange = (direction) => {
+    let itemsStartRange = this.state.itemsStartRange,
+        itemsEndRange = this.state.itemsEndRange,
+        max = this.state.selectedNavList.length;
+    if (direction === 'more') {
+      itemsStartRange += 10;
+      itemsEndRange += 10;
+    } else {
+      itemsStartRange -= 10;
+      itemsEndRange -= 10;
+    }
+    this.setState({
+      itemsStartRange: itemsStartRange,
+      itemsEndRange: itemsEndRange
+    })
+  }
+
   render() {
-    let brands = this.state.brands,
+    let activeItems = this.state.activeItems,
+        brands = this.state.brands,
         categories = this.state.categories,
         selectedNavName = this.state.selectedNavName,
         selectedNavList = this.state.selectedNavList,
@@ -400,8 +444,10 @@ export default class HelloWorld extends React.Component {
         queryListActiveItems = this.state.queryListActiveItems,
         cartTotal = cart.cartTotal.total,
         customerChange = this.state.customerChange,
-        customTotal = this.state.customTotal;
-    console.log(this.state);
+        customTotal = this.state.customTotal,
+        itemsStartRange = this.state.itemsStartRange,
+        itemsEndRange = this.state.itemsEndRange,
+        showAccountant = this.state.showAccountant;
     return (
       <div className="hello-world">
         { signedIn &&
@@ -447,19 +493,21 @@ export default class HelloWorld extends React.Component {
                      <label>Custom
                        <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
                      </label>
-                     <div id="custom-payment-method" className="hidden">
-                       <label>Cash
-                         <input type='number' id="custom-cash" onChange={this.updateCustomInputChange} />
-                       </label>
-                       <label>Credit Card
-                         <input type='number' id="custom-credit-card" onChange={this.updateCustomInputChange} />
-                       </label>
-                       <label>Check
-                         <input type='number' id="custom-check" onChange={this.updateCustomInputChange} />
-                       </label>
-                       <label>Debit
-                         <input type='number' id="custom-debit" onChange={this.updateCustomInputChange} />
-                       </label>
+                     <div id="custom-payment-method-div" className="hidden">
+                      <div id="custom-payment-method">
+                         <label>Cash
+                           <input type='number' id="custom-cash" onChange={this.updateCustomInputChange} />
+                         </label>
+                         <label>Credit Card
+                           <input type='number' id="custom-credit-card" onChange={this.updateCustomInputChange} />
+                         </label>
+                         <label>Check
+                           <input type='number' id="custom-check" onChange={this.updateCustomInputChange} />
+                         </label>
+                         <label>Debit
+                           <input type='number' id="custom-debit" onChange={this.updateCustomInputChange} />
+                         </label>
+                       </div>
                        <div id="custom-change" >
                         {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange).toFixed(2)}`}
                        </div>
@@ -477,6 +525,7 @@ export default class HelloWorld extends React.Component {
                    removeFromCart={this.removeFromCart}
                    updateCartItem={this.updateCartItem}
                    orderCart={this.orderCart}
+                   addCustomItemToCart={this.addCustomItemToCart}
                  />
                </div>
  }
@@ -490,10 +539,10 @@ export default class HelloWorld extends React.Component {
              <a href="https://www.google.com/maps/place/Ferreteria+Anibal+Centro+Gabinetes+Y+Topes/@18.3784375,-66.2011181,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xccad113b4a621685!8m2!3d18.3784375!4d-66.1989294">Mapa<i className="fa fa-map-pin"></i></a>
             </div>
             }
-
               <div className="search">
-                <input type="text" placeholder=" ..Search" onChange={this.handleOnInputChange} />
-                <button> <i className="fa fa-search" onClick={this.getQueriedItems}></i> </button>
+                <input type="text" placeholder=" ..Buscar" onChange={this.handleOnInputChange} />
+                <i className="fa fa-search" onClick={this.getQueriedItems}>
+                </i>
               </div>
              <div className="category-brand">
                <p onClick={(e) => this.dropdown(e)}>Categories</p>
@@ -504,12 +553,12 @@ export default class HelloWorld extends React.Component {
                  <NavList
                     columnList={brands}
                     columnName="brand"
-                    updateSelectedNavList={this.updateSelectedNavList}
+                    getCategoryBrand={this.getCategoryBrand}
                  />
                  <NavList
                     columnList={categories}
                     columnName="category"
-                    updateSelectedNavList={this.updateSelectedNavList}
+                    getCategoryBrand={this.getCategoryBrand}
                  />
                </div>
                {showQueryList &&
@@ -522,6 +571,9 @@ export default class HelloWorld extends React.Component {
                     addToCart ={this.addToCart}
                     removeFromCart={this.removeFromCart}
                     cart={cart}
+                    itemsStartRange={itemsStartRange}
+                    itemsEndRange={itemsEndRange}
+                    updateItemsRange={this.updateItemsRange}
                   />
                   {signedIn &&
                     <div>
@@ -547,6 +599,9 @@ export default class HelloWorld extends React.Component {
                addToCart ={this.addToCart}
                removeFromCart={this.removeFromCart}
                cart={cart}
+               itemsStartRange={itemsStartRange}
+               itemsEndRange={itemsEndRange}
+               updateItemsRange={this.updateItemsRange}
              />
              {signedIn &&
                <div>
@@ -567,5 +622,5 @@ export default class HelloWorld extends React.Component {
          }
        </div>
     );
-  }
-}
+  } // END of render
+} // END of class

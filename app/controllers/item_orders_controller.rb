@@ -2,7 +2,7 @@ class ItemOrdersController < ApplicationController
   layout "hello_world"
   def edit
     @order = Order.find(params[:order_id])
-    @item_order = ItemOrder.find([params[:id]]).first
+    @item_order = ItemOrder.find(params[:id])
     @item = Item.find(@item_order.item_id)
     p params
     p @item_order
@@ -13,7 +13,7 @@ class ItemOrdersController < ApplicationController
     p item_order_params
     p item_order_params[:quantity_refunded]
     @order = Order.find(params[:order_id])
-    @item_order = ItemOrder.find([params[:id]]).first
+    @item_order = ItemOrder.find(params[:id])
     @item = Item.find(@item_order.item_id)
     new_quantity_refunded = item_order_params[:quantity_refunded]
     old_quantity_refunded = @item_order.quantity_refunded
