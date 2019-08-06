@@ -120,8 +120,10 @@ export default class HelloWorld extends React.Component {
   removeFromCart = (id) => {
     let cartItems = this.state.cart.cartItems,
         taxFree = this.state.taxFree,
+        doc = document.getElementById(`item-price-${id}`),
         itemToRemove = cartItems.findIndex((cartItem)=> cartItem.item.id == id );
         cartItems.splice(itemToRemove,1);
+
     this.setState({
       cart: {
         cartItems: cartItems,
