@@ -429,6 +429,11 @@ export default class HelloWorld extends React.Component {
     })
   }
 
+  showInventory = () => {
+    console.log("inventory");
+    console.log(this);
+  }
+
   render() {
     let activeItems = this.state.activeItems,
         brands = this.state.brands,
@@ -451,6 +456,12 @@ export default class HelloWorld extends React.Component {
         showAccountant = this.state.showAccountant;
     return (
       <div className="hello-world">
+
+      <input id="accountant" type="checkbox" onChange={this.showInventory} />
+      < Accountant
+          activeItems={activeItems}
+        />
+
         { signedIn &&
            <div>
              <div>
@@ -529,7 +540,7 @@ export default class HelloWorld extends React.Component {
                    addCustomItemToCart={this.addCustomItemToCart}
                  />
                </div>
- }
+             }
            </div>
          }
        { !showCart &&
