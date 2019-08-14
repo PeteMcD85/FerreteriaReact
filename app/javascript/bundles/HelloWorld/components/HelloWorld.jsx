@@ -429,6 +429,11 @@ export default class HelloWorld extends React.Component {
     })
   }
 
+  updateShowAccountant = (e) => {
+    let isChecked = e.target.checked;
+    this.setState({ showAccountant: isChecked})
+  }
+
   render() {
     let activeItems = this.state.activeItems,
         brands = this.state.brands,
@@ -451,8 +456,14 @@ export default class HelloWorld extends React.Component {
         showAccountant = this.state.showAccountant;
     return (
       <div className="hello-world">
+
         { signedIn &&
            <div>
+               <input type="checkbox" onChange={this.updateShowAccountant} />
+             { showAccountant &&
+
+               <Accountant activeItems={activeItems} />
+             }
              <div>
                <div className="cart-buttons">
                  <button id="cart-button" onClick={this.cartButton}>
