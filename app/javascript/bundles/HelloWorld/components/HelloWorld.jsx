@@ -454,184 +454,190 @@ export default class HelloWorld extends React.Component {
         itemsStartRange = this.state.itemsStartRange,
         itemsEndRange = this.state.itemsEndRange,
         showAccountant = this.state.showAccountant;
+        console.log(showAccountant);
     return (
       <div className="hello-world">
 
         { signedIn &&
            <div>
-               <input type="checkbox" onChange={this.updateShowAccountant} />
+            <input type="checkbox" onChange={this.updateShowAccountant} />
              { showAccountant &&
-
                <Accountant activeItems={activeItems} />
              }
-             <div>
-               <div className="cart-buttons">
-                 <button id="cart-button" onClick={this.cartButton}>
-                   {(showCart) ? "Añadir más Artículos" : "Check Out"}
-                 </button>
-                 <button id="clear-cart-button" onClick={this.clearCart}>
-                   Vaciar Carrito
-                 </button>
-               </div>
-             </div>
-             { showCart &&
+             { !showAccountant &&
                <div>
-                 <div id="order-id"></div>
-                 <div id="order-name-div">
-                  <label>
-                    <input id="order-name" placeholder="Nombre" />
-                  </label>
-                  <label>
-                    <input id="order-phone"  placeholder="Numero de Telefono" />
-                  </label>
+                 <div>
+                   <div className="cart-buttons">
+                     <button id="cart-button" onClick={this.cartButton}>
+                       {(showCart) ? "Añadir más Artículos" : "Check Out"}
+                     </button>
+                     <button id="clear-cart-button" onClick={this.clearCart}>
+                       Vaciar Carrito
+                     </button>
+                   </div>
                  </div>
-                 <div className="payment-methods">
-                   <label>Tax Free
-                     <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
-                   </label>
-                   <label>Cash
-                     <input type='radio' name="paymentMethod" value="cash" onChange={this.updatePaymentMethod}/>
-                   </label>
-                   <label>Credit Card
-                     <input type='radio' name="paymentMethod" value="creditCard" onChange={this.updatePaymentMethod}/>
-                   </label>
-                   <label>Check
-                     <input type='radio' name="paymentMethod" value="check" onChange={this.updatePaymentMethod}/>
-                   </label>
-                   <label>Debit
-                     <input type='radio' name="paymentMethod" value="debit" onChange={this.updatePaymentMethod}/>
-                   </label>
-                   <span>
-                     <label>Custom
-                       <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
+                { (showCart) &&
+                 <div>
+                   <div id="order-id"></div>
+                   <div id="order-name-div">
+                    <label>
+                      <input id="order-name" placeholder="Nombre" />
+                    </label>
+                    <label>
+                      <input id="order-phone"  placeholder="Numero de Telefono" />
+                    </label>
+                   </div>
+                   <div className="payment-methods">
+                     <label>Tax Free
+                       <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
                      </label>
-                     <div id="custom-payment-method-div" className="hidden">
-                      <div id="custom-payment-method">
-                         <label>Cash
-                           <input type='number' id="custom-cash" onChange={this.updateCustomInputChange} />
-                         </label>
-                         <label>Credit Card
-                           <input type='number' id="custom-credit-card" onChange={this.updateCustomInputChange} />
-                         </label>
-                         <label>Check
-                           <input type='number' id="custom-check" onChange={this.updateCustomInputChange} />
-                         </label>
-                         <label>Debit
-                           <input type='number' id="custom-debit" onChange={this.updateCustomInputChange} />
-                         </label>
-                       </div>
-                       <div id="custom-change" >
-                        {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange).toFixed(2)}`}
-                       </div>
-                      </div>
-                       <div id="cash-payment-method" className="hidden">
-                       <label>Efectivo Recibido
-                         <input type='number' id="cash-recieved" onChange={this.updateCashRecieved}/>
+                     <label>Cash
+                       <input type='radio' name="paymentMethod" value="cash" onChange={this.updatePaymentMethod}/>
+                     </label>
+                     <label>Credit Card
+                       <input type='radio' name="paymentMethod" value="creditCard" onChange={this.updatePaymentMethod}/>
+                     </label>
+                     <label>Check
+                       <input type='radio' name="paymentMethod" value="check" onChange={this.updatePaymentMethod}/>
+                     </label>
+                     <label>Debit
+                       <input type='radio' name="paymentMethod" value="debit" onChange={this.updatePaymentMethod}/>
+                     </label>
+                     <span>
+                       <label>Custom
+                         <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
                        </label>
-                       <span>  {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange).toFixed(2)}`}</span>
-                    </div>
-                   </span>
+                       <div id="custom-payment-method-div" className="hidden">
+                        <div id="custom-payment-method">
+                           <label>Cash
+                             <input type='number' id="custom-cash" onChange={this.updateCustomInputChange} />
+                           </label>
+                           <label>Credit Card
+                             <input type='number' id="custom-credit-card" onChange={this.updateCustomInputChange} />
+                           </label>
+                           <label>Check
+                             <input type='number' id="custom-check" onChange={this.updateCustomInputChange} />
+                           </label>
+                           <label>Debit
+                             <input type='number' id="custom-debit" onChange={this.updateCustomInputChange} />
+                           </label>
+                         </div>
+                         <div id="custom-change" >
+                          {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange).toFixed(2)}`}
+                         </div>
+                        </div>
+                         <div id="cash-payment-method" className="hidden">
+                         <label>Efectivo Recibido
+                           <input type='number' id="cash-recieved" onChange={this.updateCashRecieved}/>
+                         </label>
+                         <span>  {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange).toFixed(2)}`}</span>
+                      </div>
+                     </span>
+                   </div>
+                   <Cart
+                     cart={cart}
+                     removeFromCart={this.removeFromCart}
+                     updateCartItem={this.updateCartItem}
+                     orderCart={this.orderCart}
+                     addCustomItemToCart={this.addCustomItemToCart}
+                   />
                  </div>
-                 <Cart
-                   cart={cart}
-                   removeFromCart={this.removeFromCart}
-                   updateCartItem={this.updateCartItem}
-                   orderCart={this.orderCart}
-                   addCustomItemToCart={this.addCustomItemToCart}
-                 />
-               </div>
- }
+   }
+                { !showCart &&
+     <div>
+       { !signedIn &&
+        <div className="phone-map">
+         <a href="tel:7872348563">Telefono<i className="fa fa-phone-square"></i> </a>
+         <a href="https://www.google.com/maps/place/Ferreteria+Anibal+Centro+Gabinetes+Y+Topes/@18.3784375,-66.2011181,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xccad113b4a621685!8m2!3d18.3784375!4d-66.1989294">Mapa<i className="fa fa-map-pin"></i></a>
+        </div>
+        }
+          <div className="search">
+            <input type="text" placeholder=" ..Buscar" onChange={this.handleOnInputChange} />
+            <i className="fa fa-search" onClick={this.getQueriedItems}>
+            </i>
+          </div>
+         <div className="category-brand">
+           <p onClick={(e) => this.dropdown(e)}>Categories</p>
+           <p onClick={(e) => this.dropdown(e)}>Brands</p>
+         </div>
+         <div id="nav-list">
+           <div className="dropdown">
+             <NavList
+                columnList={brands}
+                columnName="brand"
+                getCategoryBrand={this.getCategoryBrand}
+             />
+             <NavList
+                columnList={categories}
+                columnName="category"
+                getCategoryBrand={this.getCategoryBrand}
+             />
            </div>
-         }
-       { !showCart &&
-         <div>
-           { !signedIn &&
-            <div className="phone-map">
-             <a href="tel:7872348563">Telefono<i className="fa fa-phone-square"></i> </a>
-             <a href="https://www.google.com/maps/place/Ferreteria+Anibal+Centro+Gabinetes+Y+Topes/@18.3784375,-66.2011181,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xccad113b4a621685!8m2!3d18.3784375!4d-66.1989294">Mapa<i className="fa fa-map-pin"></i></a>
-            </div>
-            }
-              <div className="search">
-                <input type="text" placeholder=" ..Buscar" onChange={this.handleOnInputChange} />
-                <i className="fa fa-search" onClick={this.getQueriedItems}>
-                </i>
-              </div>
-             <div className="category-brand">
-               <p onClick={(e) => this.dropdown(e)}>Categories</p>
-               <p onClick={(e) => this.dropdown(e)}>Brands</p>
-             </div>
-             <div id="nav-list">
-               <div className="dropdown">
-                 <NavList
-                    columnList={brands}
-                    columnName="brand"
-                    getCategoryBrand={this.getCategoryBrand}
-                 />
-                 <NavList
-                    columnList={categories}
-                    columnName="category"
-                    getCategoryBrand={this.getCategoryBrand}
-                 />
-               </div>
-               {showQueryList &&
+           {showQueryList &&
+            <div>
+              <Items
+                items={queryListActiveItems}
+                selectedNavName="query"
+                signedIn={signedIn}
+                picUrls={picUrls}
+                addToCart ={this.addToCart}
+                removeFromCart={this.removeFromCart}
+                cart={cart}
+                itemsStartRange={itemsStartRange}
+                itemsEndRange={itemsEndRange}
+                updateItemsRange={this.updateItemsRange}
+              />
+              {signedIn &&
                 <div>
+                  <h2>Inactive Items</h2>
                   <Items
-                    items={queryListActiveItems}
-                    selectedNavName="query"
+                    items={selectedNavListInactives}
+                    selectedNavName={selectedNavName}
                     signedIn={signedIn}
                     picUrls={picUrls}
-                    addToCart ={this.addToCart}
-                    removeFromCart={this.removeFromCart}
                     cart={cart}
-                    itemsStartRange={itemsStartRange}
-                    itemsEndRange={itemsEndRange}
-                    updateItemsRange={this.updateItemsRange}
                   />
-                  {signedIn &&
-                    <div>
-                      <h2>Inactive Items</h2>
-                      <Items
-                        items={selectedNavListInactives}
-                        selectedNavName={selectedNavName}
-                        signedIn={signedIn}
-                        picUrls={picUrls}
-                        cart={cart}
-                      />
-                   </div>
-                   }
-                </div>
+               </div>
                }
-              {!showQueryList &&
-                <div>
+            </div>
+           }
+          {!showQueryList &&
+            <div>
+         <Items
+           items={selectedNavList}
+           selectedNavName={selectedNavName}
+           signedIn={signedIn}
+           picUrls={picUrls}
+           addToCart ={this.addToCart}
+           removeFromCart={this.removeFromCart}
+           cart={cart}
+           itemsStartRange={itemsStartRange}
+           itemsEndRange={itemsEndRange}
+           updateItemsRange={this.updateItemsRange}
+         />
+         {signedIn &&
+           <div>
+             <h2>Inactive Items</h2>
              <Items
-               items={selectedNavList}
+               items={selectedNavListInactives}
                selectedNavName={selectedNavName}
                signedIn={signedIn}
                picUrls={picUrls}
-               addToCart ={this.addToCart}
-               removeFromCart={this.removeFromCart}
                cart={cart}
-               itemsStartRange={itemsStartRange}
-               itemsEndRange={itemsEndRange}
-               updateItemsRange={this.updateItemsRange}
              />
-             {signedIn &&
-               <div>
-                 <h2>Inactive Items</h2>
-                 <Items
-                   items={selectedNavListInactives}
-                   selectedNavName={selectedNavName}
-                   signedIn={signedIn}
-                   picUrls={picUrls}
-                   cart={cart}
-                 />
-               </div>
-             }
-             </div>
-             }
-             </div>
            </div>
          }
+         </div>
+         }
+         </div>
+       </div>
+     }
+               </div>
+             }
+
+           </div>
+         }
+
        </div>
     );
   } // END of render
