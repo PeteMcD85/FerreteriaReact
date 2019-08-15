@@ -429,9 +429,15 @@ export default class HelloWorld extends React.Component {
     })
   }
 
-  showInventory = () => {
-    console.log("inventory");
-    console.log(this);
+  setShowInventory = (e) => {
+    e.persist()
+    e.target.checked
+    let showAccountant = this.state.showAccountant,
+        isChecked = e.target.checked;
+    this.setState({
+      showAccountant: isChecked
+    });
+    console.log(isChecked);
   }
 
   render() {
@@ -457,11 +463,10 @@ export default class HelloWorld extends React.Component {
     return (
       <div className="hello-world">
 
-      <input id="accountant" type="checkbox" onChange={this.showInventory} />
-      < Accountant
-          activeItems={activeItems}
-        />
-
+      <input id="accountant" type="checkbox" onChange={this.setShowInventory} />
+      { showAccountant &&
+        < Accountant activeItems={activeItems} />
+      }
         { signedIn &&
            <div>
              <div>
