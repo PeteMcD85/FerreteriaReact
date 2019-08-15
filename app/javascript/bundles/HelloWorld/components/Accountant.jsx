@@ -25,6 +25,7 @@ const Accountant = (props) => {
               <th>Color</th>
               <th>Inventario</th>
               <th>Precio</th>
+              <th>subtotal</th>
             </tr>
           { items.map((item) => {
             return (
@@ -36,6 +37,7 @@ const Accountant = (props) => {
                 <td>{item.color}</td>
                 <td>{item.inventory}</td>
                 <td>{item.bought_price}</td>
+                <td>{item.subtotal}</td>
               </tr>
             )
           })
