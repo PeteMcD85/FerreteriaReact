@@ -12,8 +12,20 @@ const Accountant = (props) => {
         return (total + +item.subtotal)
       },0),
       deleteItem = (itemId) => {
-        console.log('deleteItem');
-        console.log(itemId);
+        fetch(
+          `/items/${itemId}`, {
+            method: "DELETE",
+          }).then(response => {
+            console.log('response');
+            console.log(response);
+            if (!response.ok) { throw response; }
+            return response;
+          }).then((res) => {
+            console.log('working');
+            console.log(res);
+          }).catch(error => {
+            console.error("error", error);
+          });
       };
 
 
