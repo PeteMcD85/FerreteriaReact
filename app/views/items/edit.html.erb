@@ -1,3 +1,4 @@
 <h1>Editar Elemento</h1>
+<%= link_to 'Destroy',  item_path(@item), method: :delete, data: { confirm: 'Are you sure?' } %>
 <%= render 'form'%>
 <%= link_to 'Back', items_path %>

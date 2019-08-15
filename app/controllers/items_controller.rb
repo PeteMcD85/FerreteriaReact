@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
-      @categories = Item.distinct_categories.map{|item| item.category}.sort
+    @categories = Item.distinct_categories.map{|item| item.category}.sort
   end
 
   def update
@@ -68,7 +68,9 @@ class ItemsController < ApplicationController
 
   def destroy
     @item = Item.find(params[:id])
-    if @item.item_orders
+    p "++++++++++++++++++++++++++++++++++++++++++++++++++"
+    p params
+    if @item.item_orders.count != 0
       render 'edit'
     else
       @item.destroy
