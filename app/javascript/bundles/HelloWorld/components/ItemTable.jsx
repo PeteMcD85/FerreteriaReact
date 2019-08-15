@@ -8,6 +8,7 @@ const ItemTable = (props) => {
       color = item.color,
       thickness = item.thickness,
       size = item.size,
+      stockNumber= item.stock_number,
       inventory = item.inventory,
       sold_price = Number(item.sold_price).toFixed(2),
       signedIn = props.signedIn,
@@ -44,6 +45,7 @@ const ItemTable = (props) => {
       {color && <td>{color}</td>}
       {thickness && <td>{thickness}</td>}
       {signedIn && <td>${sold_price}</td>}
+      {signedIn && <td>{stockNumber}</td>}
       {signedIn && <td>{inventory}</td>}
       { signedIn &&
         <td>

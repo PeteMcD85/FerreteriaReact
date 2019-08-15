@@ -54,7 +54,7 @@ const ItemCard = (props) => {
             <div className="update-cart-div">
             {stockNumber && <p>Número de Artículo: {stockNumber}</p>}
             {inventory && <p>Inventario: {inventory}</p>}
-              <h4>Quantity
+              <h4>Cantidad
                 <input type="number"
                   className="quantity-input"
                   id={`quantity-${id}`}

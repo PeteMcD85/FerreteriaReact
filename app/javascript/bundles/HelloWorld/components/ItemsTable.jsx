@@ -28,8 +28,9 @@ const ItemsTable = (props) => {
           {checkColumn("color") && <th>Color</th>}
           {checkColumn("thickness") && <th>Grosor</th>}
           {checkColumn("sold_price") && <th>Precio</th>}
+          {signedIn && <th>Número De Artículo</th>}
           {signedIn && <th>Inventario</th>}
-          {signedIn && <th>Edit</th>}
+          {signedIn && <th>Editar</th>}
           {signedIn && <th>Cantidad</th>}
         </tr>
         {items.map((item,ind)=> {
