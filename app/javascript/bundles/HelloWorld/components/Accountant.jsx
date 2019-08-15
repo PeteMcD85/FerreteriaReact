@@ -26,10 +26,11 @@ const Accountant = (props) => {
               <th>Inventario</th>
               <th>Precio</th>
               <th>subtotal</th>
+              <th></th>
             </tr>
-          { items.map((item) => {
+          { items.map((item,ind) => {
             return (
-              <tr>
+              <tr key={ind}>
                 <td>{item.name}</td>
                 <td>{item.brand}</td>
                 <td>{item.size}</td>
@@ -38,6 +39,7 @@ const Accountant = (props) => {
                 <td>{item.inventory}</td>
                 <td>{item.bought_price}</td>
                 <td>{item.subtotal}</td>
+                <td><a href={`/items/${item.id}/edit`}>Edit</a></td>
               </tr>
             )
           })
