@@ -487,53 +487,53 @@ export default class HelloWorld extends React.Component {
                     <input id="order-name" placeholder="Nombre" />
                   </label>
                   <label>
-                    <input id="order-phone"  placeholder="Numero de Telefono" />
+                    <input id="order-phone"  placeholder="Telefono" />
                   </label>
                  </div>
                  <div className="payment-methods">
-                   <label>Tax Free
+                   <label>Impuestos
                      <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
                    </label>
-                   <label>Cash
+                   <label>Efectivo
                      <input type='radio' name="paymentMethod" value="cash" onChange={this.updatePaymentMethod}/>
                    </label>
-                   <label>Credit Card
+                   <label>Tarjeta De Crédito
                      <input type='radio' name="paymentMethod" value="creditCard" onChange={this.updatePaymentMethod}/>
                    </label>
-                   <label>Check
+                   <label>Cheque
                      <input type='radio' name="paymentMethod" value="check" onChange={this.updatePaymentMethod}/>
                    </label>
-                   <label>Debit
+                   <label>Débito
                      <input type='radio' name="paymentMethod" value="debit" onChange={this.updatePaymentMethod}/>
                    </label>
                    <span>
-                     <label>Custom
+                     <label>Personalizado
                        <input type='radio' name="paymentMethod"  value="custom" onChange={this.updatePaymentMethod}/>
                      </label>
                      <div id="custom-payment-method-div" className="hidden">
                       <div id="custom-payment-method">
-                         <label>Cash
+                         <label>Efectivo
                            <input type='number' id="custom-cash" onChange={this.updateCustomInputChange} />
                          </label>
-                         <label>Credit Card
+                         <label>Tarjeta De Crédito
                            <input type='number' id="custom-credit-card" onChange={this.updateCustomInputChange} />
                          </label>
-                         <label>Check
+                         <label>Cheque
                            <input type='number' id="custom-check" onChange={this.updateCustomInputChange} />
                          </label>
-                         <label>Debit
+                         <label>Débito
                            <input type='number' id="custom-debit" onChange={this.updateCustomInputChange} />
                          </label>
                        </div>
                        <div id="custom-change" >
-                        {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange).toFixed(2)}`}
+                        {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : $ ${Math.abs(customerChange).toFixed(2)}`}
                        </div>
                       </div>
                        <div id="cash-payment-method" className="hidden">
                        <label>Efectivo Recibido
                          <input type='number' id="cash-recieved" onChange={this.updateCashRecieved}/>
                        </label>
-                       <span>  {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange).toFixed(2)}`}</span>
+                       <span>  {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : $ ${Math.abs(customerChange).toFixed(2)}`}</span>
                     </div>
                    </span>
                  </div>

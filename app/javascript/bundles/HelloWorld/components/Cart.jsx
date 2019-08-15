@@ -41,7 +41,6 @@ const Cart = (props) => {
               `;
               let customItemButton = document.getElementById('custom-item-button');
               customItemButton.addEventListener('click', displayCustomItemForm);
-
             }
         customItemRow.innerHTML = `
           <td></td>
