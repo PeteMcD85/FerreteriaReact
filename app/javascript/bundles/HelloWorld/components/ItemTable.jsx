@@ -45,7 +45,7 @@ const ItemTable = (props) => {
       {color && <td>{color}</td>}
       {thickness && <td>{thickness}</td>}
       {signedIn && <td>${sold_price}</td>}
-      {signedIn && <td>{stockNumber}</td>}
+      {stockNumber && <td>{stockNumber}</td>}
       {signedIn && <td>{inventory}</td>}
       { signedIn &&
         <td>

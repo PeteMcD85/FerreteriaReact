@@ -28,7 +28,7 @@ const ItemsTable = (props) => {
           {checkColumn("color") && <th>Color</th>}
           {checkColumn("thickness") && <th>Grosor</th>}
           {checkColumn("sold_price") && <th>Precio</th>}
-          {signedIn && <th>Número De Artículo</th>}
+          {checkColumn("stock_number") && <th>Número De Artículo</th>}
           {signedIn && <th>Inventario</th>}
           {signedIn && <th>Editar</th>}
           {signedIn && <th>Cantidad</th>}
