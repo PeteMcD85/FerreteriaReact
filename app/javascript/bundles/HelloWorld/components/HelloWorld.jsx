@@ -491,7 +491,7 @@ export default class HelloWorld extends React.Component {
                   </label>
                  </div>
                  <div className="payment-methods">
-                   <label>Impuestos
+                   <label>Libre De Impuestos
                      <input type='checkbox' id="tax-free" onChange={this.updateTaxFree}/>
                    </label>
                    <label>Efectivo
