@@ -68,14 +68,32 @@ class ItemsController < ApplicationController
 
   def destroy
     @item = Item.find(params[:id])
-    p "++++++++++++++++++++++++++++++++++++++++++++++++++"
-    p params
-    if @item.item_orders.count != 0
-      render 'edit'
+    items_orders = @item.item_orders
+    if items_orders.count != 0
+      items_orders.each do |item_order|
+        @custom_item = CustomItem.new(
+          name: @item.name,
+          quantity: item_order.quantity,
+          price_given: item_order.price_given,
+          subtotal: item_order.subtotal,
+          order_id: item_order.order_id
+        )
+        if @custom_item.save
+          @item.destroy
+          redirect_to items_path
+        else
+          p @item
+          p @custom_item
+          p item_order
+        end
+      end
     else
       @item.destroy
       redirect_to items_path
     end
+    # @item.destroy
+    # redirect_to items_path
+
 
   end
 
