@@ -15,7 +15,34 @@ const Accountant = (props) => {
     return (
       <div>
         {itemsTotal.toFixed(2)}
+        <table>
+          <tbody>
+            <tr>
+              <th>Nombre</th>
+              <th>Marca</th>
+              <th>Tamaño</th>
+              <th>Grosor</th>
+              <th>Color</th>
+              <th>Inventario</th>
+              <th>Precio</th>
+            </tr>
+          { items.map((item) => {
+            return (
+              <tr>
+                <td>{item.name}</td>
+                <td>{item.brand}</td>
+                <td>{item.size}</td>
+                <td>{item.thickness}</td>
+                <td>{item.color}</td>
+                <td>{item.inventory}</td>
+                <td>{item.bought_price}</td>
+              </tr>
+            )
+          })
 
+          }
+          </tbody>
+        </table>
       </div>
     )
 }
