@@ -1,5 +1,4 @@
 <div class="orders-links hide-for-print">
-  <%= link_to 'Página De Inicio', items_path %>
-  <a href="#" onclick="window.print();return false;">Imprimir</a>
+  <a href="#" onclick="window.print();return false;">Imprimir Página</a>
 </div>
   <%= react_component('Orders', props: {orders: @orders}, prerender: false) %>

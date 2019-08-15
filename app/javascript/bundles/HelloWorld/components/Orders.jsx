@@ -119,7 +119,7 @@ export default class Orders extends React.Component {
           </tbody>
         </table>
         <table>
-            <caption>Total de Ordenes</caption>
+            <caption>Total De Ordenes</caption>
           <tbody>
             <tr>
             <th>Efectivo</th>
