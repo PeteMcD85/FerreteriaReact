@@ -47,7 +47,7 @@ const ItemTable = (props) => {
       {signedIn && <td>{inventory}</td>}
       { signedIn &&
         <td>
-          <a href={`/items/${id}/edit`}>Edit</a>
+          <a href={`/items/${id}/edit`}>Editar</a>
         </td>}
       {signedIn &&
         <td className="update-cart-td">

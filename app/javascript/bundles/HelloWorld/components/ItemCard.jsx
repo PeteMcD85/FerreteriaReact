@@ -50,7 +50,7 @@ const ItemCard = (props) => {
         <h4>Precio: ${soldPrice}</h4>
         {signedIn &&
           <div className="active-card">
-            <a href={`/items/${id}/edit`}>Edit</a>
+            <a href={`/items/${id}/edit`}>Editar</a>
             <div className="update-cart-div">
             {stockNumber && <p>Número de Artículo: {stockNumber}</p>}
             {inventory && <p>Inventario: {inventory}</p>}
