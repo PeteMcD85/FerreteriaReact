@@ -66,7 +66,6 @@ export default class Orders extends React.Component {
         today = yyyy + '-' + mm + '-' + dd;
     return (
       <div className="orders">
-        <h1>Ordenes</h1>
         <h4>Fechas</h4>
       <div className="date-range">
         <p>Desde</p>
@@ -79,8 +78,8 @@ export default class Orders extends React.Component {
         </label>
       </div>
       <div className="search-orders">
-        <label> Search :
-          <input type="text" placeholder="Nombre or Order Number" onChange={this.searchOrder} />
+        <label> Buscar:
+          <input type="text" onChange={this.searchOrder} />
         </label>
       </div>
         <table>
