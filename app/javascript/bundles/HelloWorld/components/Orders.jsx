@@ -64,8 +64,9 @@ export default class Orders extends React.Component {
         mm = String(today.getMonth() + 1).padStart(2, '0'),
         yyyy = today.getFullYear();
         today = yyyy + '-' + mm + '-' + dd;
-    return (
-      <div className="orders">
+  return (
+    <div className="orders">
+      <div className="hide-for-print">
         <h4>Fechas</h4>
       <div className="date-range">
         <p>Desde</p>
@@ -82,6 +83,7 @@ export default class Orders extends React.Component {
           <input type="text" onChange={this.searchOrder} />
         </label>
       </div>
+    </div>
         <table>
           <tbody>
             <tr>
