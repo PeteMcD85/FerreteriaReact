@@ -87,17 +87,17 @@ export default class Orders extends React.Component {
         <table>
           <tbody>
             <tr>
-              <th>Order Number</th>
+              <th>Número De Orden</th>
               <th>Nombre</th>
               <th>Fecha Y Hora</th>
-              <th>Subtotal</th>
-              <th>Taxes</th>
+              <th>Efectivo</th>
+              <th>Tarjeta De Crédito</th>
+              <th>Débito</th>
+              <th>Cheque</th>
+              <th>Total Parcial</th>
+              <th>Impuestos</th>
               <th>Total</th>
-              <th>Cash</th>
-              <th>Credit Card</th>
-              <th>Check</th>
-              <th>Debit</th>
-              <th>Total Refunded</th>
+              <th>Total Reembolsado</th>
             </tr>
           {displayedOrders.map((order, ind)=> {
             return (
@@ -105,13 +105,13 @@ export default class Orders extends React.Component {
                 <td>{order.id}</td>
                 <td>{order.name}</td>
                 <td><a href={`/orders/${order.id}`}>{order.created_at}</a></td>
+                <td>${order.cash_payed}</td>
+                <td>${order.credit_card_payed}</td>
+                <td>${order.debit_payed}</td>
+                <td>${order.check_payed}</td>
                 <td>${order.subtotal}</td>
                 <td>${order.taxes}</td>
                 <td>${order.total}</td>
-                <td>${order.cash_payed}</td>
-                <td>${order.credit_card_payed}</td>
-                <td>${order.check_payed}</td>
-                <td>${order.debit_payed}</td>
                 <td>${order.total_refunded}</td>
               </tr>
             )
@@ -122,23 +122,23 @@ export default class Orders extends React.Component {
             <caption>Total de Ordenes</caption>
           <tbody>
             <tr>
-              <th>Subtotal</th>
-              <th>Taxes</th>
-              <th>Total</th>
-              <th>Cash</th>
-              <th>Credit Card</th>
-              <th>Check</th>
-              <th>Debit</th>
-              <th>Total Refunded</th>
+            <th>Efectivo</th>
+            <th>Tarjeta De Crédito</th>
+            <th>Débito</th>
+            <th>Cheque</th>
+            <th>Total Parcial</th>
+            <th>Impuestos</th>
+            <th>Total</th>
+            <th>Total Reembolsado</th>
             </tr>
           <tr>
+            <td>${this.getSum('cash_payed')}</td>
+            <td>${this.getSum('credit_card_payed')}</td>
+            <td>${this.getSum('debit_payed')}</td>
+            <td>${this.getSum('check_payed')}</td>
             <td>${this.getSum('subtotal')}</td>
             <td>${this.getSum('taxes')}</td>
             <td>${this.getSum('total')}</td>
-            <td>${this.getSum('cash_payed')}</td>
-            <td>${this.getSum('credit_card_payed')}</td>
-            <td>${this.getSum('check_payed')}</td>
-            <td>${this.getSum('debit_payed')}</td>
             <td>${this.getSum('total_refunded')}</td>
           </tr>
           </tbody>
