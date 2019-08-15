@@ -68,8 +68,13 @@ class ItemsController < ApplicationController
 
   def destroy
     @item = Item.find(params[:id])
-    @item.destroy
-    redirect_to items_path
+    if @item.item_orders
+      render 'edit'
+    else
+      @item.destroy
+      redirect_to items_path
+    end
+
   end
 
   def get_category_brand
