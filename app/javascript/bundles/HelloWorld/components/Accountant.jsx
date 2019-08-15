@@ -10,7 +10,13 @@ const Accountant = (props) => {
       }),
       itemsTotal = items.reduce((total, item)=>{
         return (total + +item.subtotal)
-      },0);
+      },0),
+      deleteItem = (itemId) => {
+        console.log('deleteItem');
+        console.log(itemId);
+      };
+
+
       console.log(items);
     return (
       <div>
@@ -26,7 +32,8 @@ const Accountant = (props) => {
               <th>Inventario</th>
               <th>Precio</th>
               <th>subtotal</th>
-              <th></th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
           { items.map((item,ind) => {
             return (
@@ -40,6 +47,7 @@ const Accountant = (props) => {
                 <td>{item.bought_price}</td>
                 <td>{item.subtotal}</td>
                 <td><a href={`/items/${item.id}/edit`}>Edit</a></td>
+                <td><a onClick={()=> deleteItem(item.id)}> Delete</a></td>
               </tr>
             )
           })
