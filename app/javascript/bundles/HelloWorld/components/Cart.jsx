@@ -90,7 +90,7 @@ const Cart = (props) => {
                 <td>{cartItem.item.size}</td>
                 <td>{cartItem.item.thickness}</td>
                 <td>
-                  <input
+                  <input key={`item-price-${cartItem.item.id}`}
                     type="number"
                     id={`item-price-${cartItem.item.id}`}
                     className={`item-price`}
@@ -99,7 +99,7 @@ const Cart = (props) => {
                   />
                 </td>
                 <td>
-                  <input
+                  <input key={`item-quantity-${cartItem.item.id}`}
                     type="number"
                     id={`item-quantity-${cartItem.item.id}`}
                     className={`item-quantity`}
@@ -145,7 +145,7 @@ const Cart = (props) => {
           </tr>
         </tbody>
       </table>
-      <button className="hide-for-print" onClick={printReciept}>Imprima el Recibo</button>
+      <button id="print-button" className="hide-for-print" onClick={printReciept}>Imprima el Recibo</button>
 
     </div>
   )
