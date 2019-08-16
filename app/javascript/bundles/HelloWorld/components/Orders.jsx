@@ -105,14 +105,14 @@ export default class Orders extends React.Component {
                 <td>{order.id}</td>
                 <td>{order.name}</td>
                 <td><a href={`/orders/${order.id}`}>{order.created_at}</a></td>
-                <td>${order.cash_payed}</td>
-                <td>${order.credit_card_payed}</td>
-                <td>${order.debit_payed}</td>
-                <td>${order.check_payed}</td>
-                <td>${order.subtotal}</td>
-                <td>${order.taxes}</td>
-                <td>${order.total}</td>
-                <td>${order.total_refunded}</td>
+                <td>${Number(order.cash_payed).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td>${Number(order.credit_card_payed).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td>${Number(order.debit_payed).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td>${Number(order.check_payed).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td>${Number(order.subtotal).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td>${Number(order.taxes).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td>${Number(order.total).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td>${Number(order.total_refunded).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
               </tr>
             )
           })}
