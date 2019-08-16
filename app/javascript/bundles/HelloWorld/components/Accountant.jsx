@@ -27,13 +27,11 @@ const Accountant = (props) => {
             console.error("error", error);
           });
       };
-
-
       console.log(items);
       console.log(itemsTotal);
     return (
       <div>
-        {itemsTotal.toFixed(2)}
+      <p> Total: ${itemsTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </p>
         <table>
           <tbody>
             <tr>

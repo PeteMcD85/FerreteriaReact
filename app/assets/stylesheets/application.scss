@@ -103,6 +103,14 @@ a {
   justify-content: space-around;
 }
 
+.accountant-inventory {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+
+  input { width: 15px; }
+}
+
 
 
 // +++++++++++++++++++++++++ .item-order-table +++++++++++++++++++++++

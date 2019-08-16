@@ -457,10 +457,12 @@ export default class HelloWorld extends React.Component {
         console.log(showAccountant);
     return (
       <div className="hello-world">
-
         { signedIn &&
            <div>
+           <div className="accountant-inventory">
+           <label>Inventario De La Tienda</label>
             <input type="checkbox" onChange={this.updateShowAccountant} />
+          </div>
              { showAccountant &&
                <Accountant activeItems={activeItems} />
              }
