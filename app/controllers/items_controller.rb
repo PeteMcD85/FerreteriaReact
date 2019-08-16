@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
-      @categories = Item.distinct_categories.map{|item| item.category}.sort
+    @categories = Item.distinct_categories.map{|item| item.category}.sort
   end
 
   def update
@@ -68,8 +68,33 @@ class ItemsController < ApplicationController
 
   def destroy
     @item = Item.find(params[:id])
-    @item.destroy
-    redirect_to items_path
+    items_orders = @item.item_orders
+    if items_orders.count != 0
+      items_orders.each do |item_order|
+        @custom_item = CustomItem.new(
+          name: @item.name,
+          quantity: item_order.quantity,
+          price_given: item_order.price_given,
+          subtotal: item_order.subtotal,
+          order_id: item_order.order_id
+        )
+        if @custom_item.save
+          @item.destroy
+          redirect_to items_path
+        else
+          p @item
+          p @custom_item
+          p item_order
+        end
+      end
+    else
+      @item.destroy
+      redirect_to items_path
+    end
+    # @item.destroy
+    # redirect_to items_path
+
+
   end
 
   def get_category_brand
