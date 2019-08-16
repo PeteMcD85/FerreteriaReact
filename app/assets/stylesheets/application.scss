@@ -197,7 +197,11 @@ i:hover {
 
 div.dropdown {
   display: flex;
-  margin: 20px;
+  background-color: #02320F;
+
+  strong {
+    color: wheat;
+    margin: 20px; }
 
   div.dropdown-content {
     display: flex;
@@ -210,9 +214,11 @@ div.dropdown {
     display: flex;
     margin: 15px; }
 
+  a { color: wheat; }
+
   input {
     cursor: pointer;
-    color: #10520C;
+    color: wheat;
     font-size: 16px;
     text-decoration: underline;
     background-color: transparent;
