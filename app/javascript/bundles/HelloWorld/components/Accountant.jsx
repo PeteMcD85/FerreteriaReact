@@ -42,9 +42,9 @@ const Accountant = (props) => {
               <th>Color</th>
               <th>Inventario</th>
               <th>Precio</th>
-              <th>subtotal</th>
-              <th>Edit</th>
-              <th>Delete</th>
+              <th>Total Parcial</th>
+              <th>Editar</th>
+              <th>Borrar</th>
             </tr>
           { items.map((item,ind) => {
             return (
@@ -56,8 +56,8 @@ const Accountant = (props) => {
                 <td>{item.color}</td>
                 <td>{item.inventory}</td>
                 <td>{item.bought_price}</td>
-                <td>{item.subtotal}</td>
-                <td><a href={`/items/${item.id}/edit`}>Edit</a></td>
+                <td>${item.subtotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td><a href={`/items/${item.id}/edit`}>Editar</a></td>
                 <td><a onClick={()=> deleteItem(item.id)}> Delete</a></td>
               </tr>
             )
