@@ -525,14 +525,14 @@ export default class HelloWorld extends React.Component {
                            </label>
                          </div>
                          <div id="custom-change" >
-                          {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange).toFixed(2)}`}
+                          {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : $${Math.abs(customerChange).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
                          </div>
                         </div>
                          <div id="cash-payment-method" className="hidden">
                          <label>Efectivo Recibido
                            <input type='number' id="cash-recieved" onChange={this.updateCashRecieved}/>
                          </label>
-                         <span>  {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : ${Math.abs(customerChange).toFixed(2)}`}</span>
+                         <span>  {`${(customerChange< 0) ? 'Falta' : 'Cambio de Cliente' } : $${Math.abs(customerChange).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}</span>
                       </div>
                      </span>
                    </div>
