@@ -130,7 +130,7 @@ const Cart = (props) => {
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Total Parcial</td>
-            <td id="cart-subtotal-value">${cart.cartTotal.subtotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+            <td id="cart-subtotal-value">${Number(cart.cartTotal.subtotal).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
           </tr>
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
