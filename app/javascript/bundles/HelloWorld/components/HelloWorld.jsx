@@ -493,7 +493,7 @@ export default class HelloWorld extends React.Component {
                       <input id="order-name" placeholder="Nombre" />
                     </label>
                     <label>
-                      <input id="order-phone"  placeholder="Numero de Telefono" />
+                      <input id="order-phone"  placeholder="Telefono" />
                     </label>
                    </div>
                    <div className="payment-methods">
