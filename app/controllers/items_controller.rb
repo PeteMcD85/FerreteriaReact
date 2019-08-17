@@ -1,10 +1,11 @@
 class ItemsController < ApplicationController
   layout "hello_world"
+  skip_before_action :verify_authenticity_token
 
   def index
     @items = Item.all
-    @active_items = @items.get_actives
-    @inactive_items = @items.get_inactives
+    @active_items = @items.get_actives.order(:brand, :thickness, :size, :name)
+    @inactive_items = @items.get_inactives.order(:brand, :thickness, :size, :name)
     @categories = Item.distinct_categories
     @brands = [{brand:"Lanco"}, {brand:"Wilsonart"}, {brand:"Temar"}, {brand:"Hafelle"}, {brand:"Pfister"}, {brand:"Blum"}, {brand:"Sait"}, {brand:"3M"}]
     @pic_urls = @items.map do |item|
@@ -80,7 +81,6 @@ class ItemsController < ApplicationController
         )
         if @custom_item.save
           @item.destroy
-          redirect_to items_path
         else
           p @item
           p @custom_item
@@ -89,12 +89,12 @@ class ItemsController < ApplicationController
       end
     else
       @item.destroy
-      redirect_to items_path
     end
-    # @item.destroy
-    # redirect_to items_path
-
-
+    items = Item.all
+    return render :json => {
+        actives: items.get_actives.order(:brand, :thickness, :size, :name),
+        inactives: items.get_inactives.order(:brand, :thickness, :size, :name)
+      }
   end
 
   def get_category_brand
@@ -112,8 +112,8 @@ class ItemsController < ApplicationController
     format.html
     format.json {
       render json: {
-          actives: selected_column_items.get_actives,
-          inactives: selected_column_items.get_inactives
+          actives: selected_column_items.get_actives.order(:brand, :thickness, :size, :name),
+          inactives: selected_column_items.get_inactives.order(:brand, :thickness, :size, :name)
         }
       }
     end

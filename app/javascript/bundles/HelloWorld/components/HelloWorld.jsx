@@ -434,6 +434,13 @@ export default class HelloWorld extends React.Component {
     this.setState({ showAccountant: isChecked})
   }
 
+  updateItems = (activeItems, inactiveItems) => {
+    this.setState({
+      activeItems: activeItems,
+      inactiveItems: inactiveItems
+    })
+  }
+
   render() {
     let activeItems = this.state.activeItems,
         brands = this.state.brands,
@@ -462,7 +469,7 @@ export default class HelloWorld extends React.Component {
            <div>
             <input type="checkbox" onChange={this.updateShowAccountant} />
              { showAccountant &&
-               <Accountant activeItems={activeItems} />
+               <Accountant activeItems={activeItems} updateItems={this.updateItems} />
              }
              { !showAccountant &&
                <div>
