@@ -76,7 +76,7 @@ const Cart = (props) => {
             <th>Precio</th>
             <th>Cantidad</th>
             <th>Subtotal</th>
-            <th className="hide-for-print">Delete</th>
+            <th className="hide-for-print">Borrar</th>
           </tr>
           { cart.cartItems.map((cartItem, ind) => {
             let soldPrice = cartItem.item.sold_price,
@@ -129,18 +129,18 @@ const Cart = (props) => {
           </tr>
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            <td>Subtotal</td>
+            <td>Total Parcial</td>
             <td id="cart-subtotal-value">${cart.cartTotal.subtotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
           </tr>
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            <td>Taxes</td>
-            <td id="cart-taxes-value">${cart.cartTotal.taxes.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+            <td>Impuestos</td>
+            <td id="cart-taxes-value">${Number(cart.cartTotal.taxes).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
           </tr>
           <tr>
             <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             <td>Total</td>
-            <td id="cart-total-value">${cart.cartTotal.total.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+            <td id="cart-total-value">${Number(cart.cartTotal.total).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
           </tr>
         </tbody>
       </table>
