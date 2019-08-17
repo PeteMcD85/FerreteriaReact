@@ -89,9 +89,7 @@ const Cart = props => {
           </tr>
           {cart.cartItems.map((cartItem, ind) => {
             let soldPrice = cartItem.item.sold_price,
-              defaultValuePrice = soldPrice
-                ? soldPrice
-                : cartItem.item.priceGiven;
+              defaultValuePrice = soldPrice ? soldPrice : cartItem.priceGiven;
             return (
               <tr key={ind} className="cart-item">
                 <td>{cartItem.item.brand}</td>
