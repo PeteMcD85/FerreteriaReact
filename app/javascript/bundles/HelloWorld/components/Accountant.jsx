@@ -2,6 +2,7 @@ import React from 'react';
 
 const Accountant = (props) => {
   let activeItems = props.activeItems,
+      updateItems = props.updateItems,
       items = activeItems.map((activeItem,ind)=>{
         let boughtPrice = activeItem.bought_price ? activeItem.bought_price : 1;
         activeItem.bought_price = boughtPrice;
@@ -14,15 +15,16 @@ const Accountant = (props) => {
       deleteItem = (itemId) => {
         fetch(
           `/items/${itemId}`, {
-            method: "DELETE",
+            method: "delete",
           }).then(response => {
             console.log('response');
             console.log(response);
             if (!response.ok) { throw response; }
-            return response;
+            return response.json();
           }).then((res) => {
             console.log('working');
             console.log(res);
+            updateItems(res.actives, res.inactives)
           }).catch(error => {
             console.error("error", error);
           });
