@@ -1,16 +1,16 @@
-// ++++++++++++++++++++++++++++++++ CART TABLE +++++++++++++++++++++++++++++++
+// ++++++++++++++++++++++++++ CART TABLE +++++++++++++++++++++++++
 
 #cart {
   input.item-price {
-    width: 50px;
+    width: 75px;
   }
 
   input.item-quantity {
-    width: 50px;
+    width: 75px;
   }
 
   input.item-subtotal {
-    width: 60px;
+    width: 80px;
   }
 
   button#custom-item-button {
@@ -35,7 +35,7 @@
   }
 } //end of cart
 
-// +++++++++++++++++++++++++++++++++++ CART BUTTONS +++++++++++++++++++++++++
+// +++++++++++++++++++++++++++++++ CART BUTTONS ++++++++++++++++
 
 .cart-buttons {
   text-align: center;
@@ -46,7 +46,7 @@
   justify-content: space-around;
 }
 
-// +++++++++++++++++++++++++++++++++ PAYMENT METHODS ++++++++++++++++++++++++++
+// +++++++++++++++++++++++++++++ PAYMENT METHODS ++++++++++++++++
 
 .payment-methods {
   text-align: center;

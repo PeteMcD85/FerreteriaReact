@@ -31,10 +31,9 @@ const Cart = props => {
               .replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             customItemQuantity = document.getElementById("custom-item-quantity")
               .value,
-            customItemSubtotal = (+customItemPrice * +customItemQuantity)
-              .toFixed(2)
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            customItemSubtotal = Number(
+              +customItemPrice * +customItemQuantity
+            ).toFixed(2),
             customItemValues = {
               name: customItemName,
               priceGiven: customItemPrice,
@@ -59,7 +58,7 @@ const Cart = props => {
           </td>
           <td></td><td></td><td></td>
           <td>
-            <input type='number' id='custom-item-price' placeholder='Precio' />
+            $<input type='number' id='custom-item-price' placeholder='Precio' />
           </td>
           <td>
             <input type='number' id='custom-item-quantity' placeholder='Cantidad' />
@@ -99,6 +98,7 @@ const Cart = props => {
                 <td>{cartItem.item.size}</td>
                 <td>{cartItem.item.thickness}</td>
                 <td>
+                  $
                   <input
                     key={`item-price-${cartItem.item.id}`}
                     type="number"
@@ -119,6 +119,7 @@ const Cart = props => {
                   />
                 </td>
                 <td>
+                  $
                   <input
                     type="number"
                     id={`item-subtotal-${cartItem.item.id}`}
