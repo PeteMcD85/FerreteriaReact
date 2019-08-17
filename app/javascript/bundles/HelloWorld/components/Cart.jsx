@@ -75,7 +75,7 @@ const Cart = (props) => {
             <th>Grosor</th>
             <th>Precio</th>
             <th>Cantidad</th>
-            <th>Subtotal</th>
+            <th>Total Parcial</th>
             <th className="hide-for-print">Borrar</th>
           </tr>
           { cart.cartItems.map((cartItem, ind) => {
