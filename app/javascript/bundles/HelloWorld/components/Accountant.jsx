@@ -57,10 +57,10 @@ const Accountant = (props) => {
                 <td>{item.thickness}</td>
                 <td>{item.color}</td>
                 <td>{item.inventory}</td>
-                <td>{item.bought_price}</td>
-                <td>${item.subtotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td>${Number(item.bought_price).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td>${Number(item.subtotal).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 <td><a href={`/items/${item.id}/edit`}>Editar</a></td>
-                <td><a onClick={()=> deleteItem(item.id)}> Delete</a></td>
+                <td><a onClick={()=> deleteItem(item.id)}>Borrar</a></td>
               </tr>
             )
           })
