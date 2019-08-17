@@ -27,10 +27,10 @@
             <td><%= cart_item.color %></td>
             <td><%= cart_item.size %></td>
             <td><%= cart_item.thickness %></td>
-            <td>$<%= @cart[ind].price_given %></td>
+            <td>$<%= number_with_precision(@cart[ind].price_given, :precision => 2, :delimiter => ',' ) %></td>
             <td id="<%= "quantity-#{cart_item.id}" %>"><%= @cart[ind].quantity %></td>
-            <td>$<%= @cart[ind].subtotal %></td>
-            <td>$<%= @cart[ind].subtotal_refunded %></td>
+            <td>$<%= number_with_precision(@cart[ind].subtotal, :precision => 2, :delimiter => ',' ) %></td>
+            <td>$<%= number_with_precision(@cart[ind].subtotal_refunded, :precision => 2, :delimiter => ',' ) %></td>
             <td><%= @cart[ind].quantity_refunded %></td>
             <td><%= cart_item.inventory %></td>
             <td>
@@ -43,10 +43,10 @@
               <td></td>
               <td><%= cart_item.name %></td>
               <td></td><td></td><td></td>
-              <td>$<%= cart_item.price_given %></td>
+              <td>$<%=number_with_precision(cart_item.price_given, :precision => 2, :delimiter => ',' ) %></td>
               <td><%= cart_item.quantity %></td>
-              <td>$<%= cart_item.subtotal %></td>
-              <td>$<%= cart_item.subtotal_refunded %></td>
+              <td>$<%= number_with_precision(cart_item.subtotal, :precision => 2, :delimiter => ',' ) %></td>
+              <td>$<%= number_with_precision(cart_item.subtotal_refunded, :precision => 2, :delimiter => ',' ) %></td>
               <td><%= cart_item.quantity_refunded %></td>
               <td></td>
               <td>
@@ -56,29 +56,28 @@
           <% end %>
       <tr>
         <td>Subtotal Original</td>
-        <td class="cart-subtotal-value">$<%= @order.subtotal %></td>
+        <td class="cart-subtotal-value">$<%= number_with_precision(@order.subtotal, :precision => 2, :delimiter => ',' ) %></td>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 
         <td>Subtotal Refunded</td>
-        <td class="cart-subtotal-value">$<%= @order.subtotal_refunded %></td>
+        <td class="cart-subtotal-value">$<%= number_with_precision(@order.subtotal_refunded, :precision => 2, :delimiter => ',' ) %></td>
       </tr>
       <tr>
         <td>Taxes Original</td>
-        <td class="cart-taxes-value">$<%= @order.taxes %></td>
+        <td class="cart-taxes-value">$<%= number_with_precision(@order.taxes, :precision => 2, :delimiter => ',' ) %></td>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 
         <td>Taxes Refunded</td>
-        <td class="cart-taxes-value">$<%= @order.taxes_refunded %></td>
+        <td class="cart-taxes-value">$<%= number_with_precision(@order.taxes_refunded, :precision => 2, :delimiter => ',' ) %></td>
       </tr>
       <tr>
         <td>Total Original</td>
-        <td class="cart-total-value">$<%= @order.total %></td>
+        <td class="cart-total-value">$<%= number_with_precision(@order.total, :precision => 2, :delimiter => ',' ) %></td>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 
         <td class="total-refund">Total Refunded</td>
-        <td class="cart-total-value total-refund">$<%= @order.total_refunded %></td>
+        <td class="cart-total-value total-refund">$<%= number_with_precision(@order.total_refunded, :precision => 2, :delimiter => ',' ) %></td>
       </tr>
-
     </tbody>
   </table>
 </div>
