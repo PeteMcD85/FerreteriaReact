@@ -1,104 +1,122 @@
-
 @media print {
-// FOR Print
-* {
-  color: black !important;
-  font-size: 16px !important; }
+  // FOR Print
+  * {
+    color: black !important;
+    font-size: 16px !important;
+  }
 
-td { text-align: center !important; }
+  td {
+    text-align: center !important;
+  }
 
+  // ++++++++++++++++++++++++++++++++ CART TABLE +++++++++++++++++++++++++++++++
 
+  #cart {
+    input.item-price {
+      width: 50px;
+    }
 
- // ++++++++++++++++++++++++++++++++ CART TABLE +++++++++++++++++++++++++++++++
+    input.item-quantity {
+      width: 50px;
+    }
 
-#cart {
+    input.item-subtotal {
+      width: 60px;
+    }
 
-input.item-price { width: 50px; }
+    button#custom-item-button {
+      padding: 10px;
+      margin: 5px;
+    }
 
-input.item-quantity { width: 50px; }
+    button:nth-child(2) {
+      position: relative;
+      left: 50%;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      background-color: #8c8c89;
+      border: none;
+      margin: 10px;
+      color: white;
+      padding: 5px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+    }
+  } //end of cart
 
-input.item-subtotal { width: 60px; }
+  // +++++++++++++++++++++++++++++++++++ CART BUTTONS +++++++++++++++++++++++++
 
-button#custom-item-button {
-  padding: 10px;
-  margin: 5px; }
+  .cart-buttons {
+    text-align: center;
+  }
 
-button:nth-child(2) {
-   position: relative;
-   left: 50%;
-   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-   background-color: #8C8C89;
-   border: none;
-   margin: 10px;
-   color: white;
-   padding: 5px;
-   text-align: center;
-   text-decoration: none;
-   display: inline-block;
-   font-size: 12px; }
-}//end of cart
-
-
-// +++++++++++++++++++++++++++++++++++ CART BUTTONS +++++++++++++++++++++++++
-
-.cart-buttons { text-align: center; }
-
-#order-name-div {
-  display: flex;
-  justify-content: space-around; }
-
-// +++++++++++++++++++++++++++++++++ PAYMENT METHODS ++++++++++++++++++++++++++
-
-.payment-methods {
-  text-align: center;
-  margin: 15px;
-
-label {
-  padding: 10px 20px;
-  font-size: 15px; }
-}//end of .payment-methods
-
-// ++++++++++++++++++++++++++ CustomPAYMENTMETHOD ++++++++++++++++++++++++++++
-#cash-payment-method {
-  margin: 20px;
-
-  &.hidden { display: none; }
-}// end of cash-payment-method
-
-#custom-payment-method-div {
-
-  &.hidden { display: none; }
-
-  #custom-payment-method {
+  #order-name-div {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-around;
+  }
 
+  // +++++++++++++++++++++++++++++++++ PAYMENT METHODS ++++++++++++++++++++++++++
 
-  }// end of #custom-payment-method
-}// end of #custom-payment-method-div
+  .payment-methods {
+    text-align: center;
+    margin: 15px;
 
-.payment-methods {
-  display: flex-wrap !important;
+    label {
+      padding: 10px 20px;
+      font-size: 15px;
+    }
+  } //end of .payment-methods
 
-label { display: inline-flex !important; }
-}
-// end of .payment-methods
+  // ++++++++++++++++++++++++++ CustomPAYMENTMETHOD ++++++++++++++++++++++++++++
+  #cash-payment-method {
+    margin: 20px;
 
-.devise  {
-  display: flex !important;
-  justify-content: center !important;
+    &.hidden {
+      display: none;
+    }
+  } // end of cash-payment-method
 
-img { width: 500px !important; }
-}// end of .devise
+  #custom-payment-method-div {
+    &.hidden {
+      display: none;
+    }
 
-.cart-buttons, .hide-for-print { display: none !important; }
+    #custom-payment-method {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    } // end of #custom-payment-method
+  } // end of #custom-payment-method-div
 
-input { width: 95px !important; }
-}//end of @media print
+  .payment-methods {
+    display: flex-wrap !important;
 
+    label {
+      display: inline-flex !important;
+    }
+  }
+  // end of .payment-methods
 
+  .devise {
+    display: flex !important;
+    justify-content: center !important;
 
+    img {
+      width: 500px !important;
+    }
+  } // end of .devise
+
+  .cart-buttons,
+  .hide-for-print {
+    display: none !important;
+  }
+
+  input {
+    width: 95px !important;
+  }
+} //end of @media print
 
 @import "variables.scss";
 @import "nav_list/*";
