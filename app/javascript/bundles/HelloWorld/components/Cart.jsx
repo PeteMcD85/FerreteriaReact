@@ -22,9 +22,9 @@ const Cart = (props) => {
             addCIToCart = () => {
               console.log('addCIToCart');
               let customItemName =  document.getElementById('custom-item-name').value,
-              customItemPrice =  document.getElementById('custom-item-price').value,
+              customItemPrice =  Number(document.getElementById('custom-item-price').value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
               customItemQuantity =  document.getElementById('custom-item-quantity').value,
-              customItemSubtotal = (+customItemPrice * +customItemQuantity).toFixed(2),
+              customItemSubtotal = (+customItemPrice * +customItemQuantity).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
               customItemValues = {
                 name:customItemName,
                 priceGiven:customItemPrice,
