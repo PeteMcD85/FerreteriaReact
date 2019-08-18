@@ -14,9 +14,9 @@
         <th>Grosor</th>
         <th>Precio Dado</th>
         <th>Cantidad</th>
-        <th>Subtotal</th>
-        <th>Subtotal Refunded</th>
-        <th>Cuantidad Refunded</th>
+        <th>Total Parcial</th>
+        <th>Subtotal De Reembolso</th>
+        <th>Cantidad Reembolsada</th>
         <th>Inventario</th>
         <th class="hide-for-print">Refund</th>
       </tr>
@@ -58,16 +58,14 @@
         <td>Subtotal Original</td>
         <td class="cart-subtotal-value">$<%= number_with_precision(@order.subtotal, :precision => 2, :delimiter => ',' ) %></td>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-
-        <td>Subtotal Refunded</td>
+        <td>Subtotal Reembolsado</td>
         <td class="cart-subtotal-value">$<%= number_with_precision(@order.subtotal_refunded, :precision => 2, :delimiter => ',' ) %></td>
       </tr>
       <tr>
-        <td>Taxes Original</td>
+        <td>Impuesto Original</td>
         <td class="cart-taxes-value">$<%= number_with_precision(@order.taxes, :precision => 2, :delimiter => ',' ) %></td>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-
-        <td>Taxes Refunded</td>
+        <td>Impuesto Reembolsado</td>
         <td class="cart-taxes-value">$<%= number_with_precision(@order.taxes_refunded, :precision => 2, :delimiter => ',' ) %></td>
       </tr>
       <tr>
@@ -75,7 +73,7 @@
         <td class="cart-total-value">$<%= number_with_precision(@order.total, :precision => 2, :delimiter => ',' ) %></td>
         <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 
-        <td class="total-refund">Total Refunded</td>
+        <td class="total-refund">Total Reembolsado</td>
         <td class="cart-total-value total-refund">$<%= number_with_precision(@order.total_refunded, :precision => 2, :delimiter => ',' ) %></td>
       </tr>
     </tbody>
