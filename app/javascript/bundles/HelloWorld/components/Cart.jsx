@@ -85,7 +85,7 @@ const Cart = props => {
             <th className="hide-for-print">Borrar</th>
           </tr>
           {cart.cartItems.map((cartItem, ind) => {
-            let soldPrice = cartItem.item.sold_price,
+            let soldPrice = parseFloat(cartItem.item.sold_price).toFixed(2),
               defaultValuePrice = soldPrice
                 ? soldPrice
                 : cartItem.item.priceGiven;
