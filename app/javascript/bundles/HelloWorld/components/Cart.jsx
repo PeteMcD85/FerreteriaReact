@@ -23,15 +23,12 @@ const Cart = props => {
           console.log("addCIToCart");
           let customItemName = document.getElementById("custom-item-name")
               .value,
-            customItemPrice = Number(
+            customItemPrice = parseFloat(
               document.getElementById("custom-item-price").value
-            )
-              .toFixed(2)
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            ).toFixed(2),
             customItemQuantity = document.getElementById("custom-item-quantity")
               .value,
-            customItemSubtotal = Number(
+            customItemSubtotal = parseFloat(
               +customItemPrice * +customItemQuantity
             ).toFixed(2),
             customItemValues = {
