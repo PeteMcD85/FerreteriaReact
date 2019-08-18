@@ -42,7 +42,7 @@ const Cart = props => {
           customItemRow.innerHTML = `
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td>
-                 <button id="custom-item-button">Crear Elemento</button>
+                 <button class="hide-for-print" id="custom-item-button">Crear Elemento</button>
                 </td>
               `;
           let customItemButton = document.getElementById("custom-item-button");
