@@ -9,7 +9,7 @@
     text-align: center !important;
   }
 
-  // ++++++++++++++++++++++++++++++++ CART TABLE +++++++++++++++++++++++++++++++
+  // ++++++++++++++++++++++++++ CART TABLE ++++++++++++++++++++
 
   #cart {
     input.item-price {
@@ -46,7 +46,7 @@
     }
   } //end of cart
 
-  // +++++++++++++++++++++++++++++++++++ CART BUTTONS +++++++++++++++++++++++++
+  // +++++++++++++++++++++++++ CART BUTTONS ++++++++++++++++++++++
 
   .cart-buttons {
     text-align: center;
@@ -57,7 +57,7 @@
     justify-content: space-around;
   }
 
-  // +++++++++++++++++++++++++++++++++ PAYMENT METHODS ++++++++++++++++++++++++++
+  // +++++++++++++++++++++++++ PAYMENT METHODS ++++++++++++++++
 
   .payment-methods {
     text-align: center;
@@ -69,7 +69,7 @@
     }
   } //end of .payment-methods
 
-  // ++++++++++++++++++++++++++ CustomPAYMENTMETHOD ++++++++++++++++++++++++++++
+  // ++++++++++++++++++++ CustomPAYMENTMETHOD ++++++++++++++++++
   #cash-payment-method {
     margin: 20px;
 
