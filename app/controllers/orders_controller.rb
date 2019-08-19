@@ -35,6 +35,10 @@ protect_from_forgery :except => [:create]
     end
   end
 
+  def edit
+    @order = Order.find(params[:id])
+  end
+
   def create
     order = params[:order]
     cart_items = order[:itemOrders][:cartItems]
