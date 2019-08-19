@@ -42,6 +42,17 @@ protect_from_forgery :except => [:create]
     @cart_custom_items = @order.custom_items.map {|cart_item| CustomItem.find(cart_item.id) }
   end
 
+  def update
+    @order = Order.find(params[:id])
+    p '++++++++++++++++++++++++++++++++++++++++'
+    p params
+    # if @order.update(order_payment_params)
+    #   redirect_to @order
+    # else
+    #   render 'edit'
+    # end
+  end
+
   def create
     order = params[:order]
     cart_items = order[:itemOrders][:cartItems]
@@ -97,6 +108,12 @@ protect_from_forgery :except => [:create]
     else
       render :json => { }, :status => 500
     end
+  end
+
+  private
+
+  def order_payment_params
+    params.require(:order).permit(:cash_payed, :credit_card_payed, :check_payed, :debit_payed)
   end
 
 end

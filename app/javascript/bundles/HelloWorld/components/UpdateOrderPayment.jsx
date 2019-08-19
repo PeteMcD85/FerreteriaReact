@@ -74,6 +74,46 @@ export default class UpdateOrderPayment extends React.Component {
     });
   };
 
+  updatePaymentMethod = () => {
+    let csrfToken = document.querySelector("[name='csrf-token']").content,
+        id = this.state.order.id,
+        customMethod = {
+          cash: 0,
+          creditCard: 0,
+          check: 0,
+          debit: 0
+        };
+    fetch(`/orders/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        order: {
+          orderType: "sale",
+          cashPayed: customMethod.cash,
+          creditCardPayed: customMethod.creditCard,
+          debitPayed: customMethod.debit,
+          checkPayed: customMethod.check
+        }
+      }),
+      headers: {
+        "X-CSRF-Token": csrfToken,
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        console.log("response");
+        console.log(response);
+        if (!response.ok) {
+          throw response;
+        }
+        return response;
+      })
+      .then(res => {
+        console.log('working');
+      })
+      .catch(error => {
+        console.error("error", error);
+      });
+ }
   render(){
     let customerChange = this.state.customerChange,
         customTotal = this.state.customTotal;
@@ -189,6 +229,9 @@ export default class UpdateOrderPayment extends React.Component {
             </span>
           </div>
         </span>
+        <div>
+          <button onClick={this.updatePaymentMethod}></button>
+        </div>
       </div>
     )
   }
