@@ -42,6 +42,7 @@ h1 {
 }
 
 h4 {
+  text-align: center;
   margin: 10px 0;
 }
 
@@ -69,12 +70,11 @@ table {
 
 th {
   background-color: #4caf50;
-  font-size: 14px;
+  font-size: 18px;
   color: white;
 }
 
 td {
-  font-size: 13px;
   font-weight: bold;
   padding: 5px;
 }
@@ -106,18 +106,123 @@ input:hover {
 }
 
 a {
-  font-size: 15px;
-  text-decoration: none;
-  color: black;
+  color: #10520c;
+  font-size: 17px;
+  text-decoration: underline;
 }
 
-a:hover {
-  color: blue;
+.orders-links {
+  display: flex;
+  justify-content: space-around;
 }
 
-// +++ Hello World
+#range-buttons-div {
+  display: flex;
+  justify-content: space-around;
+}
 
-// +++++++++++++++++++++++++++++ LOGIN +++++++++++++++++++++++++
+#print-refund-div {
+  display: flex;
+  justify-content: space-around;
+}
+
+.accountant-inventory {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+
+  input {
+    width: 15px;
+  }
+}
+
+// +++++++++++++++++++++++++ .item-order-table +++++++++++++++++++++++
+
+.total-refund {
+  background-color: yellow;
+}
+
+input#item_order_quantity_refunded {
+  width: 50px;
+}
+
+// +++++++++++++++++++++++++++++++ TABLE ++++++++++++++++++++++++++++
+
+input.quantity-input {
+  width: 50px;
+}
+
+// ++++++++++++++++++++++++++++ phone-map ++++++++++++++++++++++++++++
+
+.phone-map {
+  text-align: center;
+
+  a {
+    color: black;
+    margin: 0 50px 0 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    i {
+      margin: none;
+      font-size: 30px;
+    }
+
+    i:hover {
+      font-size: 32px;
+    }
+  } //end of button
+} //end of .phone-map
+
+// +++++++++++++++++++++++++++ SEARCH BAR +++++++++++++++++++++++++++
+
+.search {
+  text-align: center;
+  margin: 1rem;
+
+  input {
+    height: 2rem;
+    width: 50vw;
+  }
+
+  i {
+    position: relative;
+    font-size: 16px;
+    right: 25px;
+    bottom: 0.1px;
+  }
+
+  i:hover {
+    cursor: pointer;
+    font-size: 19px;
+  }
+} //end of search-bar
+
+// ++++++++++++++++++++++++++++++ NAV +++++++++++++++++++++++++++++++
+
+#nav-list {
+  position: inherit;
+
+  .dropdown {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+  }
+} //end of #nav-list
+
+.category-brand {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: black;
+  color: white;
+  margin: 0;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+// +++++++++++++++++++++++++++++ LOGIN ++++++++++++++++++++++++++++++
 
 .login {
   margin: 30px;
@@ -128,14 +233,17 @@ a:hover {
 
 div.dropdown {
   display: flex;
-  margin: 20px;
+  background-color: #02320f;
+
+  strong {
+    color: wheat;
+    margin: 20px;
+  }
 
   div.dropdown-content {
     display: flex;
     margin: 10px;
-    background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 12px 16px;
     z-index: 1;
 
@@ -144,17 +252,22 @@ div.dropdown {
       margin: 15px;
     }
 
+    a {
+      color: wheat;
+    }
+
     input {
       cursor: pointer;
-      padding: 0;
-      color: inherit;
+      color: wheat;
+      font-size: 16px;
+      text-decoration: underline;
       background-color: transparent;
       box-shadow: none;
     }
   } // end dropdown-content
 } //end of dropdown
 
-// +++++++++++++++++++++ @media min 765px ++++++++++++++++++++
+// ++++++++++++++++++++++++++ @media min 765px +++++++++++++++++++
 
 @media only screen and (min-width: 765px) {
   #nav-list {

@@ -3,40 +3,35 @@ body {
   background-color: white;
 }
 
-
 .devise {
-    margin: 0;
-    width: 100%;
-    text-align: center;
+  margin: 0;
+  width: 100%;
+  text-align: center;
 
   img.style_image {
     width: 100%;
     position: relative;
     bottom: 5px;
-    height: 15rem; }
+    height: 15rem;
+  }
 } // end of .devise
-
-
 
 //+++++++++++++++++++++++ Media-Query for Tablet sizes ++++++++++++++++++++++++
 
 @media only screen and (min-width: 765px) {
-
-.devise{
-
-  img.style_image { width: 100%; }
-
-}//end of .devise
-}// end of media-query
+  .devise {
+    img.style_image {
+      width: 100%;
+    }
+  } //end of .devise
+} // end of media-query
 
 // ++++++++++++++++++++++++++++++ DeskTop +++++++++++++++++++++++++++++++++++
 
 @media only screen and (min-width: 992px) {
-
-.devise{
-
-  img.style_image{
-   width: 100%; }
-}//end of devise
-
-}//end of min 992px
+  .devise {
+    img.style_image {
+      width: 100%;
+    }
+  } //end of devise
+} //end of min 992px
