@@ -18,61 +18,79 @@
  *= require font-awesome
 */
 
-ul{
- list-style-type: none;
- margin: 0;
- padding: 0;}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 
-li{
- margin: 10px;}
+li {
+  margin: 10px;
+}
 
-.hidden { display: none; }
+.hidden {
+  display: none;
+}
 
 p {
   text-align: center;
-  margin: 25px; }
+  margin: 25px;
+}
 
-h1 { text-align: center; }
+h1 {
+  text-align: center;
+}
 
-h4 { margin: 10px 0; }
+h4 {
+  text-align: center;
+  margin: 10px 0;
+}
 
 button {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  background-color: #8C8C89;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #8c8c89;
   border: none;
   margin: 15px;
   color: white;
   padding: 15px;
   text-decoration: none;
   display: inline-block;
-  font-size: 14px; }
+  font-size: 14px;
+}
 
 button:hover {
-  box-shadow: 0 10px 18px 0 rgba(1,1,1,0.2), 0 8px 22px 0 rgba(1,1,1,1.19);
-  cursor: pointer; }
+  box-shadow: 0 10px 18px 0 rgba(1, 1, 1, 0.2), 0 8px 22px 0 rgba(1, 1, 1, 1.19);
+  cursor: pointer;
+}
 
 table {
   margin-top: 1rem;
-  width:100%; }
+  width: 100%;
+}
 
 th {
-  background-color: #4CAF50;
-  font-size: 14px;
-  color:white;  }
+  background-color: #4caf50;
+  font-size: 18px;
+  color: white;
+}
 
 td {
-  font-size: 13px;
   font-weight: bold;
-  padding: 5px; }
+  padding: 5px;
+}
 
+tr {
+  width: 100%;
+}
 
-tr { width: 100%; }
-
-tr:nth-child(even) { background-color: #f2f2f2; }
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
 label {
   margin: 5px;
-  font-weight: bolder; }
+  font-weight: bolder;
+}
 
 input {
   border: none;
@@ -80,94 +98,118 @@ input {
   border-radius: 10px;
   font-size: 14px;
   font-weight: normal;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); }
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
 input:hover {
-  box-shadow: 0 10px 18px 0 rgba(1,1,1,0.2), 0 8px 22px 0 rgba(1,1,1,1.19); }
+  box-shadow: 0 10px 18px 0 rgba(1, 1, 1, 0.2), 0 8px 22px 0 rgba(1, 1, 1, 1.19);
+}
 
 a {
-  font-size: 15px;
-  text-decoration: none;
-  color: black; }
+  color: #10520c;
+  font-size: 17px;
+  text-decoration: underline;
+}
 
-a:hover { color: blue; }
-
+.orders-links {
+  display: flex;
+  justify-content: space-around;
+}
 
 #range-buttons-div {
   display: flex;
-  justify-content: space-around; }
+  justify-content: space-around;
+}
 
+#print-refund-div {
+  display: flex;
+  justify-content: space-around;
+}
 
+.accountant-inventory {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
 
-// +++++++++++++++++++++++++ .item-order-table +++++++++++++++++++++++++++++++
+  input {
+    width: 15px;
+  }
+}
 
-.total-refund { background-color: yellow; }
+// +++++++++++++++++++++++++ .item-order-table +++++++++++++++++++++++
 
-input#item_order_quantity_refunded { width: 50px; }
+.total-refund {
+  background-color: yellow;
+}
 
+input#item_order_quantity_refunded {
+  width: 50px;
+}
 
-// +++++++++++++++++++++++++++++++ TABLE +++++++++++++++++++++++++++++++++++
+// +++++++++++++++++++++++++++++++ TABLE ++++++++++++++++++++++++++++
 
-input.quantity-input { width: 50px; }
+input.quantity-input {
+  width: 50px;
+}
 
-
-
-
-
-// ++++++++++++++++++++++++++++ phone-map ++++++++++++++++++++++++++++++++++++
+// ++++++++++++++++++++++++++++ phone-map ++++++++++++++++++++++++++++
 
 .phone-map {
   text-align: center;
 
-a {
-  color: black;
-  margin: 0 50px 0 50px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+  a {
+    color: black;
+    margin: 0 50px 0 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 
-i {
-  margin: none;
-  font-size: 30px; }
+    i {
+      margin: none;
+      font-size: 30px;
+    }
 
-i:hover {
-  font-size: 32px; }
-} //end of button
+    i:hover {
+      font-size: 32px;
+    }
+  } //end of button
 } //end of .phone-map
 
-// +++++++++++++++++++++++++++ SEARCH BAR ++++++++++++++++++++++++++++++++++++
+// +++++++++++++++++++++++++++ SEARCH BAR +++++++++++++++++++++++++++
 
 .search {
   text-align: center;
   margin: 1rem;
 
-input {
-  height: 2rem;
-  width: 50vw; }
+  input {
+    height: 2rem;
+    width: 50vw;
+  }
 
-i {
-  position: relative;
-  font-size: 16px;
-  right: 25px;
-  bottom: .1px; }
+  i {
+    position: relative;
+    font-size: 16px;
+    right: 25px;
+    bottom: 0.1px;
+  }
 
-i:hover {
-  cursor: pointer;
-  font-size: 19px; }
-}//end of search-bar
+  i:hover {
+    cursor: pointer;
+    font-size: 19px;
+  }
+} //end of search-bar
 
-
-
-// ++++++++++++++++++++++++++++++ NAV +++++++++++++++++++++++++++++++++++++++
+// ++++++++++++++++++++++++++++++ NAV +++++++++++++++++++++++++++++++
 
 #nav-list {
   position: inherit;
 
-.dropdown{
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-around; }
-}//end of #nav-list
+  .dropdown {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+  }
+} //end of #nav-list
 
 .category-brand {
   display: flex;
@@ -177,57 +219,68 @@ i:hover {
   color: white;
   margin: 0;
   margin-top: 1rem;
-  width: 100%; }
+  width: 100%;
+}
 
-
-// +++++++++++++++++++++++++++++ LOGIN ++++++++++++++++++++++++++++++++++++++
+// +++++++++++++++++++++++++++++ LOGIN ++++++++++++++++++++++++++++++
 
 .login {
   margin: 30px;
-  float: right; }
+  float: right;
+}
 
-
- // +++++++++++++++++++++++++++++++ dropdown login ++++++++++++++++++++++++++++
+// +++++++++++++++++++++++++++++++ dropdown login ++++++++++++++++++
 
 div.dropdown {
   display: flex;
-  margin: 20px;
+  background-color: #02320f;
+
+  strong {
+    color: wheat;
+    margin: 20px;
+  }
 
   div.dropdown-content {
     display: flex;
     margin: 10px;
-    background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 12px 16px;
     z-index: 1;
 
-  .button_to {
-    display: flex;
-    margin: 15px; }
+    .button_to {
+      display: flex;
+      margin: 15px;
+    }
 
-  input {
-    cursor: pointer;
-    padding: 0;
-    color: inherit;
-    background-color: transparent;
-    box-shadow: none; }
-  }// end dropdown-content
-}//end of dropdown
+    a {
+      color: wheat;
+    }
 
-// ++++++++++++++++++++++++++ @media min 765px +++++++++++++++++++++++++++++++
+    input {
+      cursor: pointer;
+      color: wheat;
+      font-size: 16px;
+      text-decoration: underline;
+      background-color: transparent;
+      box-shadow: none;
+    }
+  } // end dropdown-content
+} //end of dropdown
+
+// ++++++++++++++++++++++++++ @media min 765px +++++++++++++++++++
 
 @media only screen and (min-width: 765px) {
+  #nav-list {
+    .dropdown {
+      display: flex;
+      flex-direction: column;
+    }
+  } //end of #nav-list
 
-#nav-list {
-
-  .dropdown {
-    display: flex;
-    flex-direction: column; }
-}//end of #nav-list
-
-  div.category-brand { display: none; }
-}//end of min 765px
+  div.category-brand {
+    display: none;
+  }
+} //end of min 765px
 
 @import "variables.scss";
 @import "nav_list/*";

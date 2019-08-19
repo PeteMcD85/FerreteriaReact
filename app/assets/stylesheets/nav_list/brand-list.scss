@@ -1,24 +1,26 @@
 @media only screen and (min-width: 765px) {
+  .brand-list {
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    background: white;
 
-.brand-list{
-  justify-content: center;
-  display: flex;
-  width: 100%;
+    ul {
+      justify-content: center;
+      display: flex;
+      flex-wrap: wrap;
+      list-style-type: none;
+      padding: 0;
 
-ul {
-  justify-content: center;
-  display: flex;
-  flex-wrap: wrap;
-  list-style-type: none;
-  padding: 0;
+      li {
+        margin: 13px;
+        font-size: 20px;
+      }
 
-li {
-  margin: 13px;
-  font-size: 20px; }
-
-li:hover {
-  color: #0051FF;
-  cursor: pointer; }
-}// end of ul
-}// end of brand-list
-}// end of media-query min 768px
+      li:hover {
+        color: #0051ff;
+        cursor: pointer;
+      }
+    } // end of ul
+  } // end of brand-list
+} // end of media-query min 768px
