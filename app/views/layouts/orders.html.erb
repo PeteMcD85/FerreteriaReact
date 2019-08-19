@@ -12,8 +12,9 @@
   <body>
     <div class="devise">
       <%= image_tag ("printLogo.png"), :class => "style_image" %>
+      <%= display_user_sign_in(user_signed_in?) %>
     </div>
-    <%= display_user_sign_in(user_signed_in?) %>
+
     <%= yield %>
 
   </body>

@@ -21,3 +21,28 @@
 input#item_order_quantity_refunded {
   width: 50px;
 }
+
+.orders-links {
+  display: flex;
+  justify-content: space-around;
+}
+
+#range-buttons-div {
+  display: flex;
+  justify-content: space-around;
+}
+
+// +++++++++++++++++++++++++ .item-order-table +++++++++++++++++++++++
+
+.total-refund {
+  background-color: yellow;
+}
+
+input#item_order_quantity_refunded {
+  width: 50px;
+}
+
+#print-refund-div {
+  display: flex;
+  justify-content: space-around;
+}

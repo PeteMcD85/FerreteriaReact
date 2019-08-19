@@ -10,6 +10,8 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # SSM
 Rails.application.config.assets.precompile += %w( print.scss )
 Rails.application.config.assets.precompile += %w( hello_world.scss )
+Rails.application.config.assets.precompile += %w( orders.scss )
+Rails.application.config.assets.precompile += %w( hello_world_print.scss )
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
