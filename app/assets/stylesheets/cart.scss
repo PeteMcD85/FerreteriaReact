@@ -1,65 +1,76 @@
-
- // ++++++++++++++++++++++++++++++++ CART TABLE +++++++++++++++++++++++++++++++
+// +++++++++++++++++++++++ CART TABLE ++++++++++++++++++
 
 #cart {
+  input.item-price {
+    width: 50px;
+  }
 
-input.item-price { width: 50px; }
+  input.item-quantity {
+    width: 50px;
+  }
 
-input.item-quantity { width: 50px; }
+  input.item-subtotal {
+    width: 60px;
+  }
 
-input.item-subtotal { width: 60px; }
+  button#custom-item-button {
+    padding: 10px;
+    margin: 5px;
+  }
 
-button#custom-item-button {
-  padding: 10px;
-  margin: 5px; }
+  button:nth-child(2) {
+    position: relative;
+    left: 50%;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #8c8c89;
+    border: none;
+    margin: 10px;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+  }
+} //end of cart
 
-button:nth-child(2) {
-   position: relative;
-   left: 50%;
-   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-   background-color: #8C8C89;
-   border: none;
-   margin: 10px;
-   color: white;
-   padding: 5px;
-   text-align: center;
-   text-decoration: none;
-   display: inline-block;
-   font-size: 12px; }
-}//end of cart
+// +++++++++++++++++++++ CART BUTTONS ++++++++++++++
 
-
-// +++++++++++++++++++++++++++++++++++ CART BUTTONS +++++++++++++++++++++++++
-
-.cart-buttons { text-align: center; }
+.cart-buttons {
+  text-align: center;
+}
 
 #order-name-div {
   display: flex;
-  justify-content: space-around; }
+  justify-content: space-around;
+}
 
-// +++++++++++++++++++++++++++++++++ PAYMENT METHODS ++++++++++++++++++++++++++
+// +++++++++++++++++++++++++ PAYMENT METHODS +++++++++++++++++++
 
 .payment-methods {
   text-align: center;
   margin: 15px;
 
-label {
-  padding: 10px 20px;
-  font-size: 15px; }
-}//end of .payment-methods
+  label {
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+} //end of .payment-methods
 
-// ++++++++++++++++++++++++++ CustomPAYMENTMETHOD ++++++++++++++++++++++++++++
+// +++++++++++++++++ CustomPAYMENTMETHOD ++++++++++++++++++
 #cash-payment-method {
-  margin: 20px; }
+  margin: 20px;
+}
 
 #custom-payment-method-div {
-
-  &.hidden { display: none; }
+  &.hidden {
+    display: none;
+  }
 
   #custom-payment-method {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-
-  }// end of #custom-payment-method
-}// end of #custom-payment-method-div
+  } // end of #custom-payment-method
+} // end of #custom-payment-method-div

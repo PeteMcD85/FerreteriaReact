@@ -1,12 +1,23 @@
-// +++++++++++++++++++++++++++ ORDERS +++++++++++++++++++++++++++++++++++++//
+// +++++++++++++++++++++++++++ ORDERS +++++++++++++++++//
 
 .orders {
-
   .search-orders {
     display: flex;
-    justify-content: center; }
+    justify-content: center;
+  }
 
   .date-range {
     display: flex;
-    justify-content: center; }
-}//end of .orders
+    justify-content: center;
+  }
+} //end of .orders
+
+// +++++++++++++++++++++++++ .item-order-table ++++++++++++++++
+
+.total-refund {
+  background-color: yellow;
+}
+
+input#item_order_quantity_refunded {
+  width: 50px;
+}
