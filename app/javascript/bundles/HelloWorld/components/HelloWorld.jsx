@@ -515,7 +515,7 @@ export default class HelloWorld extends React.Component {
       <div className="hello-world">
         {signedIn && (
           <div>
-            <div className="accountant-inventory" className="hide-for-print">
+            <div className="accountant-inventory">
               <label>Inventario De La Tienda</label>
               <input type="checkbox" onChange={this.updateShowAccountant} />
             </div>
