@@ -1,6 +1,7 @@
 class ItemOrder < ApplicationRecord
   belongs_to :item
   belongs_to :order
+  scope :subtotal_refunded, -> {select(:subtotal_refunded).distinct}
 
   def subtotal
     sprintf('%.2f', self.quantity * self.price_given)

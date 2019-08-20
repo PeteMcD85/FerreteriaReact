@@ -98,79 +98,6 @@ export default class Orders extends React.Component {
             <input type="text" onChange={this.searchOrder} />
           </label>
         </div>
-        <table>
-          <caption>Total De Ordenes</caption>
-          <tbody>
-            <tr>
-              <th>Efectivo</th>
-              <th>Tarjeta De Crédito</th>
-              <th>Débito</th>
-              <th>Cheque</th>
-              <th>Total Reembolsado</th>
-              <th>Total Parcial</th>
-              <th>Impuestos</th>
-              <th>Total</th>
-            </tr>
-            <tr>
-              <td>
-                $
-                {Number(this.getSum("cash_payed"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-              <td>
-                $
-                {Number(this.getSum("credit_card_payed"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-              <td>
-                $
-                {Number(this.getSum("debit_payed"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-              <td>
-                $
-                {Number(this.getSum("check_payed"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-              <td>
-                $
-                {Number(this.getSum("total_refunded"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-              <td>
-                $
-                {Number(this.getSum("subtotal"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-              <td>
-                $
-                {Number(this.getSum("taxes"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-              <td>
-                $
-                {Number(this.getSum("total"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-            </tr>
-          </tbody>
-        </table>
         <p>Ordenes</p>
         <table>
           <tbody>
@@ -254,6 +181,99 @@ export default class Orders extends React.Component {
                 </tr>
               );
             })}
+          </tbody>
+        </table>
+
+        <table>
+          <caption>Item-Order Refund</caption>
+          <tbody>
+            <tr>
+              <th>Order Number</th>
+              <th>Item Name</th>
+              <th>Item Brand</th>
+              <th>Item Size</th>
+              <th>Item Quantity</th>
+              <th>Subtotal Refund</th>
+              <th>taxes Refund</th>
+              <th>Total Refund</th>
+            </tr>
+            <tr>
+              <td> </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table>
+          <caption>Total De Ordenes</caption>
+          <tbody>
+            <tr>
+              <th>Efectivo</th>
+              <th>Tarjeta De Crédito</th>
+              <th>Débito</th>
+              <th>Cheque</th>
+              <th>Total Reembolsado</th>
+              <th>Total Parcial</th>
+              <th>Impuestos</th>
+              <th>Total</th>
+            </tr>
+            <tr>
+              <td>
+                $
+                {Number(this.getSum("cash_payed"))
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
+              <td>
+                $
+                {Number(this.getSum("credit_card_payed"))
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
+              <td>
+                $
+                {Number(this.getSum("debit_payed"))
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
+              <td>
+                $
+                {Number(this.getSum("check_payed"))
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
+              <td>
+                $
+                {Number(this.getSum("total_refunded"))
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
+              <td>
+                $
+                {Number(this.getSum("subtotal"))
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
+              <td>
+                $
+                {Number(this.getSum("taxes"))
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
+              <td>
+                $
+                {Number(this.getSum("total"))
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
