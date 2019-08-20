@@ -8,9 +8,24 @@ export default class UpdateOrderPayment extends React.Component {
 
   constructor(props) {
     super(props);
+    let order = props.order,
+        paymentMethod = "";
+    switch (order.total) {
+      case order.cash_payed:
+        paymentMethod = "cash"
+        break;
+      case order.check_payed:
+        paymentMethod = "check"
+        break;
+      case order.debit_payed:
+        paymentMethod = "debit"
+        break;
+      default:
+        paymentMethod = "custom"
+      }
     this.state = {
-      order: props.order,
-      paymentMethod: "",
+      order: order,
+      paymentMethod: paymentMethod,
       customTotal: 0,
       customerChange: 0
 
@@ -74,15 +89,45 @@ export default class UpdateOrderPayment extends React.Component {
     });
   };
 
-  updatePaymentMethod = () => {
+  updateOrderPayment = () => {
     let csrfToken = document.querySelector("[name='csrf-token']").content,
         id = this.state.order.id,
+        paymentMethod = this.state.paymentMethod,
         customMethod = {
           cash: 0,
           creditCard: 0,
           check: 0,
           debit: 0
         };
+    if (paymentMethod === "") return alert("Debe elegir el método de pago");
+    if (paymentMethod === "custom") {
+      let cashAmount = +document.getElementById("custom-cash").value,
+        creditCardAmount = +document.getElementById("custom-credit-card").value,
+        checkAmount = +document.getElementById("custom-check").value,
+        debitAmount = +document.getElementById("custom-debit").value,
+        customTotal = (
+          cashAmount +
+          creditCardAmount +
+          checkAmount +
+          debitAmount
+        ).toFixed(2);
+      if (+cartTotal > +customTotal) {
+        return alert(`${customTotal}:Debe ser mayor que ${cartTotal}`);
+      } else {
+        customMethod.cash = cashAmount;
+        customMethod.creditCard = creditCardAmount;
+        customMethod.check = checkAmount;
+        customMethod.debit = debitAmount;
+      }
+    } else {
+      if (paymentMethod === "cash") {
+        let customerChange = this.state.customerChange,
+          cashRecieved = document.getElementById("cash-recieved").value;
+        if (+customerChange < 0 || +cashRecieved < +cartTotal)
+          return alert(`Efectivo Recibido debe ser mayor que ${cartTotal}`);
+      }
+      customMethod[paymentMethod] = cartTotal;
+    }
     fetch(`/orders/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -116,7 +161,11 @@ export default class UpdateOrderPayment extends React.Component {
  }
   render(){
     let customerChange = this.state.customerChange,
-        customTotal = this.state.customTotal;
+        customTotal = this.state.customTotal,
+        paymentMethod = this.state.paymentMethod,
+        defaultChecked = (radioValue) => {
+          return (radioValue === paymentMethod) ? true : false;
+        };
     return (
       <div className="payment-methods">
         <label>
@@ -126,6 +175,7 @@ export default class UpdateOrderPayment extends React.Component {
             name="paymentMethod"
             value="cash"
             onChange={this.updatePaymentMethod}
+            defaultChecked={defaultChecked('cash')}
           />
         </label>
         <label>
@@ -135,6 +185,7 @@ export default class UpdateOrderPayment extends React.Component {
             name="paymentMethod"
             value="creditCard"
             onChange={this.updatePaymentMethod}
+            defaultChecked={defaultChecked('creditCard')}
           />
         </label>
         <label>
@@ -144,6 +195,7 @@ export default class UpdateOrderPayment extends React.Component {
             name="paymentMethod"
             value="check"
             onChange={this.updatePaymentMethod}
+            defaultChecked={defaultChecked('check')}
           />
         </label>
         <label>
@@ -153,6 +205,7 @@ export default class UpdateOrderPayment extends React.Component {
             name="paymentMethod"
             value="debit"
             onChange={this.updatePaymentMethod}
+            defaultChecked={defaultChecked('debit')}
           />
         </label>
         <span>
@@ -163,6 +216,7 @@ export default class UpdateOrderPayment extends React.Component {
               name="paymentMethod"
               value="custom"
               onChange={this.updatePaymentMethod}
+              defaultChecked={defaultChecked('custom')}
             />
           </label>
           <div id="custom-payment-method-div" className="hidden">
@@ -230,7 +284,7 @@ export default class UpdateOrderPayment extends React.Component {
           </div>
         </span>
         <div>
-          <button onClick={this.updatePaymentMethod}></button>
+          <button onClick={this.updateOrderPayment}>Update</button>
         </div>
       </div>
     )
