@@ -12,4 +12,15 @@
   input {
     width: 95px !important;
   }
+
+  .cart-buttons,
+  .hide-for-print {
+    display: none !important;
+  }
+
+  // ++++++++++++++++++++++++++++++ CART BUTTONS +++++++++++++++++++++
+
+  .cart-buttons {
+    text-align: center;
+  }
 } //end of @media print
