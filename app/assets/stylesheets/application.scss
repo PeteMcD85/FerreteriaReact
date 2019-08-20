@@ -17,6 +17,7 @@
 /*
  *= require font-awesome
 */
+@import "variables.scss";
 
 ul {
   list-style-type: none;
@@ -64,7 +65,7 @@ table {
 }
 
 th {
-  background-color: #4caf50;
+  background-color: $tableHeaders;
   font-size: 18px;
   color: white;
 }
@@ -79,7 +80,7 @@ tr {
 }
 
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: $trEvens;
 }
 
 label {
@@ -135,10 +136,10 @@ body {
 
 div.dropdown {
   display: flex;
-  background-color: #02320f;
+  background-color: $logInDropDown;
 
   strong {
-    color: wheat;
+    color: $logInDropDownText;
     margin: 20px;
   }
 
@@ -160,7 +161,7 @@ div.dropdown {
 
     input {
       cursor: pointer;
-      color: wheat;
+      color: $logInDropDownText;
       font-size: 16px;
       text-decoration: underline;
       background-color: transparent;
