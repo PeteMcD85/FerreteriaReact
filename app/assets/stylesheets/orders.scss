@@ -1,9 +1,19 @@
 // +++++++++++++++++++++++++++ ORDERS +++++++++++++++++//
 
 .orders {
+  h4 {
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  p {
+    text-align: center;
+    margin: 10px 10px;
+    position: relative;
+  }
+
   .search-orders {
-    display: flex;
-    justify-content: center;
+    display: none;
   }
 
   .date-range {
