@@ -61,11 +61,11 @@ export default class UpdateOrderPayment extends React.Component {
   };
 
   updateCashRecieved = e => {
-    let cartTotal = this.state.cart.cartTotal.total,
+    let orderTotal = this.state.order.total,
       val = e.target.value,
-      customerChange = (+val - +cartTotal).toFixed(2);
+      customerChange = (+val - +orderTotal).toFixed(2);
     console.log(val);
-    console.log(cartTotal);
+    console.log(orderTotal);
     this.setState({ customerChange: customerChange });
   };
 
@@ -74,14 +74,14 @@ export default class UpdateOrderPayment extends React.Component {
       creditCardAmount = document.getElementById("custom-credit-card").value,
       checkAmount = document.getElementById("custom-check").value,
       debitAmount = document.getElementById("custom-debit").value,
-      cartTotal = this.state.cart.cartTotal.total,
+      orderTotal = this.state.order.total,
       customTotal = (
         +cashAmount +
         +creditCardAmount +
         +checkAmount +
         +debitAmount
       ).toFixed(2),
-      customerChange = (+customTotal - +cartTotal).toFixed(2);
+      customerChange = (+customTotal - +orderTotal).toFixed(2);
     console.log("update");
     this.setState({
       customTotal: customTotal,
@@ -93,6 +93,7 @@ export default class UpdateOrderPayment extends React.Component {
     let csrfToken = document.querySelector("[name='csrf-token']").content,
         id = this.state.order.id,
         paymentMethod = this.state.paymentMethod,
+        orderTotal = this.state.order.total,
         customMethod = {
           cash: 0,
           creditCard: 0,
@@ -111,32 +112,36 @@ export default class UpdateOrderPayment extends React.Component {
           checkAmount +
           debitAmount
         ).toFixed(2);
-      if (+cartTotal > +customTotal) {
-        return alert(`${customTotal}:Debe ser mayor que ${cartTotal}`);
+      if (+orderTotal > +customTotal) {
+        return alert(`${customTotal}:Debe ser mayor que ${orderTotal}`);
       } else {
-        customMethod.cash = cashAmount;
-        customMethod.creditCard = creditCardAmount;
-        customMethod.check = checkAmount;
-        customMethod.debit = debitAmount;
+        if (customTotal > orderTotal) {
+          let difference = customTotal - orderTotal;
+              cashAmount -= difference
+          if (cashAmount < 0) return alert('Please Review')
+        }
+        customMethod.cash = cashAmount.toFixed(2);
+        customMethod.creditCard = creditCardAmount.toFixed(2);
+        customMethod.check = checkAmount.toFixed(2);
+        customMethod.debit = debitAmount.toFixed(2);
       }
     } else {
       if (paymentMethod === "cash") {
         let customerChange = this.state.customerChange,
           cashRecieved = document.getElementById("cash-recieved").value;
-        if (+customerChange < 0 || +cashRecieved < +cartTotal)
-          return alert(`Efectivo Recibido debe ser mayor que ${cartTotal}`);
+        if (+customerChange < 0 || +cashRecieved < +orderTotal)
+          return alert(`Efectivo Recibido debe ser mayor que ${orderTotal}`);
       }
-      customMethod[paymentMethod] = cartTotal;
+      customMethod[paymentMethod] = orderTotal;
     }
     fetch(`/orders/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
         order: {
-          orderType: "sale",
-          cashPayed: customMethod.cash,
-          creditCardPayed: customMethod.creditCard,
-          debitPayed: customMethod.debit,
-          checkPayed: customMethod.check
+          cash_payed: customMethod.cash,
+          credit_card_payed: customMethod.creditCard,
+          debit_payed: customMethod.debit,
+          check_payed: customMethod.check
         }
       }),
       headers: {
@@ -150,10 +155,13 @@ export default class UpdateOrderPayment extends React.Component {
         if (!response.ok) {
           throw response;
         }
-        return response;
+        return response.json();
       })
       .then(res => {
         console.log('working');
+        console.log(res);
+        window.location.href = res.url
+
       })
       .catch(error => {
         console.error("error", error);

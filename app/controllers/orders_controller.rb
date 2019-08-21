@@ -46,11 +46,11 @@ protect_from_forgery :except => [:create]
     @order = Order.find(params[:id])
     p '++++++++++++++++++++++++++++++++++++++++'
     p params
-    # if @order.update(order_payment_params)
-    #   redirect_to @order
-    # else
-    #   render 'edit'
-    # end
+    if @order.update(order_payment_params)
+      render :json => { order: @order , url: url_for(order_path(@order))}
+    else
+      render :json => { }, :status => 500
+    end
   end
 
   def create
