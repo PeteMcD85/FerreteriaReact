@@ -189,6 +189,11 @@ export default class HelloWorld extends React.Component {
       if (+cartTotal > +customTotal) {
         return alert(`${customTotal}:Debe ser mayor que ${cartTotal}`);
       } else {
+        if (customTotal > cartTotal) {
+          let difference = customTotal - cartTotal;
+              cashAmount -= difference
+          if (cashAmount < 0) return alert('Please Review')
+        }
         customMethod.cash = cashAmount;
         customMethod.creditCard = creditCardAmount;
         customMethod.check = checkAmount;

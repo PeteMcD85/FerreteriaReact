@@ -10,9 +10,8 @@ protect_from_forgery :except => [:create]
         render json: {
           #orders: @orders
           # items: Item.all
-           item_orders: ItemOrder.all
-          # Order.all
-
+           # item_orders: ItemOrder.all
+          # custom_items: CustomItem.all
         }
       }
     end
@@ -44,8 +43,6 @@ protect_from_forgery :except => [:create]
 
   def update
     @order = Order.find(params[:id])
-    p '++++++++++++++++++++++++++++++++++++++++'
-    p params
     if @order.update(order_payment_params)
       render :json => { order: @order , url: url_for(order_path(@order))}
     else
