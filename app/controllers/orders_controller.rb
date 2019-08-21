@@ -10,9 +10,8 @@ protect_from_forgery :except => [:create]
         render json: {
           #orders: @orders
           # items: Item.all
-           item_orders: ItemOrder.all
-          # Order.all
-
+           # item_orders: ItemOrder.all
+          # custom_items: CustomItem.all
         }
       }
     end
@@ -32,6 +31,22 @@ protect_from_forgery :except => [:create]
           cart_items: @cart_items
         }
       }
+    end
+  end
+
+  def edit
+    @order = Order.find(params[:id])
+    @cart = @order.item_orders
+    @cart_item_orders = @cart.map {|cart_item| Item.find(cart_item.item_id) }
+    @cart_custom_items = @order.custom_items.map {|cart_item| CustomItem.find(cart_item.id) }
+  end
+
+  def update
+    @order = Order.find(params[:id])
+    if @order.update(order_payment_params)
+      render :json => { order: @order , url: url_for(order_path(@order))}
+    else
+      render :json => { }, :status => 500
     end
   end
 
@@ -90,6 +105,12 @@ protect_from_forgery :except => [:create]
     else
       render :json => { }, :status => 500
     end
+  end
+
+  private
+
+  def order_payment_params
+    params.require(:order).permit(:cash_payed, :credit_card_payed, :check_payed, :debit_payed)
   end
 
 end

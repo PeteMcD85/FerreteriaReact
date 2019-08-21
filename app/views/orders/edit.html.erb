@@ -1,0 +1,5 @@
+<h1><%= @order.id %></h1>
+
+<%= react_component('UpdateOrderPayment', props: {order: @order}, prerender: false) %>
+
+<%= render 'order_details'%>

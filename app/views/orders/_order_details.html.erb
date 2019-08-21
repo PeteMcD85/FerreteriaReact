@@ -1,0 +1,74 @@
+<table>
+  <tbody>
+    <tr class="order-th">
+      <th>Marca</th>
+      <th>Nombre</th>
+      <th>Color</th>
+      <th>Tamaño</th>
+      <th>Grosor</th>
+      <th>Precio Dado</th>
+      <th>Cantidad</th>
+      <th>Total Parcial</th>
+      <th>Subtotal De Reembolso</th>
+      <th>Cantidad Reembolsada</th>
+      <th>Inventario</th>
+      <th class="hide-for-print">Refund</th>
+    </tr>
+    <% @cart_item_orders.each_with_index do |cart_item, ind| %>
+        <tr  id= "<%= "cart-item-#{cart_item.id}" %>">
+          <td><%= cart_item.brand %></td>
+          <td><%= cart_item.name %></td>
+          <td><%= cart_item.color %></td>
+          <td><%= cart_item.size %></td>
+          <td><%= cart_item.thickness %></td>
+          <td>$<%= number_with_precision(@cart[ind].price_given, :precision => 2, :delimiter => ',' ) %></td>
+          <td id="<%= "quantity-#{cart_item.id}" %>"><%= @cart[ind].quantity %></td>
+          <td>$<%= number_with_precision(@cart[ind].subtotal, :precision => 2, :delimiter => ',' ) %></td>
+          <td>$<%= number_with_precision(@cart[ind].subtotal_refunded, :precision => 2, :delimiter => ',' ) %></td>
+          <td><%= @cart[ind].quantity_refunded %></td>
+          <td><%= cart_item.inventory %></td>
+          <td>
+            <%= link_to "Refund", edit_order_item_order_path(@order,@cart[ind].id), :class => "hide-for-print" %>
+          </td>
+        </tr>
+      <% end %>
+      <% @cart_custom_items.each_with_index do |cart_item, ind| %>
+          <tr  id= "<%= "cart-item-#{cart_item.id}" %>">
+            <td></td>
+            <td><%= cart_item.name %></td>
+            <td></td><td></td><td></td>
+            <td>$<%=number_with_precision(cart_item.price_given, :precision => 2, :delimiter => ',' ) %></td>
+            <td><%= cart_item.quantity %></td>
+            <td>$<%= number_with_precision(cart_item.subtotal, :precision => 2, :delimiter => ',' ) %></td>
+            <td>$<%= number_with_precision(cart_item.subtotal_refunded, :precision => 2, :delimiter => ',' ) %></td>
+            <td><%= cart_item.quantity_refunded %></td>
+            <td></td>
+            <td>
+              <%= link_to "Refund", edit_order_custom_item_path(@order,cart_item.id), :class => "hide-for-print" %>
+            </td>
+          </tr>
+        <% end %>
+    <tr>
+      <td>Subtotal Original</td>
+      <td class="cart-subtotal-value">$<%= number_with_precision(@order.subtotal, :precision => 2, :delimiter => ',' ) %></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td>Subtotal Reembolsado</td>
+      <td class="cart-subtotal-value">$<%= number_with_precision(@order.subtotal_refunded, :precision => 2, :delimiter => ',' ) %></td>
+    </tr>
+    <tr>
+      <td>Impuesto Original</td>
+      <td class="cart-taxes-value">$<%= number_with_precision(@order.taxes, :precision => 2, :delimiter => ',' ) %></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td>Impuesto Reembolsado</td>
+      <td class="cart-taxes-value">$<%= number_with_precision(@order.taxes_refunded, :precision => 2, :delimiter => ',' ) %></td>
+    </tr>
+    <tr>
+      <td>Total Original</td>
+      <td class="cart-total-value">$<%= number_with_precision(@order.total, :precision => 2, :delimiter => ',' ) %></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+
+      <td class="total-refund">Total Reembolsado</td>
+      <td class="cart-total-value total-refund">$<%= number_with_precision(@order.total_refunded, :precision => 2, :delimiter => ',' ) %></td>
+    </tr>
+  </tbody>
+</table>

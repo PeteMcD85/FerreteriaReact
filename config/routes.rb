@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get 'get_category_brand', to: 'items#get_category_brand'
 
-  resources :orders, only:[:index, :show, :create, :update] do
+  resources :orders do
     resources :item_orders, only:[:edit, :update]
     resources :custom_items, only:[:edit, :update]
   end
