@@ -1,16 +1,16 @@
-// ++++++++++++++++++++++++++ CART TABLE +++++++++++++++++++++++++
+// +++++++++++++++++++++++ CART TABLE ++++++++++++++++++
 
 #cart {
   input.item-price {
-    width: 70px;
+    width: 50px;
   }
 
   input.item-quantity {
-    width: 70px;
+    width: 50px;
   }
 
   input.item-subtotal {
-    width: 70px;
+    width: 60px;
   }
 
   button#custom-item-button {
@@ -35,7 +35,7 @@
   }
 } //end of cart
 
-// +++++++++++++++++++++++++++++++ CART BUTTONS ++++++++++++++++
+// +++++++++++++++++++++ CART BUTTONS ++++++++++++++
 
 .cart-buttons {
   text-align: center;
@@ -46,7 +46,7 @@
   justify-content: space-around;
 }
 
-// +++++++++++++++++++++++++++++ PAYMENT METHODS ++++++++++++++++
+// +++++++++++++++++++++++++ PAYMENT METHODS +++++++++++++++++++
 
 .payment-methods {
   text-align: center;
@@ -58,7 +58,7 @@
   }
 } //end of .payment-methods
 
-// ++++++++++++++++++++++++++ CustomPAYMENTMETHOD ++++++++++++++++++++++++++++
+// +++++++++++++++++ CustomPAYMENTMETHOD ++++++++++++++++++
 #cash-payment-method {
   margin: 20px;
 }
@@ -74,3 +74,9 @@
     justify-content: space-around;
   } // end of #custom-payment-method
 } // end of #custom-payment-method-div
+
+// +++++++++++++++++++++++++++++++ TABLE +++++++++++++++++++++++
+
+input.quantity-input {
+  width: 50px;
+}

@@ -17,6 +17,8 @@
 /*
  *= require font-awesome
 */
+@import "variables.scss";
+@import "font-awesome";
 
 ul {
   list-style-type: none;
@@ -41,11 +43,6 @@ h1 {
   text-align: center;
 }
 
-h4 {
-  text-align: center;
-  margin: 10px 0;
-}
-
 button {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   background-color: #8c8c89;
@@ -64,12 +61,12 @@ button:hover {
 }
 
 table {
-  margin-top: 1rem;
+  margin: 1.5rem 0;
   width: 100%;
 }
 
 th {
-  background-color: #4caf50;
+  background-color: $tableHeaders;
   font-size: 18px;
   color: white;
 }
@@ -84,7 +81,7 @@ tr {
 }
 
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: $trEvens;
 }
 
 label {
@@ -111,116 +108,23 @@ a {
   text-decoration: underline;
 }
 
-.orders-links {
-  display: flex;
-  justify-content: space-around;
-}
-
-#range-buttons-div {
-  display: flex;
-  justify-content: space-around;
-}
-
-#print-refund-div {
-  display: flex;
-  justify-content: space-around;
-}
-
-.accountant-inventory {
-  display: flex;
-  justify-content: center;
-  margin: 20px;
-
-  input {
-    width: 15px;
-  }
-}
-
-// +++++++++++++++++++++++++ .item-order-table +++++++++++++++++++++++
-
-.total-refund {
-  background-color: yellow;
-}
-
-input#item_order_quantity_refunded {
-  width: 50px;
-}
-
-// +++++++++++++++++++++++++++++++ TABLE ++++++++++++++++++++++++++++
-
-input.quantity-input {
-  width: 50px;
-}
-
-// ++++++++++++++++++++++++++++ phone-map ++++++++++++++++++++++++++++
-
-.phone-map {
-  text-align: center;
-
-  a {
-    color: black;
-    margin: 0 50px 0 50px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-
-    i {
-      margin: none;
-      font-size: 30px;
-    }
-
-    i:hover {
-      font-size: 32px;
-    }
-  } //end of button
-} //end of .phone-map
-
-// +++++++++++++++++++++++++++ SEARCH BAR +++++++++++++++++++++++++++
-
-.search {
-  text-align: center;
-  margin: 1rem;
-
-  input {
-    height: 2rem;
-    width: 50vw;
-  }
-
-  i {
-    position: relative;
-    font-size: 16px;
-    right: 25px;
-    bottom: 0.1px;
-  }
-
-  i:hover {
-    cursor: pointer;
-    font-size: 19px;
-  }
-} //end of search-bar
-
-// ++++++++++++++++++++++++++++++ NAV +++++++++++++++++++++++++++++++
-
-#nav-list {
-  position: inherit;
-
-  .dropdown {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-around;
-  }
-} //end of #nav-list
-
-.category-brand {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  background-color: black;
-  color: white;
+body {
   margin: 0;
-  margin-top: 1rem;
-  width: 100%;
+  background-color: white;
 }
+
+.devise {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+
+  img.style_image {
+    width: 100%;
+    position: relative;
+    bottom: 5px;
+    height: 15rem;
+  }
+} // end of .devise
 
 // +++++++++++++++++++++++++++++ LOGIN ++++++++++++++++++++++++++++++
 
@@ -229,14 +133,14 @@ input.quantity-input {
   float: right;
 }
 
-// +++++++++++++++++++++++++++++++ dropdown login ++++++++++++++++++
+// +++++++++++++++++++++++ dropdown login ++++++++++++++++++++++++
 
 div.dropdown {
   display: flex;
-  background-color: #02320f;
+  background-color: $logInDropDown;
 
   strong {
-    color: wheat;
+    color: $logInDropDownText;
     margin: 20px;
   }
 
@@ -258,7 +162,7 @@ div.dropdown {
 
     input {
       cursor: pointer;
-      color: wheat;
+      color: $logInDropDownText;
       font-size: 16px;
       text-decoration: underline;
       background-color: transparent;
@@ -266,25 +170,3 @@ div.dropdown {
     }
   } // end dropdown-content
 } //end of dropdown
-
-// ++++++++++++++++++++++++++ @media min 765px +++++++++++++++++++
-
-@media only screen and (min-width: 765px) {
-  #nav-list {
-    .dropdown {
-      display: flex;
-      flex-direction: column;
-    }
-  } //end of #nav-list
-
-  div.category-brand {
-    display: none;
-  }
-} //end of min 765px
-
-@import "variables.scss";
-@import "nav_list/*";
-@import "items/*";
-@import "font-awesome";
-@import "cart.scss";
-@import "orders.scss";
