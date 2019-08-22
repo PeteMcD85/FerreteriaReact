@@ -189,6 +189,11 @@ export default class HelloWorld extends React.Component {
       if (+cartTotal > +customTotal) {
         return alert(`${customTotal}:Debe ser mayor que ${cartTotal}`);
       } else {
+        if (customTotal > cartTotal) {
+          let difference = customTotal - cartTotal;
+              cashAmount -= difference
+          if (cashAmount < 0) return alert('Please Review')
+        }
         customMethod.cash = cashAmount;
         customMethod.creditCard = creditCardAmount;
         customMethod.check = checkAmount;
@@ -249,25 +254,6 @@ export default class HelloWorld extends React.Component {
             "Todo los articulos no fui en el Orden, save un copy de reciept y llama Stephen. Por Favor Reload Page"
           );
         location.reload(true);
-
-        // this.updateSelectedNavList("Todo");
-        // this.clearCart();
-        // this.setState({
-        //   showCart: false,
-        //   selectedNavName: "Todo",
-        //   selectedNavList: this.state.activeItems,
-        //   selectedNavListInactives: this.state.inactiveItems,
-        //   showQueryList: false,
-        //   cart: {
-        //     cartItems: [],
-        //     cartTotal: {
-        //       subtotal: 0,
-        //       taxes: 0,
-        //       total: 0
-        //     }
-        //   }
-        // })
-        // window.location.replace(url);
       })
       .catch(error => {
         console.error("error", error);
