@@ -18,6 +18,7 @@
  *= require font-awesome
 */
 @import "variables.scss";
+@import "font-awesome";
 
 ul {
   list-style-type: none;
@@ -60,7 +61,7 @@ button:hover {
 }
 
 table {
-  margin-top: 1rem;
+  margin: 1.5rem 0;
   width: 100%;
 }
 
@@ -169,12 +170,3 @@ div.dropdown {
     }
   } // end dropdown-content
 } //end of dropdown
-
-// ++++++++++++++++++++++++++ @media min 765px +++++++++++++++++++
-
-@import "nav_list/*";
-@import "items/*";
-@import "font-awesome";
-@import "cart.scss";
-@import "orders.scss";
-@import "hello_world.scss";
