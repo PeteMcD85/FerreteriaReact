@@ -1,7 +1,7 @@
 class ItemOrder < ApplicationRecord
   belongs_to :item
   belongs_to :order
-  scope :get_item_order_refunded, -> (start_date) {where(updated_at: start_date)}
+  scope :get_item_order_refunded, -> (start_date, end_date) {where(["updated_at >= ? AND updated_at <= ?", start_date, end_date])} 
 
 
   def subtotal
