@@ -1,0 +1,29 @@
+@import "orders.scss";
+
+@media print {
+  .hide-for-print {
+    display: none;
+  }
+
+  .orders {
+    h4 {
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    p {
+      text-align: center;
+      margin: 10px 10px;
+      position: relative;
+    }
+
+    .search-orders {
+      display: none;
+    }
+
+    .date-range {
+      display: flex;
+      justify-content: center;
+    }
+  } //end of .orders
+} //end of @media
