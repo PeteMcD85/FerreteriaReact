@@ -183,8 +183,6 @@ export default class Orders extends React.Component {
             })}
           </tbody>
         </table>
-<<<<<<< HEAD
-
         <table>
           <caption>Item-Order Refund</caption>
           <tbody>
@@ -203,9 +201,6 @@ export default class Orders extends React.Component {
             </tr>
           </tbody>
         </table>
-
-=======
->>>>>>> 83c934f1b40bbd0e3273beb9d2c179cbb05cfead
         <table>
           <caption>Total De Ordenes</caption>
           <tbody>
