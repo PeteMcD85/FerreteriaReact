@@ -49,7 +49,7 @@ class ItemOrdersController < ApplicationController
         }
       }
     end
-  end #END of def get_category_brand
+  end #END of def get_item_orders_refunded
 
   private
 
