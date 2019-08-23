@@ -32,6 +32,22 @@ class ItemOrdersController < ApplicationController
     end
   end
 
+  def get_item_orders_refunded
+    @item_orders = ItemOrder.all
+    p '++++Params+++++'
+    p params
+    p params[:startDate]
+    p params[:endDate]
+    respond_to do |format|
+    format.html
+    format.json {
+      render json: {
+        working:'working'
+        }
+      }
+    end
+  end #END of def get_category_brand
+
   private
 
   def item_order_params

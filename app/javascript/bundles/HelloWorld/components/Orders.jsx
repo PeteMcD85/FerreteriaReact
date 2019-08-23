@@ -60,6 +60,27 @@ export default class Orders extends React.Component {
     this.setState({ displayedOrders: displayedOrders });
   };
 
+  getItemOrdersRefunded = () => {
+    let startDate = "steve",
+      endDate = "pete";
+    fetch(
+      `/get_item_orders_refunded.json?startDate=${startDate}&endDate=${endDate}`
+    )
+      .then(res => res.json())
+      .then(
+        result => {
+          console.log("working");
+          console.log(result);
+        },
+        error => {
+          console.error(
+            "Error retrieving results for updateSelectedNavList AJAX method"
+          );
+          console.error(error);
+        }
+      );
+  };
+
   render() {
     let orders = this.state.orders,
       displayedOrders = this.state.displayedOrders,
@@ -68,6 +89,7 @@ export default class Orders extends React.Component {
       mm = String(today.getMonth() + 1).padStart(2, "0"),
       yyyy = today.getFullYear();
     today = yyyy + "-" + mm + "-" + dd;
+    this.getItemOrdersRefunded();
     return (
       <div className="orders">
         <h4>Fechas</h4>
