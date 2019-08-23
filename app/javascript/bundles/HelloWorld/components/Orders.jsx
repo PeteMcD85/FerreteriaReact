@@ -21,6 +21,7 @@ export default class Orders extends React.Component {
 
   componentDidMount() {
     this.updateOrders();
+    this.getItemOrdersRefunded();
   }
 
   updateOrders = () => {
@@ -61,10 +62,16 @@ export default class Orders extends React.Component {
   };
 
   getItemOrdersRefunded = () => {
-    let startDate = "steve",
-      endDate = "pete";
+    let startRange = new Date(
+        document.getElementById("start-range").value
+      ).toISOString(),
+      endRange = new Date(
+        document.getElementById("end-range").value
+      ).toISOString();
+    console.log(startRange);
+    console.log(endRange);
     fetch(
-      `/get_item_orders_refunded.json?startDate=${startDate}&endDate=${endDate}`
+      `/get_item_orders_refunded.json?startDate=${startRange}&endDate=${endRange}`
     )
       .then(res => res.json())
       .then(
@@ -89,7 +96,6 @@ export default class Orders extends React.Component {
       mm = String(today.getMonth() + 1).padStart(2, "0"),
       yyyy = today.getFullYear();
     today = yyyy + "-" + mm + "-" + dd;
-    this.getItemOrdersRefunded();
     return (
       <div className="orders">
         <h4>Fechas</h4>

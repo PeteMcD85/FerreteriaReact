@@ -36,13 +36,16 @@ class ItemOrdersController < ApplicationController
     @item_orders = ItemOrder.all
     p '++++Params+++++'
     p params
-    p params[:startDate]
-    p params[:endDate]
+    start_date = params[:startDate]
+    end_date = DateTime.parse(params[:endDate]).end_of_day
+    p start_date
+    p end_date
+    refunded_orders = ItemOrder.get_item_orders_refunded(start_date, end_date).distinct_orders
     respond_to do |format|
     format.html
     format.json {
       render json: {
-        working:'working'
+        refunded_orders: refunded_orders
         }
       }
     end
