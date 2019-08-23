@@ -34,13 +34,11 @@ class ItemOrdersController < ApplicationController
 
   def get_item_orders_refunded
     @item_orders = ItemOrder.all
-    p '++++Params+++++'
-    p params
     start_date = params[:startDate]
     end_date = DateTime.parse(params[:endDate]).end_of_day
-    p start_date
-    p end_date
-    refunded_orders = ItemOrder.get_item_orders_refunded(start_date, end_date).distinct_orders
+    refunded_orders_IO = ItemOrder.get_item_orders_refunded(start_date, end_date).distinct_orders
+    refunded_orders_CI = CustomItem.get_custom_items_refunded(start_date, end_date).distinct_orders
+    refunded_orders = (refunded_orders_IO + refunded_orders_CI).uniq{|o| o[:order_id]}
     respond_to do |format|
     format.html
     format.json {
