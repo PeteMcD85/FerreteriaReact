@@ -4,6 +4,7 @@ import React from "react";
 // COMPONENTS
 import Accountant from "./Accountant";
 import Cart from "./Cart";
+import CartPaymentMethods from "./CartPaymentMethods";
 import Items from "./Items";
 import NavList from "./NavList";
 
@@ -534,6 +535,7 @@ export default class HelloWorld extends React.Component {
                         <input id="order-phone" placeholder="Telefono" />
                       </label>
                     </div>
+                    <CartPaymentMethods />
                     <div className="payment-methods">
                       <label>
                         Libre De Impuestos
