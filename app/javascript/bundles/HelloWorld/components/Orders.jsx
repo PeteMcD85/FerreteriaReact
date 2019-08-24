@@ -14,14 +14,21 @@ export default class Orders extends React.Component {
     this.state = {
       orders: props.orders,
       displayedOrders: props.orders,
-      query: ""
+      query: "",
+      refundedOrders: []
     };
     console.log(this.state);
   }
 
   componentDidMount() {
+    let startRange = new Date(
+        document.getElementById("start-range").value
+      ).toISOString(),
+      endRange = new Date(
+        document.getElementById("end-range").value
+      ).toISOString();
     this.updateOrders();
-    this.getItemOrdersRefunded();
+    this.getItemOrdersRefunded(startRange, endRange);
   }
 
   updateOrders = () => {
@@ -32,12 +39,13 @@ export default class Orders extends React.Component {
         document.getElementById("end-range").value
       ).toISOString(),
       orders = this.state.orders;
-    console.log(startRange);
-    console.log(endRange);
+    this.getItemOrdersRefunded(startRange, endRange);
+
     orders = orders.filter(val => {
       let orderDate = new Date(val.created_at.split("T")[0]).toISOString();
       return startRange <= orderDate && endRange >= orderDate;
     });
+    this.getItemOrdersRefunded();
     this.setState({
       displayedOrders: orders
     });
@@ -61,13 +69,7 @@ export default class Orders extends React.Component {
     this.setState({ displayedOrders: displayedOrders });
   };
 
-  getItemOrdersRefunded = () => {
-    let startRange = new Date(
-        document.getElementById("start-range").value
-      ).toISOString(),
-      endRange = new Date(
-        document.getElementById("end-range").value
-      ).toISOString();
+  getItemOrdersRefunded = (startRange, endRange) => {
     console.log(startRange);
     console.log(endRange);
     fetch(
@@ -77,7 +79,7 @@ export default class Orders extends React.Component {
       .then(
         result => {
           console.log("working");
-          console.log(result);
+          this.setState({ refundedOrders: result.refunded_orders });
         },
         error => {
           console.error(
@@ -96,6 +98,7 @@ export default class Orders extends React.Component {
       mm = String(today.getMonth() + 1).padStart(2, "0"),
       yyyy = today.getFullYear();
     today = yyyy + "-" + mm + "-" + dd;
+    console.log(this.state);
     return (
       <div className="orders">
         <h4>Fechas</h4>
