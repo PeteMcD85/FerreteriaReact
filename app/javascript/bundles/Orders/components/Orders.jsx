@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import OrdersTable from "OrdersTable";
+import OrdersTable from "./OrdersTable";
 
 export default class Orders extends React.Component {
   static propTypes = {
@@ -104,6 +104,7 @@ export default class Orders extends React.Component {
     console.log(this.state);
     return (
       <div className="orders">
+        <OrdersTable orders={displayedOrders} />
         <h4>Fechas</h4>
         <div className="date-range">
           <p>Desde</p>
