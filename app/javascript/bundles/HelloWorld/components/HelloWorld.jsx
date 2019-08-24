@@ -3,9 +3,9 @@ import React from "react";
 
 // COMPONENTS
 import Accountant from "./Accountant";
-import Cart from "./Cart";
-import CartPaymentMethods from "./CartPaymentMethods";
-import Items from "./Items";
+import Cart from "./cart/Cart";
+import CartPaymentMethods from "./cart/CartPaymentMethods";
+import Items from "./items/Items";
 import NavList from "./NavList";
 
 export default class HelloWorld extends React.Component {
@@ -309,7 +309,6 @@ export default class HelloWorld extends React.Component {
     document.getElementById("custom-check").value = 0;
     document.getElementById("custom-debit").value = 0;
     document.getElementById("cash-recieved").value = 0;
-    console.log(val);
     if (val === "custom") {
       customPayment.classList.remove("hidden");
       cashPayment.classList.add("hidden");
@@ -497,7 +496,6 @@ export default class HelloWorld extends React.Component {
       itemsStartRange = this.state.itemsStartRange,
       itemsEndRange = this.state.itemsEndRange,
       showAccountant = this.state.showAccountant;
-    console.log(showAccountant);
     return (
       <div className="hello-world">
         {signedIn && (
