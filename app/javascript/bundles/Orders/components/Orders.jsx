@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import OrdersTable from "OrdersTable";
+
 export default class Orders extends React.Component {
   static propTypes = {
     orders: PropTypes.array.isRequired
