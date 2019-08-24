@@ -93,6 +93,7 @@ export default class Orders extends React.Component {
   render() {
     let orders = this.state.orders,
       displayedOrders = this.state.displayedOrders,
+      refundedOrders = this.state.refundedOrders,
       today = new Date(),
       dd = String(today.getDate()).padStart(2, "0"),
       mm = String(today.getMonth() + 1).padStart(2, "0"),
@@ -214,24 +215,93 @@ export default class Orders extends React.Component {
             })}
           </tbody>
         </table>
+
         <table>
           <caption>Item-Order Refund</caption>
           <tbody>
             <tr>
-              <th>Order Number</th>
-              <th>Item Name</th>
-              <th>Item Brand</th>
-              <th>Item Size</th>
-              <th>Item Quantity</th>
-              <th>Subtotal Refund</th>
-              <th>taxes Refund</th>
-              <th>Total Refund</th>
+              <th>Número De Orden</th>
+              <th>Nombre</th>
+              <th>Fecha Y Hora</th>
+              <th>Efectivo</th>
+              <th>Tarjeta De Crédito</th>
+              <th>Débito</th>
+              <th>Cheque</th>
+              <th>Total Reembolsado</th>
+              <th>Total Parcial</th>
+              <th>Impuestos</th>
+              <th>Total</th>
             </tr>
-            <tr>
-              <td> </td>
-            </tr>
+            {refundedOrders.map((order, ind) => {
+              return (
+                <tr key={ind}>
+                  <td>{order.id}</td>
+                  <td>{order.name}</td>
+                  <td>
+                    <a href={`/orders/${order.id}`}>{order.created_at}</a>
+                  </td>
+                  <td>
+                    $
+                    {Number(order.cash_payed)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </td>
+                  <td>
+                    $
+                    {Number(order.credit_card_payed)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </td>
+                  <td>
+                    $
+                    {Number(order.debit_payed)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </td>
+                  <td>
+                    $
+                    {Number(order.check_payed)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </td>
+                  <td>
+                    $
+                    {Number(order.total_refunded)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </td>
+                  <td>
+                    $
+                    {Number(order.subtotal)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </td>
+                  <td>
+                    $
+                    {Number(order.taxes)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </td>
+                  <td>
+                    $
+                    {Number(order.total)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
+
         <table>
           <caption>Total De Ordenes</caption>
           <tbody>
