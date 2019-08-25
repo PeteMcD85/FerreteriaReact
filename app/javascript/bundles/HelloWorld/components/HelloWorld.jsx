@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 // COMPONENTS
-import Accountant from "./Accountant";
+import Accountant from "./accountant/Accountant";
 import Cart from "./cart/Cart";
 import CartPaymentMethods from "./cart/CartPaymentMethods";
 import Items from "./items/Items";
@@ -192,8 +192,8 @@ export default class HelloWorld extends React.Component {
       } else {
         if (customTotal > cartTotal) {
           let difference = customTotal - cartTotal;
-              cashAmount -= difference
-          if (cashAmount < 0) return alert('Please Review')
+          cashAmount -= difference;
+          if (cashAmount < 0) return alert("Please Review");
         }
         customMethod.cash = cashAmount;
         customMethod.creditCard = creditCardAmount;
@@ -538,7 +538,7 @@ export default class HelloWorld extends React.Component {
                       updatePaymentMethod={this.updatePaymentMethod}
                       updateCustomInputChange={this.updateCustomInputChange}
                       updateCashRecieved={this.updateCashRecieved}
-                      customerChange = {customerChange}
+                      customerChange={customerChange}
                     />
                     <Cart
                       cart={cart}

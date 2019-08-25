@@ -1,5 +1,5 @@
 import React from "react";
-
+import AccountantTable from "./AccountantTable";
 const Accountant = props => {
   let activeItems = props.activeItems,
     updateItems = props.updateItems,
@@ -45,6 +45,7 @@ const Accountant = props => {
           .toString()
           .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
       </p>
+      <AccountantTable />
       <table>
         <tbody>
           <tr>
