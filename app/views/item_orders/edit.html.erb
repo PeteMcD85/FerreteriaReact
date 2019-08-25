@@ -27,7 +27,7 @@
         <td id="<%= "quantity-#{@item_order.id}" %>"><%= @item_order.quantity %></td>
         <td>$<%= number_with_precision(@item_order.subtotal, :precision => 2, :delimiter => ",") %></td>
         <td><%= f.number_field :quantity_refunded, value: @item_order.quantity_refunded, max: @item_order.quantity, min: 0 %></td>
-        <td><%= number_field(@item_order.subtotal_refunded, :precision => 2, :delimiter => ",") %></td>
+        <td>-$<%= number_with_precision(@item_order.subtotal_refunded, :precision => 2, :delimiter => ",") %></td>
         <td><%= f.submit "Update" %></td>
       </tr>
     </tbody>
