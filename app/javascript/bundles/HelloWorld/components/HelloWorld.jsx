@@ -3,8 +3,9 @@ import React from "react";
 
 // COMPONENTS
 import Accountant from "./Accountant";
-import Cart from "./Cart";
-import Items from "./Items";
+import Cart from "./cart/Cart";
+import CartPaymentMethods from "./cart/CartPaymentMethods";
+import Items from "./items/Items";
 import NavList from "./NavList";
 
 export default class HelloWorld extends React.Component {
@@ -308,7 +309,6 @@ export default class HelloWorld extends React.Component {
     document.getElementById("custom-check").value = 0;
     document.getElementById("custom-debit").value = 0;
     document.getElementById("cash-recieved").value = 0;
-    console.log(val);
     if (val === "custom") {
       customPayment.classList.remove("hidden");
       cashPayment.classList.add("hidden");
@@ -496,7 +496,6 @@ export default class HelloWorld extends React.Component {
       itemsStartRange = this.state.itemsStartRange,
       itemsEndRange = this.state.itemsEndRange,
       showAccountant = this.state.showAccountant;
-    console.log(showAccountant);
     return (
       <div className="hello-world">
         {signedIn && (
@@ -534,126 +533,13 @@ export default class HelloWorld extends React.Component {
                         <input id="order-phone" placeholder="Telefono" />
                       </label>
                     </div>
-                    <div className="payment-methods">
-                      <label>
-                        Libre De Impuestos
-                        <input
-                          type="checkbox"
-                          id="tax-free"
-                          onChange={this.updateTaxFree}
-                        />
-                      </label>
-                      <label>
-                        Efectivo
-                        <input
-                          type="radio"
-                          name="paymentMethod"
-                          value="cash"
-                          onChange={this.updatePaymentMethod}
-                        />
-                      </label>
-                      <label>
-                        Tarjeta De Crédito
-                        <input
-                          type="radio"
-                          name="paymentMethod"
-                          value="creditCard"
-                          onChange={this.updatePaymentMethod}
-                        />
-                      </label>
-                      <label>
-                        Cheque
-                        <input
-                          type="radio"
-                          name="paymentMethod"
-                          value="check"
-                          onChange={this.updatePaymentMethod}
-                        />
-                      </label>
-                      <label>
-                        Débito
-                        <input
-                          type="radio"
-                          name="paymentMethod"
-                          value="debit"
-                          onChange={this.updatePaymentMethod}
-                        />
-                      </label>
-                      <span>
-                        <label>
-                          Personalizado
-                          <input
-                            type="radio"
-                            name="paymentMethod"
-                            value="custom"
-                            onChange={this.updatePaymentMethod}
-                          />
-                        </label>
-                        <div id="custom-payment-method-div" className="hidden">
-                          <div id="custom-payment-method">
-                            <label>
-                              Efectivo
-                              <input
-                                type="number"
-                                id="custom-cash"
-                                onChange={this.updateCustomInputChange}
-                              />
-                            </label>
-                            <label>
-                              Tarjeta De Crédito
-                              <input
-                                type="number"
-                                id="custom-credit-card"
-                                onChange={this.updateCustomInputChange}
-                              />
-                            </label>
-                            <label>
-                              Cheque
-                              <input
-                                type="number"
-                                id="custom-check"
-                                onChange={this.updateCustomInputChange}
-                              />
-                            </label>
-                            <label>
-                              Débito
-                              <input
-                                type="number"
-                                id="custom-debit"
-                                onChange={this.updateCustomInputChange}
-                              />
-                            </label>
-                          </div>
-                          <div id="custom-change">
-                            {`${
-                              customerChange < 0 ? "Falta" : "Cambio de Cliente"
-                            } : $${Math.abs(customerChange)
-                              .toFixed(2)
-                              .toString()
-                              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
-                          </div>
-                        </div>
-                        <div id="cash-payment-method" className="hidden">
-                          <label>
-                            Efectivo Recibido
-                            <input
-                              type="number"
-                              id="cash-recieved"
-                              onChange={this.updateCashRecieved}
-                            />
-                          </label>
-                          <span>
-                            {" "}
-                            {`${
-                              customerChange < 0 ? "Falta" : "Cambio de Cliente"
-                            } : $${Math.abs(customerChange)
-                              .toFixed(2)
-                              .toString()
-                              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
-                          </span>
-                        </div>
-                      </span>
-                    </div>
+                    <CartPaymentMethods
+                      updateTaxFree={this.updateTaxFree}
+                      updatePaymentMethod={this.updatePaymentMethod}
+                      updateCustomInputChange={this.updateCustomInputChange}
+                      updateCashRecieved={this.updateCashRecieved}
+                      customerChange = {customerChange}
+                    />
                     <Cart
                       cart={cart}
                       removeFromCart={this.removeFromCart}
