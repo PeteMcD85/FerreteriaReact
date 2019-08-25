@@ -54,8 +54,11 @@ export default class Orders extends React.Component {
   };
 
   getSum = column => {
-    let displayedOrders = this.state.displayedOrders;
-    return displayedOrders.reduce((total, order) => {
+    let displayedOrders = this.state.displayedOrders,
+      refundedOrders = this.state.refundedOrders,
+      ordersToUse =
+        column === "total_refunded" ? refundedOrders : displayedOrders;
+    return ordersToUse.reduce((total, order) => {
       return (+total + +order[column]).toFixed(2);
     }, 0);
   };
@@ -182,7 +185,7 @@ export default class Orders extends React.Component {
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
               <td>
-                $
+                - $
                 {Number(this.getSum("total_refunded"))
                   .toFixed(2)
                   .toString()

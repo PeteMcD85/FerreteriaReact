@@ -14,11 +14,11 @@
       </tr>
       <tr  id= "<%= "cart-item-#{@custom_item.id}" %>">
         <td><%= @custom_item.name %></td>
-        <td>$<%= @custom_item.price_given %></td>
+        <td>$<%= number_with_precision(@custom_item.price_given), :precision => 2, :delimiter => "," %></td>
         <td id="<%= "quantity-#{@custom_item.id}" %>"><%= @custom_item.quantity %></td>
         <td><%= @custom_item.subtotal %></td>
         <td><%= f.number_field :quantity_refunded, value: @custom_item.quantity_refunded, max: @custom_item.quantity, min: 0 %></td>
-        <td><%= @custom_item.subtotal_refunded %></td>
+        <td><%= number_with_precision(@custom_item.subtotal_refunded), :precision => 2, :delimiter => "," %></td>
         <td><%= f.submit "Update" %></td>
       </tr>
     </tbody>
