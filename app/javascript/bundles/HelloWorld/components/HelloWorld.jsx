@@ -478,6 +478,7 @@ export default class HelloWorld extends React.Component {
 
   render() {
     let activeItems = this.state.activeItems,
+      inactiveItems = this.state.inactiveItems,
       brands = this.state.brands,
       categories = this.state.categories,
       selectedNavName = this.state.selectedNavName,
@@ -508,6 +509,7 @@ export default class HelloWorld extends React.Component {
               <Accountant
                 activeItems={activeItems}
                 updateItems={this.updateItems}
+                inactiveItems={inactiveItems}
               />
             )}
             {!showAccountant && (
