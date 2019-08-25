@@ -59,7 +59,7 @@ const OrdersTable = props => {
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
               <td>
-                - $
+                -$
                 {Number(order.total_refunded)
                   .toFixed(2)
                   .toString()

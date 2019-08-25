@@ -185,7 +185,7 @@ export default class Orders extends React.Component {
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
               <td>
-                - $
+                -$
                 {Number(this.getSum("total_refunded"))
                   .toFixed(2)
                   .toString()
