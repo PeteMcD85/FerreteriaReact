@@ -3,7 +3,27 @@ import PropTypes from "prop-types";
 
 const OrdersTable = props => {
   let orders = props.orders,
-    tableCaption = props.tableCaption;
+    tableCaption = props.tableCaption,
+    deleteItem = itemId => {
+      let confirmed = confirm("Are you sure?");
+      if (confirmed) {
+        fetch(`/orders/${ordersId}`, {
+          method: "delete"
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw response;
+            }
+            return response.json();
+          })
+          .then(res => {
+            updateItems(res.actives, res.inactives);
+          })
+          .catch(error => {
+            console.error("error", error);
+          });
+      }
+    };
   console.log(props);
   return (
     <table>

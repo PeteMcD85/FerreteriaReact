@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
+    # render :layout => 'hello_world'
     @items = Item.all
     @active_items = @items.get_actives.order(:brand, :thickness, :size, :name)
     @inactive_items = @items.get_inactives.order(:brand, :thickness, :size, :name)

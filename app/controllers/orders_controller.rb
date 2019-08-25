@@ -107,6 +107,18 @@ protect_from_forgery :except => [:create]
     end
   end
 
+  def destroy
+      @order = Order.find(params[:id])
+      @order.item_orders.each do |item_order|
+        if item_order.quantity_refunded < item_order.quantity
+          quantity_difference = item_order.quantity - item_order.quantity_refunded
+          item_order.item.update_inventory(item_order.item.inventory + quantity_difference)
+        end
+      end
+      @order.destroy
+      redirect_to orders_path
+  end
+
   private
 
   def order_payment_params

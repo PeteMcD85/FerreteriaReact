@@ -1,6 +1,9 @@
 <%# = react_component('Order', props: {order: @order, cart: @cart, cart_items: @cart_items}, prerender: false) %>
-<%= link_to 'Editar', edit_order_path(@order) %>
 <div class="order">
+  <div class="edit-delete-order">
+  <%= link_to 'Editar', edit_order_path(@order) %>
+  <%= link_to 'Borrar', order_path(@order), method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
   <h1><%= @order.id %></h1>
   <div id="print-refund-div" class="hide-for-print">
     <a href="#" onclick="window.print();return false;">Imprimir Página</a>
