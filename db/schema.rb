@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_01_025155) do
+ActiveRecord::Schema.define(version: 2019_08_25_132234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 2019_08_01_025155) do
 
   create_table "custom_items", force: :cascade do |t|
     t.string "name"
-    t.decimal "quantity"
+    t.integer "quantity"
     t.decimal "price_given"
     t.decimal "subtotal"
     t.integer "quantity_refunded", default: 0

@@ -19,6 +19,8 @@ class Order < ApplicationRecord
     sprintf( '%.2f', taxes )
   end
 
+
+
   def calc_total_refunded
     sprintf('%.2f', self.subtotal_refunded + self.taxes_refunded )
   end
