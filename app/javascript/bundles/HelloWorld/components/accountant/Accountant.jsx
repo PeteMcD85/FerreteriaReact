@@ -31,12 +31,12 @@ const Accountant = props => {
       </p>
       <AccountantTable
         items={actItems}
-        tableCaption="Activo"
+        tableCaption="Artículos Activados"
         updateItems={updateItems}
       />
       <AccountantTable
         items={inactItems}
-        tableCaption="Inactivo"
+        tableCaption="Artículos Inactivos"
         updateItems={updateItems}
       />
     </div>

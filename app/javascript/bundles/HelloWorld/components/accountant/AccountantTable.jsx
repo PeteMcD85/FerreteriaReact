@@ -5,21 +5,24 @@ const AccountantTable = props => {
     tableCaption = props.tableCaption,
     updateItems = props.updateItems,
     deleteItem = itemId => {
-      fetch(`/items/${itemId}`, {
-        method: "delete"
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw response;
-          }
-          return response.json();
+      let confirmed = confirm("Are you sure?");
+      if (confirmed) {
+        fetch(`/items/${itemId}`, {
+          method: "delete"
         })
-        .then(res => {
-          updateItems(res.actives, res.inactives);
-        })
-        .catch(error => {
-          console.error("error", error);
-        });
+          .then(response => {
+            if (!response.ok) {
+              throw response;
+            }
+            return response.json();
+          })
+          .then(res => {
+            updateItems(res.actives, res.inactives);
+          })
+          .catch(error => {
+            console.error("error", error);
+          });
+      }
     };
 
   return (
