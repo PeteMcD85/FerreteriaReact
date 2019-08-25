@@ -53,14 +53,14 @@
       <td class="cart-subtotal-value">$<%= number_with_precision(@order.subtotal, :precision => 2, :delimiter => ',' ) %></td>
       <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
       <td>Subtotal Reembolsado</td>
-      <td class="cart-subtotal-value">$<%= number_with_precision(@order.subtotal_refunded, :precision => 2, :delimiter => ',' ) %></td>
+      <td class="cart-subtotal-value">- $<%= number_with_precision(@order.subtotal_refunded, :precision => 2, :delimiter => ',' ) %></td>
     </tr>
     <tr>
       <td>Impuesto Original</td>
       <td class="cart-taxes-value">$<%= number_with_precision(@order.taxes, :precision => 2, :delimiter => ',' ) %></td>
       <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
       <td>Impuesto Reembolsado</td>
-      <td class="cart-taxes-value">$<%= number_with_precision(@order.taxes_refunded, :precision => 2, :delimiter => ',' ) %></td>
+      <td class="cart-taxes-value">- $<%= number_with_precision(@order.taxes_refunded, :precision => 2, :delimiter => ',' ) %></td>
     </tr>
     <tr>
       <td>Total Original</td>
@@ -68,7 +68,7 @@
       <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 
       <td class="total-refund">Total Reembolsado</td>
-      <td class="cart-total-value total-refund">$<%= number_with_precision(@order.total_refunded, :precision => 2, :delimiter => ',' ) %></td>
+      <td class="cart-total-value total-refund">- $<%= number_with_precision(@order.total_refunded, :precision => 2, :delimiter => ',' ) %></td>
     </tr>
   </tbody>
 </table>
