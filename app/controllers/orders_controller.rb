@@ -10,7 +10,7 @@ protect_from_forgery :except => [:create]
         render json: {
           #orders: @orders
           # items: Item.all
-           item_orders: ItemOrder.all
+           #item_orders: ItemOrder.all
           # Order.all
 
         }
