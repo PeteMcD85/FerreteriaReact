@@ -13,9 +13,9 @@ orders = Order.all
 
 
 ## checks HOW MANY are NOT EQUAL to TOTAL
-# p '======== TOTAL COUNT Not equal ======='
-# p total_count = orders.select(:id).where('credit_card_payed + cash_payed + debit_payed + check_payed != total')
-# p total_count.count
+ p '======== TOTAL COUNT Not equal ======='
+p total_count = orders.select(:id).where('credit_card_payed + cash_payed + debit_payed + check_payed != total')
+ p total_count.count
 #
 # p '++++++++START COPY and SAVE++++++++++'
 # total_count.each{|order| p order[:id]}
