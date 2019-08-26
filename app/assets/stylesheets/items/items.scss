@@ -1,15 +1,14 @@
 // Place all the styles related to the Items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-@import "variables.scss";
 
-.item-cards ul{
+.item-cards ul {
   padding: 0;
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   & > div {
-    background-color: #C7C7C5;
+    background-color: #c7c7c5;
     color: black;
     width: 250px;
     height: auto;

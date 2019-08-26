@@ -1,0 +1,129 @@
+#range-buttons-div {
+  display: flex;
+  justify-content: space-around;
+}
+
+// +++++++++++++++++++++++++++++++ TABLE +++++++++++++++++++++++
+
+input.quantity-input {
+  width: 50px;
+}
+
+// ++++++++++++++++++++++++++++ phone-map ++++++++++++++++++
+
+.phone-map {
+  text-align: center;
+
+  a {
+    color: black;
+    margin: 0 50px 0 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    i {
+      margin: none;
+      font-size: 30px;
+    }
+
+    i:hover {
+      font-size: 32px;
+    }
+  } //end of button
+} //end of .phone-map
+
+// +++++++++++++++++++++++++++ SEARCH BAR ++++++++++++++++++++++++
+
+.search {
+  text-align: center;
+  margin: 1rem;
+
+  input {
+    height: 2rem;
+    width: 50vw;
+  }
+
+  i {
+    position: relative;
+    font-size: 16px;
+    right: 25px;
+    bottom: 0.1px;
+  }
+
+  i:hover {
+    cursor: pointer;
+    font-size: 19px;
+  }
+} //end of search-bar
+
+.accountant-inventory {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+
+  input {
+    width: 15px;
+  }
+}
+
+// ++++++++++++++++++++++++++++ phone-map ++++++++++++++++++++++++++++
+
+.phone-map {
+  text-align: center;
+
+  a {
+    color: black;
+    margin: 0 50px 0 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    i {
+      margin: none;
+      font-size: 30px;
+    }
+
+    i:hover {
+      font-size: 32px;
+    }
+  } //end of button
+} //end of .phone-map
+
+// /++++++++++++++++++++++++++++++ NAV ++++++++++++++++++++++++++++
+#nav-list {
+  position: inherit;
+
+  .dropdown {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+  }
+} //end of #nav-list
+
+.category-brand {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: black;
+  color: white;
+  margin: 0;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+@media only screen and (min-width: 765px) {
+  #nav-list {
+    .dropdown {
+      display: flex;
+      flex-direction: column;
+    }
+  } //end of #nav-list
+
+  div.category-brand {
+    display: none;
+  }
+} //end of min 765px
+
+@import "nav_list/*";
+@import "items/*";
+@import "cart.scss";

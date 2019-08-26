@@ -3,24 +3,19 @@
   padding: 1em;
   margin: 30px 5px;
 
-  .item-pic{
+  .item-pic {
     width: 200px;
     height: 200px;
   }
 
-  h2{
+  h2 {
     margin: 3px;
     text-align: center;
   }
 
-  p{
+  p {
     font-size: 17px;
     font-weight: bolder;
-    margin: 0; }
-}
-
-div.active-card{
-  p, a{
-    // display: none;
+    margin: 0;
   }
-}
+} // end of .item
