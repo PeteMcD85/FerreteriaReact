@@ -64,10 +64,10 @@ export default class Orders extends React.Component {
   };
 
   searchOrder = e => {
-    let query = e.target.value.trim(),
+    let query = e.target.value.trim().toLowerCase(),
       orders = this.state.orders,
       displayedOrders = orders.filter(order => {
-        let orderName = order.name ? order.name : "";
+        let orderName = order.name ? order.name.toLowerCase() : "";
         return String(order.id).includes(query) || orderName.includes(query);
       });
 
