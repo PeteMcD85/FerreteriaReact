@@ -61,9 +61,7 @@ export default class HelloWorld extends React.Component {
 
   calculateCartTotal = (cartItems, taxFree = false) => {
     let subtotal = cartItems
-        .reduce((total, cartItem) => {
-          return (total += +cartItem.subtotal);
-        }, 0)
+        .reduce((total, cartItem) => (total += +cartItem.subtotal), 0)
         .toFixed(2),
       taxes = taxFree ? 0 : (subtotal * 0.115).toFixed(2),
       total = (+subtotal + +taxes).toFixed(2);
@@ -112,7 +110,8 @@ export default class HelloWorld extends React.Component {
     let cartItems = this.state.cart.cartItems,
       taxFree = this.state.taxFree,
       item = customItemValues,
-      customItemId = this.state.customItemId;
+      customItemId = this.state.customItemId,
+      customerChange = this.state.customerChange;
     item.id = customItemId + 1;
     item.brand = "Custom Item";
     cartItems.push({
@@ -121,12 +120,16 @@ export default class HelloWorld extends React.Component {
       priceGiven: customItemValues.priceGiven,
       subtotal: customItemValues.subtotal
     });
+    let cartTotal = this.calculateCartTotal(cartItems, taxFree);
+    customerChange = this.state.customTotal - cartTotal.total;
+    console.log(customerChange);
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems, taxFree)
+        cartTotal: cartTotal
       },
-      customItemId: item.id
+      customItemId: item.id,
+      customerChange: customerChange
     });
   };
 
@@ -401,7 +404,7 @@ export default class HelloWorld extends React.Component {
       customerChange = (+val - +cartTotal).toFixed(2);
     console.log(val);
     console.log(cartTotal);
-    this.setState({ customerChange: customerChange });
+    this.setState({ customTotal: val, customerChange: customerChange });
   };
 
   updateCustomInputChange = () => {
@@ -497,6 +500,7 @@ export default class HelloWorld extends React.Component {
       itemsStartRange = this.state.itemsStartRange,
       itemsEndRange = this.state.itemsEndRange,
       showAccountant = this.state.showAccountant;
+    console.log(this.state);
     return (
       <div className="hello-world">
         {signedIn && (
