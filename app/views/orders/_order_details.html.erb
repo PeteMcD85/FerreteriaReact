@@ -17,7 +17,9 @@
     <% @cart_item_orders.each_with_index do |cart_item, ind| %>
         <tr  id= "<%= "cart-item-#{cart_item.id}" %>">
           <td><%= cart_item.brand %></td>
+
           <td><%= cart_item.name %></td>
+
           <td><%= cart_item.color %></td>
           <td><%= cart_item.size %></td>
           <td><%= cart_item.thickness %></td>

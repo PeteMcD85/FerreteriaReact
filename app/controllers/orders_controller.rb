@@ -88,13 +88,13 @@ protect_from_forgery :except => [:create]
             order_errors.push("Item order was not saved")
           end # end of item_order.save
         else
-          @custom_items = @order.custom_items.new(
+          @custom_item = @order.custom_items.new(
             quantity: cart_item[:quantity],
             price_given: cart_item[:priceGiven],
             subtotal: cart_item[:subtotal],
-            name: cart_item[:name]
+            name: cart_item[:item][:name]
           )
-          if @custom_items.save
+          if @custom_item.save
 
           else
             order_errors.push("Custom item was not saved")
