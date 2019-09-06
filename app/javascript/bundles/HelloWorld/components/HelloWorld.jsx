@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import LS from "local-storage";
 
 // COMPONENTS
 import Accountant from "./accountant/Accountant";
@@ -57,6 +58,16 @@ export default class HelloWorld extends React.Component {
       showAccountant: false
     };
     this.getCategoryBrand("category", "Todo");
+  }
+
+  componentDidMount(){
+    console.log('componentDidMount');
+
+    LS.set('peter','isGay');
+    console.log(LS.get('peter'));
+    LS.remove('peter');
+    console.log(LS.get('peter'));
+    // LS.clear();
   }
 
   calculateCartTotal = (cartItems, taxFree = false) => {
