@@ -2,7 +2,6 @@ import React from "react";
 import ItemTable from "./ItemTable";
 
 const ItemsTable = props => {
-  console.log(props);
   let items = props.items,
     signedIn = props.signedIn,
     addToCart = props.addToCart,

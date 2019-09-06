@@ -56,19 +56,16 @@ export default class HelloWorld extends React.Component {
       itemsStartRange: 0,
       itemsEndRange: 10,
       showAccountant: false,
-      cartsSaved: []
+      savedCarts: []
     };
     this.getCategoryBrand("category", "Todo");
   }
 
   componentDidMount(){
     console.log('componentDidMount');
-
-    LS.set('peter','isGay');
-    console.log(LS.get('peter'));
-    LS.remove('peter');
-    console.log(LS.get('peter'));
-    // LS.clear();
+    let savedCarts = LS.get('savedCarts');
+    console.log(savedCarts);
+    this.setState({savedCarts: savedCarts });
   }
 
   calculateCartTotal = (cartItems, taxFree = false) => {
@@ -489,7 +486,14 @@ export default class HelloWorld extends React.Component {
   };
 
   saveCart = () => {
-    console.log('saveCart');
+    let savedCarts = this.state.savedCarts,
+      cart = this.state.cart;
+    savedCarts.push(cart);
+    LS.set('savedCarts',savedCarts);
+    console.log(LS.get('savedCarts'));
+    this.setState({
+      savedCarts: savedCarts
+    });
   }
 
   render() {
@@ -513,6 +517,7 @@ export default class HelloWorld extends React.Component {
       itemsStartRange = this.state.itemsStartRange,
       itemsEndRange = this.state.itemsEndRange,
       showAccountant = this.state.showAccountant;
+      console.log(this.state);
     return (
       <div className="hello-world">
         {signedIn && (
