@@ -55,7 +55,8 @@ export default class HelloWorld extends React.Component {
       customItemId: 9999,
       itemsStartRange: 0,
       itemsEndRange: 10,
-      showAccountant: false
+      showAccountant: false,
+      cartsSaved: []
     };
     this.getCategoryBrand("category", "Todo");
   }
@@ -487,6 +488,10 @@ export default class HelloWorld extends React.Component {
     });
   };
 
+  saveCart = () => {
+    console.log('saveCart');
+  }
+
   render() {
     let activeItems = this.state.activeItems,
       inactiveItems = this.state.inactiveItems,
@@ -532,6 +537,9 @@ export default class HelloWorld extends React.Component {
                     </button>
                     <button id="clear-cart-button" onClick={this.clearCart}>
                       Vaciar Carrito
+                    </button>
+                    <button onClick={this.saveCart}>
+                      Save Cart
                     </button>
                   </div>
                 </div>
