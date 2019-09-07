@@ -64,7 +64,6 @@ export default class HelloWorld extends React.Component {
   componentDidMount(){
     console.log('componentDidMount');
     let savedCarts = LS.get('savedCarts');
-    console.log(savedCarts);
     this.setState({savedCarts: savedCarts });
   }
 
@@ -496,6 +495,11 @@ export default class HelloWorld extends React.Component {
     });
   }
 
+  displayCart = (savedCartIndex) => {
+    console.log('displayCart');
+    console.log(savedCartIndex);
+  }
+
   render() {
     let activeItems = this.state.activeItems,
       inactiveItems = this.state.inactiveItems,
@@ -516,7 +520,8 @@ export default class HelloWorld extends React.Component {
       customTotal = this.state.customTotal,
       itemsStartRange = this.state.itemsStartRange,
       itemsEndRange = this.state.itemsEndRange,
-      showAccountant = this.state.showAccountant;
+      showAccountant = this.state.showAccountant,
+      savedCarts = this.state.savedCarts;
       console.log(this.state);
     return (
       <div className="hello-world">
@@ -546,6 +551,15 @@ export default class HelloWorld extends React.Component {
                     <button onClick={this.saveCart}>
                       Save Cart
                     </button>
+
+                  </div>
+                  <div id="saved-carts">
+                    {savedCarts.map((savedCart,ind) => {
+                      return (
+                        <button key={ind} onClick={ () => this.displayCart(ind)}>
+                          {ind + 1}
+                        </button>)
+                    })}
                   </div>
                 </div>
                 {showCart && (
