@@ -496,8 +496,9 @@ export default class HelloWorld extends React.Component {
   }
 
   displayCart = (savedCartIndex) => {
-    console.log('displayCart');
-    console.log(savedCartIndex);
+    let savedCarts = this.state.savedCarts,
+      savedCart = savedCarts[savedCartIndex];
+    this.setState({cart: savedCart})
   }
 
   render() {
