@@ -491,14 +491,29 @@ export default class HelloWorld extends React.Component {
     LS.set('savedCarts',savedCarts);
     console.log(LS.get('savedCarts'));
     this.setState({
-      savedCarts: savedCarts
+      savedCarts: savedCarts,
+      cart: {
+        cartItems: [],
+        cartTotal: {
+          subtotal: 0,
+          taxes: 0,
+          total: 0
+        }
+      },
     });
   }
 
-  displayCart = (savedCartIndex) => {
+  displaySavedCart = (savedCartIndex) => {
     let savedCarts = this.state.savedCarts,
       savedCart = savedCarts[savedCartIndex];
     this.setState({cart: savedCart})
+  }
+
+  removeSavedCart = (savedCartIndex) => {
+    let savedCarts = this.state.savedCarts;
+    savedCarts = savedCarts.splice(1, savedCartIndex);
+    LS.set('savedCarts', savedCarts);
+    this.setState({savedCarts: savedCarts})
   }
 
   render() {
@@ -557,9 +572,12 @@ export default class HelloWorld extends React.Component {
                   <div id="saved-carts">
                     {savedCarts.map((savedCart,ind) => {
                       return (
-                        <button key={ind} onClick={ () => this.displayCart(ind)}>
-                          {ind + 1}
-                        </button>)
+                        <div key={ind}>
+                          <button onClick={ () => this.displaySavedCart(ind)}>
+                            {ind + 1}
+                          </button>
+                          <span className="remove-saved-cart" onClick={()=>this.removeSavedCart(ind)}>X</span>
+                        </div>)
                     })}
                   </div>
                 </div>
