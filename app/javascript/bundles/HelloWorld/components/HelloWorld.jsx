@@ -177,6 +177,7 @@ export default class HelloWorld extends React.Component {
       orderPhone = document.getElementById("order-phone").value,
       orderName = document.getElementById("order-name").value,
       printButton = document.getElementById("print-button"),
+      activeSavedCart = document.getElementsByClassName("active")[0],
       customMethod = {
         cash: 0,
         creditCard: 0,
@@ -221,6 +222,10 @@ export default class HelloWorld extends React.Component {
     }
     printButton.disabled = true;
     printButton.innerHTML = "Printing";
+    if (activeSavedCart) {
+      let savedCartIndex = +activeSavedCart.innerHTML - 1;
+      this.removeSavedCart(savedCartIndex);
+    }
     fetch("/orders", {
       method: "POST",
       body: JSON.stringify({
