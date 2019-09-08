@@ -64,6 +64,7 @@ export default class HelloWorld extends React.Component {
   componentDidMount() {
     console.log("componentDidMount");
     let savedCarts = LS.get("savedCarts");
+    if (!savedCarts) LS.set("savedCarts", []);
     this.setState({ savedCarts: savedCarts });
   }
 
