@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import LS from "local-storage";
 
 // COMPONENTS
 import Accountant from "./accountant/Accountant";
@@ -54,13 +55,21 @@ export default class HelloWorld extends React.Component {
       customItemId: 9999,
       itemsStartRange: 0,
       itemsEndRange: 10,
-      showAccountant: false
+      showAccountant: false,
+      savedCarts: []
     };
     this.getCategoryBrand("category", "Todo");
   }
 
-  calculateCartTotal = (cartItems, taxFree = false) => {
-    let subtotal = cartItems
+  componentDidMount(){
+    console.log('componentDidMount');
+    let savedCarts = LS.get('savedCarts');
+    this.setState({savedCarts: savedCarts });
+  }
+
+  calculateCartTotal = (cartItems) => {
+    let taxFree = this.state.taxFree,
+      subtotal = cartItems
         .reduce((total, cartItem) => {
           return (total += +cartItem.subtotal);
         }, 0)
@@ -82,7 +91,7 @@ export default class HelloWorld extends React.Component {
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems, taxFree)
+        cartTotal: this.calculateCartTotal(cartItems)
       }
     });
   };
@@ -100,7 +109,7 @@ export default class HelloWorld extends React.Component {
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems, taxFree)
+        cartTotal: this.calculateCartTotal(cartItems)
       }
     });
   };
@@ -124,7 +133,7 @@ export default class HelloWorld extends React.Component {
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems, taxFree)
+        cartTotal: this.calculateCartTotal(cartItems)
       },
       customItemId: item.id
     });
@@ -140,12 +149,13 @@ export default class HelloWorld extends React.Component {
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems, taxFree)
+        cartTotal: this.calculateCartTotal(cartItems)
       }
     });
   };
 
   clearCart = () => {
+    this.removeAllActiveClass();
     this.setState({
       cart: {
         cartItems: [],
@@ -167,6 +177,7 @@ export default class HelloWorld extends React.Component {
       orderPhone = document.getElementById("order-phone").value,
       orderName = document.getElementById("order-name").value,
       printButton = document.getElementById("print-button"),
+      activeSavedCart = document.getElementsByClassName("active")[0],
       customMethod = {
         cash: 0,
         creditCard: 0,
@@ -211,6 +222,10 @@ export default class HelloWorld extends React.Component {
     }
     printButton.disabled = true;
     printButton.innerHTML = "Printing";
+    if (activeSavedCart) {
+      let savedCartIndex = +activeSavedCart.innerHTML - 1;
+      this.removeSavedCart(savedCartIndex);
+    }
     fetch("/orders", {
       method: "POST",
       body: JSON.stringify({
@@ -286,7 +301,7 @@ export default class HelloWorld extends React.Component {
       cart.cartTotal.taxes = 0;
       cart.cartTotal.total = cart.cartTotal.subtotal;
     } else {
-      let cartTotal = this.calculateCartTotal(cart.cartItems, taxFree);
+      let cartTotal = this.calculateCartTotal(cart.cartItems);
       console.log(cartTotal);
       cart.cartTotal.taxes = cartTotal.taxes;
       cart.cartTotal.total = cartTotal.total;
@@ -476,6 +491,43 @@ export default class HelloWorld extends React.Component {
     });
   };
 
+  saveCart = () => {
+    let savedCarts = this.state.savedCarts,
+      cart = this.state.cart;
+    savedCarts.push(cart);
+    LS.set('savedCarts',savedCarts);
+    this.clearCart();
+  }
+
+  displaySavedCart = (e, savedCartIndex) => {
+    let savedCarts = this.state.savedCarts,
+      savedCart = savedCarts[savedCartIndex],
+      savedCartButton = e.target,
+      savedCartTotal = this.calculateCartTotal(savedCart.cartItems);
+    this.removeAllActiveClass();
+    savedCartButton.classList.add('active');
+    this.setState({
+      cart: {
+        cartItems:savedCart.cartItems,
+        cartTotal:savedCartTotal
+      }
+    })
+  }
+
+  removeAllActiveClass  = () => {
+    let savedCartButtons = document.getElementsByClassName('saved-cart-button');
+    for(let i = 0; i < savedCartButtons.length; i += 1) {
+      savedCartButtons[i].classList.remove('active')
+    }
+  }
+
+  removeSavedCart = (savedCartIndex) => {
+    let savedCarts = this.state.savedCarts;
+      savedCarts.splice(savedCartIndex, 1);
+    LS.set('savedCarts', savedCarts);
+    this.setState({savedCarts: savedCarts});
+  }
+
   render() {
     let activeItems = this.state.activeItems,
       inactiveItems = this.state.inactiveItems,
@@ -496,7 +548,9 @@ export default class HelloWorld extends React.Component {
       customTotal = this.state.customTotal,
       itemsStartRange = this.state.itemsStartRange,
       itemsEndRange = this.state.itemsEndRange,
-      showAccountant = this.state.showAccountant;
+      showAccountant = this.state.showAccountant,
+      savedCarts = this.state.savedCarts;
+      console.log(this.state);
     return (
       <div className="hello-world">
         {signedIn && (
@@ -522,6 +576,21 @@ export default class HelloWorld extends React.Component {
                     <button id="clear-cart-button" onClick={this.clearCart}>
                       Vaciar Carrito
                     </button>
+                    <button onClick={this.saveCart}>
+                      Save Cart
+                    </button>
+
+                  </div>
+                  <div id="saved-carts">
+                    {savedCarts.map((savedCart,ind) => {
+                      return (
+                        <div className="saved-cart" key={ind}>
+                          <button className="saved-cart-button" onClick={ (e) => this.displaySavedCart(e,ind)}>
+                            {ind + 1}
+                          </button>
+                          <span className="remove-saved-cart" onClick={()=>this.removeSavedCart(ind)}>x</span>
+                        </div>)
+                    })}
                   </div>
                 </div>
                 {showCart && (
