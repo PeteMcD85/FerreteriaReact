@@ -1,4 +1,3 @@
-<%= link_to 'Order', order_path(@order) %>
 <%= form_for @item_order, url: {action: "update"} do |f| %>
 
   <table class="item-order-table">
@@ -23,12 +22,12 @@
         <td><%= @item.color %></td>
         <td><%= @item.size %></td>
         <td><%= @item.thickness %></td>
-        <td>$<%= @item.sold_price %></td>
-        <td>$<%= @item_order.price_given %></td>
+        <td>$<%= number_with_precision(@item.sold_price, :precision => 2, :delimiter => ",") %></td>
+        <td>$<%= number_with_precision(@item_order.price_given, :precision => 2, :delimiter => ",") %></td>
         <td id="<%= "quantity-#{@item_order.id}" %>"><%= @item_order.quantity %></td>
-        <td><%= @item_order.subtotal %></td>
+        <td>$<%= number_with_precision(@item_order.subtotal, :precision => 2, :delimiter => ",") %></td>
         <td><%= f.number_field :quantity_refunded, value: @item_order.quantity_refunded, max: @item_order.quantity, min: 0 %></td>
-        <td><%= @item_order.subtotal_refunded %></td>
+        <td>-$<%= number_with_precision(@item_order.subtotal_refunded, :precision => 2, :delimiter => ",") %></td>
         <td><%= f.submit "Update" %></td>
       </tr>
     </tbody>

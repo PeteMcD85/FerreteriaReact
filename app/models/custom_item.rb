@@ -1,6 +1,9 @@
 class CustomItem < ApplicationRecord
   belongs_to :order
 
+  scope :get_custom_items_refunded, -> (start_date, end_date) {where(["updated_at >= ? AND updated_at <= ? AND updated_at != created_at", start_date, end_date])}
+  scope :distinct_orders, -> {select(:order_id).distinct}
+
   def calc_subtotal_refunded
     sprintf( '%.2f', self.quantity_refunded * self.price_given)
 
