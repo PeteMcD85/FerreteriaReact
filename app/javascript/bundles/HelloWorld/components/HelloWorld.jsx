@@ -572,11 +572,11 @@ export default class HelloWorld extends React.Component {
                   <div id="saved-carts">
                     {savedCarts.map((savedCart,ind) => {
                       return (
-                        <div key={ind}>
-                          <button onClick={ () => this.displaySavedCart(ind)}>
+                        <div className="saved-cart" key={ind}>
+                          <button className="saved-cart-button" onClick={ () => this.displaySavedCart(ind)}>
                             {ind + 1}
                           </button>
-                          <span className="remove-saved-cart" onClick={()=>this.removeSavedCart(ind)}>X</span>
+                          <span className="remove-saved-cart" onClick={()=>this.removeSavedCart(ind)}>x</span>
                         </div>)
                     })}
                   </div>
