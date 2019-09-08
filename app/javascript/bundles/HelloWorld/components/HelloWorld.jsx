@@ -67,8 +67,9 @@ export default class HelloWorld extends React.Component {
     this.setState({savedCarts: savedCarts });
   }
 
-  calculateCartTotal = (cartItems, taxFree = false) => {
-    let subtotal = cartItems
+  calculateCartTotal = (cartItems) => {
+    let taxFree = this.state.taxFree,
+      subtotal = cartItems
         .reduce((total, cartItem) => {
           return (total += +cartItem.subtotal);
         }, 0)
@@ -90,7 +91,7 @@ export default class HelloWorld extends React.Component {
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems, taxFree)
+        cartTotal: this.calculateCartTotal(cartItems)
       }
     });
   };
@@ -108,7 +109,7 @@ export default class HelloWorld extends React.Component {
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems, taxFree)
+        cartTotal: this.calculateCartTotal(cartItems)
       }
     });
   };
@@ -132,7 +133,7 @@ export default class HelloWorld extends React.Component {
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems, taxFree)
+        cartTotal: this.calculateCartTotal(cartItems)
       },
       customItemId: item.id
     });
@@ -148,7 +149,7 @@ export default class HelloWorld extends React.Component {
     this.setState({
       cart: {
         cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems, taxFree)
+        cartTotal: this.calculateCartTotal(cartItems)
       }
     });
   };
@@ -295,7 +296,7 @@ export default class HelloWorld extends React.Component {
       cart.cartTotal.taxes = 0;
       cart.cartTotal.total = cart.cartTotal.subtotal;
     } else {
-      let cartTotal = this.calculateCartTotal(cart.cartItems, taxFree);
+      let cartTotal = this.calculateCartTotal(cart.cartItems);
       console.log(cartTotal);
       cart.cartTotal.taxes = cartTotal.taxes;
       cart.cartTotal.total = cartTotal.total;
@@ -496,10 +497,16 @@ export default class HelloWorld extends React.Component {
   displaySavedCart = (e, savedCartIndex) => {
     let savedCarts = this.state.savedCarts,
       savedCart = savedCarts[savedCartIndex],
-      savedCartButton = e.target;
+      savedCartButton = e.target,
+      savedCartTotal = this.calculateCartTotal(savedCart.cartItems);
     this.removeAllActiveClass();
     savedCartButton.classList.add('active');
-    this.setState({cart: savedCart})
+    this.setState({
+      cart: {
+        cartItems:savedCart.cartItems,
+        cartTotal:savedCartTotal
+      }
+    })
   }
 
   removeAllActiveClass  = () => {
