@@ -154,6 +154,7 @@ export default class HelloWorld extends React.Component {
   };
 
   clearCart = () => {
+    this.removeAllActiveClass();
     this.setState({
       cart: {
         cartItems: [],
@@ -489,24 +490,23 @@ export default class HelloWorld extends React.Component {
       cart = this.state.cart;
     savedCarts.push(cart);
     LS.set('savedCarts',savedCarts);
-    console.log(LS.get('savedCarts'));
-    this.setState({
-      savedCarts: savedCarts,
-      cart: {
-        cartItems: [],
-        cartTotal: {
-          subtotal: 0,
-          taxes: 0,
-          total: 0
-        }
-      },
-    });
+    this.clearCart();
   }
 
-  displaySavedCart = (savedCartIndex) => {
+  displaySavedCart = (e, savedCartIndex) => {
     let savedCarts = this.state.savedCarts,
-      savedCart = savedCarts[savedCartIndex];
+      savedCart = savedCarts[savedCartIndex],
+      savedCartButton = e.target;
+    this.removeAllActiveClass();
+    savedCartButton.classList.add('active');
     this.setState({cart: savedCart})
+  }
+
+  removeAllActiveClass  = () => {
+    let savedCartButtons = document.getElementsByClassName('saved-cart-button');
+    for(let i = 0; i < savedCartButtons.length; i += 1) {
+      savedCartButtons[i].classList.remove('active')
+    }
   }
 
   removeSavedCart = (savedCartIndex) => {
@@ -573,7 +573,7 @@ export default class HelloWorld extends React.Component {
                     {savedCarts.map((savedCart,ind) => {
                       return (
                         <div className="saved-cart" key={ind}>
-                          <button className="saved-cart-button" onClick={ () => this.displaySavedCart(ind)}>
+                          <button className="saved-cart-button" onClick={ (e) => this.displaySavedCart(e,ind)}>
                             {ind + 1}
                           </button>
                           <span className="remove-saved-cart" onClick={()=>this.removeSavedCart(ind)}>x</span>

@@ -131,7 +131,9 @@ input.quantity-input {
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
-
+  .active{
+    border:green 2px solid;
+  }
   .saved-cart {
     position: relative;
     .saved-cart-button {
