@@ -511,9 +511,9 @@ export default class HelloWorld extends React.Component {
 
   removeSavedCart = (savedCartIndex) => {
     let savedCarts = this.state.savedCarts;
-    savedCarts = savedCarts.splice(1, savedCartIndex);
+      savedCarts.splice(savedCartIndex, 1);
     LS.set('savedCarts', savedCarts);
-    this.setState({savedCarts: savedCarts})
+    this.setState({savedCarts: savedCarts});
   }
 
   render() {
