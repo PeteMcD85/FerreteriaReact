@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RefundTest < ActiveSupport::TestCase
+class RefundOrderTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
