@@ -1,2 +1,2 @@
 <h1><%= @order.id %></h1>
-<%= react_component('RefundOrder', props: {order: @order}, prerender: false) %>
+<%= react_component('RefundOrder', props: {order: @order, custom_items: @custom_items, item_orders: @item_orders}, prerender: false) %>
