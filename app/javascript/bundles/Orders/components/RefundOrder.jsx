@@ -16,12 +16,17 @@ export default class RefundOrder extends React.Component {
     this.state = {
       order: props.order,
       customItems: props.custom_items,
-      itemOrders: props.item_orders
+      itemOrders: props.item_orders,
+      newRefund: 0
     };
   }
 
   componentDidMount() {
   }
+
+refundChange = () => {
+  console.log('refundChange');
+}
 
   render() {
 
@@ -42,11 +47,14 @@ export default class RefundOrder extends React.Component {
               <th>Grosor</th>
               <th>Precio Dado</th>
               <th>Cantidad</th>
-              <th>Total Parcial</th>
-              <th>Cantidad Reembolsada</th>
+
+              <th>Cantidad Reembolsada Antes</th>
+              <th>New Refund</th>
               <th>Subtotal De Reembolso</th>
+              <th>Total Parcial</th>
             </tr>
             {itemOrders.map((itemOrder, ind)=>{
+              // let max =  itemOrder.quantity -
               return (
                 <tr key={ind} className="item-order">
                   <td>{ itemOrder.item.brand }</td>
@@ -56,9 +64,12 @@ export default class RefundOrder extends React.Component {
                   <td>{ itemOrder.item.thickness }</td>
                   <td>{ itemOrder.price_given}</td>
                   <td>{ itemOrder.quantity }</td>
-                  <td>{ itemOrder.subtotal }</td>
-                  <td>{ itemOrder.subtotal_refunded }</td>
+
+
                   <td>{ itemOrder.quantity_refunded }</td>
+                  <td><input type="number" onChange={this.refundChange} /></td>
+                  <td>{ itemOrder.subtotal_refunded }</td>
+                  <td>{ itemOrder.subtotal }</td>
                 </tr>
               )
             })}
@@ -70,9 +81,11 @@ export default class RefundOrder extends React.Component {
                   <td></td><td></td><td></td>
                   <td>${customItem.price_given}</td>
                   <td>{customItem.quantity} </td>
-                  <td>${customItem.subtotal} </td>
-                  <td>-${customItem.subtotal_refunded} </td>
+
                   <td>{customItem.quantity_refunded} </td>
+                  <td><input type="number" onChange={this.refundChange} /></td>
+                  <td>-${customItem.subtotal_refunded} </td>
+                  <td>${customItem.subtotal} </td>
                   <td></td>
                 </tr>
               )
