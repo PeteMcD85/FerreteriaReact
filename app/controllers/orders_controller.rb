@@ -51,6 +51,8 @@ protect_from_forgery :except => [:create]
   end
 
   def create
+    p '================================'
+    p params
     order = params[:order]
     cart_items = order[:itemOrders][:cartItems]
     cart_total = order[:itemOrders][:cartTotal]

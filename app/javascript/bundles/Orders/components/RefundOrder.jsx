@@ -36,6 +36,7 @@ refundChange = () => {
     console.log(this.state);
     return (
       <div className="refund-order">
+      <h1>{order.id}</h1>
         <table>
           <caption>Refund Order</caption>
           <tbody>
@@ -65,10 +66,9 @@ refundChange = () => {
                   <td>{ itemOrder.price_given}</td>
                   <td>{ itemOrder.quantity }</td>
 
-
                   <td>{ itemOrder.quantity_refunded }</td>
                   <td><input type="number" onChange={this.refundChange} /></td>
-                  <td>{ itemOrder.subtotal_refunded }</td>
+                  <td id={`io-subtotal-refunded-${itemOrder.ind}`}></td>
                   <td>{ itemOrder.subtotal }</td>
                 </tr>
               )
@@ -84,7 +84,7 @@ refundChange = () => {
 
                   <td>{customItem.quantity_refunded} </td>
                   <td><input type="number" onChange={this.refundChange} /></td>
-                  <td>-${customItem.subtotal_refunded} </td>
+                  <td id={`ci-subtotal-refunded-${customItem.ind}`}> </td>
                   <td>${customItem.subtotal} </td>
                   <td></td>
                 </tr>

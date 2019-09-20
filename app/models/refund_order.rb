@@ -1,4 +1,4 @@
 class RefundOrder < ApplicationRecord
   belongs_to :order
-  has_many :refund_items
+  has_many :refund_items , :dependent => :destroy
 end
