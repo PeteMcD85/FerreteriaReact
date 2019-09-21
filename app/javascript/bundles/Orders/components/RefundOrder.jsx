@@ -20,29 +20,40 @@ export default class RefundOrder extends React.Component {
     };
   }
 
-  componentDidMount() {
-  }
+  calculateItemsRefundTotal = () => {
+    let items = document.getElementsByClassName('items-subtotal-refund'),
+      itemsValues = [];
+    for (let i = 0; i < items.length; i += 1) {
+      itemsValues.push(+items[i].textContent);
+    }
+    let taxFree = (+this.state.order.taxes === 0 ) ? true : false,
+      subtotal = itemsValues.reduce((total, item) => {
+          return (total += item);
+        }, 0).toFixed(2),
+      taxes = taxFree ? 0 : (subtotal * 0.115).toFixed(2),
+      total = (+subtotal + +taxes).toFixed(2);
+    return { subtotal: subtotal, taxes: taxes, total: total };
+  };
 
-refundChange = (e) => {
-  e.persist();
-  console.log('refundChange');
-  console.log(e);
-  let target = e.target,
-    refundValue = target.valueAsNumber,
-    elementId = target.id.split('-'),
-    dataModel = elementId[0],
-    dataModelId  = elementId[elementId.length-1],
-    items = (dataModel === 'ci') ? this.state.customItems : this.state.itemOrders,
-    item = items.find((item) => item.id === +dataModelId),
-    priceGiven = item.price_given,
-    refundSubtotalElement = document.getElementById(`${dataModel}-subtotal-refunded-${dataModelId}`);
-  refundSubtotalElement.innerHTML = (refundValue * priceGiven).toFixed(2);
-  console.log(elementId);
-  console.log(dataModel);
-  console.log(dataModelId);
-  console.log(items);
-  console.log(item);
-}
+  refundChange = (e) => {
+    let target = e.target,
+      refundValue = target.valueAsNumber,
+      elementId = target.id.split('-'),
+      dataModel = elementId[0],
+      dataModelId  = elementId[elementId.length-1],
+      items = (dataModel === 'ci') ? this.state.customItems : this.state.itemOrders,
+      item = items.find((item) => item.id === +dataModelId),
+      priceGiven = item.price_given,
+      refundSubtotalElement = document.getElementById(`${dataModel}-subtotal-refunded-${dataModelId}`),
+      refundOrderSubtotal =document.getElementById('refund-order-subtotal'),
+      refundOrderTaxes =document.getElementById('refund-order-taxes'),
+      refundOrderTotal =document.getElementById('refund-order-total');
+    refundSubtotalElement.innerHTML = (priceGiven * refundValue).toFixed(2);
+    let itemsRefundTotal = this.calculateItemsRefundTotal();
+    refundOrderSubtotal.innerHTML = itemsRefundTotal.subtotal;
+    refundOrderTaxes.innerHTML = itemsRefundTotal.taxes;
+    refundOrderTotal.innerHTML = itemsRefundTotal.total;
+  }
 
   render() {
     let order = this.state.order,
@@ -54,7 +65,6 @@ refundChange = (e) => {
       <div className="refund-order">
       <h1>{order.id}</h1>
         <table>
-          <caption>Refund Order</caption>
           <tbody>
             <tr>
               <th>Marca</th>
@@ -90,7 +100,8 @@ refundChange = (e) => {
                       min={0} max={refundMax(itemOrder)}
                     />
                   </td>
-                  <td id={`io-subtotal-refunded-${itemOrder.id}`}></td>
+                  <td id={`io-subtotal-refunded-${itemOrder.id}`}
+                    className='items-subtotal-refund'>0</td>
                   <td>{ itemOrder.subtotal }</td>
                 </tr>
               )
@@ -112,12 +123,33 @@ refundChange = (e) => {
                       min={0} max={refundMax(customItem)}
                     />
                   </td>
-                  <td id={`ci-subtotal-refunded-${customItem.id}`}> </td>
+                  <td
+                    id={`ci-subtotal-refunded-${customItem.id}`}
+                    className='items-subtotal-refund'> 0
+                  </td>
                   <td>${customItem.subtotal} </td>
                   <td></td>
                 </tr>
               )
             })}
+            <tr>
+              <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+              <td>Subtotal</td>
+              <td id='refund-order-subtotal'>0</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+              <td>Taxes</td>
+              <td id='refund-order-taxes'>0</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+              <td>Total</td>
+              <td id='refund-order-total'>0</td>
+              <td></td>
+            </tr>
           </tbody>
         </table>
       </div>
