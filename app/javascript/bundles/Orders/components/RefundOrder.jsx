@@ -16,23 +16,39 @@ export default class RefundOrder extends React.Component {
     this.state = {
       order: props.order,
       customItems: props.custom_items,
-      itemOrders: props.item_orders,
-      newRefund: 0
+      itemOrders: props.item_orders
     };
   }
 
   componentDidMount() {
   }
 
-refundChange = () => {
+refundChange = (e) => {
+  e.persist();
   console.log('refundChange');
+  console.log(e);
+  let target = e.target,
+    refundValue = target.valueAsNumber,
+    elementId = target.id.split('-'),
+    dataModel = elementId[0],
+    dataModelId  = elementId[elementId.length-1],
+    items = (dataModel === 'ci') ? this.state.customItems : this.state.itemOrders,
+    item = items.find((item) => item.id === +dataModelId),
+    priceGiven = item.price_given,
+    refundSubtotalElement = document.getElementById(`${dataModel}-subtotal-refunded-${dataModelId}`);
+  refundSubtotalElement.innerHTML = (refundValue * priceGiven).toFixed(2);
+  console.log(elementId);
+  console.log(dataModel);
+  console.log(dataModelId);
+  console.log(items);
+  console.log(item);
 }
 
   render() {
-
     let order = this.state.order,
       itemOrders = this.state.itemOrders,
-      customItems = this.state.customItems;
+      customItems = this.state.customItems,
+      refundMax = (itemOrder) => itemOrder.quantity - itemOrder.quantity_refunded;
     console.log(this.state);
     return (
       <div className="refund-order">
@@ -63,12 +79,18 @@ refundChange = () => {
                   <td>{ itemOrder.item.color }</td>
                   <td>{ itemOrder.item.size }</td>
                   <td>{ itemOrder.item.thickness }</td>
-                  <td>{ itemOrder.price_given}</td>
+                <td id={`io-price-given-${itemOrder.id}`}>{ itemOrder.price_given}</td>
                   <td>{ itemOrder.quantity }</td>
 
                   <td>{ itemOrder.quantity_refunded }</td>
-                  <td><input type="number" onChange={this.refundChange} /></td>
-                  <td id={`io-subtotal-refunded-${itemOrder.ind}`}></td>
+                  <td>
+                    <input
+                      id={`io-new-refunded-${itemOrder.id}`}
+                      type="number" onChange={this.refundChange}
+                      min={0} max={refundMax(itemOrder)}
+                    />
+                  </td>
+                  <td id={`io-subtotal-refunded-${itemOrder.id}`}></td>
                   <td>{ itemOrder.subtotal }</td>
                 </tr>
               )
@@ -79,12 +101,18 @@ refundChange = () => {
                   <td></td>
                   <td>{customItem.name} </td>
                   <td></td><td></td><td></td>
-                  <td>${customItem.price_given}</td>
+                  <td  id={`ci-price-given-${customItem.id}`}>${customItem.price_given}</td>
                   <td>{customItem.quantity} </td>
 
                   <td>{customItem.quantity_refunded} </td>
-                  <td><input type="number" onChange={this.refundChange} /></td>
-                  <td id={`ci-subtotal-refunded-${customItem.ind}`}> </td>
+                  <td>
+                    <input
+                      id={`ci-new-refunded-${customItem.id}`}
+                      type="number" onChange={this.refundChange}
+                      min={0} max={refundMax(customItem)}
+                    />
+                  </td>
+                  <td id={`ci-subtotal-refunded-${customItem.id}`}> </td>
                   <td>${customItem.subtotal} </td>
                   <td></td>
                 </tr>

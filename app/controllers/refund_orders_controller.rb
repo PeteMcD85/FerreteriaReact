@@ -42,7 +42,7 @@ class RefundOrdersController < ApplicationController
       ) # End of @order.as_json.merge!
     end # End of IF refund_orders.count > 0
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  end # End of NEW
+  end # End of NEW action
 
   def create
 
