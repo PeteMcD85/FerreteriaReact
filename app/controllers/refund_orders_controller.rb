@@ -81,22 +81,4 @@ class RefundOrdersController < ApplicationController
       }
     )
   end
-
-
-
-  # def create_custom_items(refund_order, custom_items)
-  #   p '================='
-  #   p custom_items
-  #   custom_items.each do |custom_item|
-  #     refund_order.refund_items.create(custom_item)
-  #   end
-  # end
-  #
-  # def create_item_orders(refund_order, item_orders)
-  #   item_orders.each do |item_order|
-  #     refund_order.refund_items.create(item_order)
-  #   end
-  # end
-
-
 end
