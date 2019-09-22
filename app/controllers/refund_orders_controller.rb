@@ -1,5 +1,6 @@
 class RefundOrdersController < ApplicationController
   layout 'orders'
+  protect_from_forgery :except => [:create]
 
   def new
     # Stores the Order the RefundOrder belongs_to
@@ -45,7 +46,19 @@ class RefundOrdersController < ApplicationController
   end # End of NEW action
 
   def create
+    p '======================='
+    p params
+    render :json => { 'hey': 'hey'}, :status => 200
+  end
 
+  private
+
+  def refund_order_params
+    params.require(:refund_order).permit(
+      :subtotal_refunded,
+      :taxes_refunded,
+      :total_refunded
+    )
   end
 
 end

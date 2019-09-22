@@ -55,6 +55,46 @@ export default class RefundOrder extends React.Component {
     refundOrderTotal.innerHTML = itemsRefundTotal.total;
   }
 
+  printRefund = () => {
+    let csrfToken = document.querySelector("[name='csrf-token']").content,
+      order = this.state.order,
+      printButton = document.getElementById("print-button");
+    console.log('printRef');
+    fetch(`/orders/${order.id}/refund_orders`, {
+      method: "POST",
+      body: JSON.stringify({
+        refundorder: {
+          subtotal_refunded: 0,
+          taxes_refunded: 0,
+          total_refunded: 0
+        }
+      }),
+      headers: {
+        "X-CSRF-Token": csrfToken,
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        console.log("response");
+        console.log(response);
+        if (!response.ok) {
+          throw response;
+        }
+        return response.json();
+      })
+      .then(res => {;
+        window.print();
+        printButton.disabled = false;
+        printButton.innerHTML = "Imprima el Recibo";
+        console.log("res");
+        console.log(res);
+      })
+      .catch(error => {
+        console.error("error", error);
+      });
+
+  }
+
   render() {
     let order = this.state.order,
       itemOrders = this.state.itemOrders,
@@ -63,7 +103,7 @@ export default class RefundOrder extends React.Component {
     console.log(this.state);
     return (
       <div className="refund-order">
-      <h1>{order.id}</h1>
+        <h1>{order.id}</h1>
         <table>
           <tbody>
             <tr>
@@ -152,6 +192,10 @@ export default class RefundOrder extends React.Component {
             </tr>
           </tbody>
         </table>
+        <button id='print-button' onClick={this.printRefund} >
+          Print Refund
+        </button>
+
       </div>
     );
   }
