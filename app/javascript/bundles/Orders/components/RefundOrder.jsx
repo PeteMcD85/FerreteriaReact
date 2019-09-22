@@ -16,11 +16,18 @@ export default class RefundOrder extends React.Component {
     this.state = {
       order: props.order,
       customItems: props.custom_items,
-      itemOrders: props.item_orders
+      itemOrders: props.item_orders,
+      refundOrderCustomItems: [],
+      refundOrderItemOrders: [],
+      refundOrderTotals: {
+        subtotal: 0,
+        taxes: 0,
+        total: 0
+      }
     };
   }
 
-  calculateItemsRefundTotal = () => {
+  calculateItemsRefundTotals = () => {
     let items = document.getElementsByClassName('items-subtotal-refund'),
       itemsValues = [];
     for (let i = 0; i < items.length; i += 1) {
@@ -44,29 +51,60 @@ export default class RefundOrder extends React.Component {
       items = (dataModel === 'ci') ? this.state.customItems : this.state.itemOrders,
       item = items.find((item) => item.id === +dataModelId),
       priceGiven = item.price_given,
-      refundSubtotalElement = document.getElementById(`${dataModel}-subtotal-refunded-${dataModelId}`),
-      refundOrderSubtotal =document.getElementById('refund-order-subtotal'),
-      refundOrderTaxes =document.getElementById('refund-order-taxes'),
-      refundOrderTotal =document.getElementById('refund-order-total');
+      refundSubtotalElement = document.getElementById(`${dataModel}-subtotal-refunded-${dataModelId}`);
     refundSubtotalElement.innerHTML = (priceGiven * refundValue).toFixed(2);
-    let itemsRefundTotal = this.calculateItemsRefundTotal();
-    refundOrderSubtotal.innerHTML = itemsRefundTotal.subtotal;
-    refundOrderTaxes.innerHTML = itemsRefundTotal.taxes;
-    refundOrderTotal.innerHTML = itemsRefundTotal.total;
+    this.setState({
+      refundOrderTotals: this.calculateItemsRefundTotals()
+    })
+  }
+
+  getNewRefundValue = (elementId) => {
+    return document.getElementById(elementId).valueAsNumber
+  }
+
+  getSubtotalRefundedValue = (elementId) => {
+    return +document.getElementById(elementId).textContent
+  }
+
+  getRefundItems = (items, dataModelPrefix) => {
+    let refundableType = (dataModelPrefix === 'ci') ? "CustomItem" : "ItemOrder"
+    return (
+      items.map((val)=>{
+        let newRefundValue = this.getNewRefundValue(`${dataModelPrefix}-new-refund-${val.id}`);
+        if (newRefundValue > 0) {
+          return {
+            refundable_id: val.id,
+            refundable_type: refundableType,
+            quantity_refunded: newRefundValue,
+            subtotal_refunded: this.getSubtotalRefundedValue(`${dataModelPrefix}-subtotal-refunded-${val.id}`)
+          }
+        }
+      })
+    )
+
+  }
+
+  returnRefundItems = () => {
+    let customItems = this.getRefundItems(this.state.customItems, "ci"),
+      itemOrders = this.getRefundItems(this.state.itemOrders, "io")
+      console.log(customItems.concat(itemOrders));
+    return customItems.concat(itemOrders)
   }
 
   printRefund = () => {
     let csrfToken = document.querySelector("[name='csrf-token']").content,
       order = this.state.order,
+      refundOrderTotals = this.state.refundOrderTotals,
       printButton = document.getElementById("print-button");
     console.log('printRef');
     fetch(`/orders/${order.id}/refund_orders`, {
       method: "POST",
       body: JSON.stringify({
-        refundorder: {
-          subtotal_refunded: 0,
-          taxes_refunded: 0,
-          total_refunded: 0
+        refund_order: {
+          subtotal_refunded: refundOrderTotals.subtotal,
+          taxes_refunded: refundOrderTotals.taxes,
+          total_refunded: refundOrderTotals.total,
+          refund_items: this.returnRefundItems()
         }
       }),
       headers: {
@@ -99,6 +137,7 @@ export default class RefundOrder extends React.Component {
     let order = this.state.order,
       itemOrders = this.state.itemOrders,
       customItems = this.state.customItems,
+      refundOrderTotals = this.state.refundOrderTotals,
       refundMax = (itemOrder) => itemOrder.quantity - itemOrder.quantity_refunded;
     console.log(this.state);
     return (
@@ -114,14 +153,12 @@ export default class RefundOrder extends React.Component {
               <th>Grosor</th>
               <th>Precio Dado</th>
               <th>Cantidad</th>
-
               <th>Cantidad Reembolsada Antes</th>
               <th>New Refund</th>
               <th>Subtotal De Reembolso</th>
               <th>Total Parcial</th>
             </tr>
             {itemOrders.map((itemOrder, ind)=>{
-              // let max =  itemOrder.quantity -
               return (
                 <tr key={ind} className="item-order">
                   <td>{ itemOrder.item.brand }</td>
@@ -135,7 +172,7 @@ export default class RefundOrder extends React.Component {
                   <td>{ itemOrder.quantity_refunded }</td>
                   <td>
                     <input
-                      id={`io-new-refunded-${itemOrder.id}`}
+                      id={`io-new-refund-${itemOrder.id}`}
                       type="number" onChange={this.refundChange}
                       min={0} max={refundMax(itemOrder)}
                     />
@@ -158,7 +195,7 @@ export default class RefundOrder extends React.Component {
                   <td>{customItem.quantity_refunded} </td>
                   <td>
                     <input
-                      id={`ci-new-refunded-${customItem.id}`}
+                      id={`ci-new-refund-${customItem.id}`}
                       type="number" onChange={this.refundChange}
                       min={0} max={refundMax(customItem)}
                     />
@@ -175,19 +212,25 @@ export default class RefundOrder extends React.Component {
             <tr>
               <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
               <td>Subtotal</td>
-              <td id='refund-order-subtotal'>0</td>
+              <td id='refund-order-subtotal'>
+                {refundOrderTotals.subtotal}
+              </td>
               <td></td>
             </tr>
             <tr>
               <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
               <td>Taxes</td>
-              <td id='refund-order-taxes'>0</td>
+              <td id='refund-order-taxes'>
+                {refundOrderTotals.taxes}
+              </td>
               <td></td>
             </tr>
             <tr>
               <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
               <td>Total</td>
-              <td id='refund-order-total'>0</td>
+              <td id='refund-order-total'>
+                {refundOrderTotals.total}
+              </td>
               <td></td>
             </tr>
           </tbody>

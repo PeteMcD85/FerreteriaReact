@@ -46,9 +46,17 @@ class RefundOrdersController < ApplicationController
   end # End of NEW action
 
   def create
-    p '======================='
-    p params
-    render :json => { 'hey': 'hey'}, :status => 200
+    @order = Order.find(params[:order_id])
+    refund_order = @order.refund_orders.new(refund_order_params)
+    if refund_order.save
+      refund_order.refund_items.create(refund_items_parameter[:refund_items])
+      render :json => {
+        refund_order: refund_order,
+        refund_items: refund_order.refund_items
+        }, :status => 200
+    else
+      render :json => { "error": 'error'}, :status => 400
+    end
   end
 
   private
@@ -60,5 +68,35 @@ class RefundOrdersController < ApplicationController
       :total_refunded
     )
   end
+
+  def refund_items_parameter
+    params.require(:refund_order).permit(
+      {refund_items:
+        [
+          :refundable_id,
+          :refundable_type,
+          :quantity_refunded,
+          :subtotal_refunded
+        ]
+      }
+    )
+  end
+
+
+
+  # def create_custom_items(refund_order, custom_items)
+  #   p '================='
+  #   p custom_items
+  #   custom_items.each do |custom_item|
+  #     refund_order.refund_items.create(custom_item)
+  #   end
+  # end
+  #
+  # def create_item_orders(refund_order, item_orders)
+  #   item_orders.each do |item_order|
+  #     refund_order.refund_items.create(item_order)
+  #   end
+  # end
+
 
 end
