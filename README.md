@@ -1,24 +1,19 @@
-# README
+## App Description
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ This app is for small business's, features include:
+   - Stores Items sold 
+   - Creates & Stores Orders(purchases)
+   - Updates inventory when Orders are made
+   - Offers a date range to provide a Report for Orders
+   - Ability to search Orders through Customer name or Order ID(Refund Purposes)
+   - Allows users to create mulitple refunds when necessary
+   - Capability to Save an Order though LocalStorage
+   
+ ## Technologies
+   - Ruby on Rails
+   - ReactJS
+   - Devise 
+   - PostgreSQL
+   
+   
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
