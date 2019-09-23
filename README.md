@@ -15,5 +15,7 @@
    - Devise 
    - PostgreSQL
    
+   ![Ferrteria App](ReadMeGifs/FerreteriaSample.gif)
+   
    
 
