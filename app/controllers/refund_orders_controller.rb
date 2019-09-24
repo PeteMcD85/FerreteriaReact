@@ -48,8 +48,21 @@ class RefundOrdersController < ApplicationController
   def create
     @order = Order.find(params[:order_id])
     refund_order = @order.refund_orders.new(refund_order_params)
+    p '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
     if refund_order.save
+
       refund_order.refund_items.create(refund_items_parameter[:refund_items])
+      p refund_order.refund_items
+      refund_order.refund_items.map do|refund_item|
+        item_id = refund_item.refundable_type.constantize.find(refund_item.refundable_id).item_id
+        p '============================================================================================='
+
+        item = Item.find(item_id)
+                p item
+        item_new_inventory = item.inventory + refund_item.quantity_refunded
+        item.update_inventory(item_new_inventory);
+      end
+
       render :json => {
         refund_order: refund_order,
         refund_items: refund_order.refund_items
