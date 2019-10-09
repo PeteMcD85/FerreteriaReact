@@ -1,11 +1,10 @@
 ## App Description
 
- This app is for small business's, features include:
-   - Stores Items sold 
-   - Creates & Stores Orders(purchases)
-   - Updates inventory when Orders are made
+ This app was a freelance project made for a hardware shop in Puerto Rico, features include:
+   - Database containing inventory of Items and Purchases  
+   - Updates inventory when purchases are made
    - Offers a date range to provide a Report for Orders
-   - Ability to search Orders through Customer name or Order ID(Refund Purposes)
+   - Ability to search Orders through Customer name or Order ID(for Refund Purposes)
    - Allows users to create mulitple refunds when necessary
    - Capability to Save an Order though LocalStorage
    
