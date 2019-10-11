@@ -33,6 +33,7 @@ Once you have entered the information you then click Add To Cart and the Custom-
 - You will have options to create custom-items, add more items, clear the cart or save the cart for later use.
 - Once satisfied with the Order/Cart you then put a name(mandatory) to the order, a telephone number(optional) and select payment type. Once you Print Reciept the cart will be saved in Orders and page will refresh to homepage.
 
+![Ferrteria App](ReadMeGifs/creatingOrder.gif)
 
 ## 4. Finding, Editing And Deleting Orders
 
@@ -52,3 +53,5 @@ You can then select one of the orders by clicking on the link in the Date and Ti
 - Refund items in the order
 
 When you click the refund button for one of the items it will render you to another page which will display the name, price, quantity sold and amount sold for this item. Most importantly it will have one input box for the amount of this item you will like to return. After you click Update, it will render you back to the order and highlighted in yellow it will tell you the refunded amount.
+
+![Ferrteria App](ReadMeGifs/findingEditingOrder.gif)
