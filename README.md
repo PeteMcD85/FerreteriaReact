@@ -16,10 +16,11 @@ New Store Item: When creating a new item you will choose Active(default) or InAc
 
 ![Ferrteria App](ReadMeGifs/newItem.gif)
 
-Custom Cart Item: You will have the option to create Custom-Items only in the Carts of the Order your working on. To achive this you click the Create-item button in the cart table,three input spaces will pop up. One for the name, price and quantity.
+Custom Item: You will have the option to create Custom-Items only in the Carts of the Order your working on. To achive this you click the Create-item button in the cart table,three input spaces will pop up. One for the name, price and quantity.
 Once you have entered the information you then click Add To Cart and the Custom-Items Price and Quantity will be factored in to the Carts total amount.
 
 ![Ferrteria App](ReadMeGifs/customItems.gif)
+
 
 ## 3. Creating An Order
 
@@ -29,6 +30,7 @@ Once you have entered the information you then click Add To Cart and the Custom-
 - Once satisfied with the Order/Cart you then put a name(mandatory) to the order, a telephone number(optional) and select payment type. Once you Print Reciept the cart will be saved in Orders and page will refresh to homepage.
 
 ![Ferrteria App](ReadMeGifs/FerreteriaSample.gif)
+
 
 ## 4. Finding, Editing And Deleting Orders
 
