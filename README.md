@@ -23,7 +23,7 @@ Once you have entered the information you then click Add To Cart and the Custom-
 - You will have options to create custom-items, add more items, clear the cart or save the cart for later use.
 - Once satisfied with the Order/Cart you then put a name(mandatory) to the order, a telephone number(optional) and select payment type. Once you Print Reciept the cart will be saved in Orders and page will refresh to homepage.
 
-![Ferrteria App](ReadMeGifs/FerreteriaSample.gif)
+
 
 ## 4. Finding, Editing And Deleting Orders
 On top of the Homepage you will see the menu bar saying hello to the user with the links Orders, Create New Item, HomePage, Edit-Profile, and LogOut.
