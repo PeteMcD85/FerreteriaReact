@@ -17,12 +17,14 @@ Once you have entered the information you then click Add To Cart and the Custom-
 
 ![Ferrteria App](ReadMeGifs/ci.gif)
 
+
 ## 3. Creating An Order
 - Choose items and quantity to be sold.
 - When your done choosing all of the items you then proceed to checkout and there you will see the items, items-price, amount of items you selected and the subtotal amount for each item.
 - You will have options to create custom-items, add more items, clear the cart or save the cart for later use.
 - Once satisfied with the Order/Cart you then put a name(mandatory) to the order, a telephone number(optional) and select payment type. Once you Print Reciept the cart will be saved in Orders and page will refresh to homepage.
 
+![Ferrteria App](ReadMeGifs/FerreteriaSample.gif)
 
 
 ## 4. Finding, Editing And Deleting Orders
