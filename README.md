@@ -16,7 +16,8 @@ Custom Item: You will have the option to create Custom-Items only in the Carts o
 Once you have entered the information you then click Add To Cart and the Custom-Items Price and Quantity will be factored in to the Carts total amount.
 
 ![Ferrteria App](ReadMeGifs/ci.gif)
-
+![Ferrteria App](ReadMeGifs/customItems.gif)
+![Ferrteria App](ReadMeGifs/newItem.gif)
 
 ## 3. Creating An Order
 - Choose items and quantity to be sold.
