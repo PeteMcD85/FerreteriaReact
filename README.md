@@ -15,7 +15,7 @@ New Store Item: When creating a new item you will choose Active(default) or InAc
 Custom Item: You will have the option to create Custom-Items only in the Carts of the Order your working on. To achive this you click the Create-item button in the cart table,three input spaces will pop up. One for the name, price and quantity.
 Once you have entered the information you then click Add To Cart and the Custom-Items Price and Quantity will be factored in to the Carts total amount.
 
-(ReadMeGifs/ci.gif)
+![ferreteriaReact](ReadMeGifs/ci.gif)
 (ReadMeGifs/customItems.gif)
 (ReadMeGifs/newItem.gif)
 
