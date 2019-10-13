@@ -1,7 +1,3 @@
-## App Description
-
-![Ferrteria App](ReadMeGifs/FerreteriaSample.gif)
-
 ## Technologies Used
 
 - Ruby on Rails
