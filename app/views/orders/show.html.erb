@@ -3,7 +3,7 @@
   <div class="edit-delete-order">
   <%= link_to 'Editar Forma De Pago', edit_order_path(@order) %>
   <%= link_to 'Borrar', order_path(@order), method: :delete, data: { confirm: 'Are you sure?' } %>
-  <span><%= link_to 'Refund', new_order_refund_order_path(@order) %>(<%= @order.refund_orders.count%>)</span> 
+  <span><%= link_to 'Refund', order_refund_orders_path(@order) %>(<%= @order.refund_orders.count%>)</span> 
   </div>
   <h1><%= @order.id %></h1>
   <div id="print-refund-div" class="hide-for-print">

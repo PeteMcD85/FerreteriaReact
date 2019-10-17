@@ -2,6 +2,11 @@ class RefundOrdersController < ApplicationController
   layout 'orders'
   protect_from_forgery :except => [:create]
 
+  def index
+          p 'Index+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+          p params
+  end
+
   def new
     # Stores the Order the RefundOrder belongs_to
     @order = Order.find(params[:order_id])
