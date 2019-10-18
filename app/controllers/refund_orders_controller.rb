@@ -3,8 +3,22 @@ class RefundOrdersController < ApplicationController
   protect_from_forgery :except => [:create]
 
   def index
-          p 'Index+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-          p params
+      p 'Index+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+      p params
+      @order = Order.find(params[:order_id])
+      @refund_orders =  @order.refund_orders
+      #
+  end
+
+  def show
+    @order = Order.find(params[:order_id])
+    @refund_order =  @order.refund_orders.find(params[:id])
+    @refund_items = @refund_order.refund_items
+    p 'show+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+    render :json => {
+      refund_order: refund_order,
+      refund_items: refund_order.refund_items
+      }
   end
 
   def new
@@ -54,6 +68,8 @@ class RefundOrdersController < ApplicationController
     @order = Order.find(params[:order_id])
     refund_order = @order.refund_orders.new(refund_order_params)
     p '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+    p refund_order.valid?
+    p refund_order.errors
     if refund_order.save
 
       refund_order.refund_items.create(refund_items_parameter[:refund_items])

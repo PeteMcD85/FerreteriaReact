@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   has_many :item_orders, :dependent => :destroy
-  has_many :items, through: :item_orders
+  has_many :custom_items, :dependent => :destroy
+  has_many :refund_items, through: :item_orders
   has_one_attached :pic
   scope :distinct_brands, -> {select(:brand).distinct}
   scope :get_brand, -> (brand) {where(["brand = ?", "#{brand}"])}

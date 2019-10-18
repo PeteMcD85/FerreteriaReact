@@ -6,6 +6,8 @@ class Order < ApplicationRecord
   has_many :items, through: :item_orders
   has_many :refund_items, through: :refund_orders
 
+  validates_associated :refund_orders, :item_orders, :custom_items
+
   accepts_nested_attributes_for :item_orders
   enum order_type: [:sale, :buy, :void]
 
