@@ -13,12 +13,22 @@ class RefundOrdersController < ApplicationController
   def show
     @order = Order.find(params[:order_id])
     @refund_order =  @order.refund_orders.find(params[:id])
-    @refund_items = @refund_order.refund_items
-    p 'show+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-    render :json => {
-      refund_order: refund_order,
-      refund_items: refund_order.refund_items
+    @refund_items = @refund_order.refund_items.map do |refund_item|
+        refundable = refund_item.refundable
+        if refundable[:item_id]
+          refund_item.as_json.merge(refundable: refundable).merge(item: refundable.item)
+        else
+          refund_item.as_json.merge(refundable: refundable)
+        end
+    end
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: {
+          refund_items: @refund_items
+        }
       }
+    end
   end
 
   def new
