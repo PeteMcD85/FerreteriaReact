@@ -15,6 +15,8 @@ class Item < ApplicationRecord
   scope :get_inactives, -> { where(active: false) }
   # validates_inclusion_of :active, in: [true, false]
   def update_inventory(quantity)
+    p '+++++++++++quantity++++++++++++++++++'
+    p quantity
     self.update(inventory: quantity)
   end
 

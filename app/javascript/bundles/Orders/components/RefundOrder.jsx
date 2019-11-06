@@ -5,7 +5,8 @@ export default class RefundOrder extends React.Component {
   static propTypes = {
     order: PropTypes.object.isRequired,
     custom_items: PropTypes.array.isRequired,
-    item_orders: PropTypes.array.isRequired
+    item_orders: PropTypes.array.isRequired,
+    refund_items: PropTypes.array.isRequired
   };
   /**
    * @param props
@@ -17,6 +18,7 @@ export default class RefundOrder extends React.Component {
       order: props.order,
       customItems: props.custom_items,
       itemOrders: props.item_orders,
+      refundItems: props.refund_items,
       refundOrderCustomItems: [],
       refundOrderItemOrders: [],
       refundOrderTotals: {
@@ -122,6 +124,7 @@ export default class RefundOrder extends React.Component {
       })
       .then(res => {;
         window.print();
+        window.location.replace(`/orders/${order.id}/refund_orders`);
         printButton.disabled = false;
         printButton.innerHTML = "Imprima el Recibo";
         console.log("res");
