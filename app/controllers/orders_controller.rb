@@ -19,9 +19,15 @@ protect_from_forgery :except => [:create]
 
   def show
     @order = Order.find(params[:id])
+    p '++++++++++++++++ Order ++++++++++++++++++'
+    p @order
+    refund_orders = @order.refund_orders
     @cart = @order.item_orders
     @cart_item_orders = @cart.map {|cart_item| Item.find(cart_item.item_id) }
     @cart_custom_items = @order.custom_items.map {|cart_item| CustomItem.find(cart_item.id) }
+    @subtotal_final = @order.subtotal - refund_orders.reduce(0) { |sum, ro| sum + ro.subtotal_refunded }
+    @taxes_final = @order.taxes -  refund_orders.reduce(0) { |sum, ro| sum + ro.taxes_refunded }
+    @total_final = @order.total - refund_orders.reduce(0) { |sum, ro| sum + ro.total_refunded }
     respond_to do |format|
       format.html
       format.json {

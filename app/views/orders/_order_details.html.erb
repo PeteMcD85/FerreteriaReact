@@ -47,15 +47,18 @@
         <tr>
           <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
           <td>Subtotal Final</td>
-          <td></td>
+          <td><%= @subtotal_final %> </td>
+        </tr>
+        <tr>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          <td>Taxes Final</td>
+          <td><%= @taxes_final %> </td>
+        </tr>
+        <tr>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          <td>Total Final</td>
+          <td><%= @total_final %> </td>
         </tr>
 
   </tbody>
 </table>
-
-
-        <% @order.refund_orders.each do |ro| %>
-
-              hey
-
-          <% end %>
