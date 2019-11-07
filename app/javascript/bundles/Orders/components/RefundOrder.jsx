@@ -136,12 +136,12 @@ export default class RefundOrder extends React.Component {
 
   }
 
+
   render() {
     let order = this.state.order,
       itemOrders = this.state.itemOrders,
       customItems = this.state.customItems,
-      refundOrderTotals = this.state.refundOrderTotals,
-      refundMax = (itemOrder) => itemOrder.quantity - itemOrder.quantity_refunded;
+      refundOrderTotals = this.state.refundOrderTotals;
     console.log(this.state);
     return (
       <div className="refund-order">
@@ -177,7 +177,7 @@ export default class RefundOrder extends React.Component {
                     <input
                       id={`io-new-refund-${itemOrder.id}`}
                       type="number" onChange={this.refundChange}
-                      min={0} max={refundMax(itemOrder)}
+                      min={0} max={itemOrder.refund_max}
                     />
                   </td>
                   <td id={`io-subtotal-refunded-${itemOrder.id}`}
@@ -200,7 +200,7 @@ export default class RefundOrder extends React.Component {
                     <input
                       id={`ci-new-refund-${customItem.id}`}
                       type="number" onChange={this.refundChange}
-                      min={0} max={refundMax(customItem)}
+                      min={0} max={customItem.refund_max}
                     />
                   </td>
                   <td

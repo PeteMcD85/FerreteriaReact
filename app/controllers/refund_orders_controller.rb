@@ -3,11 +3,8 @@ class RefundOrdersController < ApplicationController
   protect_from_forgery :except => [:create]
 
   def index
-      p 'Index+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-      p params
       @order = Order.find(params[:order_id])
       @refund_orders =  @order.refund_orders
-      #
   end
 
   def show
@@ -34,36 +31,30 @@ class RefundOrdersController < ApplicationController
   def new
     @order = Order.find(params[:order_id])
     @refund_items = @order.refund_items
-    @item_orders = @order.item_orders.map {|io| io.as_json.merge!(item: io.item)}
-    @custom_items = @order.custom_items
-
+    @item_orders = @order.item_orders.map { |io|
+      refund_max = io.quantity - io.refund_items.reduce(0) { |sum, ri| sum + ri.quantity_refunded }
+      io.as_json.merge!(item: io.item, refund_max: refund_max)
+    }
+    @custom_items = @order.custom_items.map { |ci|
+      refund_max = ci.quantity - ci.refund_items.reduce(0) { |sum, ri| sum + ri.quantity_refunded }
+      ci.as_json.merge!(refund_max: refund_max)
+    }
   end # End of NEW action
 
   def create
     @order = Order.find(params[:order_id])
     refund_order = @order.refund_orders.new(refund_order_params)
-
-    p refund_order.valid?
-    p refund_order.errors
     if refund_order.save
-
       refund_order.refund_items.create(refund_items_parameter[:refund_items])
-      p refund_order.refund_items
       refund_order.refund_items.map do|r_i|
-        p '+++++++++++r_i++++++++++++++++++'
-        p r_i
         refund_item = r_i.refundable_type.constantize.find(r_i.refundable_id)
         if r_i.refundable_type == "ItemOrder"
           item_id  = refund_item.item_id
           item = Item.find(item_id)
           item_new_inventory = item.inventory + r_i.quantity_refunded
-          p '+++++++++++item_new_inventory++++++++++++++++++'
-          p item_new_inventory
           item.update_inventory(item_new_inventory);
         end
-
       end
-
       render :json => {
         refund_order: refund_order,
         refund_items: refund_order.refund_items
