@@ -1,7 +1,13 @@
 class Order < ApplicationRecord
   has_many :item_orders , :dependent => :destroy
-  has_many :items, through: :item_orders
   has_many :custom_items, :dependent => :destroy
+  has_many :refund_orders, :dependent => :destroy
+
+  has_many :items, through: :item_orders
+  has_many :refund_items, through: :refund_orders
+
+  validates_associated :refund_orders, :item_orders, :custom_items
+
   accepts_nested_attributes_for :item_orders
   enum order_type: [:sale, :buy, :void]
 

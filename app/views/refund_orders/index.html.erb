@@ -1,0 +1,9 @@
+<h1>INdex Refunds</h1>
+<%= link_to 'New Refund', new_order_refund_order_path(@order) %>
+<div id="refunds">
+  <% @refund_orders.each do |refund_order|%>
+  <div class="refund">
+    <%= react_component("RefundedOrder", props: {refundOrder: refund_order}, prerender:false) %>
+  </div>
+  <% end%>
+</div>

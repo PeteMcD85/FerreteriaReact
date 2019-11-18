@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> b6687640b47b254b85ccffeaf339f900d321ec2d
 ## +++++++++++++++ STEP 1 +++++++++++++++
 ## check if theres any orders without payment methods
 # orders = Order.all.where(credit_card_payed: nil)
@@ -11,7 +7,6 @@
 # p orders
 
 ## +++++++++++++ STEP 2 +++++++++++++++
-<<<<<<< HEAD
 orders = Order.all
 
 
@@ -90,7 +85,7 @@ end
 
 
 # orders.where('credit_card_payed + cash_payed + debit_payed + check_payed != total').group('created_at::date').count
-=======
+
 orders = Order.all
 
 
@@ -169,9 +164,7 @@ end
 
 
 # orders.where('credit_card_payed + cash_payed + debit_payed + check_payed != total').group('created_at::date').count
-=======
+
 orders = Order.all
 custom_errors = orders.select {|order| order[:credit_card_payed] + order[:cash_payed] + order[:debit_payed] + order[:check_payed] != total}
 p custom_errors
->>>>>>> 83c934f1b40bbd0e3273beb9d2c179cbb05cfead
->>>>>>> b6687640b47b254b85ccffeaf339f900d321ec2d
