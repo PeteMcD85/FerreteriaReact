@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   resources :orders do
     resources :item_orders, only:[:edit, :update]
     resources :custom_items, only:[:edit, :update]
+    resources :refund_orders, except:[:destroy] do
+      resources :refund_items, except:[:destroy]
+    end
   end
 
   root 'items#index'

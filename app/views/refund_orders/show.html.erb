@@ -1,0 +1,28 @@
+<table>
+  <thead>
+    <th>Marca</th>
+    <th>Nombre</th>
+    <th>Color</th>
+    <th>Tamaño</th>
+    <th>Grosor</th>
+    <th>Precio Dado</th>
+    <th>Cantidad</th>
+    <th>Cantidad Reembolsada Antes</th>
+    <th>New Refund</th>
+    <th>Subtotal De Reembolso</th>
+    <th>Total Parcial</th>
+  </thead>
+  <tbody>
+    <%@refund_order.refund_items.each do |refund_item| %>
+    <tr>
+      <td><%= display_item_name(refund_item) %></td>
+      <td><%= refund_item.subtotal_refunded%></td>
+      <td><%= refund_item.quantity_refunded%></td>
+      <td><%= refund_item.subtotal_refunded%></td>
+      <td><%= refund_item.quantity_refunded%></td>
+      <td><%= refund_item.subtotal_refunded%></td>
+    </tr>
+    <% end %>
+
+  </tbody>
+</table>

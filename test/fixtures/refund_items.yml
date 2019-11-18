@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  quantity_refunded: 1
+  subtotal_refunded: 9.99
+
+two:
+  quantity_refunded: 1
+  subtotal_refunded: 9.99

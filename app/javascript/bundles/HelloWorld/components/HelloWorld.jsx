@@ -116,9 +116,6 @@ export default class HelloWorld extends React.Component {
   };
 
   addCustomItemToCart = customItemValues => {
-    console.log("customItemValues");
-    console.log(customItemValues);
-    console.log(this.state.cart);
     let cartItems = this.state.cart.cartItems,
       taxFree = this.state.taxFree,
       item = customItemValues,

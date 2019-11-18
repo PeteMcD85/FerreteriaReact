@@ -2,6 +2,7 @@ class RefundOrdersController < ApplicationController
   layout 'orders'
   protect_from_forgery :except => [:create]
 
+<<<<<<< HEAD
   def new
     # Stores the Order the RefundOrder belongs_to
     @order = Order.find(params[:order_id])
@@ -43,11 +44,51 @@ class RefundOrdersController < ApplicationController
       ) # End of @order.as_json.merge!
     end # End of IF refund_orders.count > 0
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+=======
+  def index
+      @order = Order.find(params[:order_id])
+      @refund_orders =  @order.refund_orders
+  end
+
+  def show
+    @order = Order.find(params[:order_id])
+    @refund_order =  @order.refund_orders.find(params[:id])
+    @refund_items = @refund_order.refund_items.map do |refund_item|
+        refundable = refund_item.refundable
+        if refundable[:item_id]
+          refund_item.as_json.merge(refundable: refundable).merge(item: refundable.item)
+        else
+          refund_item.as_json.merge(refundable: refundable)
+        end
+    end
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: {
+          refund_items: @refund_items
+        }
+      }
+    end
+  end
+
+  def new
+    @order = Order.find(params[:order_id])
+    @refund_items = @order.refund_items
+    @item_orders = @order.item_orders.map { |io|
+      refund_max = io.quantity - io.refund_items.reduce(0) { |sum, ri| sum + ri.quantity_refunded }
+      io.as_json.merge!(item: io.item, refund_max: refund_max)
+    }
+    @custom_items = @order.custom_items.map { |ci|
+      refund_max = ci.quantity - ci.refund_items.reduce(0) { |sum, ri| sum + ri.quantity_refunded }
+      ci.as_json.merge!(refund_max: refund_max)
+    }
+>>>>>>> multiple_refunds
   end # End of NEW action
 
   def create
     @order = Order.find(params[:order_id])
     refund_order = @order.refund_orders.new(refund_order_params)
+<<<<<<< HEAD
     p '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
     if refund_order.save
 
@@ -63,6 +104,19 @@ class RefundOrdersController < ApplicationController
         item.update_inventory(item_new_inventory);
       end
 
+=======
+    if refund_order.save
+      refund_order.refund_items.create(refund_items_parameter[:refund_items])
+      refund_order.refund_items.map do|r_i|
+        refund_item = r_i.refundable_type.constantize.find(r_i.refundable_id)
+        if r_i.refundable_type == "ItemOrder"
+          item_id  = refund_item.item_id
+          item = Item.find(item_id)
+          item_new_inventory = item.inventory + r_i.quantity_refunded
+          item.update_inventory(item_new_inventory);
+        end
+      end
+>>>>>>> multiple_refunds
       render :json => {
         refund_order: refund_order,
         refund_items: refund_order.refund_items
