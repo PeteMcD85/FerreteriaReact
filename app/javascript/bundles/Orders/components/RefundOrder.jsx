@@ -30,75 +30,88 @@ export default class RefundOrder extends React.Component {
   }
 
   calculateItemsRefundTotals = () => {
-    let items = document.getElementsByClassName('items-subtotal-refund'),
+    let items = document.getElementsByClassName("items-subtotal-refund"),
       itemsValues = [];
     for (let i = 0; i < items.length; i += 1) {
       itemsValues.push(+items[i].textContent);
     }
-    let taxFree = (+this.state.order.taxes === 0 ) ? true : false,
-      subtotal = itemsValues.reduce((total, item) => {
+    let taxFree = +this.state.order.taxes === 0 ? true : false,
+      subtotal = itemsValues
+        .reduce((total, item) => {
           return (total += item);
-        }, 0).toFixed(2),
+        }, 0)
+        .toFixed(2),
       taxes = taxFree ? 0 : (subtotal * 0.115).toFixed(2),
       total = (+subtotal + +taxes).toFixed(2);
     return { subtotal: subtotal, taxes: taxes, total: total };
   };
 
-  refundChange = (e) => {
+  refundChange = e => {
     let target = e.target,
       refundValue = target.valueAsNumber,
-      elementId = target.id.split('-'),
+      elementId = target.id.split("-"),
       dataModel = elementId[0],
-      dataModelId  = elementId[elementId.length-1],
-      items = (dataModel === 'ci') ? this.state.customItems : this.state.itemOrders,
-      item = items.find((item) => item.id === +dataModelId),
+      dataModelId = elementId[elementId.length - 1],
+      items =
+        dataModel === "ci" ? this.state.customItems : this.state.itemOrders,
+      item = items.find(item => item.id === +dataModelId),
       priceGiven = item.price_given,
-      refundSubtotalElement = document.getElementById(`${dataModel}-subtotal-refunded-${dataModelId}`);
+      refundSubtotalElement = document.getElementById(
+        `${dataModel}-subtotal-refunded-${dataModelId}`
+      );
     refundSubtotalElement.innerHTML = (priceGiven * refundValue).toFixed(2);
     this.setState({
       refundOrderTotals: this.calculateItemsRefundTotals()
-    })
-  }
+    });
+  };
 
-  getNewRefundValue = (elementId) => {
-    return document.getElementById(elementId).valueAsNumber
-  }
+  getNewRefundValue = elementId => {
+    return document.getElementById(elementId).valueAsNumber;
+  };
 
-  getSubtotalRefundedValue = (elementId) => {
-    return +document.getElementById(elementId).textContent
-  }
+  getSubtotalRefundedValue = elementId => {
+    return +document.getElementById(elementId).textContent;
+  };
 
   getRefundItems = (items, dataModelPrefix) => {
-    let refundableType = (dataModelPrefix === 'ci') ? "CustomItem" : "ItemOrder"
-    return (
-      items.map((val)=>{
-        let newRefundValue = this.getNewRefundValue(`${dataModelPrefix}-new-refund-${val.id}`);
-        if (newRefundValue > 0) {
-          return {
-            refundable_id: val.id,
-            refundable_type: refundableType,
-            quantity_refunded: newRefundValue,
-            subtotal_refunded: this.getSubtotalRefundedValue(`${dataModelPrefix}-subtotal-refunded-${val.id}`)
-          }
-        }
-      })
-    )
-
-  }
+    let refundableType = dataModelPrefix === "ci" ? "CustomItem" : "ItemOrder";
+    return items.map(val => {
+      let newRefundValue = this.getNewRefundValue(
+        `${dataModelPrefix}-new-refund-${val.id}`
+      );
+      if (newRefundValue > 0) {
+        return {
+          refundable_id: val.id,
+          refundable_type: refundableType,
+          quantity_refunded: newRefundValue,
+          subtotal_refunded: this.getSubtotalRefundedValue(
+            `${dataModelPrefix}-subtotal-refunded-${val.id}`
+          )
+        };
+      }
+    });
+  };
 
   returnRefundItems = () => {
     let customItems = this.getRefundItems(this.state.customItems, "ci"),
-      itemOrders = this.getRefundItems(this.state.itemOrders, "io")
-      console.log(customItems.concat(itemOrders));
-    return customItems.concat(itemOrders)
-  }
+      itemOrders = this.getRefundItems(this.state.itemOrders, "io");
+    console.log(customItems.concat(itemOrders));
+    return customItems.concat(itemOrders);
+  };
 
-  printRefund = () => {
+  validateRefund = elementArray => {
+    let validate = true;
+    for (var i = 0; i < elementArray.length; i++) {
+      console.log(elementArray[i].validity);
+      if (!elementArray[i].validity.valid) validate = false;
+    }
+    return validate;
+  };
+
+  createRefund = () => {
     let csrfToken = document.querySelector("[name='csrf-token']").content,
       order = this.state.order,
-      refundOrderTotals = this.state.refundOrderTotals,
-      printButton = document.getElementById("print-button");
-    console.log('printRef');
+      refundOrderTotals = this.state.refundOrderTotals;
     fetch(`/orders/${order.id}/refund_orders`, {
       method: "POST",
       body: JSON.stringify({
@@ -122,7 +135,7 @@ export default class RefundOrder extends React.Component {
         }
         return response.json();
       })
-      .then(res => {;
+      .then(res => {
         window.print();
         window.location.replace(`/orders/${order.id}/refund_orders`);
         printButton.disabled = false;
@@ -133,9 +146,17 @@ export default class RefundOrder extends React.Component {
       .catch(error => {
         console.error("error", error);
       });
+  };
 
-  }
-
+  printRefund = () => {
+    let verified = false,
+      quantities = document.querySelectorAll(".refund-quantity-input");
+    if (this.validateRefund(quantities)) {
+      this.createRefund();
+    } else {
+      alert("form is not valid");
+    }
+  };
 
   render() {
     let order = this.state.order,
@@ -161,87 +182,120 @@ export default class RefundOrder extends React.Component {
               <th>Subtotal De Reembolso</th>
               <th>Total Parcial</th>
             </tr>
-            {itemOrders.map((itemOrder, ind)=>{
+            {itemOrders.map((itemOrder, ind) => {
               return (
                 <tr key={ind} className="item-order">
-                  <td>{ itemOrder.item.brand }</td>
-                  <td>{ itemOrder.item.name }</td>
-                  <td>{ itemOrder.item.color }</td>
-                  <td>{ itemOrder.item.size }</td>
-                  <td>{ itemOrder.item.thickness }</td>
-                <td id={`io-price-given-${itemOrder.id}`}>{ itemOrder.price_given}</td>
-                  <td>{ itemOrder.quantity }</td>
+                  <td>{itemOrder.item.brand}</td>
+                  <td>{itemOrder.item.name}</td>
+                  <td>{itemOrder.item.color}</td>
+                  <td>{itemOrder.item.size}</td>
+                  <td>{itemOrder.item.thickness}</td>
+                  <td id={`io-price-given-${itemOrder.id}`}>
+                    {itemOrder.price_given}
+                  </td>
+                  <td>{itemOrder.quantity}</td>
 
-                  <td>{ itemOrder.quantity_refunded }</td>
+                  <td>{itemOrder.quantity_refunded}</td>
                   <td>
                     <input
+                      className="refund-quantity-input"
                       id={`io-new-refund-${itemOrder.id}`}
-                      type="number" onChange={this.refundChange}
-                      min={0} max={itemOrder.refund_max}
+                      type="number"
+                      onChange={this.refundChange}
+                      min={0}
+                      max={itemOrder.refund_max}
                     />
                   </td>
-                  <td id={`io-subtotal-refunded-${itemOrder.id}`}
-                    className='items-subtotal-refund'>0</td>
-                  <td>{ itemOrder.subtotal }</td>
+                  <td
+                    id={`io-subtotal-refunded-${itemOrder.id}`}
+                    className="items-subtotal-refund"
+                  >
+                    0
+                  </td>
+                  <td>{itemOrder.subtotal}</td>
                 </tr>
-              )
+              );
             })}
-            {customItems.map((customItem, ind)=>{
+            {customItems.map((customItem, ind) => {
               return (
                 <tr key={ind} className="custom-item">
                   <td></td>
                   <td>{customItem.name} </td>
-                  <td></td><td></td><td></td>
-                  <td  id={`ci-price-given-${customItem.id}`}>${customItem.price_given}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td id={`ci-price-given-${customItem.id}`}>
+                    ${customItem.price_given}
+                  </td>
                   <td>{customItem.quantity} </td>
 
                   <td>{customItem.quantity_refunded} </td>
                   <td>
                     <input
+                      className="refund-quantity-input"
                       id={`ci-new-refund-${customItem.id}`}
-                      type="number" onChange={this.refundChange}
-                      min={0} max={customItem.refund_max}
+                      type="number"
+                      onChange={this.refundChange}
+                      min={0}
+                      max={customItem.refund_max}
                     />
                   </td>
                   <td
                     id={`ci-subtotal-refunded-${customItem.id}`}
-                    className='items-subtotal-refund'> 0
+                    className="items-subtotal-refund"
+                  >
+                    {" "}
+                    0
                   </td>
                   <td>${customItem.subtotal} </td>
                   <td></td>
                 </tr>
-              )
+              );
             })}
             <tr>
-              <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td>Subtotal</td>
-              <td id='refund-order-subtotal'>
-                {refundOrderTotals.subtotal}
-              </td>
+              <td id="refund-order-subtotal">{refundOrderTotals.subtotal}</td>
               <td></td>
             </tr>
             <tr>
-              <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td>Taxes</td>
-              <td id='refund-order-taxes'>
-                {refundOrderTotals.taxes}
-              </td>
+              <td id="refund-order-taxes">{refundOrderTotals.taxes}</td>
               <td></td>
             </tr>
             <tr>
-              <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td>Total</td>
-              <td id='refund-order-total'>
-                {refundOrderTotals.total}
-              </td>
+              <td id="refund-order-total">{refundOrderTotals.total}</td>
               <td></td>
             </tr>
           </tbody>
         </table>
-        <button id='print-button' onClick={this.printRefund} >
+        <button id="print-button" onClick={this.printRefund}>
           Print Refund
         </button>
-
       </div>
     );
   }
