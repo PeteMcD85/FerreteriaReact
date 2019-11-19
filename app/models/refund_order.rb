@@ -1,8 +1,7 @@
 class RefundOrder < ApplicationRecord
   belongs_to :order
   has_many :refund_items , :dependent => :destroy
-<<<<<<< HEAD
-=======
+
   validates_associated :refund_items
   validates :subtotal_refunded, :total_refunded,
     numericality: {greater_than: 0}, presence: true
@@ -40,5 +39,4 @@ class RefundOrder < ApplicationRecord
       end
     end
 
->>>>>>> multiple_refunds
 end
