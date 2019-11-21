@@ -7,7 +7,7 @@ class ItemOrder < ApplicationRecord
   scope :distinct_orders, -> {select(:order_id).distinct}
 
   def subtotal
-    sprintf('%.2f', self.quantity * self.price_given)
+    sprintf('%.2f', self.quantity * self.price_given) if self.price_given
   end
 
   def calc_subtotal_refunded
