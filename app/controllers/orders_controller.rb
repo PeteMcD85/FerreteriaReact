@@ -117,10 +117,14 @@ protect_from_forgery :except => [:create]
 
   def destroy
       @order = Order.find(params[:id])
+
       @order.item_orders.each do |item_order|
+
         if item_order.quantity_refunded < item_order.quantity
           quantity_difference = item_order.quantity - item_order.quantity_refunded
-          item_order.item.update_inventory(item_order.item.inventory + quantity_difference)
+          p 'item_id=========================='
+          quant_refunded = item_order.refund_items.reduce(0) {|total, ri| total += ri.quantity_refunded}
+          item_order.item.update_inventory(item_order.item.inventory + quantity_difference - quant_refunded)
         end
       end
       @order.destroy
