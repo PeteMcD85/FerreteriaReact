@@ -8,10 +8,10 @@ protect_from_forgery :except => [:create]
       format.html
       format.json {
         render json: {
-          #orders: @orders
+        #  orders: @orders
           # items: Item.all
-           # item_orders: ItemOrder.all
-          # custom_items: CustomItem.all
+            #item_orders: ItemOrder.all
+          #custom_items: CustomItem.all
         }
       }
     end

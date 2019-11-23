@@ -4,6 +4,11 @@ import PropTypes from "prop-types";
 const OrdersTable = props => {
   let orders = props.orders,
     tableCaption = props.tableCaption,
+    displayedDate = (stringDate) => {
+      const day = stringDate.split('T')[0],
+        timeOfDay = stringDate.split('T')[1].split('.')[0]
+      return `${day} ${timeOfDay}`
+    },
     deleteItem = itemId => {
       let confirmed = confirm("Are you sure?");
       if (confirmed) {
@@ -48,7 +53,7 @@ const OrdersTable = props => {
               <td>{order.id}</td>
               <td>{order.name}</td>
               <td>
-                <a href={`/orders/${order.id}`}>{order.created_at}</a>
+                <a href={`/orders/${order.id}`}>{displayedDate(order.created_at)}</a>
               </td>
               <td>
                 $

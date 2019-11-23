@@ -41,13 +41,11 @@ export default class Orders extends React.Component {
         document.getElementById("end-range").value
       ).toISOString(),
       orders = this.state.orders;
-    this.getItemOrdersRefunded(startRange, endRange);
-
     orders = orders.filter(val => {
       let orderDate = new Date(val.created_at.split("T")[0]).toISOString();
       return startRange <= orderDate && endRange >= orderDate;
     });
-    this.getItemOrdersRefunded();
+    this.getItemOrdersRefunded(startRange, endRange);
     this.setState({
       displayedOrders: orders
     });
