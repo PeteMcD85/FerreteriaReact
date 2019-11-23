@@ -88,7 +88,7 @@ protect_from_forgery :except => [:create]
             quantity: cart_item[:quantity],
             price_given: cart_item[:priceGiven],
             subtotal: cart_item[:subtotal],
-            name: cart_item[:name]
+            name: cart_item[:item][:name]
           )
           if @custom_items.save
 
@@ -156,6 +156,23 @@ protect_from_forgery :except => [:create]
 
   def order_payment_params
     params.require(:order).permit(:cash_payed, :credit_card_payed, :check_payed, :debit_payed)
+  end
+
+  def order_params
+    params.require(:order)
+      .permit(
+        :order_type,
+        :subtotal,
+        :taxes,
+        :total,
+        :tax_free,
+        :cash_payed,
+        :credit_card_payed,
+        :debit_payed,
+        :check_payed,
+        :name,
+        :telephone
+      )
   end
 
 end
