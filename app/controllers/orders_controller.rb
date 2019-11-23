@@ -3,18 +3,6 @@ layout 'orders'
 protect_from_forgery :except => [:create]
 
   def index
-    @orders = Order.all.order(:id)
-    respond_to do |format|
-      format.html
-      format.json {
-        render json: {
-        #  orders: @orders
-          # items: Item.all
-            #item_orders: ItemOrder.all
-          #custom_items: CustomItem.all
-        }
-      }
-    end
   end
 
   def show
@@ -129,6 +117,26 @@ protect_from_forgery :except => [:create]
       end
       @order.destroy
       redirect_to orders_path
+  end
+
+  def get_orders_refunded
+    start_date = params[:startDate]
+    if start_date != 'undefined'
+      start_date = Date.parse(start_date).beginning_of_day
+      end_date = DateTime.parse(params[:endDate]).end_of_day
+      refund_orders = RefundOrder.get_refund_orders(start_date, end_date)
+      orders = Order.get_orders(start_date, end_date)
+    end
+    refund_orders = refund_orders.distinct_orders.map{|val| Order.find(val.order_id)}
+    respond_to do |format|
+    format.html
+    format.json {
+      render json: {
+        refunded_orders: refund_orders,
+        orders: orders
+        }
+      }
+    end
   end
 
   private

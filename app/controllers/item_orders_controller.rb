@@ -33,7 +33,6 @@ class ItemOrdersController < ApplicationController
   end
 
   def get_item_orders_refunded
-    @item_orders = ItemOrder.all
     refunded_orders = []
     start_date = params[:startDate]
     if start_date != 'undefined'

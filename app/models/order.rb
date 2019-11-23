@@ -11,6 +11,8 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :item_orders
   enum order_type: [:sale, :buy, :void]
 
+  scope :get_orders, -> (start_date, end_date) {where(["created_at >= ? AND created_at <= ?", start_date, end_date])}
+
   def calc_subtotal_refunded
     p "+++++++++++++++++++++++++++++++"
     p self.item_orders

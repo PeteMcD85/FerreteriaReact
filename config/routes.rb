@@ -7,8 +7,10 @@ Rails.application.routes.draw do
 
   resources :items
 
+  get 'get_orders_refunded', to: 'orders#get_orders_refunded'
   get 'get_category_brand', to: 'items#get_category_brand'
   get 'get_item_orders_refunded', to: 'item_orders#get_item_orders_refunded'
+  
 
   resources :orders do
     resources :item_orders, only:[:edit, :update]

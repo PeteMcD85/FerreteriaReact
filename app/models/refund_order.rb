@@ -11,6 +11,8 @@ class RefundOrder < ApplicationRecord
    :taxes_must_be_0_or_11half_percent,
    :total_must_equal_taxes_n_subtotal, on: :update
 
+  scope :get_refund_orders, -> (start_date, end_date) {where(["created_at >= ? AND created_at <= ?", start_date, end_date])}
+  scope :distinct_orders, -> {select(:order_id).distinct}
    def subtotal_must_equal_subtotal_refunded_summation
      p 'summation'
      p refund_items

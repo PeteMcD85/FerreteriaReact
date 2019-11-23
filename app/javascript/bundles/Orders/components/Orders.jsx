@@ -5,7 +5,7 @@ import OrdersTable from "./OrdersTable";
 
 export default class Orders extends React.Component {
   static propTypes = {
-    orders: PropTypes.array.isRequired
+    // orders: PropTypes.array.isRequired
   };
   /**
    * @param props
@@ -14,8 +14,7 @@ export default class Orders extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      orders: props.orders,
-      displayedOrders: props.orders,
+      displayedOrders: [],
       query: "",
       refundedOrders: []
     };
@@ -28,9 +27,11 @@ export default class Orders extends React.Component {
       ).toISOString(),
       endRange = new Date(
         document.getElementById("end-range").value
-      ).toISOString();
-    this.updateOrders();
-    this.getItemOrdersRefunded(startRange, endRange);
+      ).toISOString,
+
+    today = new Date();
+    this.getOrdersRefunded(today, today);
+
   }
 
   updateOrders = () => {
@@ -39,16 +40,12 @@ export default class Orders extends React.Component {
       ).toISOString(),
       endRange = new Date(
         document.getElementById("end-range").value
-      ).toISOString(),
-      orders = this.state.orders;
-    orders = orders.filter(val => {
-      let orderDate = new Date(val.created_at.split("T")[0]).toISOString();
-      return startRange <= orderDate && endRange >= orderDate;
-    });
-    this.getItemOrdersRefunded(startRange, endRange);
-    this.setState({
-      displayedOrders: orders
-    });
+      ).toISOString();
+    this.getOrdersRefunded(startRange, endRange);
+    console.log(endRange);
+    // this.setState({
+    //   displayedOrders: orders
+    // });
   };
 
   getSum = column => {
@@ -72,17 +69,58 @@ export default class Orders extends React.Component {
     this.setState({ displayedOrders: displayedOrders });
   };
 
-  getItemOrdersRefunded = (startRange, endRange) => {
-    console.log(startRange);
-    console.log(endRange);
+  // getItemOrdersRefunded = (startRange, endRange) => {
+  //   console.log(startRange);
+  //   console.log(endRange);
+  //   fetch(
+  //     `/get_item_orders_refunded.json?startDate=${startRange}&endDate=${endRange}`
+  //   )
+  //     .then(res => res.json())
+  //     .then(
+  //       result => {
+  //         console.log("working");
+  //         this.setState({ refundedOrders: result.refunded_orders });
+  //       },
+  //       error => {
+  //         console.error(
+  //           "Error retrieving results for updateSelectedNavList AJAX method"
+  //         );
+  //         console.error(error);
+  //       }
+  //     );
+  // };
+
+  // getOrders = (startRange, endRange) => {
+  //   fetch(
+  //     `/get_orders.json?startDate=${startRange}&endDate=${endRange}`
+  //   )
+  //     .then(res => res.json())
+  //     .then(
+  //       result => {
+  //         console.log("working");
+  //         this.setState({ refundedOrders: result.refunded_orders });
+  //       },
+  //       error => {
+  //         console.error(
+  //           "Error retrieving results for updateSelectedNavList AJAX method"
+  //         );
+  //         console.error(error);
+  //       }
+  //     );
+  // };
+
+  getOrdersRefunded = (startRange, endRange) => {
     fetch(
-      `/get_item_orders_refunded.json?startDate=${startRange}&endDate=${endRange}`
+      `/get_orders_refunded.json?startDate=${startRange}&endDate=${endRange}`
     )
       .then(res => res.json())
       .then(
         result => {
           console.log("working");
-          this.setState({ refundedOrders: result.refunded_orders });
+          this.setState({
+            refundedOrders: result.refunded_orders ,
+            displayedOrders: result.orders
+          });
         },
         error => {
           console.error(
@@ -134,7 +172,10 @@ export default class Orders extends React.Component {
           </label>
         </div>
 
-        <OrdersTable orders={displayedOrders} tableCaption="Ordenes" />
+        <OrdersTable
+          orders={displayedOrders}
+          tableCaption="Ordenes"
+        />
         <OrdersTable
           orders={refundedOrders}
           tableCaption="Pedidos Reembolsados"
