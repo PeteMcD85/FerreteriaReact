@@ -139,6 +139,19 @@ protect_from_forgery :except => [:create]
     end
   end
 
+  def get_orders_searched
+    query = params[:query].downcase
+    orders = Order.get_orders_searched(query)
+    respond_to do |format|
+    format.html
+    format.json {
+      render json: {
+        orders: orders
+        }
+      }
+    end
+  end
+
   private
 
   def order_payment_params

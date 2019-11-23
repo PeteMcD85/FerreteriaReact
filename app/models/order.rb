@@ -12,6 +12,8 @@ class Order < ApplicationRecord
   enum order_type: [:sale, :buy, :void]
 
   scope :get_orders, -> (start_date, end_date) {where(["created_at >= ? AND created_at <= ?", start_date, end_date])}
+  scope :get_orders_searched, -> (query) {where(["LOWER(name) LIKE ? OR CAST(id AS VARCHAR) LIKE ?", "%#{query}%", "%#{query}%"])}
+
 
   def calc_subtotal_refunded
     p "+++++++++++++++++++++++++++++++"

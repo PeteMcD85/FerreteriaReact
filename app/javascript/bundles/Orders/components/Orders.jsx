@@ -59,55 +59,25 @@ export default class Orders extends React.Component {
   };
 
   searchOrder = e => {
-    let query = e.target.value.trim(),
-      orders = this.state.orders,
-      displayedOrders = orders.filter(order => {
-        let orderName = order.name ? order.name : "";
-        return String(order.id).includes(query) || orderName.includes(query);
-      });
-
-    this.setState({ displayedOrders: displayedOrders });
+    let query = e.target.value.trim().toLowerCase();
+      fetch(
+        `/get_orders_searched.json?query=${query}`
+      )
+        .then(res => res.json())
+        .then(
+          result => {
+            console.log("working");
+            console.log(result);
+            this.setState({ displayedOrders: result.orders });
+          },
+          error => {
+            console.error(
+              "Error retrieving results for updateSelectedNavList AJAX method"
+            );
+            console.error(error);
+          }
+        );
   };
-
-  // getItemOrdersRefunded = (startRange, endRange) => {
-  //   console.log(startRange);
-  //   console.log(endRange);
-  //   fetch(
-  //     `/get_item_orders_refunded.json?startDate=${startRange}&endDate=${endRange}`
-  //   )
-  //     .then(res => res.json())
-  //     .then(
-  //       result => {
-  //         console.log("working");
-  //         this.setState({ refundedOrders: result.refunded_orders });
-  //       },
-  //       error => {
-  //         console.error(
-  //           "Error retrieving results for updateSelectedNavList AJAX method"
-  //         );
-  //         console.error(error);
-  //       }
-  //     );
-  // };
-
-  // getOrders = (startRange, endRange) => {
-  //   fetch(
-  //     `/get_orders.json?startDate=${startRange}&endDate=${endRange}`
-  //   )
-  //     .then(res => res.json())
-  //     .then(
-  //       result => {
-  //         console.log("working");
-  //         this.setState({ refundedOrders: result.refunded_orders });
-  //       },
-  //       error => {
-  //         console.error(
-  //           "Error retrieving results for updateSelectedNavList AJAX method"
-  //         );
-  //         console.error(error);
-  //       }
-  //     );
-  // };
 
   getOrdersRefunded = (startRange, endRange) => {
     fetch(
@@ -124,7 +94,7 @@ export default class Orders extends React.Component {
         },
         error => {
           console.error(
-            "Error retrieving results for updateSelectedNavList AJAX method"
+            "Error retrieving results for orders and orders refunded AJAX method"
           );
           console.error(error);
         }
