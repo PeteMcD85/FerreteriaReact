@@ -125,9 +125,9 @@ protect_from_forgery :except => [:create]
       start_date = Date.parse(start_date).beginning_of_day
       end_date = DateTime.parse(params[:endDate]).end_of_day
       refund_orders = RefundOrder.get_refund_orders(start_date, end_date)
-      orders = Order.get_orders(start_date, end_date)
+      orders = Order.get_orders(start_date, end_date).map{|o| o.as_json.merge!(refund: o.refund_orders.reduce(0){|sum, ro| sum += ro.total_refunded})}
     end
-    refund_orders = refund_orders.distinct_orders.map{|val| Order.find(val.order_id)}
+    refund_orders = refund_orders.distinct_orders.map{|o| Order.find(o.order_id).as_json.merge!(refund: Order.find(o.order_id).refund_orders.reduce(0){|sum, ro| sum += ro.total_refunded})}
     respond_to do |format|
     format.html
     format.json {
