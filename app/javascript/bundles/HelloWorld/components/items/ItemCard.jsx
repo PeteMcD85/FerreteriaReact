@@ -2,7 +2,7 @@ import React from "react";
 
 const ItemCard = props => {
   let item = props.item,
-    picUrl = props.picUrl.pic_url,
+    // picUrl = props.picUrl.pic_url,
     id = item.id,
     name = item.name,
     brand = item.brand,
@@ -13,7 +13,7 @@ const ItemCard = props => {
     inventory = item.inventory,
     soldPrice = Number(item.sold_price).toFixed(2),
     signedIn = props.signedIn,
-    isPicUrl = picUrl !== "" ? true : false,
+    isPicUrl =false,
     addToCart = props.addToCart,
     removeFromCart = props.removeFromCart,
     cart = props.cart,
@@ -49,7 +49,7 @@ const ItemCard = props => {
   // console.log(cart);
   return (
     <div className="item">
-      {isPicUrl !== "" && <img className="item-pic" src={picUrl} />}
+      {isPicUrl !== "" && <img className="item-pic"  />}
       {name && <h2>{name}</h2>}
       {brand && <p>{brand}</p>}
       {color && <p>{color}</p>}

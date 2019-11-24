@@ -5,15 +5,15 @@ class ItemsController < ApplicationController
   def index
     # render :layout => 'hello_world'
     @items = Item.all
-    @active_items = @items.get_actives.order(:brand, :thickness, :size, :name)
-    @inactive_items = @items.get_inactives.order(:brand, :thickness, :size, :name)
-    @categories = Item.distinct_categories
+    @active_items = @items.get_ordered_actives
+    @inactive_items = @items.get_ordered_inactives
+    @categories = @items.distinct_categories
     @brands = [{brand:"Lanco"}, {brand:"Wilsonart"}, {brand:"Temar"}, {brand:"Hafelle"}, {brand:"Pfister"}, {brand:"Blum"}, {brand:"Sait"}, {brand:"3M"}]
-    @pic_urls = @items.map do |item|
-      pic_url = ""
-      pic_url = url_for(item.pic) if item.pic.attached?
-      { id: item.id, pic_url: pic_url }
-    end
+    # @pic_urls = @items.map do |item|
+    #   pic_url = ""
+    #   pic_url = url_for(item.pic) if item.pic.attached?
+    #   { id: item.id, pic_url: pic_url }
+    # end
   end # END of index Method
 
 
@@ -82,10 +82,6 @@ class ItemsController < ApplicationController
         )
         if @custom_item.save
           @item.destroy
-        else
-          p @item
-          p @custom_item
-          p item_order
         end
       end
     else
@@ -93,8 +89,8 @@ class ItemsController < ApplicationController
     end
     items = Item.all
     return render :json => {
-        actives: items.get_actives.order(:brand, :thickness, :size, :name),
-        inactives: items.get_inactives.order(:brand, :thickness, :size, :name)
+        actives: items.get_ordered_actives,
+        inactives: items.get_ordered_inactives
       }
   end
 
@@ -113,8 +109,8 @@ class ItemsController < ApplicationController
     format.html
     format.json {
       render json: {
-          actives: selected_column_items.get_actives.order(:brand, :thickness, :size, :name),
-          inactives: selected_column_items.get_inactives.order(:brand, :thickness, :size, :name)
+          actives: selected_column_items.get_ordered_actives,
+          inactives: selected_column_items.get_ordered_inactives
         }
       }
     end

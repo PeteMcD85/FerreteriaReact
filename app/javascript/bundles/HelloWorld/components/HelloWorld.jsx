@@ -16,7 +16,7 @@ export default class HelloWorld extends React.Component {
     categories: PropTypes.array.isRequired,
     brands: PropTypes.array.isRequired,
     signedIn: PropTypes.bool.isRequired,
-    picUrls: PropTypes.array.isRequired
+    // picUrls: PropTypes.array.isRequired
   };
 
   /**
@@ -34,7 +34,7 @@ export default class HelloWorld extends React.Component {
       selectedNavList: [],
       selectedNavListInactives: [],
       signedIn: this.props.signedIn,
-      picUrls: this.props.picUrls,
+      // picUrls: this.props.picUrls,
       cart: {
         cartItems: [],
         cartTotal: {
@@ -535,7 +535,7 @@ export default class HelloWorld extends React.Component {
       selectedNavList = this.state.selectedNavList,
       selectedNavListInactives = this.state.selectedNavListInactives,
       signedIn = this.state.signedIn,
-      picUrls = this.state.picUrls,
+      // picUrls = this.state.picUrls,
       cart = this.state.cart,
       showCart = this.state.showCart,
       taxFree = this.state.taxFree,
@@ -671,7 +671,7 @@ export default class HelloWorld extends React.Component {
                             items={queryListActiveItems}
                             selectedNavName="query"
                             signedIn={signedIn}
-                            picUrls={picUrls}
+                            // picUrls={picUrls}
                             addToCart={this.addToCart}
                             removeFromCart={this.removeFromCart}
                             cart={cart}
@@ -686,7 +686,7 @@ export default class HelloWorld extends React.Component {
                                 items={selectedNavListInactives}
                                 selectedNavName={selectedNavName}
                                 signedIn={signedIn}
-                                picUrls={picUrls}
+                                // picUrls={picUrls}
                                 cart={cart}
                               />
                             </div>
@@ -699,7 +699,7 @@ export default class HelloWorld extends React.Component {
                             items={selectedNavList}
                             selectedNavName={selectedNavName}
                             signedIn={signedIn}
-                            picUrls={picUrls}
+                            // picUrls={picUrls}
                             addToCart={this.addToCart}
                             removeFromCart={this.removeFromCart}
                             cart={cart}
@@ -714,7 +714,7 @@ export default class HelloWorld extends React.Component {
                                 items={selectedNavListInactives}
                                 selectedNavName={selectedNavName}
                                 signedIn={signedIn}
-                                picUrls={picUrls}
+                                // picUrls={picUrls}
                                 cart={cart}
                               />
                             </div>

@@ -8,7 +8,7 @@ const Items = props => {
   let items = props.items,
     selectedNavName = props.selectedNavName,
     signedIn = props.signedIn,
-    picUrls = props.picUrls,
+    // picUrls = props.picUrls,
     cart = props.cart,
     addToCart = props.addToCart,
     removeFromCart = props.removeFromCart,
@@ -26,7 +26,7 @@ const Items = props => {
         <ItemsCard
           items={items}
           signedIn={signedIn}
-          picUrls={picUrls}
+          // picUrls={picUrls}
           addToCart={addToCart}
           removeFromCart={removeFromCart}
           cart={cart}
@@ -67,7 +67,7 @@ const Items = props => {
           <ItemsCard
             items={itemsCard}
             signedIn={signedIn}
-            picUrls={picUrls}
+            // picUrls={picUrls}
             addToCart={addToCart}
             removeFromCart={removeFromCart}
             cart={cart}
