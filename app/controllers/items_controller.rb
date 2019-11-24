@@ -71,6 +71,7 @@ class ItemsController < ApplicationController
   def destroy
     @item = Item.find(params[:id])
     items_orders = @item.item_orders
+    passed = true
     if items_orders.count != 0
       items_orders.each do |item_order|
         @custom_item = CustomItem.new(
@@ -80,17 +81,20 @@ class ItemsController < ApplicationController
           subtotal: item_order.subtotal,
           order_id: item_order.order_id
         )
-        if @custom_item.save
-          @item.destroy
+        # @custom_item.refund_items.new(item_order.refund_items.as_json)
+
+        if !@custom_item.save
+          return passed = false
         end
       end
-    else
-      @item.destroy
     end
+    @item.destroy if passed
     items = Item.all
     return render :json => {
         actives: items.get_ordered_actives,
-        inactives: items.get_ordered_inactives
+        inactives: items.get_ordered_inactives,
+        custom_item: @custom_item,
+        item_destroyed: passed
       }
   end
 

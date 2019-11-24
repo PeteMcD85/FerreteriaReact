@@ -3,7 +3,6 @@ class CustomItemsController < ApplicationController
   def edit
     @order = Order.find(params[:order_id])
     @custom_item = CustomItem.find(params[:id])
-    # @item = Item.find(@custom_item.item_id)
     p params
     p @custom_item
   end
@@ -25,7 +24,7 @@ class CustomItemsController < ApplicationController
       redirect_to order_path(@order)
     end
   end
-  # 
+  #
   # def get_custom_item_refunded
   #   @item_orders = ItemOrder.all
   #   p '++++Params+++++'

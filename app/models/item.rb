@@ -1,6 +1,5 @@
 class Item < ApplicationRecord
   has_many :item_orders, :dependent => :destroy
-  has_many :custom_items, :dependent => :destroy
   has_many :refund_items, through: :item_orders
   has_one_attached :pic
   scope :distinct_brands, -> {select(:brand).distinct}
@@ -37,13 +36,13 @@ class Item < ApplicationRecord
   scope :get_ordered_inactives, -> do
     Rails.cache.fetch("ordered_inactive_items") do
       puts 'evaluating get_ordered_inactives...'
-      get_inactives.order(:brand, :thickness, :size, :name) 
+      get_inactives.order(:brand, :thickness, :size, :name)
     end
   end
 
 
 
-  after_commit :flush_cache!
+  # after_commit :flush_cache!
 
   def update_inventory(quantity)
     self.update(inventory: quantity)
