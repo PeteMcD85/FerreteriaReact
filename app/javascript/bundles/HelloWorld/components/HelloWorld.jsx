@@ -7,7 +7,7 @@ import Accountant from "./accountant/Accountant";
 import Cart from "./cart/Cart";
 import CartPaymentMethods from "./cart/CartPaymentMethods";
 import Items from "./items/Items";
-import NavList from "./NavList";
+// import NavList from "./NavList";
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
@@ -15,7 +15,7 @@ export default class HelloWorld extends React.Component {
     inactiveItems: PropTypes.array.isRequired,
     categories: PropTypes.array.isRequired,
     brands: PropTypes.array.isRequired,
-    signedIn: PropTypes.bool.isRequired,
+    signedIn: PropTypes.bool.isRequired
     // picUrls: PropTypes.array.isRequired
   };
 
@@ -649,21 +649,21 @@ export default class HelloWorld extends React.Component {
                       ></i>
                     </div>
                     <div className="category-brand">
-                      <p onClick={e => this.dropdown(e)}>Categories</p>
-                      <p onClick={e => this.dropdown(e)}>Brands</p>
+                      {/*  <p onClick={e => this.dropdown(e)}>Categories</p>
+                       <p onClick={e => this.dropdown(e)}>Brands</p> */}
                     </div>
                     <div id="nav-list">
                       <div className="dropdown">
-                        <NavList
-                          columnList={brands}
-                          columnName="brand"
-                          getCategoryBrand={this.getCategoryBrand}
-                        />
-                        <NavList
-                          columnList={categories}
-                          columnName="category"
-                          getCategoryBrand={this.getCategoryBrand}
-                        />
+                        {/* <NavList
+                           columnList={brands}
+                           columnName="brand"
+                           getCategoryBrand={this.getCategoryBrand}
+                         />
+                          <NavList
+                           columnList={categories}
+                           columnName="category"
+                           getCategoryBrand={this.getCategoryBrand}
+                         />  */}
                       </div>
                       {showQueryList && (
                         <div>
