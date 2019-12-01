@@ -90,12 +90,7 @@ class ItemsController < ApplicationController
     end
     @item.destroy if passed
     items = Item.all
-    return render :json => {
-        actives: items.get_ordered_actives,
-        inactives: items.get_ordered_inactives,
-        custom_item: @custom_item,
-        item_destroyed: passed
-      }
+    return render 'index'
   end
 
   def get_category_brand
