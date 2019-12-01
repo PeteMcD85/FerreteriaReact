@@ -20,7 +20,7 @@ const Cart = props => {
     displayCustomItemForm = e => {
       let customItemRow = document.getElementById("custom-item-row"),
         addCIToCart = () => {
-          console.log("addCIToCart");
+          // console.log("addCIToCart");
           let customItemName = document.getElementById("custom-item-name")
               .value,
             customItemPrice = parseFloat(
@@ -69,6 +69,8 @@ const Cart = props => {
 
       addToCartButton.addEventListener("click", addCIToCart);
     };
+  // let test = cart.cartTotal.taxes;
+
   return (
     <div id="cart">
       <table>
