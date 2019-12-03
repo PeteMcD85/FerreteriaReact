@@ -81,7 +81,7 @@ class ItemsController < ApplicationController
           subtotal: item_order.subtotal,
           order_id: item_order.order_id
         )
-        # @custom_item.refund_items.new(item_order.refund_items.as_json)
+        @custom_item.refund_items.new(item_order.refund_items.as_json)
 
         if !@custom_item.save
           return passed = false
