@@ -1,6 +1,10 @@
 // +++++++++++++++++++++++ CART TABLE ++++++++++++++++++
 
 #cart {
+  #total {
+    background-color: yellow;
+  }
+
   input.item-price {
     width: 50px;
   }

@@ -5,6 +5,15 @@
   margin: 25px;
 }
 
+#total {
+  background-color: yellow;
+}
+
+#cash {
+  background-color: green;
+  color: white;
+}
+
 .orders {
   h4 {
     text-align: center;
@@ -15,6 +24,10 @@
     text-align: center;
     margin: 10px 10px;
     position: relative;
+  }
+
+  td {
+    text-align: center;
   }
 
   .search-orders {

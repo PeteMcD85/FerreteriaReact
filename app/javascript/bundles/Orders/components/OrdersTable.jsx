@@ -4,13 +4,16 @@ import PropTypes from "prop-types";
 const OrdersTable = props => {
   let orders = props.orders,
     tableCaption = props.tableCaption,
-    displayDate = (stringDate) => {
-      const splitDate = stringDate.split('T'),
+    displayDate = stringDate => {
+      const splitDate = stringDate.split("T"),
         day = splitDate[0],
-        timeOfDay = splitDate[1].split('.')[0].split(':').slice(0,2),
-        meridiem = +timeOfDay[0] < 12 ? 'AM' : 'PM';
-        timeOfDay[0] = meridiem === 'AM' ? timeOfDay[0] : +timeOfDay[0] - 12;
-      return `${day} ${timeOfDay.join(':') + meridiem}`
+        timeOfDay = splitDate[1]
+          .split(".")[0]
+          .split(":")
+          .slice(0, 2),
+        meridiem = +timeOfDay[0] < 12 ? "AM" : "PM";
+      timeOfDay[0] = meridiem === "AM" ? timeOfDay[0] : +timeOfDay[0] - 12;
+      return `${day} ${timeOfDay.join(":") + meridiem}`;
     },
     deleteItem = itemId => {
       let confirmed = confirm("Are you sure?");
@@ -33,6 +36,7 @@ const OrdersTable = props => {
       }
     };
   console.log(props);
+
   return (
     <table>
       <caption>{tableCaption}</caption>
@@ -51,14 +55,17 @@ const OrdersTable = props => {
           <th>Total</th>
         </tr>
         {orders.map((order, ind) => {
+          console.log(order.total_refunded);
           return (
             <tr key={ind}>
               <td>{order.id}</td>
               <td>{order.name}</td>
               <td>
-                <a href={`/orders/${order.id}`}>{displayDate(order.created_at)}</a>
+                <a href={`/orders/${order.id}`}>
+                  {displayDate(order.created_at)}
+                </a>
               </td>
-              <td>
+              <td id="cash">
                 $
                 {Number(order.cash_payed)
                   .toFixed(2)
@@ -107,7 +114,7 @@ const OrdersTable = props => {
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
-              <td>
+              <td id="total">
                 $
                 {Number(order.total)
                   .toFixed(2)

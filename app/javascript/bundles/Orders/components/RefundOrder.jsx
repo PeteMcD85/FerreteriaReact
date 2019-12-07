@@ -288,7 +288,9 @@ export default class RefundOrder extends React.Component {
               <td></td>
               <td></td>
               <td>Total</td>
-              <td id="refund-order-total">{refundOrderTotals.total}</td>
+              <td id="total" class="refund-order-total">
+                {refundOrderTotals.total}
+              </td>
               <td></td>
             </tr>
           </tbody>

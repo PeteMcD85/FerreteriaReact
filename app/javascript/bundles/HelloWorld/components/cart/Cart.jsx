@@ -167,7 +167,7 @@ const Cart = props => {
             <td></td>
             <td></td>
             <td>Total Parcial</td>
-            <td id="cart-subtotal-value">
+            <td class="cart-subtotal-value">
               $
               {Number(cart.cartTotal.subtotal)
                 .toFixed(2)
@@ -201,7 +201,7 @@ const Cart = props => {
             <td></td>
             <td></td>
             <td>Total</td>
-            <td id="cart-total-value">
+            <td id="total" class="cart-total-value">
               $
               {Number(cart.cartTotal.total)
                 .toFixed(2)
