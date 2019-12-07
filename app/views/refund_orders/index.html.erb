@@ -1,4 +1,4 @@
-<h1>INdex Refunds</h1>
+<h2><%= link_to 'Back to Order', order_path(@order) %></h2>
 <%= link_to 'New Refund', new_order_refund_order_path(@order) %>
 <div id="refunds">
   <% @refund_orders.each do |refund_order|%>
