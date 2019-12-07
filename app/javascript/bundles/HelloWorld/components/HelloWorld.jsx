@@ -346,7 +346,8 @@ export default class HelloWorld extends React.Component {
   };
 
   getQueriedItems = query => {
-    if (query) query = query.trim() ;
+    console.log(query);
+    // if (query) query = query.trim() ;
     let currentQueryLength = query.length,
       prevQueryLength = this.state.queryLength;
     if (currentQueryLength === 0) {
