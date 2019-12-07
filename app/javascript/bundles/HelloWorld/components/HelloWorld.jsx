@@ -512,6 +512,8 @@ export default class HelloWorld extends React.Component {
         cartTotal: savedCartTotal
       }
     });
+    this.cartButton();
+
   };
 
   removeAllActiveClass = () => {
