@@ -36,7 +36,7 @@ const ItemsTable = props => {
           {items.map((item, ind) => {
             return (
               <ItemTable
-                key={ind}
+                key={item.id}
                 item={item}
                 signedIn={signedIn}
                 addToCart={addToCart}

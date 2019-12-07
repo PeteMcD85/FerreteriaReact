@@ -45,7 +45,7 @@ const ItemsCard = props => {
             return (
               <ItemCard
                 key={ind}
-                item={item}
+                item={item.id}
                 signedIn={signedIn}
                 // picUrl={getPicUrl(item.id)}
                 addToCart={addToCart}

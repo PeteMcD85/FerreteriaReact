@@ -25,13 +25,10 @@ export default class Orders extends React.Component {
     let startRange = new Date(
         document.getElementById("start-range").value
       ).toISOString(),
-      endRange = new Date(
-        document.getElementById("end-range").value
-      ).toISOString,
-
-    today = new Date();
+      endRange = new Date(document.getElementById("end-range").value)
+        .toISOString,
+      today = new Date();
     this.getOrdersRefunded(today, today);
-
   }
 
   updateOrders = () => {
@@ -56,27 +53,27 @@ export default class Orders extends React.Component {
     return ordersToUse.reduce((total, order) => {
       return (+total + +order[column]).toFixed(2);
     }, 0);
+    console.log("ordersToUse");
+    console.log(ordersToUse);
   };
 
   searchOrder = e => {
     let query = e.target.value.trim().toLowerCase();
-      fetch(
-        `/get_orders_searched.json?query=${query}`
-      )
-        .then(res => res.json())
-        .then(
-          result => {
-            console.log("working");
-            console.log(result);
-            this.setState({ displayedOrders: result.orders });
-          },
-          error => {
-            console.error(
-              "Error retrieving results for updateSelectedNavList AJAX method"
-            );
-            console.error(error);
-          }
-        );
+    fetch(`/get_orders_searched.json?query=${query}`)
+      .then(res => res.json())
+      .then(
+        result => {
+          console.log("working");
+          console.log(result);
+          this.setState({ displayedOrders: result.orders });
+        },
+        error => {
+          console.error(
+            "Error retrieving results for updateSelectedNavList AJAX method"
+          );
+          console.error(error);
+        }
+      );
   };
 
   getOrdersRefunded = (startRange, endRange) => {
@@ -88,7 +85,7 @@ export default class Orders extends React.Component {
         result => {
           console.log("working");
           this.setState({
-            refundedOrders: result.refunded_orders ,
+            refundedOrders: result.refunded_orders,
             displayedOrders: result.orders
           });
         },
@@ -142,10 +139,7 @@ export default class Orders extends React.Component {
           </label>
         </div>
 
-        <OrdersTable
-          orders={displayedOrders}
-          tableCaption="Ordenes"
-        />
+        <OrdersTable orders={displayedOrders} tableCaption="Ordenes" />
         <OrdersTable
           orders={refundedOrders}
           tableCaption="Pedidos Reembolsados"
@@ -199,7 +193,9 @@ export default class Orders extends React.Component {
                   .toFixed(2)
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                ;
               </td>
+
               <td>
                 $
                 {Number(this.getSum("subtotal"))

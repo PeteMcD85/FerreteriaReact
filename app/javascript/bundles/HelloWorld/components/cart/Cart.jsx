@@ -92,7 +92,7 @@ const Cart = props => {
                 ? soldPrice.toFixed(2)
                 : Number(cartItem.item.priceGiven).toFixed(2);
             return (
-              <tr key={ind} className="cart-item">
+              <tr key={`tr-${cartItem.item.id}-${cartItem.item.quantity}-${cartItem.subtotal}`} className="cart-item">
                 <td>{cartItem.item.brand}</td>
                 <td>{cartItem.item.name}</td>
                 <td>{cartItem.item.color}</td>
@@ -101,7 +101,7 @@ const Cart = props => {
                 <td>
                   $
                   <input
-                    key={`item-price-${cartItem.item.id}`}
+                    key={`item-price-${cartItem.item.id}-${cartItem.item.quantity}-${cartItem.subtotal}`}
                     type="number"
                     id={`item-price-${cartItem.item.id}`}
                     className={`item-price`}
@@ -111,7 +111,7 @@ const Cart = props => {
                 </td>
                 <td>
                   <input
-                    key={`item-quantity-${cartItem.item.id}`}
+                    key={`item-quantity${cartItem.item.id}-${cartItem.item.quantity}-${cartItem.subtotal}`}
                     type="number"
                     id={`item-quantity-${cartItem.item.id}`}
                     className={`item-quantity`}
