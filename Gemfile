@@ -7,7 +7,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # gem 'wdm', '>= 0.1.0'
 
 # ===== Development version =====
-ruby '2.6.0'
+ruby '2.6.3'
 
 
 gem 'react_on_rails', '11.1.4'

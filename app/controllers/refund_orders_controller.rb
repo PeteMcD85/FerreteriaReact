@@ -11,12 +11,16 @@ class RefundOrdersController < ApplicationController
   def show
     @order = Order.find(params[:order_id])
     @refund_order =  @order.refund_orders.find(params[:id])
-    @refund_items = @refund_order.refund_items.map do |refund_item|
-        refundable = refund_item.refundable
+    @refund_items = @refund_order.refund_items.map do |ri|
+      p "refund item =================="
+      p ri
+        refundable = ri.refundable_type.constantize.find(ri.refundable_id)
+        p "refundable ++++++++++++++++++"
+        p refundable
         if refundable[:item_id]
-          refund_item.as_json.merge(refundable: refundable).merge(item: refundable.item)
+          ri.as_json.merge(refundable: refundable).merge(item: refundable.item)
         else
-          refund_item.as_json.merge(refundable: refundable)
+          ri.as_json.merge(refundable: refundable)
         end
     end
     respond_to do |format|
