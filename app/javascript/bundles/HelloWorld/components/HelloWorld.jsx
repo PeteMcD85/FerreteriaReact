@@ -496,6 +496,7 @@ export default class HelloWorld extends React.Component {
     savedCarts.push(cart);
     LS.set("savedCarts", savedCarts);
     this.clearCart();
+    window.location.href = '/';
   };
 
   displaySavedCart = (e, savedCartIndex) => {
