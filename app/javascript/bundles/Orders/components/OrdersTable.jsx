@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 const OrdersTable = props => {
   let orders = props.orders,
     tableCaption = props.tableCaption,
+    isRefundedOrder = tableCaption === "Ordenes" ? false : true,
     displayDate = (stringDate) => {
       const splitDate = stringDate.split('T'),
         day = splitDate[0],
@@ -45,10 +46,13 @@ const OrdersTable = props => {
           <th>Tarjeta De Crédito</th>
           <th>Débito</th>
           <th>Cheque</th>
-          <th>Total Reembolsado</th>
-          <th>Total Parcial</th>
-          <th>Impuestos</th>
-          <th>Total</th>
+          { isRefundedOrder && <th>Total Reembolsado</th>}
+          {!isRefundedOrder && <th>Total Parcial</th>}
+          {!isRefundedOrder && <th>Impuestos</th>}
+          {!isRefundedOrder && <th>Total</th>}
+
+
+
         </tr>
         {orders.map((order, ind) => {
           return (
@@ -86,6 +90,7 @@ const OrdersTable = props => {
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
+<<<<<<< HEAD
               <td>
                 -$
                 {Number(order.refund)
@@ -114,6 +119,48 @@ const OrdersTable = props => {
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
+=======
+              { isRefundedOrder &&
+                <td>
+                  -$
+                  {Number(order.total_ref)
+                    .toFixed(2)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </td>
+              }
+              { !isRefundedOrder &&
+                <td>
+                  $
+                  {Number(order.subtotal)
+                    .toFixed(2)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </td>
+              }
+              { !isRefundedOrder &&
+                <td>
+                  $
+                  {Number(order.taxes)
+                    .toFixed(2)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </td>
+              }
+              { !isRefundedOrder &&
+                <td>
+                  $
+                  {Number(order.total)
+                    .toFixed(2)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </td>
+              }
+
+
+
+
+>>>>>>> master
             </tr>
           );
         })}

@@ -9,16 +9,32 @@ class RefundOrdersController < ApplicationController
   end
 
   def show
+    # Order passed through parameters
     @order = Order.find(params[:order_id])
+
+    # All RefundOrders belonging to Order
     @refund_order =  @order.refund_orders.find(params[:id])
-    @refund_items = @refund_order.refund_items.map do |refund_item|
-        refundable = refund_item.refundable
-        if refundable[:item_id]
-          refund_item.as_json.merge(refundable: refundable).merge(item: refundable.item)
-        else
-          refund_item.as_json.merge(refundable: refundable)
-        end
+
+    # Merges the ItemOrder or CustomItem to the RefundItem
+    @refund_items = @refund_order.refund_items.map do |ri|
+
+      # The ItemOrder or CustomItem the RefundItem belongs to
+      refundable = ri.refundable_type.constantize.find(ri.refundable_id)
+
+      # If ItemOrder
+      if refundable[:item_id]
+
+        # Merges Item to the RefundItem
+        ri.as_json.merge(refundable: refundable).merge(item: refundable.item)
+
+      #  ELse CustomItem
+      else
+        # Merges Item to the RefundItem
+        ri.as_json.merge(refundable: refundable)
+      end
     end
+
+    # Renders RefundItems for current RefundOrder
     respond_to do |format|
       format.html
       format.json {
@@ -27,17 +43,18 @@ class RefundOrdersController < ApplicationController
         }
       }
     end
+
   end
 
   def new
     @order = Order.find(params[:order_id])
     @refund_items = @order.refund_items
     @item_orders = @order.item_orders.map { |io|
-      refund_max = io.quantity - io.refund_items.reduce(0) { |sum, ri| sum + ri.quantity_refunded }
+      refund_max = io.quantity - io.refund_items.reduce(0) { |sum, ri| sum += ri.quantity_refunded }
       io.as_json.merge!(item: io.item, refund_max: refund_max)
     }
     @custom_items = @order.custom_items.map { |ci|
-      refund_max = ci.quantity - ci.refund_items.reduce(0) { |sum, ri| sum + ri.quantity_refunded }
+      refund_max = ci.quantity - ci.refund_items.reduce(0) { |sum, ri| sum += ri.quantity_refunded }
       ci.as_json.merge!(refund_max: refund_max)
     }
   end # End of NEW action

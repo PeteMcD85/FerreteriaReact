@@ -7,7 +7,11 @@ ruby '2.6.3'
 gem 'wdm', '>= 0.1.0'
 
 # ===== Development version =====
+<<<<<<< HEAD
 # ruby '2.6.0'
+=======
+ruby '2.6.3'
+>>>>>>> master
 
 
 gem 'react_on_rails', '11.1.4'

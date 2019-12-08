@@ -346,7 +346,8 @@ export default class HelloWorld extends React.Component {
   };
 
   getQueriedItems = query => {
-    query = query.trim();
+    console.log(query);
+    // if (query) query = query.trim() ;
     let currentQueryLength = query.length,
       prevQueryLength = this.state.queryLength;
     if (currentQueryLength === 0) {
@@ -495,6 +496,7 @@ export default class HelloWorld extends React.Component {
     savedCarts.push(cart);
     LS.set("savedCarts", savedCarts);
     this.clearCart();
+    window.location.href = '/';
   };
 
   displaySavedCart = (e, savedCartIndex) => {
@@ -510,6 +512,8 @@ export default class HelloWorld extends React.Component {
         cartTotal: savedCartTotal
       }
     });
+    this.cartButton();
+
   };
 
   removeAllActiveClass = () => {

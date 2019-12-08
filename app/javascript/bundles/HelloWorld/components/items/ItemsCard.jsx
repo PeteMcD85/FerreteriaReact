@@ -19,6 +19,7 @@ const ItemsCard = props => {
       let direction = e.target.classList.contains("more") ? "more" : "less";
       updateItemsRange(direction);
     };
+    console.log(items);
   return (
     <div>
       <div id="range-buttons-div">
@@ -44,7 +45,7 @@ const ItemsCard = props => {
           if (ind >= itemsStartRange && ind < itemsEndRange) {
             return (
               <ItemCard
-                key={ind}
+                key={item.id}
                 item={item}
                 signedIn={signedIn}
                 // picUrl={getPicUrl(item.id)}

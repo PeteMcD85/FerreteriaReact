@@ -51,11 +51,10 @@ export default class Orders extends React.Component {
   getSum = column => {
     let displayedOrders = this.state.displayedOrders,
       refundedOrders = this.state.refundedOrders,
-      ordersToUse =
-        column === "total_refunded" ? refundedOrders : displayedOrders;
+      ordersToUse = column === "total_ref" ? refundedOrders : displayedOrders;
     return ordersToUse.reduce((total, order) => {
-      return (+total + +order[column]).toFixed(2);
-    }, 0);
+      return (+total + +order[column])
+    }, 0).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   searchOrder = e => {
@@ -167,59 +166,35 @@ export default class Orders extends React.Component {
             <tr>
               <td>
                 $
-                {Number(this.getSum("cash_payed"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                {this.getSum("cash_payed")}
               </td>
               <td>
                 $
-                {Number(this.getSum("credit_card_payed"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                {this.getSum("credit_card_payed")}
               </td>
               <td>
                 $
-                {Number(this.getSum("debit_payed"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                {this.getSum("debit_payed")}
               </td>
               <td>
                 $
-                {Number(this.getSum("check_payed"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                {this.getSum("check_payed")}
               </td>
               <td>
                 -$
-                {Number(this.getSum("total_refunded"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                {this.getSum("total_ref")}
               </td>
               <td>
                 $
-                {Number(this.getSum("subtotal"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                {this.getSum("subtotal")}
               </td>
               <td>
                 $
-                {Number(this.getSum("taxes"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                {this.getSum("taxes")}
               </td>
               <td>
                 $
-                {Number(this.getSum("total"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                {this.getSum("total")}
               </td>
             </tr>
           </tbody>
