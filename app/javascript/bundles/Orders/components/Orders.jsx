@@ -55,6 +55,8 @@ export default class Orders extends React.Component {
         .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }, 0);
+    console.log("ordersToUse");
+    console.log(ordersToUse);
   };
 
   searchOrder = e => {

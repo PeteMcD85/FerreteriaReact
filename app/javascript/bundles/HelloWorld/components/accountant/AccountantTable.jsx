@@ -50,7 +50,7 @@ const AccountantTable = props => {
               <td>{item.thickness}</td>
               <td>{item.color}</td>
               <td>{item.inventory}</td>
-              <td>
+              <td id="cash">
                 $
                 {Number(item.bought_price)
                   .toFixed(2)

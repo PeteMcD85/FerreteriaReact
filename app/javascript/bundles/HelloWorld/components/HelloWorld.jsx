@@ -62,7 +62,6 @@ export default class HelloWorld extends React.Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount");
     let savedCarts = LS.get("savedCarts");
     if (!savedCarts) LS.set("savedCarts", []);
     this.setState({ savedCarts: savedCarts });
@@ -75,8 +74,9 @@ export default class HelloWorld extends React.Component {
           return (total += +cartItem.subtotal);
         }, 0)
         .toFixed(2),
-      taxes = taxFree ? 0 : (subtotal * 0.115).toFixed(2),
+      taxes = (subtotal * 0.115).toFixed(2),
       total = (+subtotal + +taxes).toFixed(2);
+
     return { subtotal: subtotal, taxes: taxes, total: total };
   };
 
@@ -290,21 +290,20 @@ export default class HelloWorld extends React.Component {
     let taxFree = this.state.taxFree ? false : true,
       cart = this.state.cart,
       cartTotal = this.state.cart.cartTotal.total;
-    document.getElementById("custom-cash").value = 0;
-    document.getElementById("custom-credit-card").value = 0;
-    document.getElementById("custom-check").value = 0;
-    document.getElementById("custom-debit").value = 0;
-    document.getElementById("cash-recieved").value = 0;
+
+    document.getElementById("custom-cash").value;
+    document.getElementById("custom-credit-card").value;
+    document.getElementById("custom-check").value;
+    document.getElementById("custom-debit").value;
+    document.getElementById("cash-recieved").value;
     if (taxFree) {
       cart.cartTotal.taxes = 0;
       cart.cartTotal.total = cart.cartTotal.subtotal;
     } else {
       let cartTotal = this.calculateCartTotal(cart.cartItems);
-      console.log(cartTotal);
       cart.cartTotal.taxes = cartTotal.taxes;
       cart.cartTotal.total = cartTotal.total;
     }
-
     this.setState({
       taxFree: taxFree,
       cart: cart,
@@ -397,8 +396,6 @@ export default class HelloWorld extends React.Component {
           });
           if (returnItem) return activeItem;
         }); //end of getQueriedItems
-      console.log("queriedItems");
-      console.log(queriedItems);
       this.setState({
         query: query,
         queryListActiveItems: queriedItems,
@@ -413,8 +410,7 @@ export default class HelloWorld extends React.Component {
     let cartTotal = this.state.cart.cartTotal.total,
       val = e.target.value,
       customerChange = (+val - +cartTotal).toFixed(2);
-    console.log(val);
-    console.log(cartTotal);
+
     this.setState({ customerChange: customerChange });
   };
 
@@ -431,7 +427,7 @@ export default class HelloWorld extends React.Component {
         +debitAmount
       ).toFixed(2),
       customerChange = (+customTotal - +cartTotal).toFixed(2);
-    console.log("update");
+
     this.setState({
       customTotal: customTotal,
       customerChange: customerChange
@@ -552,7 +548,7 @@ export default class HelloWorld extends React.Component {
       itemsEndRange = this.state.itemsEndRange,
       showAccountant = this.state.showAccountant,
       savedCarts = this.state.savedCarts;
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div className="hello-world">
         {signedIn && (

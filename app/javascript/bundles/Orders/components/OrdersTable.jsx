@@ -46,10 +46,11 @@ const OrdersTable = props => {
           <th>Número De Orden</th>
           <th>Nombre</th>
           <th>Fecha Y Hora</th>
-          <th>Efectivo</th>
+
           <th>Tarjeta De Crédito</th>
           <th>Débito</th>
           <th>Cheque</th>
+          <th>Efectivo</th>
           {isRefundedOrder && <th>Total Reembolsado</th>}
           {!isRefundedOrder && <th>Total Parcial</th>}
           {!isRefundedOrder && <th>Impuestos</th>}
@@ -66,13 +67,7 @@ const OrdersTable = props => {
                   {displayDate(order.created_at)}
                 </a>
               </td>
-              <td id="cash">
-                $
-                {Number(order.cash_payed)
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
+
               <td>
                 $
                 {Number(order.credit_card_payed)
@@ -94,8 +89,15 @@ const OrdersTable = props => {
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
+              <td id="cash">
+                $
+                {Number(order.cash_payed)
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
               {isRefundedOrder && (
-                <td>
+                <td id="refund">
                   -$
                   {Number(order.total_ref)
                     .toFixed(2)
@@ -122,7 +124,7 @@ const OrdersTable = props => {
                 </td>
               )}
               {!isRefundedOrder && (
-                <td>
+                <td id="total">
                   $
                   {Number(order.total)
                     .toFixed(2)
