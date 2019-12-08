@@ -42,7 +42,7 @@ class Item < ApplicationRecord
 
 
 
-  # after_commit :flush_cache!
+  after_commit :flush_cache!
 
   def update_inventory(quantity)
     self.update(inventory: quantity)
