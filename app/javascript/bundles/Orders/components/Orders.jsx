@@ -51,11 +51,10 @@ export default class Orders extends React.Component {
   getSum = column => {
     let displayedOrders = this.state.displayedOrders,
       refundedOrders = this.state.refundedOrders,
-      ordersToUse =
-        column === "total_ref" ? refundedOrders : displayedOrders;
+      ordersToUse = column === "total_ref" ? refundedOrders : displayedOrders;
     return ordersToUse.reduce((total, order) => {
-      return (+total + +order[column]).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    }, 0);
+      return (+total + +order[column])
+    }, 0).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   searchOrder = e => {
@@ -167,35 +166,35 @@ export default class Orders extends React.Component {
             <tr>
               <td>
                 $
-                {Number(this.getSum("cash_payed"))}
+                {this.getSum("cash_payed")}
               </td>
               <td>
                 $
-                {Number(this.getSum("credit_card_payed"))}
+                {this.getSum("credit_card_payed")}
               </td>
               <td>
                 $
-                {Number(this.getSum("debit_payed"))}
+                {this.getSum("debit_payed")}
               </td>
               <td>
                 $
-                {Number(this.getSum("check_payed"))}
+                {this.getSum("check_payed")}
               </td>
               <td>
                 -$
-                {Number(this.getSum("total_ref"))}
+                {this.getSum("total_ref")}
               </td>
               <td>
                 $
-                {Number(this.getSum("subtotal"))}
+                {this.getSum("subtotal")}
               </td>
               <td>
                 $
-                {Number(this.getSum("taxes"))}
+                {this.getSum("taxes")}
               </td>
               <td>
                 $
-                {Number(this.getSum("total"))}
+                {this.getSum("total")}
               </td>
             </tr>
           </tbody>
