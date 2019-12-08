@@ -46,7 +46,6 @@ const ItemCard = props => {
         };
       return { value: "", disabled: false, text: "Add to Cart" };
     };
-  // console.log(cart);
   return (
     <div className="item">
       {isPicUrl !== "" && <img className="item-pic"  />}

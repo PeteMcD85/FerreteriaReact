@@ -69,9 +69,16 @@ class ItemsController < ApplicationController
   end
 
   def destroy
+    # Item must be converted to CustomItem
+    # to be able to refund past purchases
+
+    # Item to be destroyed
     @item = Item.find(params[:id])
+
+    # Item Orders to be destroyed
     items_orders = @item.item_orders
-    passed = true
+
+    # passed = true
     if items_orders.count != 0
       items_orders.each do |item_order|
         @custom_item = CustomItem.new(
@@ -81,20 +88,33 @@ class ItemsController < ApplicationController
           subtotal: item_order.subtotal,
           order_id: item_order.order_id
         )
-        # @custom_item.refund_items.new(item_order.refund_items.as_json)
 
-        if !@custom_item.save
-          return passed = false
+
+        if @custom_item.save
+          p "Custom Item Saved ================="
+          item_order.refund_items.each { |ri|
+            @custom_item.refund_items.create(
+              quantity_refunded: ri.quantity_refunded,
+              subtotal_refunded: ri.subtotal_refunded,
+              refund_order_id: ri.refund_order_id
+            )
+          }
+          p "refunded items ++++++++++++++++++++++"
+          @item.destroy
+          # p refund_items
+          # return passed = false
         end
       end
     end
-    @item.destroy if passed
+    # MUST CREATE TEST
+    # @item.destroy if passed
+
     items = Item.all
     return render :json => {
         actives: items.get_ordered_actives,
         inactives: items.get_ordered_inactives,
         custom_item: @custom_item,
-        item_destroyed: passed
+        # item_destroyed: passed
       }
   end
 

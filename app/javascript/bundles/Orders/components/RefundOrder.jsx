@@ -195,7 +195,7 @@ export default class RefundOrder extends React.Component {
                   </td>
                   <td>{itemOrder.quantity}</td>
 
-                  <td>{itemOrder.quantity_refunded}</td>
+                  <td>{itemOrder.quantity - itemOrder.refund_max}</td>
                   <td>
                     <input
                       className="refund-quantity-input"
@@ -229,7 +229,7 @@ export default class RefundOrder extends React.Component {
                   </td>
                   <td>{customItem.quantity} </td>
 
-                  <td>{customItem.quantity_refunded} </td>
+                  <td>{customItem.quantity - customItem.refund_max} </td>
                   <td>
                     <input
                       className="refund-quantity-input"
