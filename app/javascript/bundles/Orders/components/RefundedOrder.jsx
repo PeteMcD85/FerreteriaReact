@@ -141,7 +141,6 @@ export default class RefundedOrders extends React.Component {
             <td></td>
             <td></td>
             <td></td>
-
             <td>Taxes De Reembolso</td>
             <td>
               $

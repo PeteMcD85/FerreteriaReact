@@ -49,11 +49,14 @@ export default class Orders extends React.Component {
     let displayedOrders = this.state.displayedOrders,
       refundedOrders = this.state.refundedOrders,
       ordersToUse = column === "total_ref" ? refundedOrders : displayedOrders;
+    console.log(displayedOrders);
     return ordersToUse.reduce((total, order) => {
-      return (+total + +order[column])
+      let numberrr = (+total + +order[column])
         .toFixed(2)
         .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+      return Number(numberrr);
     }, 0);
     console.log("ordersToUse");
     console.log(ordersToUse);
@@ -110,7 +113,6 @@ export default class Orders extends React.Component {
       yyyy = today.getFullYear();
     today = yyyy + "-" + mm + "-" + dd;
     console.log(this.state);
-    console.log(refundedOrders);
     return (
       <div className="orders">
         <h4>Fechas</h4>

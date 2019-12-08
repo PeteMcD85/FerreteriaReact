@@ -46,7 +46,6 @@ const OrdersTable = props => {
           <th>Número De Orden</th>
           <th>Nombre</th>
           <th>Fecha Y Hora</th>
-
           <th>Tarjeta De Crédito</th>
           <th>Débito</th>
           <th>Cheque</th>
@@ -67,7 +66,6 @@ const OrdersTable = props => {
                   {displayDate(order.created_at)}
                 </a>
               </td>
-
               <td>
                 $
                 {Number(order.credit_card_payed)

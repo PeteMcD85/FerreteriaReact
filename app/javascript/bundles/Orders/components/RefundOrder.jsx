@@ -40,9 +40,19 @@ export default class RefundOrder extends React.Component {
         .reduce((total, item) => {
           return (total += item);
         }, 0)
-        .toFixed(2),
-      taxes = taxFree ? 0 : (subtotal * 0.115).toFixed(2),
-      total = (+subtotal + +taxes).toFixed(2);
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+      taxes = taxFree
+        ? 0
+        : Number(subtotal * 0.115)
+            .toFixed(2)
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+      total = Number(+subtotal + +taxes)
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return { subtotal: subtotal, taxes: taxes, total: total };
   };
 
@@ -191,7 +201,11 @@ export default class RefundOrder extends React.Component {
                   <td>{itemOrder.item.size}</td>
                   <td>{itemOrder.item.thickness}</td>
                   <td id={`io-price-given-${itemOrder.id}`}>
-                    {itemOrder.price_given}
+                    ${" "}
+                    {Number(itemOrder.price_given)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                   </td>
                   <td>{itemOrder.quantity}</td>
 
@@ -210,9 +224,19 @@ export default class RefundOrder extends React.Component {
                     id={`io-subtotal-refunded-${itemOrder.id}`}
                     className="items-subtotal-refund"
                   >
-                    0
+                    ${" "}
+                    {Number(0)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                   </td>
-                  <td>{itemOrder.subtotal}</td>
+                  <td>
+                    ${" "}
+                    {Number(itemOrder.subtotal)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </td>
                 </tr>
               );
             })}
@@ -225,10 +249,13 @@ export default class RefundOrder extends React.Component {
                   <td></td>
                   <td></td>
                   <td id={`ci-price-given-${customItem.id}`}>
-                    ${customItem.price_given}
+                    ${" "}
+                    {Number(customItem.price_given)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                   </td>
                   <td>{customItem.quantity} </td>
-
                   <td>{customItem.quantity - customItem.refund_max} </td>
                   <td>
                     <input
@@ -244,10 +271,19 @@ export default class RefundOrder extends React.Component {
                     id={`ci-subtotal-refunded-${customItem.id}`}
                     className="items-subtotal-refund"
                   >
-                    {" "}
-                    0
+                    ${" "}
+                    {Number(0)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                   </td>
-                  <td>${customItem.subtotal} </td>
+                  <td>
+                    ${" "}
+                    {Number(customItem.subtotal)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                  </td>
                   <td></td>
                 </tr>
               );
@@ -261,8 +297,27 @@ export default class RefundOrder extends React.Component {
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>{" "}
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td>Subtotal</td>
-              <td id="refund-order-subtotal">{refundOrderTotals.subtotal}</td>
+              <td id="refund-order-subtotal">
+                ${" "}
+                {Number(refundOrderTotals.subtotal)
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
               <td></td>
             </tr>
             <tr>
@@ -274,8 +329,14 @@ export default class RefundOrder extends React.Component {
               <td></td>
               <td></td>
               <td></td>
-              <td>Taxes</td>
-              <td id="refund-order-taxes">{refundOrderTotals.taxes}</td>
+              <td>Impuestos</td>
+              <td id="refund-order-taxes">
+                ${" "}
+                {Number(refundOrderTotals.taxes)
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
               <td></td>
             </tr>
             <tr>
@@ -288,8 +349,12 @@ export default class RefundOrder extends React.Component {
               <td></td>
               <td></td>
               <td>Total</td>
-              <td id="total" class="refund-order-total">
-                {refundOrderTotals.total}
+              <td id="total" className="refund-order-total">
+                ${" "}
+                {Number(refundOrderTotals.total)
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
               <td></td>
             </tr>
