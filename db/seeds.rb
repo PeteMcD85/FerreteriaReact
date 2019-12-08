@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # db = {
 #   items: Item.all.as_json,
 #   orders: Order.all.as_json,
@@ -55,6 +56,9 @@ File.open("#{today_db}/item_orders.rb", "w+") { |f| f.write(item_orders) }
 
 
 # (?<="updated_at"=>)(.*?)(?=\})
+=======
+
+>>>>>>> mastersss
 
 file = File.read("db/backups/2019-11-24/custom_items.rb")
 #
@@ -66,7 +70,11 @@ File.open("db/backups/2019-11-24/custom_items.rb", 'w+') {|f|
 
 file = File.read("db/backups/2019-11-24/item_orders.rb")
 
+<<<<<<< HEAD
 new_content = file.gsub(/(?<="updated_at"=>)(.*?)(?=\})/, '"\1"').gsub(/(?<="created_at"=>)(.*?)(?=\, "updated)/, '"\1"')
+=======
+new_content = file.gsub(/(?<="updated_at"=>)(.*?)(?=\, "price_given)/, '"\1"').gsub(/(?<="created_at"=>)(.*?)(?=\, "updated)/, '"\1"')
+>>>>>>> mastersss
 # p new_content
 
 File.open("db/backups/2019-11-24/item_orders.rb", 'w+') {|f|
@@ -75,7 +83,11 @@ File.open("db/backups/2019-11-24/item_orders.rb", 'w+') {|f|
 
 file = File.read("db/backups/2019-11-24/orders.rb")
 
+<<<<<<< HEAD
 new_content = file.gsub(/(?<="updated_at"=>)(.*?)(?=\})/, '"\1"').gsub(/(?<="created_at"=>)(.*?)(?=\, "updated)/, '"\1"')
+=======
+new_content = file.gsub(/(?<="updated_at"=>)(.*?)(?=\, "order)/, '"\1"').gsub(/(?<="created_at"=>)(.*?)(?=\, "updated)/, '"\1"')
+>>>>>>> mastersss
 # p new_content
 
 File.open("db/backups/2019-11-24/orders.rb", 'w+') {|f|
@@ -84,7 +96,11 @@ File.open("db/backups/2019-11-24/orders.rb", 'w+') {|f|
 
 file = File.read("db/backups/2019-11-24/items.rb")
 
+<<<<<<< HEAD
 new_content = file.gsub(/(?<="updated_at"=>)(.*?)(?=\})/, '"\1"').gsub(/(?<="created_at"=>)(.*?)(?=\, "updated)/, '"\1"')
+=======
+new_content = file.gsub(/(?<="updated_at"=>)(.*?)(?=\, "image)/, '"\1"').gsub(/(?<="created_at"=>)(.*?)(?=\, "updated)/, '"\1"')
+>>>>>>> mastersss
 # p new_content
 
 File.open("db/backups/2019-11-24/items.rb", 'w+') {|f|
