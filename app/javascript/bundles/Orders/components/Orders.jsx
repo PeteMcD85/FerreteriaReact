@@ -49,17 +49,13 @@ export default class Orders extends React.Component {
     let displayedOrders = this.state.displayedOrders,
       refundedOrders = this.state.refundedOrders,
       ordersToUse = column === "total_ref" ? refundedOrders : displayedOrders;
-    console.log(displayedOrders);
-    return ordersToUse.reduce((total, order) => {
-      let numberrr = (+total + +order[column])
-        .toFixed(2)
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-      return Number(numberrr);
-    }, 0);
-    console.log("ordersToUse");
-    console.log(ordersToUse);
+    return ordersToUse
+      .reduce((total, order) => {
+        return +total + +order[column];
+      }, 0)
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   searchOrder = e => {
@@ -164,41 +160,17 @@ export default class Orders extends React.Component {
               <th>Total</th>
             </tr>
             <tr>
-              <td>
-                $
-                {Number(this.getSum("credit_card_payed"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-              <td>
-                $
-                {Number(this.getSum("debit_payed"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-              <td>
-                $
-                {Number(this.getSum("check_payed"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-              <td id="cash">
-                $
-                {Number(this.getSum("cash_payed"))
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
+              <td>${this.getSum("cash_payed")}</td>
+              <td>${this.getSum("credit_card_payed")}</td>
+              <td>${this.getSum("debit_payed")}</td>
+              <td id="cash">${this.getSum("check_payed")}</td>
               <td>
                 -$
-                {Number(this.getSum("total_ref"))}
+                {this.getSum("total_ref")}
               </td>
-              <td>${Number(this.getSum("subtotal"))}</td>
-              <td>${Number(this.getSum("taxes"))}</td>
-              <td id="total">${Number(this.getSum("total"))}</td>
+              <td>${this.getSum("subtotal")}</td>
+              <td>${this.getSum("taxes")}</td>
+              <td>${this.getSum("total")}</td>
             </tr>
           </tbody>
         </table>
