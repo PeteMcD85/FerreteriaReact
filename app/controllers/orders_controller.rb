@@ -127,18 +127,14 @@ protect_from_forgery :except => [:create]
       refund_orders = RefundOrder.get_refund_orders(start_date, end_date)
       orders = Order.get_orders(start_date, end_date).map{|o| o.as_json.merge!(refund: o.refund_orders.reduce(0){|sum, ro| sum += ro.total_refunded})}
     end
-<<<<<<< HEAD
-    refund_orders = refund_orders.distinct_orders.map{|o| Order.find(o.order_id).as_json.merge!(refund: Order.find(o.order_id).refund_orders.reduce(0){|sum, ro| sum += ro.total_refunded})}
-=======
 
     refund_orders = refund_orders.distinct_orders.map{|val|
       order = Order.find(val.order_id)
       total_ref = order.refund_orders.reduce(0){ |sum, ro|
-        sum + ro.subtotal_refunded + ro.taxes_refunded 
+        sum + ro.subtotal_refunded + ro.taxes_refunded
       }
       order.as_json.merge!(total_ref: total_ref )
     }
->>>>>>> master
     respond_to do |format|
     format.html
     format.json {

@@ -90,36 +90,6 @@ const OrdersTable = props => {
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
-<<<<<<< HEAD
-              <td>
-                -$
-                {Number(order.refund)
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-              <td>
-                $
-                {Number(order.subtotal)
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-              <td>
-                $
-                {Number(order.taxes)
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-              <td>
-                $
-                {Number(order.total)
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </td>
-=======
               { isRefundedOrder &&
                 <td>
                   -$
@@ -160,7 +130,6 @@ const OrdersTable = props => {
 
 
 
->>>>>>> master
             </tr>
           );
         })}
