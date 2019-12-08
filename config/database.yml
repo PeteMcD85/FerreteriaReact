@@ -36,8 +36,8 @@ development:
 
   # The password associated with the postgres role (username).
   # ===== KAYSHLA'S version =====
-  username: postgres
-  password: Anibal1953
+  # username: postgres
+  # password: Anibal1953
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -64,8 +64,8 @@ test:
   <<: *default
   database: ferreteriaReact_test
   # ===== KAYSHLA'S version =====
-  username: postgres
-  password: Anibal1953
+  # username: postgres
+  # password: Anibal1953
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
