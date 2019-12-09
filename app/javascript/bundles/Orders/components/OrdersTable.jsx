@@ -94,8 +94,14 @@ const OrdersTable = props => {
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
+<<<<<<< HEAD
               {isRefundedOrder && (
                 <td id="refund">
+=======
+
+              { isRefundedOrder &&
+                <td>
+>>>>>>> testing
                   -$
                   {Number(order.total_ref)
                     .toFixed(2)
@@ -129,7 +135,12 @@ const OrdersTable = props => {
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </td>
+<<<<<<< HEAD
               )}
+=======
+              }
+
+>>>>>>> testing
             </tr>
           );
         })}

@@ -2,6 +2,8 @@
 # RefundOrder.destroy_all
 #
 # # GRABS ALL ORDERS WITH REFUND
+RefundOrder.destroy_all
+
 orders_with_refund = Order.where('total_refunded > 0')
 
 p 'orders_with_refund'
@@ -40,10 +42,12 @@ orders_with_refund.each do |order|
     # Last Refunded when the Item was last Updated
     # All updated_at's should be the same day currently
     refund_date = refunded_items[0].updated_at
-
+    p "====refundDate======="
+    p refunded_items[0]
     # Creates an Instance of RefundOrder belonging_to current Order
     # using the Order's saved Refund values
     refund_order = order.refund_orders.create(
+      created_at: refund_date,
       subtotal_refunded: order.subtotal_refunded,
       total_refunded: order.taxes_refunded,
       taxes_refunded: order.total_refunded
@@ -61,7 +65,10 @@ orders_with_refund.each do |order|
     end
 
     # updates created_at to match when it was orinially refunded
-    refund_order.update(:created_at => refund_date)
+    # refund_order.created_at = refund_date
+    # refund_order.save
+    # p "created at"
+    # p refund_order[:created_at]
 
   end # End of refunded_item_.count > 0
 #
