@@ -21,7 +21,7 @@ const Accountant = props => {
 
   return (
     <div>
-      <p>
+      <p id="accountant-total">
         {" "}
         Total: $
         {itemsTotal

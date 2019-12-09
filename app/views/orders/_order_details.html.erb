@@ -30,34 +30,24 @@
           <!-- <td><%#= cart_item.inventory %></td> -->
         </tr>
       <% end %>
-      <% @cart_custom_items.each_with_index do |cart_item, ind| %>
-          <tr  id= "<%= "cart-item-#{cart_item.id}" %>">
-            <td></td>
-            <td><%= cart_item.name %></td>
-            <td></td><td></td><td></td>
-            <td>$<%=display_price(cart_item.price_given) %></td>
-            <td><%= cart_item.quantity %></td>
-            <td>$<%= display_price(cart_item.subtotal) %></td>
-            <td><%= display_refund(cart_item, 'quantity_refunded') %></td>
-            <td>-$<%= display_refund(cart_item, 'subtotal_refunded') %></td>
 
-            <!-- <td></td> -->
-          </tr>
-        <% end %>
+        <tr>
+           <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
         <tr>
           <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
           <td>Subtotal Final</td>
-          <td><%= @subtotal_final %> </td>
+          <td>$ <%= number_with_precision(@subtotal_final, :precision => 2, :delimiter => ",") %> </td>
         </tr>
         <tr>
           <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
           <td>Taxes Final</td>
-          <td><%= @taxes_final %> </td>
+          <td>$ <%= number_with_precision(@taxes_final, :precision => 2, :delimiter => ",") %> </td>
         </tr>
         <tr>
           <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
           <td>Total Final</td>
-          <td><%= @total_final %> </td>
+          <td id='total'>$ <%= number_with_precision(@total_final, :precision => 2, :delimiter => ",") %> </td>
         </tr>
 
   </tbody>

@@ -88,6 +88,7 @@ class ItemsController < ApplicationController
           subtotal: item_order.subtotal,
           order_id: item_order.order_id
         )
+        @custom_item.refund_items.new(item_order.refund_items.as_json)
 
 
         if @custom_item.save
@@ -110,12 +111,7 @@ class ItemsController < ApplicationController
     # @item.destroy if passed
 
     items = Item.all
-    return render :json => {
-        actives: items.get_ordered_actives,
-        inactives: items.get_ordered_inactives,
-        custom_item: @custom_item,
-        # item_destroyed: passed
-      }
+    return render 'index'
   end
 
   def get_category_brand

@@ -25,13 +25,10 @@ export default class Orders extends React.Component {
     let startRange = new Date(
         document.getElementById("start-range").value
       ).toISOString(),
-      endRange = new Date(
-        document.getElementById("end-range").value
-      ).toISOString,
-
-    today = new Date();
+      endRange = new Date(document.getElementById("end-range").value)
+        .toISOString,
+      today = new Date();
     this.getOrdersRefunded(today, today);
-
   }
 
   updateOrders = () => {
@@ -54,28 +51,31 @@ export default class Orders extends React.Component {
       ordersToUse = column === "total_ref" ? refundedOrders : displayedOrders;
     return ordersToUse.reduce((total, order) => {
       return (+total + +order[column])
-    }, 0).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }, 0);
+    console.log("ordersToUse");
+    console.log(ordersToUse);
   };
 
   searchOrder = e => {
     let query = e.target.value.trim().toLowerCase();
-      fetch(
-        `/get_orders_searched.json?query=${query}`
-      )
-        .then(res => res.json())
-        .then(
-          result => {
-            console.log("working");
-            console.log(result);
-            this.setState({ displayedOrders: result.orders });
-          },
-          error => {
-            console.error(
-              "Error retrieving results for updateSelectedNavList AJAX method"
-            );
-            console.error(error);
-          }
-        );
+    fetch(`/get_orders_searched.json?query=${query}`)
+      .then(res => res.json())
+      .then(
+        result => {
+          console.log("working");
+          console.log(result);
+          this.setState({ displayedOrders: result.orders });
+        },
+        error => {
+          console.error(
+            "Error retrieving results for updateSelectedNavList AJAX method"
+          );
+          console.error(error);
+        }
+      );
   };
 
   getOrdersRefunded = (startRange, endRange) => {
@@ -87,7 +87,7 @@ export default class Orders extends React.Component {
         result => {
           console.log("working");
           this.setState({
-            refundedOrders: result.refunded_orders ,
+            refundedOrders: result.refunded_orders,
             displayedOrders: result.orders
           });
         },
@@ -110,6 +110,7 @@ export default class Orders extends React.Component {
       yyyy = today.getFullYear();
     today = yyyy + "-" + mm + "-" + dd;
     console.log(this.state);
+    console.log(refundedOrders);
     return (
       <div className="orders">
         <h4>Fechas</h4>
@@ -141,10 +142,7 @@ export default class Orders extends React.Component {
           </label>
         </div>
 
-        <OrdersTable
-          orders={displayedOrders}
-          tableCaption="Ordenes"
-        />
+        <OrdersTable orders={displayedOrders} tableCaption="Ordenes" />
         <OrdersTable
           orders={refundedOrders}
           tableCaption="Pedidos Reembolsados"
@@ -154,10 +152,10 @@ export default class Orders extends React.Component {
           <caption>Total De Ordenes</caption>
           <tbody>
             <tr>
-              <th>Efectivo</th>
               <th>Tarjeta De Crédito</th>
               <th>Débito</th>
               <th>Cheque</th>
+              <th>Efectivo</th>
               <th>Total Reembolsado</th>
               <th>Total Parcial</th>
               <th>Impuestos</th>
@@ -166,36 +164,39 @@ export default class Orders extends React.Component {
             <tr>
               <td>
                 $
-                {this.getSum("cash_payed")}
+                {Number(this.getSum("credit_card_payed"))
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
               <td>
                 $
-                {this.getSum("credit_card_payed")}
+                {Number(this.getSum("debit_payed"))
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
               <td>
                 $
-                {this.getSum("debit_payed")}
+                {Number(this.getSum("check_payed"))
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
-              <td>
+              <td id="cash">
                 $
-                {this.getSum("check_payed")}
+                {Number(this.getSum("cash_payed"))
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
-              <td>
+              <td id="refund">
                 -$
-                {this.getSum("total_ref")}
+                {Number(this.getSum("total_ref"))}
               </td>
-              <td>
-                $
-                {this.getSum("subtotal")}
-              </td>
-              <td>
-                $
-                {this.getSum("taxes")}
-              </td>
-              <td>
-                $
-                {this.getSum("total")}
-              </td>
+              <td>${Number(this.getSum("subtotal"))}</td>
+              <td>${Number(this.getSum("taxes"))}</td>
+              <td id="total">${Number(this.getSum("total"))}</td>
             </tr>
           </tbody>
         </table>

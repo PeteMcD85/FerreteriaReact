@@ -19,7 +19,7 @@ export default class RefundedOrders extends React.Component {
   }
 
   componentDidMount() {
-    this.getRefundItems()
+    this.getRefundItems();
   }
 
   getRefundItems = () => {
@@ -30,7 +30,7 @@ export default class RefundedOrders extends React.Component {
       .then(res => res.json())
       .then(
         result => {
-          this.setState({refundItems: result.refund_items })
+          this.setState({ refundItems: result.refund_items });
         },
         error => {
           console.error(
@@ -42,13 +42,13 @@ export default class RefundedOrders extends React.Component {
   };
 
   displayRefundItem = (refundItem, column) => {
-    console.log('displayRefundItem');
+    console.log("displayRefundItem");
     if (refundItem.item) {
-      return refundItem.item[column]
+      return refundItem.item[column];
     } else {
-      return refundItem.refundable[column] ? refundItem.refundable[column] : ''
+      return refundItem.refundable[column] ? refundItem.refundable[column] : "";
     }
-  }
+  };
 
   // displayRefundItem = () => {
   //   console.log('displayRefundItem');
@@ -59,56 +59,116 @@ export default class RefundedOrders extends React.Component {
       refundItems = this.state.refundItems;
     console.log(this.state);
     return (
-        <table>
-          <caption>Refund Number : {refundOrder.id}</caption>
-          <thead>
-            <tr>
-              <th>Marca</th>
-              <th>Nombre</th>
-              <th>Color</th>
-              <th>Tamaño</th>
-              <th>Grosor</th>
-              <th>Precio Dado</th>
-              <th>Cantidad Comprada</th>
-              <th>Cantidad Reembolsada</th>
-              <th>Subtotal De Reembolso</th>
-            </tr>
-          </thead>
-          <tbody>
-            {refundItems.map((refundItem, ind)=>{
-              return (
-                <tr key={ind}>
-                  <td>{this.displayRefundItem(refundItem, 'brand')}</td>
-                  <td>{this.displayRefundItem(refundItem, 'name')}</td>
-                  <td>{this.displayRefundItem(refundItem, 'color')}</td>
-                  <td>{this.displayRefundItem(refundItem, 'size')}</td>
-                  <td>{this.displayRefundItem(refundItem, 'thickness')}</td>
-                  <td>{refundItem.refundable.price_given}</td>
-                  <td>{refundItem.refundable.quantity}</td>
-                  <td>{refundItem.quantity_refunded}</td>
-                  <td>{refundItem.subtotal_refunded}</td>
-                </tr>
-              )
-            })}
+      <table>
+        <caption>Refund Number : {refundOrder.id}</caption>
+        <thead>
           <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            <th>Marca</th>
+            <th>Nombre</th>
+            <th>Color</th>
+            <th>Tamaño</th>
+            <th>Grosor</th>
+            <th>Precio Dado</th>
+            <th>Cantidad Comprada</th>
+            <th>Cantidad Reembolsada</th>
+            {/*<th>Subtotal De Reembolso</th>*/}
+          </tr>
+        </thead>
+        <tbody>
+          {refundItems.map((refundItem, ind) => {
+            return (
+              <tr key={ind}>
+                <td>{this.displayRefundItem(refundItem, "brand")}</td>
+                <td>{this.displayRefundItem(refundItem, "name")}</td>
+                <td>{this.displayRefundItem(refundItem, "color")}</td>
+                <td>{this.displayRefundItem(refundItem, "size")}</td>
+                <td>{this.displayRefundItem(refundItem, "thickness")}</td>
+                <td>
+                  $
+                  {Number(refundItem.refundable.price_given)
+                    .toFixed(2)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </td>
+                <td>
+                  $
+                  {Number(refundItem.refundable.quantity)
+                    .toFixed(2)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </td>
+                <td>{refundItem.quantity_refunded}</td>
+                {/*      <td>
+                  {Number(refundItem.subtotal_refunded)
+                    .toFixed(2)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </td> */}
+              </tr>
+            );
+          })}
+          <tr>
+            {" "}
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>Subtotal De Reembolso</td>
-            <td>{refundOrder.subtotal_refunded}</td>
+            <td>
+              $
+              {Number(refundOrder.subtotal_refunded)
+                .toFixed(2)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </td>
           </tr>
           <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>Taxes De Reembolso</td>
-            <td>{refundOrder.taxes_refunded}</td>
+            <td>
+              $
+              {Number(refundOrder.taxes_refunded)
+                .toFixed(2)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </td>
           </tr>
           <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
             <td>Total De Reembolso</td>
-            <td>{refundOrder.total_refunded}</td>
+            <td id="total">
+              $
+              {Number(refundOrder.total_refunded)
+                .toFixed(2)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </td>
           </tr>
-
-
-          </tbody>
-        </table>
+        </tbody>
+      </table>
     );
   }
 }

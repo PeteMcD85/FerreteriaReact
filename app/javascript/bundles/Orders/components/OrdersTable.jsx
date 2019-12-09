@@ -5,13 +5,16 @@ const OrdersTable = props => {
   let orders = props.orders,
     tableCaption = props.tableCaption,
     isRefundedOrder = tableCaption === "Ordenes" ? false : true,
-    displayDate = (stringDate) => {
-      const splitDate = stringDate.split('T'),
+    displayDate = stringDate => {
+      const splitDate = stringDate.split("T"),
         day = splitDate[0],
-        timeOfDay = splitDate[1].split('.')[0].split(':').slice(0,2),
-        meridiem = +timeOfDay[0] < 12 ? 'AM' : 'PM';
-        timeOfDay[0] = meridiem === 'AM' ? timeOfDay[0] : +timeOfDay[0] - 12;
-      return `${day} ${timeOfDay.join(':') + meridiem}`
+        timeOfDay = splitDate[1]
+          .split(".")[0]
+          .split(":")
+          .slice(0, 2),
+        meridiem = +timeOfDay[0] < 12 ? "AM" : "PM";
+      timeOfDay[0] = meridiem === "AM" ? timeOfDay[0] : +timeOfDay[0] - 12;
+      return `${day} ${timeOfDay.join(":") + meridiem}`;
     },
     deleteItem = itemId => {
       let confirmed = confirm("Are you sure?");
@@ -34,6 +37,7 @@ const OrdersTable = props => {
       }
     };
   console.log(props);
+
   return (
     <table>
       <caption>{tableCaption}</caption>
@@ -42,32 +46,25 @@ const OrdersTable = props => {
           <th>Número De Orden</th>
           <th>Nombre</th>
           <th>Fecha Y Hora</th>
-          <th>Efectivo</th>
           <th>Tarjeta De Crédito</th>
           <th>Débito</th>
           <th>Cheque</th>
-          { isRefundedOrder && <th>Total Reembolsado</th>}
+          <th>Efectivo</th>
+          {isRefundedOrder && <th>Total Reembolsado</th>}
           {!isRefundedOrder && <th>Total Parcial</th>}
           {!isRefundedOrder && <th>Impuestos</th>}
           {!isRefundedOrder && <th>Total</th>}
-
-
-
         </tr>
         {orders.map((order, ind) => {
+          console.log(order.total_refunded);
           return (
             <tr key={ind}>
               <td>{order.id}</td>
               <td>{order.name}</td>
               <td>
-                <a href={`/orders/${order.id}`}>{displayDate(order.created_at)}</a>
-              </td>
-              <td>
-                $
-                {Number(order.cash_payed)
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                <a href={`/orders/${order.id}`}>
+                  {displayDate(order.created_at)}
+                </a>
               </td>
               <td>
                 $
@@ -90,17 +87,29 @@ const OrdersTable = props => {
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
+              <td id="cash">
+                $
+                {Number(order.cash_payed)
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
+<<<<<<< HEAD
+              {isRefundedOrder && (
+                <td id="refund">
+=======
 
               { isRefundedOrder &&
                 <td>
+>>>>>>> testing
                   -$
                   {Number(order.total_ref)
                     .toFixed(2)
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </td>
-              }
-              { !isRefundedOrder &&
+              )}
+              {!isRefundedOrder && (
                 <td>
                   $
                   {Number(order.subtotal)
@@ -108,8 +117,8 @@ const OrdersTable = props => {
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </td>
-              }
-              { !isRefundedOrder &&
+              )}
+              {!isRefundedOrder && (
                 <td>
                   $
                   {Number(order.taxes)
@@ -117,17 +126,21 @@ const OrdersTable = props => {
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </td>
-              }
-              { !isRefundedOrder &&
-                <td>
+              )}
+              {!isRefundedOrder && (
+                <td id="total">
                   $
                   {Number(order.total)
                     .toFixed(2)
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </td>
+<<<<<<< HEAD
+              )}
+=======
               }
 
+>>>>>>> testing
             </tr>
           );
         })}
