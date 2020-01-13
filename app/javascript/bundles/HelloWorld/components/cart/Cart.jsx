@@ -105,8 +105,8 @@ const Cart = props => {
                     type="number"
                     id={`item-price-${cartItem.item.id}`}
                     className={`item-price`}
-                    defaultValue={defaultValuePrice}
-                    onChange={getSubtotal}
+                    defaultValue={cartItem.priceGiven}
+                    onBlur={getSubtotal}
                   />
                 </td>
                 <td>
@@ -116,7 +116,7 @@ const Cart = props => {
                     id={`item-quantity-${cartItem.item.id}`}
                     className={`item-quantity`}
                     defaultValue={cartItem.quantity}
-                    onChange={getSubtotal}
+                    onBlur={getSubtotal}
                   />
                 </td>
                 <td>
@@ -169,7 +169,7 @@ const Cart = props => {
             <td></td>
             <td></td>
             <td>Total Parcial</td>
-            <td class="cart-subtotal-value">
+            <td className="cart-subtotal-value">
               $
               {Number(cart.cartTotal.subtotal)
                 .toFixed(2)
@@ -203,7 +203,7 @@ const Cart = props => {
             <td></td>
             <td></td>
             <td>Total</td>
-            <td id="total" class="cart-total-value">
+            <td id="total" className="cart-total-value">
               $
               {Number(cart.cartTotal.total)
                 .toFixed(2)

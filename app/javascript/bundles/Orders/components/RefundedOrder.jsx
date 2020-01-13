@@ -91,11 +91,7 @@ export default class RefundedOrders extends React.Component {
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </td>
                 <td>
-                  $
-                  {Number(refundItem.refundable.quantity)
-                    .toFixed(2)
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  {Number(refundItem.refundable.quantity)}
                 </td>
                 <td>{refundItem.quantity_refunded}</td>
                 {/*      <td>
