@@ -18,16 +18,16 @@ function Items(props) {
   let { activeItems, inactiveItems, signedIn } = props,
     [displayedItems, setDisplayedItems] = useState([]),
     [query, setQuery] = useState(""),
-    searchBar = useRef(null),
-    { itemsCard, itemsTable } = splitItemsCardsOrTable(displayedItems);
+    searchBar = useRef(null);
 
   useEffect(() => {
+    let { itemsCard, itemsTable } = splitItemsCardsOrTable(displayedItems);
     console.log(props);
   }, []);
 
   useEffect(() => {
     console.log(query);
-    getQueriedItems(query);
+    setDisplayedItems(getQueriedItems(query));
   }, [query]);
 
   useEffect(() => {
@@ -38,9 +38,7 @@ function Items(props) {
     <div>
       <input type="text" ref={searchBar} onChange={updateQueryState}></input>
       <div></div>
-      <div className="item-cards">
-        <ItemsCard displayedItems={itemsCard} />
-      </div>
+      <div className="item-cards"></div>
     </div>
   );
 
@@ -49,33 +47,31 @@ function Items(props) {
   }
 
   function getQueriedItems(q) {
-    // If query is empty
-    if (q.length === 0) {
-      setDisplayedItems([]);
-    } else {
-      let words = q.split(" "),
-        queriedItems = activeItems.filter(activeItem => {
-          let columnValues = getColumnValues(activeItem),
-            returnItem = words.every(word => {
-              return columnValues.find(val => val.includes(word));
-            });
-          if (returnItem) return activeItem;
-        }); //end of getQueriedItems
-      console.log(queriedItems);
-      // setDisplayedItems(queriedItems);
-    }
+    return filterItemsFromQuery(q.trim(), activeItems);
   } // end of getQueriedItems()
 } // END of Component
-
+// <ItemsCard displayedItems={itemsCard} />
 // <ItemsTable displayedItems={itemsTable} />;
 
-function getColumnValues(activeItem) {
-  let columns = {};
-  return columnsToSearch.map(column => downCase(activeItem[column]));
+function filterItemsFromQuery(query, items) {
+  if (query === "") return [];
+  let words = query.split(" ");
+  // Returns a list of items to be displayed in view(displayedItems)
+  return items.filter(item => {
+    // an array of all items property values to be compared to the query
+    let values = getColumnValues(item);
+    // Adds Item to displayedItems if item's values contains all words from query
+    if (words.every(w => values.find(v => v.includes(w)))) return item;
+  });
+}
+
+function getColumnValues(item) {
+  // An Array of all item's desired column's value('{name}', '{brand}', etc...)
+  return columnsToSearch.map(column => downCase(item[column]));
 }
 
 function downCase(string) {
-  // returns empty string if param is null
+  // returns lowerCase string or empty string if value is null
   return string ? string.toLowerCase() : "";
 }
 
