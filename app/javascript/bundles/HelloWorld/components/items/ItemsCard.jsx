@@ -38,16 +38,7 @@ const ItemsCard = props => {
       <ul>
         {displayedItems.map((item, ind) => {
           if (ind >= itemsStartRange && ind < itemsEndRange) {
-            return (
-              <ItemCard
-                key={item.id}
-                item={item}
-                // picUrl={getPicUrl(item.id)}
-                // addToCart={addToCart}
-                // removeFromCart={removeFromCart}
-                // cart={cart}
-              />
-            );
+            return <ItemCard key={item.id} item={item} />;
           }
         })}
       </ul>

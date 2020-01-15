@@ -339,74 +339,6 @@ export default class HelloWorld extends React.Component {
     });
   };
 
-  handleOnInputChange = event => {
-    event.persist();
-    const query = event.target.value;
-    this.getQueriedItems(query);
-  };
-
-  getQueriedItems = query => {
-    console.log(query);
-    // if (query) query = query.trim() ;
-    let currentQueryLength = query.length,
-      prevQueryLength = this.state.queryLength;
-    if (currentQueryLength === 0) {
-      this.setState({
-        showQueryList: false,
-        queryListActiveItems: this.state.activeItems,
-        query: "",
-        queryLength: currentQueryLength,
-        selectedNavName: "Todo"
-      });
-    } else {
-      let words = query.split(" "),
-        stateActiveItems = this.state.activeItems,
-        stateQueryListActiveItems = this.state.queryListActiveItems,
-        queryListActiveItems =
-          currentQueryLength < prevQueryLength
-            ? stateActiveItems
-            : stateQueryListActiveItems,
-        queriedItems = queryListActiveItems.filter(activeItem => {
-          let name = activeItem.name.toLowerCase(),
-            category = activeItem.category
-              ? activeItem.category.toLowerCase()
-              : "",
-            brand = activeItem.brand ? activeItem.brand.toLowerCase() : "",
-            size = activeItem.size ? activeItem.size.toLowerCase() : "",
-            color = activeItem.color ? activeItem.color.toLowerCase() : "",
-            stockNumber = activeItem.stock_number
-              ? activeItem.stock_number.toLowerCase()
-              : "",
-            thickness = activeItem.thickness
-              ? activeItem.thickness.toLowerCase()
-              : "",
-            returnItem = false;
-          words.forEach((word, ind) => {
-            if (ind > 0 && !returnItem) return;
-            word = word.toLowerCase();
-            returnItem =
-              name.includes(word) ||
-              category.includes(word) ||
-              brand.includes(word) ||
-              size.includes(word) ||
-              color.includes(word) ||
-              thickness.includes(word) ||
-              stockNumber.includes(word)
-                ? true
-                : false;
-          });
-          if (returnItem) return activeItem;
-        }); //end of getQueriedItems
-      this.setState({
-        query: query,
-        queryListActiveItems: queriedItems,
-        showQueryList: true,
-        queryLength: currentQueryLength,
-        selectedNavName: "query"
-      });
-    } //end of if else
-  };
-
   updateCashRecieved = e => {
     let cartTotal = this.state.cart.cartTotal.total,
       val = e.target.value,
@@ -606,9 +538,9 @@ export default class HelloWorld extends React.Component {
               </Route>
               <Route path="/">
                 <Items
-                  activeItems
-                  inactiveItems
-                  signedIn
+                  activeItems={activeItems}
+                  inactiveItems={inactiveItems}
+                  signedIn={signedIn}
                   // items={queryListActiveItems}
                   // selectedNavName="query"
                   // signedIn={signedIn}
