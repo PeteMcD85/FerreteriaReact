@@ -2,21 +2,13 @@ import React from "react";
 
 const ItemCard = props => {
   let item = props.item,
-    // picUrl = props.picUrl.pic_url,
-    id = item.id,
-    name = item.name,
-    brand = item.brand,
-    color = item.color,
-    size = item.size,
-    thickness = item.thickness,
-    stockNumber = item.stock_number,
-    inventory = item.inventory,
+    { id, name, brand, color, size, thickness, stockNumber, inventory } = item,
     soldPrice = Number(item.sold_price).toFixed(2),
-    signedIn = props.signedIn,
-    isPicUrl =false,
-    addToCart = props.addToCart,
-    removeFromCart = props.removeFromCart,
-    cart = props.cart,
+    // signedIn = props.signedIn,
+    isPicUrl = false,
+    // addToCart = props.addToCart,
+    // removeFromCart = props.removeFromCart,
+    cart = [],
     addItem = id => {
       let quantityInput = document.getElementById(`quantity-${id}`),
         quantityValue = +quantityInput.value,
@@ -29,10 +21,10 @@ const ItemCard = props => {
         );
       if (cartButtonPretext === "Add") {
         quantityInput.disabled = true;
-        addToCart(id, quantityValue);
+        // addToCart(id, quantityValue);
       } else {
         quantityInput.disabled = false;
-        removeFromCart(id);
+        // removeFromCart(id);
       }
       cartButton.innerText = `${newCartButtonPretext} from Cart`;
     },
@@ -48,7 +40,7 @@ const ItemCard = props => {
     };
   return (
     <div className="item">
-      {isPicUrl !== "" && <img className="item-pic"  />}
+      {isPicUrl !== "" && <img className="item-pic" />}
       {name && <h2>{name}</h2>}
       {brand && <p>{brand}</p>}
       {color && <p>{color}</p>}

@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import LS from "local-storage";
 
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 // COMPONENTS
 import Accountant from "./accountant/Accountant";
 import Cart from "./cart/Cart";
@@ -58,7 +60,6 @@ export default class HelloWorld extends React.Component {
       showAccountant: false,
       savedCarts: []
     };
-    this.getCategoryBrand("category", "Todo");
   }
 
   componentDidMount() {
@@ -492,7 +493,7 @@ export default class HelloWorld extends React.Component {
     savedCarts.push(cart);
     LS.set("savedCarts", savedCarts);
     this.clearCart();
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   displaySavedCart = (e, savedCartIndex) => {
@@ -509,7 +510,6 @@ export default class HelloWorld extends React.Component {
       }
     });
     this.cartButton();
-
   };
 
   removeAllActiveClass = () => {
@@ -551,184 +551,80 @@ export default class HelloWorld extends React.Component {
     // console.log(this.state);
     return (
       <div className="hello-world">
-        {signedIn && (
+        <Router>
           <div>
-            <div className="accountant-inventory">
-              <label>Inventario De La Tienda</label>
-              <input type="checkbox" onChange={this.updateShowAccountant} />
-            </div>
-            {showAccountant && (
-              <Accountant
-                activeItems={activeItems}
-                updateItems={this.updateItems}
-                inactiveItems={inactiveItems}
-              />
-            )}
-            {!showAccountant && (
-              <div>
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/inventario">Inventario</Link>
+                </li>
+                <li>
+                  <Link to="/cart">Cart</Link>
+                </li>
+              </ul>
+            </nav>
+
+            {/* A <Switch> looks through its children <Route>s and
+           renders the first one that matches the current URL. */}
+            <Switch>
+              <Route path="/inventario">
+                <Accountant
+                  activeItems={activeItems}
+                  updateItems={this.updateItems}
+                  inactiveItems={inactiveItems}
+                />
+              </Route>
+              <Route path="/cart">
                 <div>
-                  <div className="cart-buttons">
-                    <button id="cart-button" onClick={this.cartButton}>
-                      {showCart ? "Añadir más Artículos" : "Check Out"}
-                    </button>
-                    <button id="clear-cart-button" onClick={this.clearCart}>
-                      Vaciar Carrito
-                    </button>
-                    <button onClick={this.saveCart}>Save Cart</button>
+                  <div id="order-id"></div>
+                  <div id="order-name-div">
+                    <label>
+                      <input id="order-name" placeholder="Nombre" />
+                    </label>
+                    <label>
+                      <input id="order-phone" placeholder="Telefono" />
+                    </label>
                   </div>
-                  <div id="saved-carts">
-                    {savedCarts &&
-                      savedCarts.map((savedCart, ind) => {
-                        return (
-                          <div className="saved-cart" key={ind}>
-                            <button
-                              className="saved-cart-button"
-                              onClick={e => this.displaySavedCart(e, ind)}
-                            >
-                              {ind + 1}
-                            </button>
-                            <span
-                              className="remove-saved-cart"
-                              onClick={() => this.removeSavedCart(ind)}
-                            >
-                              x
-                            </span>
-                          </div>
-                        );
-                      })}
-                  </div>
+                  <CartPaymentMethods
+                    updateTaxFree={this.updateTaxFree}
+                    updatePaymentMethod={this.updatePaymentMethod}
+                    updateCustomInputChange={this.updateCustomInputChange}
+                    updateCashRecieved={this.updateCashRecieved}
+                    customerChange={customerChange}
+                  />
+                  <Cart
+                    cart={cart}
+                    removeFromCart={this.removeFromCart}
+                    updateCartItem={this.updateCartItem}
+                    orderCart={this.orderCart}
+                    addCustomItemToCart={this.addCustomItemToCart}
+                  />
                 </div>
-                {showCart && (
-                  <div>
-                    <div id="order-id"></div>
-                    <div id="order-name-div">
-                      <label>
-                        <input id="order-name" placeholder="Nombre" />
-                      </label>
-                      <label>
-                        <input id="order-phone" placeholder="Telefono" />
-                      </label>
-                    </div>
-                    <CartPaymentMethods
-                      updateTaxFree={this.updateTaxFree}
-                      updatePaymentMethod={this.updatePaymentMethod}
-                      updateCustomInputChange={this.updateCustomInputChange}
-                      updateCashRecieved={this.updateCashRecieved}
-                      customerChange={customerChange}
-                    />
-                    <Cart
-                      cart={cart}
-                      removeFromCart={this.removeFromCart}
-                      updateCartItem={this.updateCartItem}
-                      orderCart={this.orderCart}
-                      addCustomItemToCart={this.addCustomItemToCart}
-                    />
-                  </div>
-                )}
-                {!showCart && (
-                  <div>
-                    {!signedIn && (
-                      <div className="phone-map">
-                        <a href="tel:7872348563">
-                          Telefono<i className="fa fa-phone-square"></i>{" "}
-                        </a>
-                        <a href="https://www.google.com/maps/place/Ferreteria+Anibal+Centro+Gabinetes+Y+Topes/@18.3784375,-66.2011181,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xccad113b4a621685!8m2!3d18.3784375!4d-66.1989294">
-                          Mapa<i className="fa fa-map-pin"></i>
-                        </a>
-                      </div>
-                    )}
-                    <div className="search">
-                      <input
-                        type="text"
-                        placeholder=" ..Buscar"
-                        onChange={this.handleOnInputChange}
-                      />
-                      <i
-                        className="fa fa-search"
-                        onClick={this.getQueriedItems}
-                      ></i>
-                    </div>
-                    <div className="category-brand">
-                      {/*  <p onClick={e => this.dropdown(e)}>Categories</p>
-                       <p onClick={e => this.dropdown(e)}>Brands</p> */}
-                    </div>
-                    <div id="nav-list">
-                      <div className="dropdown">
-                        {/* <NavList
-                           columnList={brands}
-                           columnName="brand"
-                           getCategoryBrand={this.getCategoryBrand}
-                         />
-                          <NavList
-                           columnList={categories}
-                           columnName="category"
-                           getCategoryBrand={this.getCategoryBrand}
-                         />  */}
-                      </div>
-                      {showQueryList && (
-                        <div>
-                          <Items
-                            items={queryListActiveItems}
-                            selectedNavName="query"
-                            signedIn={signedIn}
-                            // picUrls={picUrls}
-                            addToCart={this.addToCart}
-                            removeFromCart={this.removeFromCart}
-                            cart={cart}
-                            itemsStartRange={itemsStartRange}
-                            itemsEndRange={itemsEndRange}
-                            updateItemsRange={this.updateItemsRange}
-                          />
-                          {signedIn && (
-                            <div>
-                              <h2>Inactive Items</h2>
-                              <Items
-                                items={selectedNavListInactives}
-                                selectedNavName={selectedNavName}
-                                signedIn={signedIn}
-                                // picUrls={picUrls}
-                                cart={cart}
-                              />
-                            </div>
-                          )}
-                        </div>
-                      )}
-                      {!showQueryList && (
-                        <div>
-                          <Items
-                            items={selectedNavList}
-                            selectedNavName={selectedNavName}
-                            signedIn={signedIn}
-                            // picUrls={picUrls}
-                            addToCart={this.addToCart}
-                            removeFromCart={this.removeFromCart}
-                            cart={cart}
-                            itemsStartRange={itemsStartRange}
-                            itemsEndRange={itemsEndRange}
-                            updateItemsRange={this.updateItemsRange}
-                          />
-                          {signedIn && (
-                            <div>
-                              <h2>Inactive Items</h2>
-                              <Items
-                                items={selectedNavListInactives}
-                                selectedNavName={selectedNavName}
-                                signedIn={signedIn}
-                                // picUrls={picUrls}
-                                cart={cart}
-                              />
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
+              </Route>
+              <Route path="/">
+                <Items
+                  activeItems
+                  inactiveItems
+                  signedIn
+                  // items={queryListActiveItems}
+                  // selectedNavName="query"
+                  // signedIn={signedIn}
+                  // // picUrls={picUrls}
+                  // addToCart={this.addToCart}
+                  // removeFromCart={this.removeFromCart}
+                  // cart={cart}
+                  // itemsStartRange={itemsStartRange}
+                  // itemsEndRange={itemsEndRange}
+                  // updateItemsRange={this.updateItemsRange}
+                />
+              </Route>
+            </Switch>
           </div>
-        )}
+        </Router>
       </div>
     );
-  } // END of render
-} // END of class
+  }
+}

@@ -1,25 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import ItemCard from "./ItemCard";
 
 const ItemsCard = props => {
-  let items = props.items,
-    signedIn = props.signedIn,
-    // picUrls = props.picUrls,
-    addToCart = props.addToCart,
-    removeFromCart = props.removeFromCart,
-    itemsStartRange = props.itemsStartRange,
-    itemsEndRange = props.itemsEndRange,
-    max = items.length,
-    cart = props.cart,
-    updateItemsRange = props.updateItemsRange,
+  let { displayedItems } = props,
+    max = displayedItems.length,
+    [itemsStartRange, setItemsStartRange] = useState(0),
+    [itemsEndRange, setItemsEndRange] = useState(10),
+    // addToCart = props.addToCart,
+    // removeFromCart = props.removeFromCart,
+    // updateItemsRange = props.updateItemsRange,
     disableLess = itemsStartRange === 0 ? true : false,
     disableMore = itemsEndRange >= max ? true : false,
-    // getPicUrl = id => picUrls.find(val => val.id === id),
     updateRange = e => {
       let direction = e.target.classList.contains("more") ? "more" : "less";
       updateItemsRange(direction);
     };
-    console.log(items);
   return (
     <div>
       <div id="range-buttons-div">
@@ -41,17 +36,16 @@ const ItemsCard = props => {
         </button>
       </div>
       <ul>
-        {items.map((item, ind) => {
+        {displayedItems.map((item, ind) => {
           if (ind >= itemsStartRange && ind < itemsEndRange) {
             return (
               <ItemCard
                 key={item.id}
                 item={item}
-                signedIn={signedIn}
                 // picUrl={getPicUrl(item.id)}
-                addToCart={addToCart}
-                removeFromCart={removeFromCart}
-                cart={cart}
+                // addToCart={addToCart}
+                // removeFromCart={removeFromCart}
+                // cart={cart}
               />
             );
           }

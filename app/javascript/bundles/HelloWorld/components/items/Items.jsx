@@ -1,97 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 
 // COMPONENTS
+import Accountant from "../accountant/Accountant";
+
+import Cart from "../cart/Cart";
+import CartPaymentMethods from "../cart/CartPaymentMethods";
+
 import ItemsCard from "./ItemsCard";
 import ItemsTable from "./ItemsTable";
 
-const Items = props => {
-  let items = props.items,
-    selectedNavName = props.selectedNavName,
-    signedIn = props.signedIn,
-    // picUrls = props.picUrls,
-    cart = props.cart,
-    addToCart = props.addToCart,
-    removeFromCart = props.removeFromCart,
-    itemsStartRange = props.itemsStartRange,
-    itemsEndRange = props.itemsEndRange,
-    updateItemsRange = props.updateItemsRange,
-    categoryBrandTurnedTable = ["PVC", "Tornillos", "Tinte", "query",
-     "Gozne", "Correderas", "Routers", "Tapcon", "Staples", "Laminados", "Sait",
-      "SeamFil", "Clavos", "Discos", "Fregaderos", "Superficie", "Brazos",
-    "Madera", "Tiradores", "Lazy Susan", "Temar"];
+// VARIABLES
 
-  if ( !categoryBrandTurnedTable.includes(selectedNavName) ) {
-    return (
+import categoriesBrandsTableDisplayed from "./variables/categoriesBrandsTableDisplayed";
+
+function Items(props) {
+  let { activeItems, inactiveItems, signedIn } = props,
+    [displayedItems, setDisplayedItems] = useState([]),
+    [query, setQuery] = useState(""),
+    [queryLength, setQueryLength] = useState(0),
+    { itemsCard, itemsTable } = splitItemsCardsOrTable(displayedItems);
+
+  return (
+    <div>
+      <div></div>
       <div className="item-cards">
-        <ItemsCard
-          items={items}
-          signedIn={signedIn}
-          // picUrls={picUrls}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
-          cart={cart}
-          itemsStartRange={itemsStartRange}
-          itemsEndRange={itemsEndRange}
-          updateItemsRange={updateItemsRange}
-        />
+        <ItemsCard displayedItems={itemsCard} />
       </div>
-    );
-  } else if (selectedNavName === "query") {
-    console.log("query");
-    let itemsCard = [],
-      itemsTable = [],
-      showTable = false;
-    items.forEach(item => {
-      if (categoryBrandTurnedTable.includes(item.category) || item.brand === "Sait") {
-        itemsTable.push(item);
-      } else {
-        itemsCard.push(item);
-      }
-    });
-    if (itemsTable.length > 0) showTable = true;
-    return (
-      <div>
-        {showTable && (
-          <div>
-            <ItemsTable
-              items={itemsTable}
-              signedIn={signedIn}
-              addToCart={addToCart}
-              removeFromCart={removeFromCart}
-              cart={cart}
-              selectedNavName={selectedNavName}
-            />
-          </div>
-        )}
-        <div className="item-cards">
-          <ItemsCard
-            items={itemsCard}
-            signedIn={signedIn}
-            // picUrls={picUrls}
-            addToCart={addToCart}
-            removeFromCart={removeFromCart}
-            cart={cart}
-            itemsStartRange={itemsStartRange}
-            itemsEndRange={itemsEndRange}
-            updateItemsRange={updateItemsRange}
-          />
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <ItemsTable
-          items={items}
-          signedIn={signedIn}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
-          cart={cart}
-          selectedNavName={selectedNavName}
-        />
-      </div>
-    );
-  }
-};
+    </div>
+  );
+}
+
+// <ItemsTable displayedItems={itemsTable} />;
+
+function splitItemsCardsOrTable(items) {
+  let itemsCard = [],
+    itemsTable = [];
+  items.forEach(item => {
+    categoriesBrandsTableDisplayed.includes(item.category) ||
+    item.brand === "Sait"
+      ? itemsTable.push(item)
+      : itemsCard.push(item);
+  });
+  return { itemsCard, itemsTable };
+}
 
 export default Items;
