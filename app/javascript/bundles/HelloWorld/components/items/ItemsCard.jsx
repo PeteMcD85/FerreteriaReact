@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import ItemCard from "./ItemCard";
 
-const ItemsCard = props => {
+function ItemsCard(props) {
   let { displayedItems } = props,
     max = displayedItems.length,
     [itemsStartRange, setItemsStartRange] = useState(0),
     [itemsEndRange, setItemsEndRange] = useState(10),
-    // addToCart = props.addToCart,
-    // removeFromCart = props.removeFromCart,
-    // updateItemsRange = props.updateItemsRange,
     disableLess = itemsStartRange === 0 ? true : false,
-    disableMore = itemsEndRange >= max ? true : false,
-    updateRange = e => {
-      let direction = e.target.classList.contains("more") ? "more" : "less";
-      updateItemsRange(direction);
-    };
+    disableMore = itemsEndRange >= max ? true : false;
+  function updateRange(e) {
+    let direction = e.target.classList.contains("more") ? 10 : -10;
+    setItemsStartRange(itemsStartRange + direction);
+    setItemsEndRange(itemsEndRange + direction);
+  }
   return (
     <div>
       <div id="range-buttons-div">
@@ -44,6 +42,6 @@ const ItemsCard = props => {
       </ul>
     </div>
   );
-};
+}
 
 export default ItemsCard;

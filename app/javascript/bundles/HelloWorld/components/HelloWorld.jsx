@@ -4,6 +4,10 @@ import LS from "local-storage";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
+import CartContext from "./contexts/CartContext";
+
+import cartContextValue from "./contexts/cartContextValue";
+
 // COMPONENTS
 import Accountant from "./accountant/Accountant";
 import Cart from "./cart/Cart";
@@ -98,24 +102,6 @@ export default class HelloWorld extends React.Component {
     });
   };
 
-  addToCart = (id, quantity) => {
-    let cartItems = this.state.cart.cartItems,
-      taxFree = this.state.taxFree,
-      item = this.state.activeItems.find(item => item.id == id);
-    cartItems.push({
-      item: item,
-      quantity: quantity,
-      priceGiven: item.sold_price,
-      subtotal: (+quantity * +item.sold_price).toFixed(2)
-    });
-    this.setState({
-      cart: {
-        cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems)
-      }
-    });
-  };
-
   addCustomItemToCart = customItemValues => {
     let cartItems = this.state.cart.cartItems,
       taxFree = this.state.taxFree,
@@ -135,35 +121,6 @@ export default class HelloWorld extends React.Component {
         cartTotal: this.calculateCartTotal(cartItems)
       },
       customItemId: item.id
-    });
-  };
-
-  removeFromCart = id => {
-    let cartItems = this.state.cart.cartItems,
-      taxFree = this.state.taxFree,
-      doc = document.getElementById(`item-price-${id}`),
-      itemToRemove = cartItems.findIndex(cartItem => cartItem.item.id == id);
-    cartItems.splice(itemToRemove, 1);
-
-    this.setState({
-      cart: {
-        cartItems: cartItems,
-        cartTotal: this.calculateCartTotal(cartItems)
-      }
-    });
-  };
-
-  clearCart = () => {
-    this.removeAllActiveClass();
-    this.setState({
-      cart: {
-        cartItems: [],
-        cartTotal: {
-          subtotal: 0,
-          taxes: 0,
-          total: 0
-        }
-      }
     });
   };
 
@@ -273,11 +230,6 @@ export default class HelloWorld extends React.Component {
       .catch(error => {
         console.error("error", error);
       });
-  };
-
-  cartButton = () => {
-    let showCart = this.state.showCart ? false : true;
-    this.setState({ showCart: showCart });
   };
 
   dropdown = e => {
@@ -390,23 +342,6 @@ export default class HelloWorld extends React.Component {
       );
   };
 
-  updateItemsRange = direction => {
-    let itemsStartRange = this.state.itemsStartRange,
-      itemsEndRange = this.state.itemsEndRange,
-      max = this.state.selectedNavList.length;
-    if (direction === "more") {
-      itemsStartRange += 10;
-      itemsEndRange += 10;
-    } else {
-      itemsStartRange -= 10;
-      itemsEndRange -= 10;
-    }
-    this.setState({
-      itemsStartRange: itemsStartRange,
-      itemsEndRange: itemsEndRange
-    });
-  };
-
   updateShowAccountant = e => {
     let isChecked = e.target.checked;
     this.setState({ showAccountant: isChecked });
@@ -493,14 +428,8 @@ export default class HelloWorld extends React.Component {
                 <li>
                   <Link to="/inventario">Inventario</Link>
                 </li>
-                <li>
-                  <Link to="/cart">Cart</Link>
-                </li>
               </ul>
             </nav>
-
-            {/* A <Switch> looks through its children <Route>s and
-           renders the first one that matches the current URL. */}
             <Switch>
               <Route path="/inventario">
                 <Accountant
@@ -509,48 +438,11 @@ export default class HelloWorld extends React.Component {
                   inactiveItems={inactiveItems}
                 />
               </Route>
-              <Route path="/cart">
-                <div>
-                  <div id="order-id"></div>
-                  <div id="order-name-div">
-                    <label>
-                      <input id="order-name" placeholder="Nombre" />
-                    </label>
-                    <label>
-                      <input id="order-phone" placeholder="Telefono" />
-                    </label>
-                  </div>
-                  <CartPaymentMethods
-                    updateTaxFree={this.updateTaxFree}
-                    updatePaymentMethod={this.updatePaymentMethod}
-                    updateCustomInputChange={this.updateCustomInputChange}
-                    updateCashRecieved={this.updateCashRecieved}
-                    customerChange={customerChange}
-                  />
-                  <Cart
-                    cart={cart}
-                    removeFromCart={this.removeFromCart}
-                    updateCartItem={this.updateCartItem}
-                    orderCart={this.orderCart}
-                    addCustomItemToCart={this.addCustomItemToCart}
-                  />
-                </div>
-              </Route>
               <Route path="/">
                 <Items
                   activeItems={activeItems}
                   inactiveItems={inactiveItems}
                   signedIn={signedIn}
-                  // items={queryListActiveItems}
-                  // selectedNavName="query"
-                  // signedIn={signedIn}
-                  // // picUrls={picUrls}
-                  // addToCart={this.addToCart}
-                  // removeFromCart={this.removeFromCart}
-                  // cart={cart}
-                  // itemsStartRange={itemsStartRange}
-                  // itemsEndRange={itemsEndRange}
-                  // updateItemsRange={this.updateItemsRange}
                 />
               </Route>
             </Switch>
