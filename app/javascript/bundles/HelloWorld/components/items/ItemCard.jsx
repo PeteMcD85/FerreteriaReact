@@ -10,16 +10,11 @@ function ItemCard(props) {
     soldPrice = Number(item.sold_price).toFixed(2),
     quantityInput = useRef(null),
     addRemoveButton = useRef(null),
-    [cartInfo, setCartInfo] = useState({}),
     { addToCart, removeFromCart } = cartContext;
 
   useEffect(() => {
     initInputAndText(id);
   }, []);
-
-  // console.log(cartInfo);
-  // isPicUrl = false,
-  // {isPicUrl !== "" && <img className="item-pic" />}
   return (
     <div className="item">
       {name && <h2>{name}</h2>}
@@ -39,8 +34,8 @@ function ItemCard(props) {
               type="number"
               ref={quantityInput}
               className="quantity-input"
-              defaultValue={cartInfo.value}
-              disabled={false}
+              defaultValue={""}
+              disabled={""}
             ></input>
           </h4>
           <button
@@ -48,7 +43,7 @@ function ItemCard(props) {
             className="cart-button"
             onClick={() => addRemoveItem(id)}
           >
-            {cartInfo.text}
+            {""}
           </button>
         </div>
       </div>
