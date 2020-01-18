@@ -4,7 +4,6 @@ import CartContext from "../contexts/CartContext";
 
 function ItemCard(props) {
   const cartContext = useContext(CartContext);
-  // console.log(cartContext);
   let item = props.item,
     { id, name, brand, color, size, thickness, stockNumber, inventory } = item,
     soldPrice = Number(item.sold_price).toFixed(2),
@@ -50,7 +49,6 @@ function ItemCard(props) {
     </div>
   );
   function addRemoveItem(id) {
-    console.log(quantityInput);
     let quantityValue = quantityInput.current.valueAsNumber;
     if (!quantityValue || quantityValue < 1 || quantityValue > inventory)
       return alert(

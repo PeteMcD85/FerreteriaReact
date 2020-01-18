@@ -8,11 +8,6 @@ function ItemsCard(props) {
     [itemsEndRange, setItemsEndRange] = useState(10),
     disableLess = itemsStartRange === 0 ? true : false,
     disableMore = itemsEndRange >= max ? true : false;
-  function updateRange(e) {
-    let direction = e.target.classList.contains("more") ? 10 : -10;
-    setItemsStartRange(itemsStartRange + direction);
-    setItemsEndRange(itemsEndRange + direction);
-  }
   return (
     <div>
       <div id="range-buttons-div">
@@ -42,6 +37,11 @@ function ItemsCard(props) {
       </ul>
     </div>
   );
-}
+  function updateRange(e) {
+    let direction = e.target.classList.contains("more") ? 10 : -10;
+    setItemsStartRange(itemsStartRange + direction);
+    setItemsEndRange(itemsEndRange + direction);
+  }
+} // end of component
 
 export default ItemsCard;

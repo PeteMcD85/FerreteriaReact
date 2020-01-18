@@ -20,15 +20,8 @@ function Items(props) {
     [displayedItems, setDisplayedItems] = useState([]),
     [query, setQuery] = useState(""),
     [cartItems, setCartItems] = useState([]),
-    [showCart, setShowCart] = useState(false),
+    [showCart, setShowCart] = useState(true),
     { itemsCard, itemsTable } = splitItemsCardsOrTable(displayedItems);
-
-  // const cart = useContext(CartContext);
-
-  useEffect(() => {
-    // console.log(props);
-    // console.log(showCart);
-  }, []);
 
   useEffect(() => {
     setDisplayedItems(filterItemsFromQuery(query, activeItems));
@@ -39,83 +32,60 @@ function Items(props) {
   }, [cartItems]);
 
   return (
-    <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, clearCart }}
-    >
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
       <div>
-        {showCart && (
+        {showCart && <CartMain />}
+        {!showCart && (
           <div>
-            <div id="order-id"></div>
-            <div id="order-name-div">
-              <label>
-                <input
-                  id="order-name"
-                  className="custo-info"
-                  placeholder="Nombre"
-                />
-              </label>
-              <label>
-                <input
-                  id="order-phone"
-                  className="custo-info"
-                  placeholder="Telefono"
-                />
-              </label>
+            <input
+              type="text"
+              onChange={e => setQuery(e.target.value.trim())}
+            ></input>
+            <div></div>
+            <div className="item-cards">
+              <ItemsCard displayedItems={itemsCard} />
             </div>
           </div>
         )}
-        <input
-          type="text"
-          onChange={e => setQuery(e.target.value.trim())}
-        ></input>
-        <div></div>
-        <div className="item-cards">
-          <ItemsCard displayedItems={itemsCard} />
-        </div>
       </div>
     </CartContext.Provider>
   );
 
   function addToCart(item, quantity) {
     // Adds Item to CartItems Array
-    console.log("adds");
+    console.log(item);
     setCartItems([
       ...cartItems,
       {
         item: item,
         quantity: quantity,
         priceGiven: item.sold_price,
-        subtotal: (+quantity * +item.sold_price).toFixed(2)
+        subtotal: (quantity * item.sold_price).toFixed(2)
       }
     ]);
   }
 
   function removeFromCart(id) {
-    console.log("remove  art");
+    // Removes all cart items if 'all' is passed as argument
+    if (id === "all") return setCartItems([]);
     // Finds index for item to be removed from cartItems Array
     let indexToRemove = cartItems.findIndex(cartItem => cartItem.item.id == id);
     // Removes cartItem from cartItems Array
     setCartItems(cartItems.filter((v, i) => i !== indexToRemove));
   }
+
+  function updateCartItem(id, priceGiven, quantity) {
+    let indexToUpdate = cartItems.findIndex(cartItem => cartItem.item.id == id),
+      cartItem = cartItems[itemIndex];
+    cartItem.priceGiven = priceGiven;
+    cartItem.quantity = quantity;
+    cartItem.subtotal = (cartItem.priceGiven * cartItem.quantity).toFixed(2);
+    cartItems[indexToUpdate] = cartItem;
+    setCartItems(cartItems);
+  }
 } // END of Component
 
 // <ItemsTable displayedItems={itemsTable} />;
-
-function clearCart() {
-  //   this.removeAllActiveClass();
-  //   this.setState({
-  //     cart: {
-  //       cartItems: [],
-  //       cartTotal: {
-  //         subtotal: 0,
-  //         taxes: 0,
-  //         total: 0
-  //       }
-  //     }
-  //   });
-  // };() {
-  // console.log("clear cart");
-}
 
 function filterItemsFromQuery(query, items) {
   // Returns an empty array if query is empty
