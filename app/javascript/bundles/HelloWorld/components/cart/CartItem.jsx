@@ -1,11 +1,12 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useContext } from "react";
 import CartContext from "../contexts/CartContext";
 
 function CartItem(props) {
   let { cartItem } = props,
-    { removeFromCart, updateCartItem } = useContext(CartContext),
-    priceGivenInput = useRef(null),
-    quantityInput = useRef(null);
+    [priceGiven, setPriceGiven] = useState(cartItem.priceGiven),
+    [quantity, setQuantity] = useState(cartItem.quantity),
+    { removeFromCart, updateCartItem } = useContext(CartContext);
+
   return (
     <tr className="cart-item">
       <td>{cartItem.item.brand}</td>
@@ -17,18 +18,18 @@ function CartItem(props) {
         $
         <input
           type="number"
-          ref={priceGivenInput}
           className={`item-price`}
           defaultValue={cartItem.priceGiven}
+          onChange={e => setPriceGiven(e.target.valueAsNumber)}
           onBlur={getSubtotal}
         />
       </td>
       <td>
         <input
           type="number"
-          ref={quantityInput}
           className={`item-quantity`}
           defaultValue={cartItem.quantity}
+          onChange={e => setQuantity(e.target.valueAsNumber)}
           onBlur={getSubtotal}
         />
       </td>

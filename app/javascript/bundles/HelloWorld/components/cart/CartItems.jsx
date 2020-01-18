@@ -2,57 +2,22 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 
 import CartContext from "../contexts/CartContext";
 import CartItem from "./CartItem";
+import CartTotal from "./CartTotal";
 import CustomItemForm from "./CustomItemForm";
 
 function CartItems(props) {
   let [taxFree, setTaxFree] = useState(false),
-    [displayCustomItemForm, setDisplayCustomItemForm] = useState(false),
+    [cartSubtotal, setCartSubtotal] = useState(0),
+    [cartTaxes, setCartTaxes] = useState(0),
+    [cartTotal, setCartTotal] = useState(0),
     { cartItems } = useContext(CartContext);
 
-  function printReciept() {
-    orderCart();
-  }
+  useEffect(() => {
+    calcCartTotal();
+    console.log(cartItems);
+  }, [taxFree, cartItems]);
 
   // let test = cart.cartTotal.taxes;
-  function calculateCartTotal(cartItems) {
-    let taxFree = this.state.taxFree,
-      subtotal = cartItems
-        .reduce((total, cartItem) => {
-          return (total += +cartItem.subtotal);
-        }, 0)
-        .toFixed(2),
-      taxes = (subtotal * 0.115).toFixed(2),
-      total = (+subtotal + +taxes).toFixed(2);
-
-    return { subtotal: subtotal, taxes: taxes, total: total };
-  }
-
-  function updateTaxFree() {
-    let taxFree = this.state.taxFree ? false : true,
-      cart = this.state.cart,
-      cartTotal = this.state.cart.cartTotal.total;
-
-    document.getElementById("custom-cash").value;
-    document.getElementById("custom-credit-card").value;
-    document.getElementById("custom-check").value;
-    document.getElementById("custom-debit").value;
-    document.getElementById("cash-recieved").value;
-    if (taxFree) {
-      cart.cartTotal.taxes = 0;
-      cart.cartTotal.total = cart.cartTotal.subtotal;
-    } else {
-      let cartTotal = this.calculateCartTotal(cart.cartItems);
-      cart.cartTotal.taxes = cartTotal.taxes;
-      cart.cartTotal.total = cartTotal.total;
-    }
-    this.setState({
-      taxFree: taxFree,
-      cart: cart,
-      customTotal: 0,
-      customerChange: 0
-    });
-  }
-
   function orderCart() {
     let csrfToken = document.querySelector("[name='csrf-token']").content,
       cart = this.state.cart,
@@ -177,43 +142,32 @@ function CartItems(props) {
             <th className="hide-for-print">Borrar</th>
           </tr>
           {cartItems.map((cartItem, ind) => {
-            return (
-              <CartItem
-                key={`${cartItem.item.name}-${cartItem.item.id} `}
-                cartItem={cartItem}
-              />
-            );
+            return <CartItem key={cartItem.item.id} cartItem={cartItem} />;
           })}
           <CustomItemForm />
+          <CartTotal name="Subtotal" value={cartSubtotal} />
+          <CartTotal name="Taxes" value={cartTaxes} />
+          <CartTotal name="Total" value={cartTotal} />
         </tbody>
       </table>
-      <button
-        id="print-button"
-        className="hide-for-print"
-        onClick={printReciept}
-      >
+      <button id="print-button" className="hide-for-print" onClick={orderCart}>
         Imprima el Recibo
       </button>
     </div>
   );
-} // End of component
 
-// <tr>
-//   <td></td>
-//   <td></td>
-//   <td></td>
-//   <td></td>
-//   <td></td>
-//   <td></td>
-//   <td></td>
-//   <td>Total</td>
-//   <td id="total" className="cart-total-value">
-//     $
-//     {Number(cart.cartTotal.total)
-//       .toFixed(2)
-//       .toString()
-//       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-//   </td>
-// </tr>
+  function calcCartTotal() {
+    let subtotal = cartItems
+        .reduce((total, cartItem) => {
+          return (total += +cartItem.subtotal);
+        }, 0)
+        .toFixed(2),
+      taxes = taxFree ? 0 : (+subtotal * 0.115).toFixed(2),
+      total = (+subtotal + +taxes).toFixed(2);
+    setCartSubtotal(subtotal);
+    setCartTaxes(taxes);
+    setCartTotal(total);
+  }
+} // End of component
 
 export default CartItems;

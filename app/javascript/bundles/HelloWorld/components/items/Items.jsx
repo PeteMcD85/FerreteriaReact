@@ -32,7 +32,9 @@ function Items(props) {
   }, [cartItems]);
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ cartItems, addToCart, removeFromCart, updateCartItem }}
+    >
       <div>
         {showCart && <CartMain />}
         {!showCart && (
@@ -75,13 +77,15 @@ function Items(props) {
   }
 
   function updateCartItem(id, priceGiven, quantity) {
-    let indexToUpdate = cartItems.findIndex(cartItem => cartItem.item.id == id),
-      cartItem = cartItems[itemIndex];
+    console.log("update");
+    let ci = cartItems.slice(),
+      indexToUpdate = ci.findIndex(cartItem => cartItem.item.id == id),
+      cartItem = cartItems[indexToUpdate];
     cartItem.priceGiven = priceGiven;
     cartItem.quantity = quantity;
     cartItem.subtotal = (cartItem.priceGiven * cartItem.quantity).toFixed(2);
-    cartItems[indexToUpdate] = cartItem;
-    setCartItems(cartItems);
+    ci[indexToUpdate] = cartItem;
+    setCartItems(ci);
   }
 } // END of Component
 

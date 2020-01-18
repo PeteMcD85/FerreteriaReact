@@ -29,7 +29,6 @@ function CustomItemForm(props) {
   }
 
   function noCustomForm() {
-    console.log(cartItems);
     return (
       <>
         <td></td>
