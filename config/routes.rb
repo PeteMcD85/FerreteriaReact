@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # get 'hello_world', to: 'hello_world#index'
 
   resources :items
-  # get 'cart', to: 'items#index'
+  get 'cart', to: 'items#index'
   get 'inventario', to: 'items#index'
   get 'get_orders_refunded', to: 'orders#get_orders_refunded'
   get 'get_orders_searched', to: 'orders#get_orders_searched'

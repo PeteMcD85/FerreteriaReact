@@ -21,7 +21,7 @@ function CartItem(props) {
           className={`item-price`}
           defaultValue={cartItem.priceGiven}
           onChange={e => setPriceGiven(e.target.valueAsNumber)}
-          onBlur={getSubtotal}
+          onBlur={updateSubtotal}
         />
       </td>
       <td>
@@ -30,7 +30,7 @@ function CartItem(props) {
           className={`item-quantity`}
           defaultValue={cartItem.quantity}
           onChange={e => setQuantity(e.target.valueAsNumber)}
-          onBlur={getSubtotal}
+          onBlur={updateSubtotal}
         />
       </td>
       <td>
@@ -52,7 +52,7 @@ function CartItem(props) {
       </td>
     </tr>
   );
-  function getSubtotal() {
+  function updateSubtotal() {
     updateCartItem(cartItem.item.id, priceGiven, quantity);
   }
 }

@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 // +++++++++ CONTEXTS +++++++++
 import CartContext from "../contexts/CartContext";
 
 // +++++++++ COMPONENTS +++++++++
+import Accountant from "../accountant/Accountant";
 import CartMain from "../cart/CartMain";
 import ItemsCard from "./ItemsCard";
 import ItemsTable from "./ItemsTable";
@@ -30,41 +32,93 @@ function Items(props) {
   useEffect(() => {
     console.log(cartItems);
   }, [cartItems]);
-
+  console.log(cartItems);
   return (
-    <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, updateCartItem }}
-    >
-      <div>
-        {showCart && <CartMain />}
-        {!showCart && (
-          <div>
-            <input
-              type="text"
-              onChange={e => setQuery(e.target.value.trim())}
-            ></input>
-            <div></div>
-            <div className="item-cards">
-              <ItemsCard displayedItems={itemsCard} />
-            </div>
-          </div>
-        )}
-      </div>
-    </CartContext.Provider>
+    <div>
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/inventario">Inventario</Link>
+              </li>
+              <li>
+                <Link to="/">Articulos</Link>
+              </li>
+              <li>
+                <Link to="/cart">Cart</Link>
+              </li>
+            </ul>
+          </nav>
+
+          <Switch>
+            <Route path="/inventario">
+              <Accountant
+                activeItems={activeItems}
+                updateItems={updateItems}
+                inactiveItems={inactiveItems}
+              />
+            </Route>
+
+            <Route path="/cart">
+              <CartContext.Provider
+                value={{ cartItems, addToCart, removeFromCart, updateCartItem }}
+              >
+                <CartMain />
+              </CartContext.Provider>
+            </Route>
+            <Route path="/">
+              <div>
+                <input
+                  type="text"
+                  onChange={e => setQuery(e.target.value.trim())}
+                ></input>
+                <div></div>
+                <div className="item-cards">
+                  <CartContext.Provider
+                    value={{
+                      cartItems,
+                      addToCart,
+                      removeFromCart,
+                      updateCartItem
+                    }}
+                  >
+                    <ItemsCard displayedItems={itemsCard} />
+                  </CartContext.Provider>
+                </div>
+              </div>
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </div>
   );
 
+  function updateItems() {
+    return false;
+  }
+
   function addToCart(item, quantity) {
+    // cartId is so that cart Items display in same order
+    let cartId = cartItems.length === 0 ? 1 : nextCartId();
     // Adds Item to CartItems Array
-    console.log(item);
-    setCartItems([
-      ...cartItems,
-      {
-        item: item,
-        quantity: quantity,
-        priceGiven: item.sold_price,
-        subtotal: (quantity * item.sold_price).toFixed(2)
-      }
-    ]);
+    let ci = cartItems.slice();
+    ci.push({
+      cartId,
+      item: item,
+      quantity,
+      priceGiven: item.sold_price,
+      subtotal: (quantity * item.sold_price).toFixed(2)
+    });
+    setCartItems(ci);
+  }
+
+  function nextCartId() {
+    return (
+      cartItems.sort(function(a, b) {
+        return b.cartId - a.cartId;
+      })[0].cartId + 1
+    );
   }
 
   function removeFromCart(id) {
@@ -77,7 +131,6 @@ function Items(props) {
   }
 
   function updateCartItem(id, priceGiven, quantity) {
-    console.log("update");
     let ci = cartItems.slice(),
       indexToUpdate = ci.findIndex(cartItem => cartItem.item.id == id),
       cartItem = cartItems[indexToUpdate];

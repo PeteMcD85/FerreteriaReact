@@ -1,7 +1,43 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import CartItems from "./CartItems";
-import CartPaymentMethods from "./CartPaymentMethods";
+import FormInputs from "./FormInputs";
 function CartMain() {
+  let [taxFree, setTaxFree] = useState(false),
+    [paymentMethod, setPaymentMethod] = useState(null),
+    [paymentRecieved, setPaymentRecieved] = useState(0);
+  const paymentOptions = [
+      { text: "Efectivo", value: "cashGiven" },
+      { text: "Tarjeta De Crédito", value: "creditCardGiven" },
+      { text: "Cheque", value: "checkGiven" },
+      { text: "Débito", value: "debitGiven" },
+      { text: "Custom", value: "custom" }
+    ],
+    paymentOptionsNum = [
+      { text: "Efectivo", value: 0 },
+      { text: "Tarjeta De Crédito", value: 0 },
+      { text: "Cheque", value: 0 },
+      { text: "Débito", value: 0 }
+    ],
+    radioInputOptions = {
+      type: "radio",
+      name: "paymentMethod",
+      onChange: setPaymentMethod
+    },
+    numberInputOptions = {
+      type: "number",
+      className: "payment-input",
+      onChange: setPaymentRecieved
+    };
+  useEffect(() => {
+    console.log(taxFree);
+    console.log(paymentMethod);
+    console.log(paymentRecieved);
+  }, [taxFree, paymentRecieved]);
+
+  useEffect(() => {
+    setPaymentRecieved(0);
+  }, [paymentMethod]);
+
   return (
     <div>
       <div>
@@ -23,37 +59,39 @@ function CartMain() {
           </label>
         </div>
       </div>
-      <CartItems />
+      <label>
+        Libre De Impuestos
+        <input
+          type="checkbox"
+          id="tax-free"
+          onChange={e => setTaxFree(e.target.checked)}
+        />
+      </label>
+      <FormInputs
+        {...{
+          inputsArray: paymentOptions,
+          inputOptions: radioInputOptions
+        }}
+      />
+      {paymentMethod === "cashGiven" && (
+        <FormInputs
+          {...{
+            inputsArray: paymentOptionsNum.slice(0, 1),
+            inputOptions: numberInputOptions
+          }}
+        />
+      )}
+      {paymentMethod === "custom" && (
+        <FormInputs
+          {...{
+            inputsArray: paymentOptionsNum,
+            inputOptions: numberInputOptions
+          }}
+        />
+      )}
+      <CartItems {...{ taxFree }} />
     </div>
   );
-
-  //
-
-  function updatePaymentMethod(e) {
-    let val = e.target.value,
-      customPayment = document.getElementById("custom-payment-method-div"),
-      cashPayment = document.getElementById("cash-payment-method");
-    document.getElementById("custom-cash").value = 0;
-    document.getElementById("custom-credit-card").value = 0;
-    document.getElementById("custom-check").value = 0;
-    document.getElementById("custom-debit").value = 0;
-    document.getElementById("cash-recieved").value = 0;
-    if (val === "custom") {
-      customPayment.classList.remove("hidden");
-      cashPayment.classList.add("hidden");
-    } else if (val === "cash") {
-      customPayment.classList.add("hidden");
-      cashPayment.classList.remove("hidden");
-    } else {
-      customPayment.classList.add("hidden");
-      cashPayment.classList.add("hidden");
-    }
-    this.setState({
-      paymentMethod: val,
-      customTotal: 0,
-      customerChange: 0
-    });
-  }
 
   function updateCashRecieved(e) {
     let cartTotal = this.state.cart.cartTotal.total,

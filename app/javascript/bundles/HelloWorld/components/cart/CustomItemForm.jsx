@@ -14,7 +14,7 @@ function CustomItemForm(props) {
     setItem({ id: setId(), name, sold_price: priceGiven });
   }, [name, priceGiven, quantity]);
 
-  return <tr>{displayCustomItemForm ? customForm() : noCustomForm()}</tr>;
+  return <tr>{displayCustomItemForm ? customItemForm() : addCustomItem()}</tr>;
 
   function setId() {
     // Stores a reference of the last Custom Item in the CartItems array
@@ -28,7 +28,7 @@ function CustomItemForm(props) {
     addToCart(item, quantity);
   }
 
-  function noCustomForm() {
+  function addCustomItem() {
     return (
       <>
         <td></td>
@@ -52,7 +52,7 @@ function CustomItemForm(props) {
     );
   }
 
-  function customForm() {
+  function customItemForm() {
     return (
       <>
         <td></td>

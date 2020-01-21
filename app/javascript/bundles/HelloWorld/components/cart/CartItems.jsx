@@ -6,15 +6,18 @@ import CartTotal from "./CartTotal";
 import CustomItemForm from "./CustomItemForm";
 
 function CartItems(props) {
-  let [taxFree, setTaxFree] = useState(false),
+  let { taxFree } = props,
     [cartSubtotal, setCartSubtotal] = useState(0),
     [cartTaxes, setCartTaxes] = useState(0),
     [cartTotal, setCartTotal] = useState(0),
     { cartItems } = useContext(CartContext);
+  // "ci" is to assure consistent displayed order
+  let ci = cartItems.slice().sort(function(a, b) {
+    return a.cartId - b.cartId;
+  });
 
   useEffect(() => {
     calcCartTotal();
-    console.log(cartItems);
   }, [taxFree, cartItems]);
 
   // let test = cart.cartTotal.taxes;
@@ -125,7 +128,6 @@ function CartItems(props) {
         console.error("error", error);
       });
   }
-
   return (
     <div id="cart">
       <table>
@@ -141,7 +143,7 @@ function CartItems(props) {
             <th>Total Parcial</th>
             <th className="hide-for-print">Borrar</th>
           </tr>
-          {cartItems.map((cartItem, ind) => {
+          {ci.map((cartItem, ind) => {
             return <CartItem key={cartItem.item.id} cartItem={cartItem} />;
           })}
           <CustomItemForm />
