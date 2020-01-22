@@ -52,7 +52,7 @@
 
 // +++++++++++++++++++++++++ PAYMENT METHODS +++++++++++++++++++
 
-.payment-methods {
+.form-section {
   text-align: center;
   margin: 15px;
 
@@ -61,23 +61,6 @@
     font-size: 15px;
   }
 } //end of .payment-methods
-
-// +++++++++++++++++ CustomPAYMENTMETHOD ++++++++++++++++++
-#cash-payment-method {
-  margin: 20px;
-}
-
-#custom-payment-method-div {
-  &.hidden {
-    display: none;
-  }
-
-  #custom-payment-method {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  } // end of #custom-payment-method
-} // end of #custom-payment-method-div
 
 // +++++++++++++++++++++++++++++++ TABLE +++++++++++++++++++++++
 
