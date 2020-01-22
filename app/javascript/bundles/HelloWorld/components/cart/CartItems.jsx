@@ -7,8 +7,8 @@ import CustomItemForm from "./CustomItemForm";
 
 function CartItems(props) {
   let { taxFree, orderCart, cartTotal, setCartTotal } = props,
-    [cartSubtotal, setCartSubtotal] = useState(0),
-    [cartTaxes, setCartTaxes] = useState(0),
+    // [cartSubtotal, setCartSubtotal] = useState(0),
+    // [cartTaxes, setCartTaxes] = useState(0),
     { cartItems } = useContext(CartContext);
   // "ci" is to assure consistent displayed order
   let ci = cartItems.slice().sort(function(a, b) {
@@ -40,12 +40,16 @@ function CartItems(props) {
             return <CartItem key={cartItem.item.id} cartItem={cartItem} />;
           })}
           <CustomItemForm />
-          <CartTotal name="Subtotal" value={cartSubtotal} />
-          <CartTotal name="Taxes" value={cartTaxes} />
-          <CartTotal name="Total" value={cartTotal} />
+          <CartTotal name="Subtotal" value={cartTotal.subtotal} />
+          <CartTotal name="Taxes" value={cartTotal.taxes} />
+          <CartTotal name="Total" value={cartTotal.total} />
         </tbody>
       </table>
-      <button id="print-button" className="hide-for-print" onClick={orderCart}>
+      <button
+        id="print-button"
+        className="hide-for-print"
+        onClick={() => orderCart(ci)}
+      >
         Imprima el Recibo
       </button>
     </div>
@@ -59,9 +63,7 @@ function CartItems(props) {
         .toFixed(2),
       taxes = taxFree ? 0 : (+subtotal * 0.115).toFixed(2),
       total = (+subtotal + +taxes).toFixed(2);
-    setCartSubtotal(subtotal);
-    setCartTaxes(taxes);
-    setCartTotal(total);
+    setCartTotal({ subtotal, taxes, total });
   }
 } // End of component
 
