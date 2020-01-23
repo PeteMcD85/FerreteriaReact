@@ -62,7 +62,13 @@ function Items(props) {
 
             <Route path="/cart">
               <CartContext.Provider
-                value={{ cartItems, addToCart, removeFromCart, updateCartItem }}
+                value={{
+                  cartItems,
+                  addToCart,
+                  removeFromCart,
+                  updateCartItem,
+                  setCartItems
+                }}
               >
                 <CartMain />
               </CartContext.Provider>
@@ -80,7 +86,8 @@ function Items(props) {
                       cartItems,
                       addToCart,
                       removeFromCart,
-                      updateCartItem
+                      updateCartItem,
+                      setCartItems
                     }}
                   >
                     <ItemsCard displayedItems={itemsCard} />
@@ -96,6 +103,10 @@ function Items(props) {
 
   function updateItems() {
     return false;
+  }
+
+  function clearCartItems() {
+    setCartItems([]);
   }
 
   function addToCart(item, quantity) {

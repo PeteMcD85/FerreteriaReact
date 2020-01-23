@@ -17,7 +17,9 @@ function CartMain() {
     // Amount of customer's change
     [customerChange, setCustomerChange] = useState(null),
     // A list of form validation errors
-    [validationErrors, setValidationErrors] = useState([]);
+    [validationErrors, setValidationErrors] = useState([]),
+    // Changes to "Printing..." when user clicks print button
+    [printButtonText, setPrintButtonText] = useState("Imprima el Recibo");
   const paymentOptions = [
       { text: "Efectivo", value: "cashPayed" },
       { text: "Tarjeta De Crédito", value: "creditCardPayed" },
@@ -44,7 +46,6 @@ function CartMain() {
     };
 
   useEffect(() => {
-    console.log(paymentMethod);
     paymentMethod === "cashPayed" || paymentMethod === "custom"
       ? setPaymentRecieved(0)
       : setPaymentPayed(null);
@@ -102,7 +103,9 @@ function CartMain() {
         />
       )}
       {displayCustomerChange()}
-      <CartItems {...{ taxFree, orderCart, cartTotal, setCartTotal }} />
+      <CartItems
+        {...{ printButtonText, taxFree, orderCart, cartTotal, setCartTotal }}
+      />
     </div>
   );
 
@@ -137,6 +140,7 @@ function CartMain() {
   }
 
   function orderCart(cartItems) {
+    setPrintButtonText(" Printing... ");
     let csrfToken = document.querySelector("[name='csrf-token']").content,
       activeSavedCart = document.getElementsByClassName("active")[0],
       order = {
@@ -145,11 +149,11 @@ function CartMain() {
         taxFree,
         ...custoInfo,
         ...orderPayed()
-      };
+      },
+      errors = validateOrder(cartItems);
+    setValidationErrors(errors);
     console.log(order);
-    let errors = validateOrder();
-    console.log(errors);
-    if (errors.length > 0) return setValidationErrors(errors);
+    if (errors.length > 0) return setPrintButtonText("Imprima el Recibo");
 
     // order;
   }
@@ -183,6 +187,7 @@ function CartMain() {
     }
 
     function checkForCartItems() {
+      console.log(cartItems);
       if (!cartItems || cartItems.length === 0)
         return "No hay articulos en el carrito";
     }
@@ -237,52 +242,6 @@ function CartMain() {
     //   .catch(error => {
     //     console.error("error", error);
     //   });
-  }
-
-  function clearCart() {
-    // For SAVEDCARTS
-    this.removeAllActiveClass();
-
-    setCartItems([]);
-  }
-
-  function saveCart() {
-    let savedCarts = this.state.savedCarts,
-      cart = this.state.cart;
-    savedCarts.push(cart);
-    LS.set("savedCarts", savedCarts);
-    this.clearCart();
-    window.location.href = "/";
-  }
-
-  function displaySavedCart(e, savedCartIndex) {
-    let savedCarts = this.state.savedCarts,
-      savedCart = savedCarts[savedCartIndex],
-      savedCartButton = e.target,
-      savedCartTotal = this.calculateCartTotal(savedCart.cartItems);
-    this.removeAllActiveClass();
-    savedCartButton.classList.add("active");
-    this.setState({
-      cart: {
-        cartItems: savedCart.cartItems,
-        cartTotal: savedCartTotal
-      }
-    });
-    this.cartButton();
-  }
-
-  function removeAllActiveClass() {
-    let savedCartButtons = document.getElementsByClassName("saved-cart-button");
-    for (let i = 0; i < savedCartButtons.length; i += 1) {
-      savedCartButtons[i].classList.remove("active");
-    }
-  }
-
-  function removeSavedCart(savedCartIndex) {
-    let savedCarts = this.state.savedCarts;
-    savedCarts.splice(savedCartIndex, 1);
-    LS.set("savedCarts", savedCarts);
-    this.setState({ savedCarts: savedCarts });
   }
 } // End of component
 
