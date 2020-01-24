@@ -1,26 +1,32 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ItemTable from "./ItemTable";
 
 const ItemsTable = props => {
-  let items = props.items,
-    signedIn = props.signedIn,
-    addToCart = props.addToCart,
-    removeFromCart = props.removeFromCart,
-    cart = props.cart,
-    selectedNavName = props.selectedNavName,
-    checkColumn = column => {
-      let returnColumn = false;
-      items.forEach(val => {
-        if (val[column]) returnColumn = true;
-      });
-      if (column === "sold_price" && selectedNavName === "PVC" && !signedIn)
-        returnColumn = false;
-      return returnColumn;
+  let { displayedItems } = props,
+    tableHeaderRefs = useRef(null),
+    [tableHeadersList, setTableHeadersList] = useState([]),
+    columnTranslations = {
+      name: "Nombre",
+      brand: "Marca",
+      size: "Tamaño",
+      color: "Color",
+      thickness: "Grosor",
+      sold_price: "Precio",
+      stock_number: "Número De Artículo",
+      inventory: "Inventario"
     };
+  console.log(displayedItems);
+  useEffect(() => {
+    console.log(tableHeaderRefs);
+    let tableHeaders = [...tableHeaderRefs.current.querySelectorAll("th")]
+      .map(th => th.innerText)
+      .filter(th => th !== "Editar" && th !== "Cantidad");
+    setTableHeadersList(tableHeaders);
+  }, [displayedItems]);
   return (
     <div className="table">
       <table>
-        <tbody>
+        <thead ref={tableHeaderRefs}>
           <tr>
             {checkColumn("name") && <th>Nombre</th>}
             {checkColumn("brand") && <th>Marca</th>}
@@ -29,26 +35,26 @@ const ItemsTable = props => {
             {checkColumn("thickness") && <th>Grosor</th>}
             {checkColumn("sold_price") && <th>Precio</th>}
             {checkColumn("stock_number") && <th>Número De Artículo</th>}
-            {signedIn && <th>Inventario</th>}
-            {signedIn && <th>Editar</th>}
-            {signedIn && <th>Cantidad</th>}
+            {checkColumn("inventory") && <th>Inventario</th>}
+            {displayedItems.length > 0 && <th>Editar</th>}
+            {displayedItems.length > 0 && <th>Cantidad</th>}
           </tr>
-          {items.map((item, ind) => {
-            return (
-              <ItemTable
-                key={item.id}
-                item={item}
-                signedIn={signedIn}
-                addToCart={addToCart}
-                removeFromCart={removeFromCart}
-                cart={cart}
-              />
-            );
+        </thead>
+        <tbody>
+          {displayedItems.map((item, ind) => {
+            return <ItemTable key={item.id} {...{ item, tableHeadersList }} />;
           })}
         </tbody>
       </table>
     </div>
   );
+  function checkColumn(column) {
+    let returnColumn = false;
+    displayedItems.forEach(val => {
+      if (val[column] || val[column] === 0) returnColumn = true;
+    });
+    return returnColumn;
+  }
 };
 
 export default ItemsTable;

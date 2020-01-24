@@ -91,6 +91,7 @@ function Items(props) {
                     }}
                   >
                     <ItemsCard displayedItems={itemsCard} />
+                    <ItemsTable displayedItems={itemsTable} />
                   </CartContext.Provider>
                 </div>
               </div>

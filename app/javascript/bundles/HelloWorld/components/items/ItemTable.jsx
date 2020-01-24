@@ -1,88 +1,130 @@
-import React from "react";
-
+import React, { useEffect, useContext, useRef } from "react";
+// +++++++++ CONTEXTS +++++++++
+import CartContext from "../contexts/CartContext";
 const ItemTable = props => {
-  let item = props.item,
-    id = item.id,
-    name = item.name,
-    brand = item.brand,
-    color = item.color,
-    thickness = item.thickness,
-    size = item.size,
-    stockNumber = item.stock_number,
-    inventory = item.inventory,
+  const cartContext = useContext(CartContext);
+  let { item, tableHeadersList } = props,
+    { id, name, brand, color, size, thickness, stockNumber, inventory } = item,
     sold_price = Number(item.sold_price).toFixed(2),
-    signedIn = props.signedIn,
-    addToCart = props.addToCart,
-    removeFromCart = props.removeFromCart,
-    cart = props.cart,
-    cartItems = cart.cartItems,
-    addItem = id => {
-      let quantityInput = document.getElementById(`quantity-${id}`),
-        quantityValue = +quantityInput.value,
-        cartButton = document.getElementById(`cart-button-${id}`),
-        cartButtonPretext = cartButton.innerText.split(" ")[0],
-        newCartButtonPretext = cartButtonPretext === "Add" ? "Remove" : "Add";
-      if (!quantityValue || quantityValue < 1 || quantityValue > inventory)
-        return alert(
-          `Must enter quantity to be greater than 0 and less then ${inventory}`
-        );
-      if (cartButtonPretext === "Add") {
-        quantityInput.disabled = true;
-        addToCart(id, quantityValue);
-      } else {
-        quantityInput.disabled = false;
-        removeFromCart(id);
-      }
-      cartButton.innerText = `${newCartButtonPretext} from Cart`;
-    },
-    setQuantityValue = id => {
-      let itemInCart = cartItems.find(cartItem => cartItem.item.id == id);
-      if (itemInCart)
-        return {
-          value: itemInCart.quantity,
-          disabled: true,
-          text: "Remove from Cart"
-        };
-      return { value: "", disabled: false, text: "Add to Cart" };
+    quantityInput = useRef(null),
+    addRemoveButton = useRef(null),
+    { addToCart, removeFromCart } = cartContext,
+    columnTranslations = {
+      Nombre: "name",
+      Marca: "brand",
+      Tamaño: "size",
+      Color: "color",
+      Grosor: "thickness",
+      Precio: "sold_price",
+      "Número De Artículo": "stock_number",
+      Inventario: "inventory"
     };
+  useEffect(() => {
+    console.log();
+    initInputAndText(id);
+  }, []);
   return (
     <tr>
-      {name && <td>{name}</td>}
-      {brand && <td>{brand}</td>}
-      {size && <td>{size}</td>}
-      {color && <td>{color}</td>}
-      {thickness && <td>{thickness}</td>}
-      {signedIn && <td>${sold_price}</td>}
-      {stockNumber && <td>{stockNumber}</td>}
-      {signedIn && <td>{inventory}</td>}
-      {signedIn && (
-        <td>
-          <a href={`/items/${id}/edit`}>Editar</a>
-        </td>
-      )}
-      {signedIn && (
-        <td className="update-cart-td">
-          <span>
-            Cantidad
-            <input
-              type="number"
-              className="quantity-input"
-              id={`quantity-${id}`}
-              defaultValue={setQuantityValue(id).value}
-              disabled={setQuantityValue(id).disabled}
-            ></input>
-          </span>
-          <button
-            className="cart-button"
-            id={`cart-button-${id}`}
-            onClick={() => addItem(id)}
-          >
-            {setQuantityValue(id).text}
-          </button>
-        </td>
-      )}
+      {displayColumns()}
+      <td>
+        <a href={`/items/${id}/edit`}>Editar</a>
+      </td>
+      <td className="update-cart-td">
+        <span>
+          Cantidad
+          <input
+            type="number"
+            ref={quantityInput}
+            className="quantity-input"
+            defaultValue={""}
+            disabled={""}
+          ></input>
+        </span>
+        <button
+          ref={addRemoveButton}
+          className="cart-button"
+          onClick={() => addRemoveItem(id)}
+        >
+          {""}
+        </button>
+      </td>
     </tr>
   );
+  function displayColumn(columnName) {
+    return (
+      <td>
+        {item[columnName] || item[columnName] === 0 ? item[columnName] : "N/A"}
+      </td>
+    );
+  }
+  function displayColumns() {
+    return tableHeadersList.map(th => displayColumn(columnTranslations[th]));
+  }
+
+  // <div className="item">
+  //   {name && <h2>{name}</h2>}
+  //   {brand && <p>{brand}</p>}
+  //   {color && <p>{color}</p>}
+  //   {size && <p>{size}</p>}
+  //   {thickness && <p>{thickness}</p>}
+  //   <h4>Precio: ${soldPrice}</h4>
+  //   <div className="active-card">
+  //     <a href={`/items/${id}/edit`}>Editar</a>
+  //     <div className="update-cart-div">
+  //       {stockNumber && <p>Número de Artículo: {stockNumber}</p>}
+  //       {inventory && <p>Inventario: {inventory}</p>}
+  //       <h4>
+  //         Cantidad
+  //         <input
+  //           type="number"
+  //           ref={quantityInput}
+  //           className="quantity-input"
+  //           defaultValue={""}
+  //           disabled={""}
+  //         ></input>
+  //       </h4>
+  //       <button
+  //         ref={addRemoveButton}
+  //         className="cart-button"
+  //         onClick={() => addRemoveItem(id)}
+  //       >
+  //         {""}
+  //       </button>
+  //     </div>
+  //   </div>
+  // </div>
+  function addRemoveItem(id) {
+    let quantityValue = quantityInput.current.valueAsNumber;
+    if (!quantityValue || quantityValue < 1 || quantityValue > inventory)
+      return alert(
+        `Quantity must be greater than 0 and less than ${inventory}`
+      );
+    !quantityInput.current.disabled
+      ? addToCart(item, quantityValue)
+      : removeFromCart(id);
+    toggleTextNDisabled();
+  }
+
+  function toggleTextNDisabled() {
+    // Stores the disabled boolean for quantity input
+    let disabled = quantityInput.current.disabled;
+    // Toggles Add/Remove from cart button's text
+    addRemoveButton.current.innerText = disabled
+      ? "Add to Cart"
+      : "Remove from Cart";
+    // Toggles disabled boolean of the quantity input
+    quantityInput.current.disabled = !disabled;
+  }
+
+  function initInputAndText(id) {
+    let itemInCart = cartContext.cartItems.find(ci => ci.item.id == id),
+      value = itemInCart ? itemInCart.quantity : "",
+      disabled = value ? true : false,
+      text = disabled ? "Remove from Cart" : "Add to Cart";
+    quantityInput.current.value = value;
+    quantityInput.current.disabled = disabled;
+    addRemoveButton.current.innerText = text;
+  }
 };
 
 export default ItemTable;
