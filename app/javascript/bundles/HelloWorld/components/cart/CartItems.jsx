@@ -10,6 +10,7 @@ function CartItems(props) {
   let { taxFree, orderCart, cartTotal, setCartTotal, printButtonText } = props,
     // Reference to all Saved Carts
     [savedCarts, setSavedCarts] = useState([]),
+    printButton = useRef(null),
     { cartItems, setCartItems } = useContext(CartContext);
   // "ci" is to assure consistent displayed order
   let ci = cartItems.slice().sort(function(a, b) {
@@ -30,6 +31,12 @@ function CartItems(props) {
   useEffect(() => {
     calcCartTotal();
   }, [taxFree, cartItems]);
+
+  useEffect(() => {
+    printButton.current.disabled = printButtonText.includes("Imprima")
+      ? false
+      : true;
+  }, [printButtonText]);
 
   // let test = cart.cartTotal.taxes;
 
@@ -79,6 +86,7 @@ function CartItems(props) {
       </table>
       <button
         id="print-button"
+        ref={printButton}
         className="hide-for-print"
         onClick={() => orderCart(ci)}
       >

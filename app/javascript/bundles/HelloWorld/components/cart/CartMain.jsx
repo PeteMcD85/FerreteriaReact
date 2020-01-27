@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import CartItems from "./CartItems";
 import FormInputs from "./FormInputs";
-function CartMain() {
+function CartMain(props) {
   // OrderName and OrderPhone input values
-  let [custoInfo, setCustoInfo] = useState({}),
+  let { setKey } = props,
+    [custoInfo, setCustoInfo] = useState({}),
     // Determines if order will be Tax exempted
     [taxFree, setTaxFree] = useState(false),
     //Object that stores the order's {subtotal, taxes, total}
@@ -19,7 +20,9 @@ function CartMain() {
     // A list of form validation errors
     [validationErrors, setValidationErrors] = useState([]),
     // Changes to "Printing..." when user clicks print button
-    [printButtonText, setPrintButtonText] = useState("Imprima el Recibo");
+    [printButtonText, setPrintButtonText] = useState("Imprima el Recibo"),
+    orderIdDiv = useRef(null);
+  console.log(setKey);
   const paymentOptions = [
       { text: "Efectivo", value: "cashPayed" },
       { text: "Tarjeta De Crédito", value: "creditCardPayed" },
@@ -65,7 +68,7 @@ function CartMain() {
 
   return (
     <div>
-      <div id="order-id"></div>
+      <div id="order-id" ref={orderIdDiv}></div>
       {validationErrors.map(err => (
         <p key={err} className="error-validation">
           {err}
@@ -141,8 +144,7 @@ function CartMain() {
 
   function orderCart(cartItems) {
     setPrintButtonText(" Printing... ");
-    let csrfToken = document.querySelector("[name='csrf-token']").content,
-      activeSavedCart = document.getElementsByClassName("active")[0],
+    let activeSavedCart = document.getElementsByClassName("active")[0],
       order = {
         orderType: "sale",
         itemOrders: { cartItems, cartTotal },
@@ -154,7 +156,7 @@ function CartMain() {
     setValidationErrors(errors);
     console.log(order);
     if (errors.length > 0) return setPrintButtonText("Imprima el Recibo");
-
+    createOrder(order);
     // order;
   }
 
@@ -194,70 +196,47 @@ function CartMain() {
   } // end of validateOrder()
 
   function createOrder(order) {
-    // fetch("/orders", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     order: {
-    //       orderType: "sale",
-    //       itemOrders: cart,
-    //       taxFree: taxFree,
-    //       cashPayed: customMethod.cash,
-    //       creditCardPayed: customMethod.creditCard,
-    //       debitPayed: customMethod.debit,
-    //       checkPayed: customMethod.check,
-    //       orderName: orderName,
-    //       orderPhone: orderPhone
-    //     }
-    //   }),
-    //   headers: {
-    //     "X-CSRF-Token": csrfToken,
-    //     "Content-Type": "application/json"
-    //   }
-    // })
-    //   .then(response => {
-    //     console.log("response");
-    //     console.log(response);
-    //     if (!response.ok) {
-    //       throw response;
-    //     }
-    //     return response.json();
-    //   })
-    //   .then(res => {
-    //     let orderId = res.order_id,
-    //       orderIdDiv = document.getElementById("order-id"),
-    //       orderErrors = res.order_errors;
-    //     orderIdDiv.innerText = `Order Number : ${orderId}`;
-    //     window.print();
-    //     printButton.disabled = false;
-    //     printButton.innerHTML = "Imprima el Recibo";
-    //     // location.reload();
-    //     console.log("res");
-    //     console.log(res);
-    //     if (orderErrors.length > 0)
-    //       return
-    //         "Todo los articulos no fui en el Orden, save un copy de reciept y llama Stephen. Por Favor Reload Page"
-    //       );
-    //     location.reload(true);
-    //   })
-    //   .catch(error => {
-    //     console.error("error", error);
-    //   });
+    let csrfToken = document.querySelector("[name='csrf-token']").content;
+    fetch("/orders", {
+      method: "POST",
+      body: JSON.stringify({
+        order: {
+          ...order
+        }
+      }),
+      headers: {
+        "X-CSRF-Token": csrfToken,
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        console.log("response");
+        console.log(response);
+        if (!response.ok) {
+          throw response;
+        }
+        return response.json();
+      })
+      .then(res => {
+        let orderId = res.order_id,
+          orderErrors = res.order_errors;
+        orderIdDiv.current.innerText = `Order Number : ${orderId}`;
+        window.print();
+        // setPrintButtonText("Imprima el Recibo");
+        // console.log("res");
+        // console.log(res);
+        if (orderErrors.length > 0) {
+          return alert(
+            "Todo los articulos no fui en el Orden, save un copy de reciept y llama Stephen. Por Favor Reload Page"
+          );
+        }
+        window.location.href = "/";
+        setKey();
+      })
+      .catch(error => {
+        console.error("error", error);
+      });
   }
 } // End of component
-
-// <label>
-//   <input
-//     id="order-name"
-//     className="custo-info"
-//     placeholder="Nombre"
-//   />
-// </label>
-// <label>
-//   <input
-//     id="order-phone"
-//     className="custo-info"
-//     placeholder="Telefono"
-//   />
-// </label>
 
 export default CartMain;

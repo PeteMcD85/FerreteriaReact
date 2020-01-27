@@ -23,54 +23,30 @@ export default class HelloWorld extends React.Component {
     this.state = {
       activeItems: this.props.activeItems,
       inactiveItems: this.props.inactiveItems,
-      brands: this.props.brands,
-      categories: this.props.categories,
-      selectedNavName: "Todo",
-      selectedNavList: [],
-      selectedNavListInactives: [],
       signedIn: this.props.signedIn,
-      // picUrls: this.props.picUrls,
-      cart: {
-        cartItems: [],
-        cartTotal: {
-          subtotal: 0,
-          taxes: 0,
-          total: 0
-        }
-      },
-      showCart: false,
-      taxFree: false,
-      paymentMethod: "",
-      query: "",
-      queryListActiveItems: this.props.activeItems,
-      showQueryList: false,
-      queryLength: 0,
-      customerChange: 0,
-      customTotal: 0,
-      customItemId: 9999,
-      itemsStartRange: 0,
-      itemsEndRange: 10,
-      showAccountant: false,
-      savedCarts: []
+      key: 0
     };
   }
 
-  componentDidMount() {
-    let savedCarts = LS.get("savedCarts");
-    if (!savedCarts) LS.set("savedCarts", []);
-    this.setState({ savedCarts: savedCarts });
-  }
+  setKey = () => {
+    console.log("setket");
+    this.setState(prevState => {
+      return { key: prevState.key + 1 };
+    });
+  };
 
   render() {
-    let activeItems = this.state.activeItems,
-      inactiveItems = this.state.inactiveItems,
-      signedIn = this.state.signedIn;
+    let { activeItems, inactiveItems, signedIn, key } = this.state;
     return (
       <div className="hello-world">
         <Items
-          activeItems={activeItems}
-          inactiveItems={inactiveItems}
-          signedIn={signedIn}
+          {...{
+            key,
+            activeItems,
+            inactiveItems,
+            signedIn,
+            setKey: this.setKey
+          }}
         />
       </div>
     );

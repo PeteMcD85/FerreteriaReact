@@ -52,7 +52,7 @@ const ItemTable = props => {
   );
   function displayColumn(columnName) {
     return (
-      <td>
+      <td key={columnName}>
         {item[columnName] || item[columnName] === 0 ? item[columnName] : "N/A"}
       </td>
     );

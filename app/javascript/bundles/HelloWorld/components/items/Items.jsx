@@ -18,7 +18,7 @@ import tableDisplayedCategories from "./variables/tableDisplayedCategories";
 import columnsToSearch from "./variables/columnsToSearch";
 
 function Items(props) {
-  let { activeItems, inactiveItems, signedIn } = props,
+  let { activeItems, inactiveItems, signedIn, setKey } = props,
     [displayedItems, setDisplayedItems] = useState([]),
     [query, setQuery] = useState(""),
     [cartItems, setCartItems] = useState([]),
@@ -28,6 +28,10 @@ function Items(props) {
   useEffect(() => {
     setDisplayedItems(filterItemsFromQuery(query, activeItems));
   }, [query]);
+
+  useEffect(() => {
+    console.log(setKey);
+  }, []);
 
   useEffect(() => {
     console.log(cartItems);
@@ -70,7 +74,7 @@ function Items(props) {
                   setCartItems
                 }}
               >
-                <CartMain />
+                <CartMain {...{ setKey }} />
               </CartContext.Provider>
             </Route>
             <Route path="/">
