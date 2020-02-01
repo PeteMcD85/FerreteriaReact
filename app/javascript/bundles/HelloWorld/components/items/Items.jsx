@@ -18,7 +18,9 @@ import tableDisplayedCategories from "./variables/tableDisplayedCategories";
 import columnsToSearch from "./variables/columnsToSearch";
 
 function Items(props) {
-  let { activeItems, inactiveItems, signedIn, setKey } = props,
+  let { currentUser, setKey } = props,
+    [activeItems, setActiveItems] = useState([]),
+    [inactiveItems, setInactiveItems] = useState([]),
     [displayedItems, setDisplayedItems] = useState([]),
     [query, setQuery] = useState(""),
     [cartItems, setCartItems] = useState([]),
@@ -30,13 +32,26 @@ function Items(props) {
   }, [query]);
 
   useEffect(() => {
-    console.log(setKey);
+    console.log(currentUser);
+    getItems();
   }, []);
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
-  console.log(cartItems);
+  function getItems() {
+    fetch(`/get_items`)
+      .then(res => res.json())
+      .then(
+        result => {
+          console.log(result);
+          setActiveItems(result.active_items);
+          setInactiveItems(result.inactive_items);
+        },
+        error => {
+          console.error("Error retrieving results for getItems AJAX method");
+          console.error(error);
+        }
+      );
+  }
+
   return (
     <div>
       <Router>

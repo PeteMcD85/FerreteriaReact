@@ -15,9 +15,7 @@ const ItemsTable = props => {
       stock_number: "Número De Artículo",
       inventory: "Inventario"
     };
-  console.log(displayedItems);
   useEffect(() => {
-    console.log(tableHeaderRefs);
     let tableHeaders = [...tableHeaderRefs.current.querySelectorAll("th")]
       .map(th => th.innerText)
       .filter(th => th !== "Editar" && th !== "Cantidad");

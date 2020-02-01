@@ -20,7 +20,6 @@ const ItemTable = props => {
       Inventario: "inventory"
     };
   useEffect(() => {
-    console.log();
     initInputAndText(id);
   }, []);
   return (

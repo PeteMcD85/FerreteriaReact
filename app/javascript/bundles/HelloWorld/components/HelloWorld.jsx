@@ -6,11 +6,7 @@ import Items from "./items/Items";
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
-    activeItems: PropTypes.array.isRequired,
-    inactiveItems: PropTypes.array.isRequired,
-    categories: PropTypes.array.isRequired,
-    brands: PropTypes.array.isRequired,
-    signedIn: PropTypes.bool.isRequired
+    current_user: PropTypes.object.isRequired
     // picUrls: PropTypes.array.isRequired
   };
 
@@ -21,9 +17,9 @@ export default class HelloWorld extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItems: this.props.activeItems,
-      inactiveItems: this.props.inactiveItems,
-      signedIn: this.props.signedIn,
+      // activeItems: this.props.activeItems,
+      // inactiveItems: this.props.inactiveItems,
+      currentUser: this.props.current_user,
       key: 0
     };
   }
@@ -36,15 +32,15 @@ export default class HelloWorld extends React.Component {
   };
 
   render() {
-    let { activeItems, inactiveItems, signedIn, key } = this.state;
+    let { currentUser, key } = this.state;
     return (
       <div className="hello-world">
         <Items
           {...{
-            key,
-            activeItems,
-            inactiveItems,
-            signedIn,
+            // key,
+            // activeItems,
+            // inactiveItems,
+            currentUser,
             setKey: this.setKey
           }}
         />

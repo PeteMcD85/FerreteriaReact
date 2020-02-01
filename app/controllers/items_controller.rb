@@ -4,11 +4,11 @@ class ItemsController < ApplicationController
 
   def index
     # render :layout => 'hello_world'
-    @items = Item.all
-    @active_items = @items.get_ordered_actives
-    @inactive_items = @items.get_ordered_inactives
-    @categories = @items.distinct_categories
-    @brands = [{brand:"Lanco"}, {brand:"Wilsonart"}, {brand:"Temar"}, {brand:"Hafelle"}, {brand:"Pfister"}, {brand:"Blum"}, {brand:"Sait"}, {brand:"3M"}]
+    # @items = Item.all
+    # @active_items = @items.get_ordered_actives
+    # @inactive_items = @items.get_ordered_inactives
+    # @categories = @items.distinct_categories
+    # @brands = [{brand:"Lanco"}, {brand:"Wilsonart"}, {brand:"Temar"}, {brand:"Hafelle"}, {brand:"Pfister"}, {brand:"Blum"}, {brand:"Sait"}, {brand:"3M"}]
     # @pic_urls = @items.map do |item|
     #   pic_url = ""
     #   pic_url = url_for(item.pic) if item.pic.attached?
@@ -114,27 +114,35 @@ class ItemsController < ApplicationController
     return render 'index'
   end
 
-  def get_category_brand
+  def get_items
     @items = Item.all
-    column = params[:column]
-    column_name= params[:columnName]
-    selected_column_items = []
-    case column
-    when 'category'
-      selected_column_items = column_name!='Todo' ? @items.get_category(column_name) : @items.remove_category("PVC").remove_category("Brazos").remove_category("Superficie").remove_category("Tornillos").remove_category("Tinte").remove_category("Gozne").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Discos").remove_category("Staples").remove_category("Fregaderos").remove_category("Laminados").remove_brand("Sait").remove_brand("Temar").remove_category("Lazy Susan").remove_category("SeamFil").remove_category("Madera").remove_category("Clavos")
-    when 'brand'
-      selected_column_items = @items.get_brand(column_name)
-    end
-    respond_to do |format|
-    format.html
-    format.json {
-      render json: {
-          actives: selected_column_items.get_ordered_actives,
-          inactives: selected_column_items.get_ordered_inactives
-        }
+    render json: {
+        active_items: @items.get_ordered_actives,
+        inactives_items: @items.get_ordered_inactives
       }
-    end
-  end #END of def get_category_brand
+  end
+
+  # def get_category_brand
+  #   @items = Item.all
+  #   column = params[:column]
+  #   column_name= params[:columnName]
+  #   selected_column_items = []
+  #   case column
+  #   when 'category'
+  #     selected_column_items = column_name!='Todo' ? @items.get_category(column_name) : @items.remove_category("PVC").remove_category("Brazos").remove_category("Superficie").remove_category("Tornillos").remove_category("Tinte").remove_category("Gozne").remove_category("Correderas").remove_category("Routers").remove_category("Tapcon").remove_category("Discos").remove_category("Staples").remove_category("Fregaderos").remove_category("Laminados").remove_brand("Sait").remove_brand("Temar").remove_category("Lazy Susan").remove_category("SeamFil").remove_category("Madera").remove_category("Clavos")
+  #   when 'brand'
+  #     selected_column_items = @items.get_brand(column_name)
+  #   end
+  #   respond_to do |format|
+  #   format.html
+  #   format.json {
+  #     render json: {
+  #         actives: selected_column_items.get_ordered_actives,
+  #         inactives: selected_column_items.get_ordered_inactives
+  #       }
+  #     }
+  #   end
+  # end #END of def get_category_brand
 
   private
 
