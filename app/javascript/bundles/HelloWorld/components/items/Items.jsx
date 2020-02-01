@@ -19,8 +19,9 @@ import columnsToSearch from "./variables/columnsToSearch";
 
 function Items(props) {
   let { currentUser, setKey } = props,
-    [activeItems, setActiveItems] = useState([]),
-    [inactiveItems, setInactiveItems] = useState([]),
+    [items, setItems] = useState({}),
+    // [activeItems, setActiveItems] = useState([]),
+    // [inactiveItems, setInactiveItems] = useState([]),
     [displayedItems, setDisplayedItems] = useState([]),
     [query, setQuery] = useState(""),
     [cartItems, setCartItems] = useState([]),
@@ -28,7 +29,12 @@ function Items(props) {
     { itemsCard, itemsTable } = splitItemsCardsOrTable(displayedItems);
 
   useEffect(() => {
-    setDisplayedItems(filterItemsFromQuery(query, activeItems));
+    setDisplayedItems(
+      filterItemsFromQuery(
+        query,
+        items && items.activeItems ? items.activeItems : []
+      )
+    );
   }, [query]);
 
   useEffect(() => {
@@ -41,9 +47,10 @@ function Items(props) {
       .then(res => res.json())
       .then(
         result => {
-          console.log(result);
-          setActiveItems(result.active_items);
-          setInactiveItems(result.inactive_items);
+          setItems({
+            activeItems: result.active_items,
+            inactiveItems: result.inactive_items
+          });
         },
         error => {
           console.error("Error retrieving results for getItems AJAX method");
@@ -72,11 +79,7 @@ function Items(props) {
 
           <Switch>
             <Route path="/inventario">
-              <Accountant
-                activeItems={activeItems}
-                updateItems={updateItems}
-                inactiveItems={inactiveItems}
-              />
+              <Accountant {...{ items, setItems }} />
             </Route>
 
             <Route path="/cart">

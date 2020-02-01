@@ -1,5 +1,21 @@
 import React, { useState, useEffect } from "react";
 
+//
+// const paymentOptions = [
+//     { text: "Efectivo", value: "cashPayed" },
+//     { text: "Tarjeta De Crédito", value: "creditCardPayed" },
+//     { text: "Cheque", value: "checkPayed" },
+//     { text: "Débito", value: "debitPayed" },
+//     { text: "Custom", value: "custom" }
+//   ],
+//   customMethod = paymentOptions.slice(0, paymentOptions.length - 1),
+//   cashMethod = paymentOptions.slice(0, 1),
+//   radioInputOptions = {
+//     type: "radio",
+//     name: "paymentMethod",
+//     onChange: setPaymentMethod
+//   },
+
 function FormInputs(props) {
   let { inputsArray, inputOptions } = props;
   let inputs = inputsArray.map(paymentOption => {

@@ -61,11 +61,22 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    if @item.update(item_params)
-      redirect_to @item
+    if params[:inventory]
+      @items = Item.all
+      @item.update(inventory:params[:inventory])
+      render json: {
+          active_items: @items.get_ordered_actives,
+          inactives_items: @items.get_ordered_inactives
+        }
     else
-      render 'edit'
+      if @item.update(item_params)
+        redirect_to @item
+      else
+        render 'edit'
+      end
     end
+
+
   end
 
   def destroy

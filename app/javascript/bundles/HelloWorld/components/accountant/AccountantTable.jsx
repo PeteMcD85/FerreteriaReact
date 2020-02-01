@@ -1,30 +1,13 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const AccountantTable = props => {
-  let items = props.items,
-    tableCaption = props.tableCaption,
-    updateItems = props.updateItems,
-    deleteItem = itemId => {
-      let confirmed = confirm("Are you sure?");
-      if (confirmed) {
-        fetch(`/items/${itemId}`, {
-          method: "delete"
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw response;
-            }
-            return response.json();
-          })
-          .then(res => {
-            updateItems(res.actives, res.inactives);
-          })
-          .catch(error => {
-            console.error("error", error);
-          });
-      }
-    };
+  let { items, tableCaption, setItems } = props,
+    [inventoryValue, setInventoryValue] = useState(0),
+    [displayInventoryInput, setDisplayInventoryInput] = useState(false);
 
+  useEffect(() => {
+    console.log(inventoryValue);
+  }, [inventoryValue]);
   return (
     <table>
       <caption>{tableCaption}</caption>
@@ -41,15 +24,40 @@ const AccountantTable = props => {
           <th>Editar</th>
           <th>Borrar</th>
         </tr>
-        {items.map((item, ind) => {
+        {items.map(item => {
           return (
-            <tr key={ind}>
+            <tr key={item.id}>
               <td>{item.name}</td>
               <td>{item.brand}</td>
               <td>{item.size}</td>
               <td>{item.thickness}</td>
               <td>{item.color}</td>
-              <td>{item.inventory}</td>
+              <td>
+                {item.inventory}{" "}
+                <button
+                  type="button"
+                  onClick={() =>
+                    setDisplayInventoryInput(!displayInventoryInput)
+                  }
+                >
+                  {!displayInventoryInput ? "Update Inventario" : "Cancel"}
+                </button>
+                {displayInventoryInput && (
+                  <span>
+                    <input
+                      type="number"
+                      defaultValue="0"
+                      onChange={e => setInventoryValue(e.target.valueAsNumber)}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => updateItemInventory(item.id)}
+                    >
+                      Update
+                    </button>
+                  </span>
+                )}
+              </td>
               <td id="cash">
                 $
                 {Number(item.bought_price)
@@ -76,6 +84,54 @@ const AccountantTable = props => {
       </tbody>
     </table>
   );
+
+  function deleteItem(itemId) {
+    let confirmed = confirm("Are you sure?");
+    if (confirmed) {
+      fetch(`/items/${itemId}`, {
+        method: "delete"
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw response;
+          }
+          return response.json();
+        })
+        .then(result => {
+          setItems({
+            activeItems: result.active_items,
+            inactiveItems: result.inactive_items
+          });
+        })
+        .catch(error => {
+          console.error("error", error);
+        });
+    }
+  }
+  function updateItemInventory(itemId) {
+    let confirmed = confirm("Are you sure?");
+    if (confirmed) {
+      fetch(`/items/${itemId}?inventory=${inventoryValue}`, {
+        method: "PATCH"
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw response;
+          }
+          return response.json();
+        })
+        .then(result => {
+          console.log(result);
+          setItems({
+            activeItems: result.active_items,
+            inactiveItems: result.inactive_items
+          });
+        })
+        .catch(error => {
+          console.error("error", error);
+        });
+    }
+  }
 };
 
 export default AccountantTable;
