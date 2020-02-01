@@ -20,7 +20,7 @@ function CartItems(props) {
   useEffect(() => {
     let sc = LS.get("savedCarts");
     if (!sc) LS.set("savedCarts", []);
-    setSavedCarts(savedCarts);
+    setSavedCarts(sc);
   }, []);
 
   useEffect(() => {
@@ -42,25 +42,28 @@ function CartItems(props) {
 
   return (
     <div id="cart">
-      {savedCarts &&
-        savedCarts.map((savedCart, ind) => {
-          return (
-            <div className="saved-cart" key={ind}>
-              <button
-                className="saved-cart-button"
-                onClick={e => displaySavedCart(e, ind)}
-              >
-                {ind + 1}
-              </button>
-              <span
-                className="remove-saved-cart"
-                onClick={() => removeSavedCart(ind)}
-              >
-                x
-              </span>
-            </div>
-          );
-        })}
+      <div id="saved-carts">
+        {savedCarts &&
+          savedCarts.map((savedCart, ind) => {
+            return (
+              <div className="saved-cart" key={ind}>
+                <span
+                  className="remove-saved-cart"
+                  onClick={() => removeSavedCart(ind)}
+                >
+                  x
+                </span>
+                <button
+                  className="saved-cart-button"
+                  onClick={e => displaySavedCart(e, ind)}
+                >
+                  {ind + 1}
+                </button>
+              </div>
+            );
+          })}
+      </div>
+
       <button onClick={() => saveCart(ci)}>Save Cart</button>
       <table>
         <tbody>

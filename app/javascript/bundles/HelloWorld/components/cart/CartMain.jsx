@@ -22,7 +22,6 @@ function CartMain(props) {
     // Changes to "Printing..." when user clicks print button
     [printButtonText, setPrintButtonText] = useState("Imprima el Recibo"),
     orderIdDiv = useRef(null);
-  console.log(setKey);
   const paymentOptions = [
       { text: "Efectivo", value: "cashPayed" },
       { text: "Tarjeta De Crédito", value: "creditCardPayed" },

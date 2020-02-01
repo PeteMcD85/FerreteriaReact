@@ -22,21 +22,21 @@
     margin: 5px;
   }
 
-  button:nth-child(2) {
-    position: relative;
-    left: 50%;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
-      0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background-color: #8c8c89;
-    border: none;
-    margin: 10px;
-    color: white;
-    padding: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-  }
+  // button:nth-child(2) {
+  //   position: relative;
+  //   left: 50%;
+  //   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+  //     0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  //   background-color: #8c8c89;
+  //   border: none;
+  //   margin: 10px;
+  //   color: white;
+  //   padding: 5px;
+  //   text-align: center;
+  //   text-decoration: none;
+  //   display: inline-block;
+  //   font-size: 12px;
+  // }
 } //end of cart
 
 // +++++++++++++++++++++ CART BUTTONS ++++++++++++++
@@ -67,5 +67,27 @@
 // +++++++++++++++++++++++++++++++ TABLE +++++++++++++++++++++++
 
 input.quantity-input {
+  width: 50px;
+}
+
+.saved-carts {
+  display: flex;
+  justify-content: space-around;
+}
+
+.saved-cart {
+  position: relative;
+}
+
+.saved-cart span {
+  position: absolute;
+  width: 15px;
+  right: -5px !important;
+  top: -5px !important;
+  z-index: 10;
+  text-align: center;
+}
+
+.saved-cart button {
   width: 50px;
 }
