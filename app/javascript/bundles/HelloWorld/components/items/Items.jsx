@@ -40,6 +40,7 @@ function Items(props) {
   useEffect(() => {
     console.log(currentUser);
     getItems();
+    setQuery("PVC");
   }, []);
 
   function getItems() {
@@ -99,9 +100,10 @@ function Items(props) {
               <div>
                 <input
                   type="text"
+                  id="items-searchbar"
+                  placeholder="Search for Items...."
                   onChange={e => setQuery(e.target.value.trim())}
                 ></input>
-                <div></div>
                 <div className="item-cards">
                   <CartContext.Provider
                     value={{
@@ -112,8 +114,17 @@ function Items(props) {
                       setCartItems
                     }}
                   >
-                    <ItemsCard displayedItems={itemsCard} />
-                    <ItemsTable displayedItems={itemsTable} />
+                    {displayedItems.length === 0 && (
+                      <div id="no-items">
+                        <p>Search For Items</p>
+                      </div>
+                    )}
+                    {displayedItems.length !== 0 && (
+                      <div>
+                        <ItemsTable displayedItems={itemsTable} />
+                        <ItemsCard displayedItems={itemsCard} />
+                      </div>
+                    )}
                   </CartContext.Provider>
                 </div>
               </div>

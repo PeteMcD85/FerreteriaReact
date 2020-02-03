@@ -10,24 +10,26 @@ function ItemsCard(props) {
     disableMore = itemsEndRange >= max ? true : false;
   return (
     <div>
-      <div id="range-buttons-div">
-        <button
-          id="decrease-range-button"
-          className="range-buttons"
-          onClick={updateRange}
-          disabled={disableLess}
-        >
-          <i className="fa fa-angle-left"></i>
-        </button>
-        <button
-          id="increase-range-button"
-          className="range-buttons more"
-          onClick={updateRange}
-          disabled={disableMore}
-        >
-          <i className="fa fa-angle-right more"></i>
-        </button>
-      </div>
+      {max > 10 && (
+        <div id="range-buttons-div">
+          <button
+            id="decrease-range-button"
+            className="range-buttons"
+            onClick={updateRange}
+            disabled={disableLess}
+          >
+            <i className="fa fa-angle-left"></i>
+          </button>
+          <button
+            id="increase-range-button"
+            className="range-buttons more"
+            onClick={updateRange}
+            disabled={disableMore}
+          >
+            <i className="fa fa-angle-right more"></i>
+          </button>
+        </div>
+      )}
       <ul>
         {displayedItems.map((item, ind) => {
           if (ind >= itemsStartRange && ind < itemsEndRange) {

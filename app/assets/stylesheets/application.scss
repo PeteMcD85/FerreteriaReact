@@ -43,6 +43,18 @@ h1 {
   text-align: center;
 }
 
+nav ul {
+  display: flex;
+  justify-content: space-around;
+  max-width: 80%;
+  padding: 1em;
+  margin: 0 auto;
+}
+
+nav ul a {
+  font-size: 20px;
+}
+
 button {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   background-color: #8c8c89;
@@ -61,8 +73,8 @@ button:hover {
 }
 
 table {
-  margin: 1.5rem 0;
-  width: 100%;
+  margin: 0 auto;
+  min-width: 90%;
 }
 
 th {
@@ -76,16 +88,16 @@ td {
   padding: 5px;
 }
 
-tr {
-  width: 100%;
-}
+// tr {
+//   width: 100%;
+// }
 
 tr:nth-child(even) {
   background-color: $trEvens;
 }
 
 label {
-  margin: 5px;
+  // margin: 5px;
   font-weight: bolder;
 }
 

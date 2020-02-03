@@ -13,9 +13,7 @@ function CartItems(props) {
     printButton = useRef(null),
     { cartItems, setCartItems } = useContext(CartContext);
   // "ci" is to assure consistent displayed order
-  let ci = cartItems.slice().sort(function(a, b) {
-    return a.cartId - b.cartId;
-  });
+  let ci = cartItems.slice().sort((a, b) => a.cartId - b.cartId);
 
   useEffect(() => {
     let sc = LS.get("savedCarts");
@@ -123,6 +121,8 @@ function CartItems(props) {
     // Appends cart Items to saved carts array
     console.log(sc);
     setSavedCarts(sc);
+    setCartItems([]);
+    window.location.href = "/";
     // Clears Cart
 
     // Redirects to root page
