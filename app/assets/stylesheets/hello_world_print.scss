@@ -1,9 +1,40 @@
 @import "hello_world.scss";
 
 @media print {
+  html {
+    text-align: center;
+  }
+  #form-section {
+    max-width: 80%;
+    display: flex-wrap;
+  }
+  nav ul {
+    display: flex;
+    justify-content: space-around;
+    max-width: 80%;
+    padding: 1em;
+    margin: 0 auto;
+  }
+
+  nav ul li {
+    list-style: none;
+  }
+
+  nav ul a {
+    font-size: 20px;
+  }
+
+  input:focus {
+    outline: none;
+  }
   // +++++++++++++++++++++++ CART TABLE +++++++++++++++++++++++++++
 
   #cart {
+    input {
+      text-align: center;
+      outline: none;
+      border: 0;
+    }
     input.item-price {
       width: 50px;
     }
