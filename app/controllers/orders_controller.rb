@@ -16,6 +16,7 @@ protect_from_forgery :except => [:create]
     @subtotal_final = @order.subtotal - refund_orders.reduce(0) { |sum, ro| sum + ro.subtotal_refunded }
     @taxes_final = @order.taxes -  refund_orders.reduce(0) { |sum, ro| sum + ro.taxes_refunded }
     @total_final = @order.total - refund_orders.reduce(0) { |sum, ro| sum + ro.total_refunded }
+    p @cart_custom_items
     respond_to do |format|
       format.html
       format.json {
