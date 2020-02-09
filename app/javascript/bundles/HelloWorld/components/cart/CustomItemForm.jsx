@@ -4,8 +4,8 @@ function CustomItemForm(props) {
   let { showRow } = props,
     [item, setItem] = useState({}),
     [name, setName] = useState(""),
-    [priceGiven, setPriceGiven] = useState(),
-    [quantity, setQuantity] = useState(),
+    [priceGiven, setPriceGiven] = useState(0),
+    [quantity, setQuantity] = useState(0),
     [displayCustomItemForm, setDisplayCustomItemForm] = useState(false),
     { addToCart, cartItems } = useContext(CartContext);
 
@@ -14,7 +14,9 @@ function CustomItemForm(props) {
     setItem({ id: setId(), name, sold_price: priceGiven });
   }, [name, priceGiven, quantity]);
 
-  return <tr>{displayCustomItemForm ? customItemForm() : addCustomItem()}</tr>;
+  return (
+    <tr>{displayCustomItemForm ? <CustomItemForm /> : addCustomItem()}</tr>
+  );
 
   function setId() {
     // Stores a reference of the last Custom Item in the CartItems array
@@ -52,7 +54,7 @@ function CustomItemForm(props) {
     );
   }
 
-  function customItemForm() {
+  function CustomItemForm() {
     return (
       <>
         <td></td>
@@ -69,16 +71,22 @@ function CustomItemForm(props) {
         <td>
           <>&#36;</>
           <input
+            id="price"
             type="number"
             placeholder="Precio"
-            onChange={e => setPriceGiven(e.target.valueAsNumber)}
+            onBlur={e => checkMin(e)}
+            min={0}
+            defaultValue={priceGiven}
           />
         </td>
         <td>
           <input
             type="number"
+            id="quantity"
             placeholder="Cantidad"
-            onChange={e => setQuantity(e.target.valueAsNumber)}
+            onBlur={e => checkMin(e)}
+            min={0}
+            defaultValue={quantity}
           />
         </td>
         <td></td>
@@ -89,6 +97,13 @@ function CustomItemForm(props) {
         </td>
       </>
     );
+  }
+  function checkMin(e) {
+    let val = e.target.valueAsNumber,
+      newVal = val < 0 ? "0" : val.toString(),
+      id = e.target.id;
+    if (val < 0) alert("Must be greater than 0");
+    return id === "price" ? setPriceGiven(newVal) : setQuantity(newVal);
   }
 } // End of component
 

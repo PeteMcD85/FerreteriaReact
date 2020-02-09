@@ -54,6 +54,14 @@ function CartItem(props) {
   );
   function updateSubtotal() {
     updateCartItem(cartItem.item.id, priceGiven, quantity);
+
+    function checkMin(e) {
+      let val = e.target.valueAsNumber,
+        newVal = val < 0 ? "0" : val.toString(),
+        id = e.target.id;
+      if (val < 0) alert("Must be greater than 0");
+      return id === "price" ? setPriceGiven(newVal) : setQuantity(newVal);
+    }
   }
 }
 export default CartItem;
