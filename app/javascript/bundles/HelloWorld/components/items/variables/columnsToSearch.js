@@ -5,7 +5,7 @@ const columnsToSeach = [
   "size",
   "color",
   "thickness",
-  "stockNumber"
+  "stock_number"
 ];
 
 export default columnsToSeach;

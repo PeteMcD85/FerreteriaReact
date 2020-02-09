@@ -40,7 +40,7 @@ function Items(props) {
   useEffect(() => {
     console.log(currentUser);
     getItems();
-    setQuery("PVC");
+    // setQuery("PVC");
   }, []);
 
   function getItems() {
@@ -49,8 +49,8 @@ function Items(props) {
       .then(
         result => {
           setItems({
-            activeItems: result.active_items,
-            inactiveItems: result.inactive_items
+            activeItems: result.active_items
+            // inactiveItems: result.inactive_items
           });
         },
         error => {
