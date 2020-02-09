@@ -102,7 +102,7 @@ function Items(props) {
                   type="text"
                   id="items-searchbar"
                   placeholder="Search for Items...."
-                  onChange={e => setQuery(e.target.value.trim())}
+                  onChange={e => setQuery(e.target.value.trim().toLowerCase())}
                 ></input>
                 <div className="item-cards">
                   <CartContext.Provider
