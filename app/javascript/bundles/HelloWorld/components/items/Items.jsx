@@ -50,7 +50,7 @@ function Items(props) {
         result => {
           setItems({
             activeItems: result.active_items,
-            inactiveItems: result.inactive_items
+            // inactiveItems: result.inactive_items
           });
         },
         error => {
@@ -73,7 +73,7 @@ function Items(props) {
                 <Link to="/">Articulos</Link>
               </li>
               <li>
-                <Link to="/cart">Cart</Link>
+                <Link to="/cart">Check Out</Link>
               </li>
             </ul>
           </nav>

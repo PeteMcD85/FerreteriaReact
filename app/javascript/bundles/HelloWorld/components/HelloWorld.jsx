@@ -6,7 +6,7 @@ import Items from "./items/Items";
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
-    current_user: PropTypes.object.isRequired
+    current_user: PropTypes.object
     // picUrls: PropTypes.array.isRequired
   };
 

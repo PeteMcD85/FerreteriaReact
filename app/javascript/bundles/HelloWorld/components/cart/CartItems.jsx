@@ -44,7 +44,7 @@ function CartItems(props) {
         {savedCarts &&
           savedCarts.map((savedCart, ind) => {
             return (
-              <div className="saved-cart" key={ind}>
+              <div className="saved-cart hide-for-print" key={ind}>
                 <span
                   className="remove-saved-cart"
                   onClick={() => removeSavedCart(ind)}
@@ -62,7 +62,7 @@ function CartItems(props) {
           })}
       </div>
 
-      <button onClick={() => saveCart(ci)}>Save Cart</button>
+      <button className="hide-for-print"onClick={() => saveCart(ci)}>Save Cart</button>
       <table>
         <tbody>
           <tr>

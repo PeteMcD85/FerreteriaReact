@@ -128,8 +128,8 @@ class ItemsController < ApplicationController
   def get_items
     @items = Item.all
     render json: {
-        active_items: @items.get_ordered_actives,
-        inactives_items: @items.get_ordered_inactives
+        active_items: @items.get_ordered_actives
+        # inactives_items: @items.get_ordered_inactives
       }
   end
 
