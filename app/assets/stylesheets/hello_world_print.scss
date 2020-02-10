@@ -1,6 +1,9 @@
 @import "hello_world.scss";
 
 @media print {
+  html {
+    text-align: center;
+  }
   #form-section {
     max-width: 80%;
     display: flex-wrap;
@@ -27,7 +30,6 @@
   // +++++++++++++++++++++++ CART TABLE +++++++++++++++++++++++++++
 
   #cart {
-
     input {
       text-align: center;
       outline: none;

@@ -40,7 +40,7 @@ function Items(props) {
   useEffect(() => {
     console.log(currentUser);
     getItems();
-    setQuery("PVC");
+    // setQuery("PVC");
   }, []);
 
   function getItems() {
@@ -49,7 +49,7 @@ function Items(props) {
       .then(
         result => {
           setItems({
-            activeItems: result.active_items,
+            activeItems: result.active_items
             // inactiveItems: result.inactive_items
           });
         },
@@ -102,7 +102,7 @@ function Items(props) {
                   type="text"
                   id="items-searchbar"
                   placeholder="Search for Items...."
-                  onChange={e => setQuery(e.target.value.trim())}
+                  onChange={e => setQuery(e.target.value.trim().toLowerCase())}
                 ></input>
                 <div className="item-cards">
                   <CartContext.Provider

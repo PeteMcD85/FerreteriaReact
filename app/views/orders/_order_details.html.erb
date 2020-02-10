@@ -30,6 +30,22 @@
           <!-- <td><%#= cart_item.inventory %></td> -->
         </tr>
       <% end %>
+      <% @cart_custom_items.each_with_index do |cart_item, ind| %>
+          <tr  id= "<%= "cart-item-#{cart_item.id}" %>">
+            <td></td>
+            <td><%= cart_item.name %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>$<%= display_price(cart_item.price_given) %></td>
+            <td id="<%= "quantity-#{cart_item.id}" %>"><%= cart_item.quantity %></td>
+            <td>$<%= display_price(cart_item.subtotal) %></td>
+            <td><%= cart_item.quantity_refunded%></td>
+            <td>-$<%= cart_item.subtotal_refunded%></td>
+
+            <!-- <td><%#= cart_item.inventory %></td> -->
+          </tr>
+        <% end %>
 
         <tr>
            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>

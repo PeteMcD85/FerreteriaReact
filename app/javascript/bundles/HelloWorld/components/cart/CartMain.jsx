@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import CartItems from "./CartItems";
 import FormInputs from "./FormInputs";
 function CartMain(props) {
-  // OrderName and OrderPhone input values
   let { setKey } = props,
+    // OrderName and OrderPhone input values
     [custoInfo, setCustoInfo] = useState({}),
     // Determines if order will be Tax exempted
     [taxFree, setTaxFree] = useState(false),
@@ -138,6 +138,13 @@ function CartMain(props) {
       };
       payPayed[paymentMethod] = cartTotal.total;
     }
+
+    const payPayedTotal = Object.keys(payPayed).reduce((total, key) => {
+      return +payPayed[key] + total;
+    }, 0);
+    console.log(payPayedTotal);
+    if (payPayedTotal > cartTotal.total)
+      payPayed.cashPayed -= payPayedTotal - cartTotal.total;
     return payPayed;
   }
 
