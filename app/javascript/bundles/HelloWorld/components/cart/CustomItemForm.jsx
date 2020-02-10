@@ -3,7 +3,7 @@ import CartContext from "../contexts/CartContext";
 function CustomItemForm(props) {
   let { showRow } = props,
     [item, setItem] = useState({}),
-    [name, setName] = useState(""),
+    [name, setName] = useState(),
     [priceGiven, setPriceGiven] = useState(0),
     [quantity, setQuantity] = useState(0),
     [displayCustomItemForm, setDisplayCustomItemForm] = useState(false),
@@ -62,7 +62,8 @@ function CustomItemForm(props) {
           <input
             type="text"
             placeholder="Nombre"
-            onChange={e => setName(e.target.value)}
+            onBlur={e => setName(e.target.value)}
+            defaultValue={name}
           />
         </td>
         <td></td>

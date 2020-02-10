@@ -17,9 +17,9 @@ bad_orders = (bad_item_orders + bad_custom_items).map { |i| i[:order_id]  }.uniq
 
 
 #Payments that does not equal total
-payments_greater_total = Order.all.where('total > 0 AND (cash_payed + credit_card_payed + debit_payed + check_payed) <> total AND cash_payed > ((cash_payed + credit_card_payed + debit_payed + check_payed) - total )')
+payments_greater_total = Order.all.where('(COALESCE(cash_payed,0) + COALESCE(credit_card_payed,0) + COALESCE(debit_payed,0) + COALESCE(check_payed,0)) <> total ')
 
-today = Date.today.strftime("%F")
+today = Date.today.strftime("%F")payments_greater_total = Order.all.where('(cash_payed + credit_card_payed + debit_payed + check_payed) <> total ')
 today_db = "./db/backups/#{today}"
 
 # Creates new folder named TODAYS DATE
