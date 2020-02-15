@@ -1,0 +1,24 @@
+#saved-carts {
+  width: 50vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  .active {
+    border: green 2px solid;
+  }
+  .saved-cart {
+    position: relative;
+    .saved-cart-button {
+      margin: 0;
+    }
+    .remove-saved-cart {
+      background-color: darkgrey;
+      border-radius: 50%;
+      padding: 0 0.1em 0.1em 0.1em;
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+    }
+  }
+}

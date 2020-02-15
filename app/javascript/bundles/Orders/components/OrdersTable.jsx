@@ -87,7 +87,7 @@ const OrdersTable = props => {
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
-              <td id="cash">
+              <td className="cash">
                 $
                 {Number(order.cash_payed)
                   .toFixed(2)
@@ -95,8 +95,7 @@ const OrdersTable = props => {
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </td>
               {isRefundedOrder && (
-                <td id="refund">
-
+                <td className="refund">
                   -$
                   {Number(order.total_ref)
                     .toFixed(2)
@@ -123,7 +122,7 @@ const OrdersTable = props => {
                 </td>
               )}
               {!isRefundedOrder && (
-                <td id="total">
+                <td className="total">
                   $
                   {Number(order.total)
                     .toFixed(2)

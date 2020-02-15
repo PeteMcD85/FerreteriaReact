@@ -1,6 +1,16 @@
-// Place all the styles related to the Items controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#no-items {
+  background-color: grey;
+  max-width: 75%;
+  margin: 0 auto;
+  opacity: 0.5;
+}
+#no-items p {
+  color: white;
+  max-width: 75%;
+  font-size: 20px;
+  text-align: center;
+  padding: 2em;
+}
 
 .item-cards ul {
   padding: 0;
@@ -22,4 +32,16 @@
   line-height: 1.2em;
   display: block;
   padding: 0.7em;
+}
+
+#nav {
+  margin: 0px 10px 25px;
+
+  ul {
+    background-color: darkgrey;
+  }
+
+  a {
+    color: black;
+  }
 }

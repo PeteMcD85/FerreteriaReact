@@ -90,9 +90,7 @@ export default class RefundedOrders extends React.Component {
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </td>
-                <td>
-                  {Number(refundItem.refundable.quantity)}
-                </td>
+                <td>{Number(refundItem.refundable.quantity)}</td>
                 <td>{refundItem.quantity_refunded}</td>
                 {/*      <td>
                   {Number(refundItem.subtotal_refunded)
@@ -155,7 +153,7 @@ export default class RefundedOrders extends React.Component {
             <td></td>
 
             <td>Total De Reembolso</td>
-            <td id="total">
+            <td className="total">
               $
               {Number(refundOrder.total_refunded)
                 .toFixed(2)

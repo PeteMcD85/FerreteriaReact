@@ -1,0 +1,44 @@
+.orders {
+  h4 {
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  p {
+    text-align: center;
+    margin: 10px 10px;
+    position: relative;
+  }
+
+  td {
+    text-align: center;
+  }
+
+  .search-orders {
+    display: flex;
+    justify-content: center;
+  }
+
+  .date-range {
+    display: flex;
+    justify-content: center;
+  }
+} //end of .orders
+
+.refund {
+  background-color: #960000;
+  color: #fbfcfc;
+}
+
+.total {
+  background-color: yellow;
+}
+
+.cash {
+  background-color: green;
+  color: white;
+}
+
+.total-refund {
+  background-color: yellow;
+}

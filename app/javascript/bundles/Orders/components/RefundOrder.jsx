@@ -349,7 +349,7 @@ export default class RefundOrder extends React.Component {
               <td></td>
               <td></td>
               <td>Total</td>
-              <td id="total" className="refund-order-total">
+              <td className="total" className="refund-order-total">
                 ${" "}
                 {Number(refundOrderTotals.total)
                   .toFixed(2)

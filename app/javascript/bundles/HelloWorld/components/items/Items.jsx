@@ -64,7 +64,7 @@ function Items(props) {
     <div>
       <Router>
         <div>
-          <nav>
+          <nav id="nav">
             <ul>
               <li>
                 <Link to="/inventario">Inventario</Link>

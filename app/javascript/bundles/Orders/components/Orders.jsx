@@ -49,9 +49,13 @@ export default class Orders extends React.Component {
     let displayedOrders = this.state.displayedOrders,
       refundedOrders = this.state.refundedOrders,
       ordersToUse = column === "total_ref" ? refundedOrders : displayedOrders;
-    return ordersToUse.reduce((total, order) => {
-      return +total + +order[column]
-    }, 0).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return ordersToUse
+      .reduce((total, order) => {
+        return +total + +order[column];
+      }, 0)
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   searchOrder = e => {
@@ -157,29 +161,17 @@ export default class Orders extends React.Component {
               <th>Total</th>
             </tr>
             <tr>
-              <td>
-                $
-                {this.getSum("credit_card_payed")}
-              </td>
-              <td>
-                $
-                {this.getSum("debit_payed")}
-              </td>
-              <td>
-                $
-                {this.getSum("check_payed")}
-              </td>
-              <td id="cash">
-                $
-                {this.getSum("cash_payed")}
-              </td>
-              <td id="refund">
+              <td>${this.getSum("credit_card_payed")}</td>
+              <td>${this.getSum("debit_payed")}</td>
+              <td>${this.getSum("check_payed")}</td>
+              <td className="cash">${this.getSum("cash_payed")}</td>
+              <td className="refund">
                 -$
                 {this.getSum("total_ref")}
               </td>
               <td>${this.getSum("subtotal")}</td>
               <td>${this.getSum("taxes")}</td>
-              <td id="total">${this.getSum("total")}</td>
+              <td className="total">${this.getSum("total")}</td>
             </tr>
           </tbody>
         </table>
