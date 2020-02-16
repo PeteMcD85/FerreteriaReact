@@ -17,7 +17,7 @@ import React, { useState, useEffect } from "react";
 //   },
 
 function FormInputs(props) {
-  let { inputsArray, inputOptions } = props;
+  let { inputsArray, inputOptions, id } = props;
   let inputs = inputsArray.map(paymentOption => {
     return {
       paymentOption,
@@ -25,7 +25,7 @@ function FormInputs(props) {
     };
   });
   return (
-    <div className="form-section">
+    <div id={id} className="form-section hide-for-print">
       {inputs.map((state, ind) => {
         return (
           <label key={state.paymentOption.text + ind.toString()}>

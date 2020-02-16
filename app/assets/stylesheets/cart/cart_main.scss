@@ -1,0 +1,23 @@
+#custom-payment {
+  display: grid;
+  justify-items: right;
+  background-color: lightsteelblue;
+
+  input {
+    margin: 10px;
+  }
+
+  label {
+    margin: 3px;
+  }
+}
+
+#payment-options {
+  background-color: steelblue;
+  padding: 20px;
+}
+
+#cash-payment {
+  background-color: lightsteelblue;
+  padding: 20px;
+}

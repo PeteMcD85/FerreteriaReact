@@ -73,7 +73,9 @@ function CartMain(props) {
           {err}
         </p>
       ))}
+
       <FormInputs
+        id="name-phone"
         inputsArray={[
           { text: "Nombre", value: "orderName" },
           { text: "Telefono", value: "orderPhone" }
@@ -82,6 +84,7 @@ function CartMain(props) {
       />
 
       <FormInputs
+        id="taxes"
         inputsArray={[{ text: "Libre De Impuestos", value: "" }]}
         inputOptions={{
           type: "checkbox",
@@ -89,17 +92,20 @@ function CartMain(props) {
         }}
       />
       <FormInputs
+        id="payment-options"
         inputsArray={paymentOptions}
         inputOptions={radioInputOptions}
       />
       {paymentMethod === "cashPayed" && (
         <FormInputs
+          id="cash-payment"
           inputsArray={cashMethod}
           inputOptions={numberInputOptions}
         />
       )}
       {paymentMethod === "custom" && (
         <FormInputs
+          id="custom-payment"
           inputsArray={customMethod}
           inputOptions={numberInputOptions}
         />
@@ -114,8 +120,10 @@ function CartMain(props) {
   function displayCustomerChange() {
     // Returns Customer Change Value IF payment method is custom or cash
     if (cartTotal.total > 0 && paymentRecieved) {
-      let change = (+cartTotal.total - paymentRecieved).toFixed(2),
+      let custoChange = +cartTotal.total - paymentRecieved,
+        change = custoChange.toFixed(2),
         pretext = +change > 0 ? "Falta" : "Cambio de Cliente";
+      console.log(change);
       if (cartTotal.total > 0 && paymentRecieved)
         return (
           <p>

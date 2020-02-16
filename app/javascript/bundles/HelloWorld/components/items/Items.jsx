@@ -73,7 +73,7 @@ function Items(props) {
                 <Link to="/">Articulos</Link>
               </li>
               <li>
-                <Link to="/cart">Cart</Link>
+                <Link to="/cart">Carrito</Link>
               </li>
             </ul>
           </nav>

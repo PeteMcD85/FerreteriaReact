@@ -84,7 +84,11 @@ function CartItems(props) {
           <CustomItemForm />
           <CartTotal name="Subtotal" value={cartTotal.subtotal} />
           <CartTotal name="Taxes" value={cartTotal.taxes} />
-          <CartTotal name="Total" value={cartTotal.total} />
+          <CartTotal
+            name="Total"
+            className="cart-total"
+            value={cartTotal.total}
+          />
         </tbody>
       </table>
       <button
