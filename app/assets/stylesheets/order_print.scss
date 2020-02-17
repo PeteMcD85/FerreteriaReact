@@ -24,28 +24,6 @@
     text-align: center;
   }
 
-  #order-id {
-    margin: 30px;
-    font-weight: 900;
-  }
-
-  #cash-payment-method {
-    &.hidden {
-      display: none;
-    }
-  } // end of cash-payment-method
-
-  #custom-payment-method-div {
-    &.hidden {
-      display: none;
-    }
-  }
-
-  .accountant-inventory {
-    display: none;
-  }
-
-  .cart-buttons,
   .hide-for-print {
     display: none !important;
   }

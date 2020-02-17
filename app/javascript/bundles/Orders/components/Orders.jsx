@@ -112,33 +112,35 @@ export default class Orders extends React.Component {
     console.log(refundedOrders);
     return (
       <div className="orders">
-        <h4>Fechas</h4>
-        <div className="date-range">
-          <p>Desde</p>
-          <label>
-            <input
-              type="date"
-              id="start-range"
-              defaultValue={today}
-              onChange={this.updateOrders}
-            />
-          </label>
-          <p>a</p>
-          <label>
-            <input
-              type="date"
-              id="end-range"
-              defaultValue={today}
-              onChange={this.updateOrders}
-            />
-          </label>
-        </div>
-        <div className="search-orders">
-          <label>
-            {" "}
-            Buscar:
-            <input type="text" onChange={this.searchOrder} />
-          </label>
+        <div className="hide-for-print">
+          <h4>Fechas</h4>
+          <div className="date-range">
+            <p>Desde</p>
+            <label>
+              <input
+                type="date"
+                id="start-range"
+                defaultValue={today}
+                onChange={this.updateOrders}
+              />
+            </label>
+            <p>a</p>
+            <label>
+              <input
+                type="date"
+                id="end-range"
+                defaultValue={today}
+                onChange={this.updateOrders}
+              />
+            </label>
+          </div>
+          <div className="search-orders">
+            <label>
+              {" "}
+              Buscar:
+              <input type="text" onChange={this.searchOrder} />
+            </label>
+          </div>
         </div>
 
         <OrdersTable orders={displayedOrders} tableCaption="Ordenes" />

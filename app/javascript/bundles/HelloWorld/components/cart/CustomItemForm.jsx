@@ -60,9 +60,10 @@ function CustomItemForm(props) {
         <td></td>
         <td>
           <input
+            id="name"
             type="text"
             placeholder="Nombre"
-            onChange={e => setName(e.target.value)}
+            onClick={e => setName(e.target.value)}
           />
         </td>
         <td></td>
@@ -97,6 +98,7 @@ function CustomItemForm(props) {
         </td>
       </>
     );
+    console.log(setName(e));
   }
   function checkMin(e) {
     let val = e.target.valueAsNumber,

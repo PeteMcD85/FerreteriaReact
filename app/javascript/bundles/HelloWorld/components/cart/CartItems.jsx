@@ -76,7 +76,7 @@ function CartItems(props) {
             <th>Precio</th>
             <th>Cantidad</th>
             <th>Total Parcial</th>
-            <th className="hide-for-print">Borrar</th>
+            <th className="hide-for-print"></th>
           </tr>
           {ci.map((cartItem, ind) => {
             return <CartItem key={cartItem.item.id} cartItem={cartItem} />;
@@ -84,11 +84,7 @@ function CartItems(props) {
           <CustomItemForm />
           <CartTotal name="Subtotal" value={cartTotal.subtotal} />
           <CartTotal name="Taxes" value={cartTotal.taxes} />
-          <CartTotal
-            name="Total"
-            className="cart-total"
-            value={cartTotal.total}
-          />
+          <CartTotal name="Total" id="total" value={cartTotal.total} />
         </tbody>
       </table>
       <button

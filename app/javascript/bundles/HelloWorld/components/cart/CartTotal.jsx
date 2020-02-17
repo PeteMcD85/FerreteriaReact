@@ -1,7 +1,7 @@
 import React from "react";
 
 function CartTotal(props) {
-  let { name, value } = props;
+  let { name, value, id } = props;
   return (
     <tr>
       <td></td>
@@ -12,7 +12,7 @@ function CartTotal(props) {
       <td></td>
       <td></td>
       <td>{name}</td>
-      <td className="cart-total-value">
+      <td id={id}>
         $
         {Number(value)
           .toFixed(2)

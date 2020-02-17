@@ -10,7 +10,7 @@ let CartContextValue = {
     cartItems.push({
       item: item,
       quantity: quantity,
-      priceGiven: item.sold_price,
+      priceGiven: item.sold_price.toFixed(2),
       subtotal: (+quantity * +item.sold_price).toFixed(2)
     });
   }

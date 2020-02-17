@@ -73,6 +73,7 @@ button:hover {
 }
 
 table {
+  border-spacing: 5.5px;
   margin: 0 auto;
   margin-top: 25px;
   min-width: 90%;
@@ -85,6 +86,7 @@ th {
 }
 
 td {
+  text-align: center;
   font-weight: bold;
   padding: 5px;
 }

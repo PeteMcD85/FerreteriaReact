@@ -64,14 +64,12 @@ function Items(props) {
     <div>
       <Router>
         <div>
-          <nav id="nav">
+          <nav id="nav" className="hide-for-print">
             <ul>
               <li>
                 <Link to="/inventario">Inventario</Link>
               </li>
-              <li>
-                <Link to="/">Articulos</Link>
-              </li>
+
               <li>
                 <Link to="/cart">Carrito</Link>
               </li>
