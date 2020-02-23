@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # ===== KAYSHLA'S version =====
 
 ruby '2.6.3'
-gem 'wdm', '>= 0.1.0'
+#gem 'wdm', '>= 0.1.0'
 
 # ===== Development version =====
 

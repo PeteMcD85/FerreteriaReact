@@ -112,10 +112,10 @@ export default class Orders extends React.Component {
     console.log(refundedOrders);
     return (
       <div className="orders">
-        <div className="hide-for-print">
+        <div>
           <h4>Fechas</h4>
           <div className="date-range">
-            <p>Desde</p>
+            <p className="hide-for-print">Desde</p>
             <label>
               <input
                 type="date"
@@ -124,7 +124,7 @@ export default class Orders extends React.Component {
                 onChange={this.updateOrders}
               />
             </label>
-            <p>a</p>
+            <p className="hide-for-print">a</p>
             <label>
               <input
                 type="date"
@@ -134,7 +134,7 @@ export default class Orders extends React.Component {
               />
             </label>
           </div>
-          <div className="search-orders">
+          <div className="search-orders hide-for-print">
             <label>
               {" "}
               Buscar:
