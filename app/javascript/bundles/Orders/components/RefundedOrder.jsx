@@ -121,7 +121,7 @@ export default class RefundedOrders extends React.Component {
             <td></td>
             <td>Subtotal De Reembolso</td>
             <td>
-              $
+              -$
               {Number(refundOrder.subtotal_refunded)
                 .toFixed(2)
                 .toString()
@@ -137,7 +137,7 @@ export default class RefundedOrders extends React.Component {
             <td></td>
             <td>Taxes De Reembolso</td>
             <td>
-              $
+              -$
               {Number(refundOrder.taxes_refunded)
                 .toFixed(2)
                 .toString()
@@ -153,8 +153,8 @@ export default class RefundedOrders extends React.Component {
             <td></td>
 
             <td>Total De Reembolso</td>
-            <td className="total">
-              $
+            <td className="refund total">
+              -$
               {Number(refundOrder.total_refunded)
                 .toFixed(2)
                 .toString()

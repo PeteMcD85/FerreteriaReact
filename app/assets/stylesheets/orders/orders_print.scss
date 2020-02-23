@@ -24,6 +24,10 @@
     .date-range {
       display: flex;
       justify-content: center;
+
+      input {
+        margin: 10px;
+      }
     }
   } //end of .orders
 } //end of @media

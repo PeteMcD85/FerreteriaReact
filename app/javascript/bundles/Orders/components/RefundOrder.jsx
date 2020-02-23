@@ -188,7 +188,7 @@ export default class RefundOrder extends React.Component {
               <th>Precio Dado</th>
               <th>Cantidad</th>
               <th>Cantidad Reembolsada Antes</th>
-              <th>New Refund</th>
+              <th>Cantidad De Reembolso </th>
               <th>Subtotal De Reembolso</th>
               <th>Total Parcial</th>
             </tr>
@@ -312,7 +312,7 @@ export default class RefundOrder extends React.Component {
               <td></td>
               <td>Subtotal</td>
               <td id="refund-order-subtotal">
-                ${" "}
+                -${" "}
                 {Number(refundOrderTotals.subtotal)
                   .toFixed(2)
                   .toString()
@@ -331,7 +331,7 @@ export default class RefundOrder extends React.Component {
               <td></td>
               <td>Impuestos</td>
               <td id="refund-order-taxes">
-                ${" "}
+                -${" "}
                 {Number(refundOrderTotals.taxes)
                   .toFixed(2)
                   .toString()
@@ -349,8 +349,8 @@ export default class RefundOrder extends React.Component {
               <td></td>
               <td></td>
               <td>Total</td>
-              <td className="total" className="refund-order-total">
-                ${" "}
+              <td className="refund refund-order-total">
+                -${" "}
                 {Number(refundOrderTotals.total)
                   .toFixed(2)
                   .toString()
@@ -360,7 +360,7 @@ export default class RefundOrder extends React.Component {
             </tr>
           </tbody>
         </table>
-        <button id="print-button" onClick={this.printRefund}>
+        <button id="print-button hide-for-print" onClick={this.printRefund}>
           Print Refund
         </button>
       </div>

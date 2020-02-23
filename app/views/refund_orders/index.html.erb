@@ -1,8 +1,10 @@
-<h2><%= link_to 'Back to Order', order_path(@order) %></h2>
-<%= link_to 'New Refund', new_order_refund_order_path(@order) %>
+<div class='new-refund-link'>
+  <h3><%= link_to 'Crear Nuevo Reembolso', new_order_refund_order_path(@order) %></h3>
+  <h3><%= link_to 'Volver A La Orden', order_path(@order) %></h3>
+</div>
 <div id="refunds">
   <% @refund_orders.each do |refund_order|%>
-  <div class="refund">
+  <div class="refunded-order">
     <%= react_component("RefundedOrder", props: {refundOrder: refund_order}, prerender:false) %>
   </div>
   <% end%>

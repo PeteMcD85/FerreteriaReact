@@ -115,8 +115,8 @@ export default class Orders extends React.Component {
         <div>
           <h4>Fechas</h4>
           <div className="date-range">
-            <p className="hide-for-print">Desde</p>
             <label>
+              Desde{" "}
               <input
                 type="date"
                 id="start-range"
@@ -124,8 +124,9 @@ export default class Orders extends React.Component {
                 onChange={this.updateOrders}
               />
             </label>
-            <p className="hide-for-print">a</p>
+
             <label>
+              a{" "}
               <input
                 type="date"
                 id="end-range"
