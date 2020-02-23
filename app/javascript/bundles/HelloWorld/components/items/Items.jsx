@@ -71,7 +71,10 @@ function Items(props) {
               </li>
 
               <li>
-                <Link to="/cart">Carrito</Link>
+                <Link to="/">Añadir Artículo</Link>
+              </li>
+              <li>
+                <Link to="/cart">Check Out</Link>
               </li>
             </ul>
           </nav>

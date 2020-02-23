@@ -44,7 +44,7 @@ function CartItems(props) {
         {savedCarts &&
           savedCarts.map((savedCart, ind) => {
             return (
-              <div className="saved-cart" key={ind}>
+              <div className="saved-cart hide-for-print" key={ind}>
                 <span
                   className="remove-saved-cart"
                   onClick={() => removeSavedCart(ind)}
