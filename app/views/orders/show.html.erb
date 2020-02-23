@@ -1,11 +1,13 @@
 <%# = react_component('Order', props: {order: @order, cart: @cart, cart_items: @cart_items}, prerender: false) %>
 <div class="order">
   <div class="refund-page hide-for-print">
-    <h2><%= link_to 'Back to Orders', orders_path() %></h2>
-    <%= link_to 'Editar Forma De Pago', edit_order_path(@order) %>
-    <%= link_to 'Borrar', order_path(@order), method: :delete, data: { confirm: 'Are you sure?' } %>
-    <span><%= link_to 'Refund', order_refund_orders_path(@order) %>(<%= @order.refund_orders.count%>)</span>
+    <%= link_to 'Volver a Pedidos', orders_path() %>
     <a href="#" onclick="window.print();return false;">Imprimir Página</a>
+    <span><%= link_to 'Reembolso', order_refund_orders_path(@order) %>(<%= @order.refund_orders.count%>)</span>
+    <%= link_to 'Editar Forma De Pago', edit_order_path(@order) %>
+    <%= link_to 'Borrar Orden', order_path(@order), method: :delete, data: { confirm: 'Estas segura?' } %>
+
+
   </div>
     <h1>Orden <%= @order.id %></h1>
     <%= render 'order_details'%>

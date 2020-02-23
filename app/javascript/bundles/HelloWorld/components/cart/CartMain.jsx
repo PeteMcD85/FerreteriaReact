@@ -110,7 +110,7 @@ function CartMain(props) {
           inputOptions={numberInputOptions}
         />
       )}
-      {displayCustomerChange()}
+      <div className="hide-for-print">{displayCustomerChange()}</div>
       <CartItems
         {...{ printButtonText, taxFree, orderCart, cartTotal, setCartTotal }}
       />
